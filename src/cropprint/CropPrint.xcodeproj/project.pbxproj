@@ -1,0 +1,286 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		010000000000000000000001 /* CropPrintApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000001 /* CropPrintApp.swift */; };
+		010000000000000000000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000002 /* ContentView.swift */; };
+		010000000000000000000003 /* PhotoDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000003 /* PhotoDocument.swift */; };
+		010000000000000000000004 /* PrintSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000004 /* PrintSettings.swift */; };
+		010000000000000000000005 /* CropGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000005 /* CropGeometry.swift */; };
+		010000000000000000000006 /* ImageExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000006 /* ImageExporter.swift */; };
+		010000000000000000000007 /* CropCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000007 /* CropCanvas.swift */; };
+		010000000000000000000008 /* CropGeometryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000008 /* CropGeometryTests.swift */; };
+		010000000000000000000009 /* PrintSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000009 /* PrintSettingsTests.swift */; };
+		01000000000000000000000A /* PrintSettings.swift in Test Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000004 /* PrintSettings.swift */; };
+		01000000000000000000000B /* CropGeometry.swift in Test Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000005 /* CropGeometry.swift */; };
+		01000000000000000000000C /* RemoteResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02000000000000000000000D /* RemoteResource.swift */; };
+		01000000000000000000000D /* InformationViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02000000000000000000000E /* InformationViews.swift */; };
+		01000000000000000000000E /* DecorationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02000000000000000000000F /* DecorationSettings.swift */; };
+		01000000000000000000000F /* DecorationRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000010 /* DecorationRenderer.swift */; };
+		010000000000000000000010 /* DecorationRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000011 /* DecorationRendererTests.swift */; };
+		010000000000000000000011 /* DecorationSettings.swift in Test Sources */ = {isa = PBXBuildFile; fileRef = 02000000000000000000000F /* DecorationSettings.swift */; };
+		010000000000000000000012 /* DecorationRenderer.swift in Test Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000010 /* DecorationRenderer.swift */; };
+		010000000000000000000013 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000012 /* Assets.xcassets */; };
+		010000000000000000000014 /* PrintSheetSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000013 /* PrintSheetSettings.swift */; };
+		010000000000000000000015 /* PrintSheetRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000014 /* PrintSheetRenderer.swift */; };
+		010000000000000000000016 /* PrintSheetOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000015 /* PrintSheetOptionsView.swift */; };
+		010000000000000000000017 /* PrintSheetSettings.swift in Test Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000013 /* PrintSheetSettings.swift */; };
+		010000000000000000000018 /* PrintSheetRenderer.swift in Test Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000014 /* PrintSheetRenderer.swift */; };
+		010000000000000000000019 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000017 /* PrivacyInfo.xcprivacy */; };
+		D10000000000000000000001 /* CropPrintMobileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000000000000000000001 /* CropPrintMobileApp.swift */; };
+		D10000000000000000000002 /* MobileContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000000000000000000002 /* MobileContentView.swift */; };
+		D10000000000000000000003 /* MobilePhotoDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000000000000000000003 /* MobilePhotoDocument.swift */; };
+		D10000000000000000000004 /* MobileCropCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000000000000000000004 /* MobileCropCanvas.swift */; };
+		D10000000000000000000005 /* MobileImageExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000000000000000000005 /* MobileImageExporter.swift */; };
+		D10000000000000000000006 /* PrintSettings.swift in Mobile Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000004 /* PrintSettings.swift */; };
+		D10000000000000000000007 /* CropGeometry.swift in Mobile Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000005 /* CropGeometry.swift */; };
+		D10000000000000000000008 /* RemoteResource.swift in Mobile Sources */ = {isa = PBXBuildFile; fileRef = 02000000000000000000000D /* RemoteResource.swift */; };
+		D10000000000000000000009 /* InformationViews.swift in Mobile Sources */ = {isa = PBXBuildFile; fileRef = 02000000000000000000000E /* InformationViews.swift */; };
+		D1000000000000000000000A /* DecorationSettings.swift in Mobile Sources */ = {isa = PBXBuildFile; fileRef = 02000000000000000000000F /* DecorationSettings.swift */; };
+		D1000000000000000000000B /* DecorationRenderer.swift in Mobile Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000010 /* DecorationRenderer.swift */; };
+		D1000000000000000000000C /* Mobile Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D20000000000000000000008 /* Mobile Assets.xcassets */; };
+		D1000000000000000000000D /* PrintSheetSettings.swift in Mobile Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000013 /* PrintSheetSettings.swift */; };
+		D1000000000000000000000E /* PrintSheetRenderer.swift in Mobile Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000014 /* PrintSheetRenderer.swift */; };
+		D1000000000000000000000F /* PrintSheetOptionsView.swift in Mobile Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000015 /* PrintSheetOptionsView.swift */; };
+		D10000000000000000000010 /* PrivacyInfo.xcprivacy in Mobile Resources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000017 /* PrivacyInfo.xcprivacy */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		030000000000000000000001 = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 040000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 050000000000000000000001;
+			remoteInfo = CropPrint;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		020000000000000000000001 /* CropPrintApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropPrintApp.swift; sourceTree = "<group>"; };
+		020000000000000000000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		020000000000000000000003 /* PhotoDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDocument.swift; sourceTree = "<group>"; };
+		020000000000000000000004 /* PrintSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintSettings.swift; sourceTree = "<group>"; };
+		020000000000000000000005 /* CropGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropGeometry.swift; sourceTree = "<group>"; };
+		020000000000000000000006 /* ImageExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/ImageExporter.swift; sourceTree = "<group>"; };
+		020000000000000000000007 /* CropCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/CropCanvas.swift; sourceTree = "<group>"; };
+		020000000000000000000008 /* CropGeometryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropGeometryTests.swift; sourceTree = "<group>"; };
+		020000000000000000000009 /* PrintSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintSettingsTests.swift; sourceTree = "<group>"; };
+		02000000000000000000000A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		02000000000000000000000B /* CropPrint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CropPrint.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		02000000000000000000000C /* CropPrintTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CropPrintTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		02000000000000000000000D /* RemoteResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteResource.swift; sourceTree = "<group>"; };
+		02000000000000000000000E /* InformationViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/InformationViews.swift; sourceTree = "<group>"; };
+		02000000000000000000000F /* DecorationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecorationSettings.swift; sourceTree = "<group>"; };
+		020000000000000000000010 /* DecorationRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/DecorationRenderer.swift; sourceTree = "<group>"; };
+		020000000000000000000011 /* DecorationRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecorationRendererTests.swift; sourceTree = "<group>"; };
+		020000000000000000000012 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		020000000000000000000013 /* PrintSheetSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintSheetSettings.swift; sourceTree = "<group>"; };
+		020000000000000000000014 /* PrintSheetRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/PrintSheetRenderer.swift; sourceTree = "<group>"; };
+		020000000000000000000015 /* PrintSheetOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/PrintSheetOptionsView.swift; sourceTree = "<group>"; };
+		020000000000000000000016 /* CropPrint.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CropPrint.entitlements; sourceTree = "<group>"; };
+		020000000000000000000017 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		D20000000000000000000001 /* CropPrintMobileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropPrintMobileApp.swift; sourceTree = "<group>"; };
+		D20000000000000000000002 /* MobileContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileContentView.swift; sourceTree = "<group>"; };
+		D20000000000000000000003 /* MobilePhotoDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilePhotoDocument.swift; sourceTree = "<group>"; };
+		D20000000000000000000004 /* MobileCropCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileCropCanvas.swift; sourceTree = "<group>"; };
+		D20000000000000000000005 /* MobileImageExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileImageExporter.swift; sourceTree = "<group>"; };
+		D20000000000000000000006 /* Mobile Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D20000000000000000000007 /* CropPrint Mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CropPrint Mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D20000000000000000000008 /* Mobile Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		060000000000000000000001 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		060000000000000000000002 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		DA0000000000000000000001 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		070000000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				070000000000000000000002 /* CropPrint */,
+				D70000000000000000000001 /* CropPrintMobile */,
+				070000000000000000000007 /* Shared */,
+				070000000000000000000005 /* CropPrintTests */,
+				070000000000000000000006 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		070000000000000000000002 /* CropPrint */ = {
+			isa = PBXGroup;
+			children = (
+				020000000000000000000001 /* CropPrintApp.swift */,
+				020000000000000000000002 /* ContentView.swift */,
+				020000000000000000000003 /* PhotoDocument.swift */,
+				070000000000000000000003 /* Models */,
+				070000000000000000000004 /* Services and Views */,
+				02000000000000000000000A /* Info.plist */,
+				020000000000000000000016 /* CropPrint.entitlements */,
+				020000000000000000000012 /* Assets.xcassets */,
+			);
+			path = CropPrint;
+			sourceTree = "<group>";
+		};
+		070000000000000000000003 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				020000000000000000000004 /* PrintSettings.swift */,
+				020000000000000000000005 /* CropGeometry.swift */,
+				02000000000000000000000D /* RemoteResource.swift */,
+				02000000000000000000000F /* DecorationSettings.swift */,
+				020000000000000000000013 /* PrintSheetSettings.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		070000000000000000000004 /* Services and Views */ = {
+			isa = PBXGroup;
+			children = (
+				020000000000000000000006 /* ImageExporter.swift */,
+				020000000000000000000007 /* CropCanvas.swift */,
+				02000000000000000000000E /* InformationViews.swift */,
+				020000000000000000000010 /* DecorationRenderer.swift */,
+				020000000000000000000014 /* PrintSheetRenderer.swift */,
+				020000000000000000000015 /* PrintSheetOptionsView.swift */,
+			);
+			name = "Services and Views";
+			sourceTree = "<group>";
+		};
+		070000000000000000000005 /* CropPrintTests */ = {
+			isa = PBXGroup;
+			children = (
+				020000000000000000000008 /* CropGeometryTests.swift */,
+				020000000000000000000009 /* PrintSettingsTests.swift */,
+				020000000000000000000011 /* DecorationRendererTests.swift */,
+			);
+			path = CropPrintTests;
+			sourceTree = "<group>";
+		};
+		070000000000000000000006 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				02000000000000000000000B /* CropPrint.app */,
+				02000000000000000000000C /* CropPrintTests.xctest */,
+				D20000000000000000000007 /* CropPrint Mobile.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		070000000000000000000007 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				020000000000000000000017 /* PrivacyInfo.xcprivacy */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		D70000000000000000000001 /* CropPrintMobile */ = {
+			isa = PBXGroup;
+			children = (
+				D20000000000000000000001 /* CropPrintMobileApp.swift */,
+				D20000000000000000000002 /* MobileContentView.swift */,
+				D20000000000000000000003 /* MobilePhotoDocument.swift */,
+				D20000000000000000000004 /* MobileCropCanvas.swift */,
+				D20000000000000000000005 /* MobileImageExporter.swift */,
+				D20000000000000000000006 /* Mobile Info.plist */,
+				D20000000000000000000008 /* Mobile Assets.xcassets */,
+			);
+			path = CropPrintMobile;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		050000000000000000000001 /* CropPrint */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 080000000000000000000001;
+			buildPhases = (090000000000000000000001, 060000000000000000000001, 0A000000000000000000000001);
+			buildRules = ();
+			dependencies = ();
+			name = CropPrint;
+			productName = CropPrint;
+			productReference = 02000000000000000000000B /* CropPrint.app */;
+			productType = "com.apple.product-type.application";
+		};
+		050000000000000000000002 /* CropPrintTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 080000000000000000000002;
+			buildPhases = (090000000000000000000002, 060000000000000000000002, 0A000000000000000000000002);
+			buildRules = ();
+			dependencies = ();
+			name = CropPrintTests;
+			productName = CropPrintTests;
+			productReference = 02000000000000000000000C /* CropPrintTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DC0000000000000000000001 /* CropPrint Mobile */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D80000000000000000000001;
+			buildPhases = (D90000000000000000000001, DA0000000000000000000001, DB0000000000000000000001);
+			buildRules = ();
+			dependencies = ();
+			name = "CropPrint Mobile";
+			productName = "CropPrint Mobile";
+			productReference = D20000000000000000000007 /* CropPrint Mobile.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		040000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {BuildIndependentTargetsInParallel = 1; LastSwiftUpdateCheck = 2600; LastUpgradeCheck = 2600; TargetAttributes = {050000000000000000000001 = {CreatedOnToolsVersion = 26.0;}; 050000000000000000000002 = {CreatedOnToolsVersion = 26.0; TestTargetID = 050000000000000000000001;}; DC0000000000000000000001 = {CreatedOnToolsVersion = 26.0;};};};
+			buildConfigurationList = 080000000000000000000003;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (en, Base);
+			mainGroup = 070000000000000000000001;
+			productRefGroup = 070000000000000000000006;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (050000000000000000000001, 050000000000000000000002, DC0000000000000000000001);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		090000000000000000000001 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (010000000000000000000001, 010000000000000000000002, 010000000000000000000003, 010000000000000000000004, 010000000000000000000005, 010000000000000000000006, 010000000000000000000007, 01000000000000000000000C, 01000000000000000000000D, 01000000000000000000000E, 01000000000000000000000F, 010000000000000000000014, 010000000000000000000015, 010000000000000000000016); runOnlyForDeploymentPostprocessing = 0; };
+		090000000000000000000002 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (010000000000000000000008, 010000000000000000000009, 01000000000000000000000A, 01000000000000000000000B, 010000000000000000000010, 010000000000000000000011, 010000000000000000000012, 010000000000000000000017, 010000000000000000000018); runOnlyForDeploymentPostprocessing = 0; };
+		D90000000000000000000001 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (D10000000000000000000001, D10000000000000000000002, D10000000000000000000003, D10000000000000000000004, D10000000000000000000005, D10000000000000000000006, D10000000000000000000007, D10000000000000000000008, D10000000000000000000009, D1000000000000000000000A, D1000000000000000000000B, D1000000000000000000000D, D1000000000000000000000E, D1000000000000000000000F); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0A000000000000000000000001 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (010000000000000000000013, 010000000000000000000019); runOnlyForDeploymentPostprocessing = 0; };
+		0A000000000000000000000002 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		DB0000000000000000000001 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (D1000000000000000000000C, D10000000000000000000010); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0B000000000000000000000001 = {isa = PBXTargetDependency; target = 050000000000000000000001 /* CropPrint */; targetProxy = 030000000000000000000001; };
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0C000000000000000000000001 = {isa = XCBuildConfiguration; buildSettings = {CLANG_ENABLE_MODULES = YES; MACOSX_DEPLOYMENT_TARGET = 14.0; SDKROOT = macosx; SWIFT_VERSION = 5.0;}; name = Debug;};
+		0C000000000000000000000002 = {isa = XCBuildConfiguration; buildSettings = {CLANG_ENABLE_MODULES = YES; MACOSX_DEPLOYMENT_TARGET = 14.0; SDKROOT = macosx; SWIFT_COMPILATION_MODE = wholemodule; SWIFT_OPTIMIZATION_LEVEL = "-O"; SWIFT_VERSION = 5.0;}; name = Release;};
+		0C000000000000000000000003 = {isa = XCBuildConfiguration; buildSettings = {ARCHS = "arm64 x86_64"; ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; CODE_SIGN_ENTITLEMENTS = CropPrint/CropPrint.entitlements; CODE_SIGN_STYLE = Automatic; COMBINE_HIDPI_IMAGES = YES; CURRENT_PROJECT_VERSION = 1; ENABLE_APP_SANDBOX = YES; ENABLE_HARDENED_RUNTIME = YES; ENABLE_TESTABILITY = YES; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = CropPrint/Info.plist; LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks"; MARKETING_VERSION = 1.0.0; PRODUCT_BUNDLE_IDENTIFIER = com.vijaikalyan.CropPrint; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_EMIT_LOC_STRINGS = YES;}; name = Debug;};
+		0C000000000000000000000004 = {isa = XCBuildConfiguration; buildSettings = {ARCHS = "arm64 x86_64"; ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; CODE_SIGN_ENTITLEMENTS = CropPrint/CropPrint.entitlements; CODE_SIGN_STYLE = Automatic; COMBINE_HIDPI_IMAGES = YES; CURRENT_PROJECT_VERSION = 1; ENABLE_APP_SANDBOX = YES; ENABLE_HARDENED_RUNTIME = YES; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = CropPrint/Info.plist; LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks"; MARKETING_VERSION = 1.0.0; PRODUCT_BUNDLE_IDENTIFIER = com.vijaikalyan.CropPrint; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_EMIT_LOC_STRINGS = YES;}; name = Release;};
+		0C000000000000000000000005 = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGN_STYLE = Automatic; GENERATE_INFOPLIST_FILE = YES; MACOSX_DEPLOYMENT_TARGET = 14.0; PRODUCT_BUNDLE_IDENTIFIER = com.vijaikalyan.CropPrintTests; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_VERSION = 5.0;}; name = Debug;};
+		0C000000000000000000000006 = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGN_STYLE = Automatic; GENERATE_INFOPLIST_FILE = YES; MACOSX_DEPLOYMENT_TARGET = 14.0; PRODUCT_BUNDLE_IDENTIFIER = com.vijaikalyan.CropPrintTests; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_VERSION = 5.0;}; name = Release;};
+		DD0000000000000000000001 = {isa = XCBuildConfiguration; buildSettings = {ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 1; DEVELOPMENT_TEAM = ""; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = CropPrintMobile/Info.plist; IPHONEOS_DEPLOYMENT_TARGET = 17.0; MARKETING_VERSION = 1.0.0; PRODUCT_BUNDLE_IDENTIFIER = com.vijaikalyan.CropPrint; PRODUCT_NAME = "$(TARGET_NAME)"; SDKROOT = iphoneos; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator"; SUPPORTS_MACCATALYST = NO; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = 1;}; name = Debug;};
+		DD0000000000000000000002 = {isa = XCBuildConfiguration; buildSettings = {ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 1; DEVELOPMENT_TEAM = ""; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = CropPrintMobile/Info.plist; IPHONEOS_DEPLOYMENT_TARGET = 17.0; MARKETING_VERSION = 1.0.0; PRODUCT_BUNDLE_IDENTIFIER = com.vijaikalyan.CropPrint; PRODUCT_NAME = "$(TARGET_NAME)"; SDKROOT = iphoneos; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator"; SUPPORTS_MACCATALYST = NO; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = 1;}; name = Release;};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		080000000000000000000001 = {isa = XCConfigurationList; buildConfigurations = (0C000000000000000000000003, 0C000000000000000000000004); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release;};
+		080000000000000000000002 = {isa = XCConfigurationList; buildConfigurations = (0C000000000000000000000005, 0C000000000000000000000006); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release;};
+		080000000000000000000003 = {isa = XCConfigurationList; buildConfigurations = (0C000000000000000000000001, 0C000000000000000000000002); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release;};
+		D80000000000000000000001 = {isa = XCConfigurationList; buildConfigurations = (DD0000000000000000000001, DD0000000000000000000002); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release;};
+/* End XCConfigurationList section */
+	};
+	rootObject = 040000000000000000000001 /* Project object */;
+}

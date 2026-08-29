@@ -1,0 +1,40 @@
+name: Publish CropPrint to App Store Connect
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - src/cropprint/VERSION
+      - src/cropprint/CropPrint/**
+      - src/cropprint/CropPrintMobile/**
+      - src/cropprint/Shared/**
+      - src/cropprint/CropPrint.xcodeproj/**
+
+jobs:
+  publish:
+    if: vars.ENABLE_APP_STORE_PUBLISH == 'true'
+    runs-on: macos-15
+    defaults:
+      run:
+        working-directory: src/cropprint
+    env:
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      APP_STORE_CONNECT_API_KEY_PATH: ${{ runner.temp }}/AuthKey.p8
+      APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+      APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+      CONFIRM_APP_STORE_UPLOAD: YES
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install App Store Connect API key
+        env:
+          APP_STORE_CONNECT_API_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
+        run: printf '%s' "$APP_STORE_CONNECT_API_PRIVATE_KEY" > "$APP_STORE_CONNECT_API_KEY_PATH"
+
+      - name: Test CropPrint
+        run: ./build.sh test
+
+      - name: Archive and upload CropPrint
+        run: ./scripts/publish-app-store.sh all

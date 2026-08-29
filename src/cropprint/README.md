@@ -1,0 +1,198 @@
+# CropPrint
+
+CropPrint is a small, private photo-cropping app for macOS and iPhone. It does not use a login, analytics, advertising, or data collection.
+
+Both applications use the bundle identifier `com.vijaikalyan.CropPrint` for one multi-platform App Store listing. Both products include the shared privacy manifest under `Shared`.
+
+The About page shows the semantic version, Git SHA, and numeric build number. Repository builds read the semantic version from `VERSION`.
+
+The app keeps the crop rectangle at the selected ratio. You can move or resize the rectangle to choose the composition. CropPrint saves a new image beside the original and never changes the original file.
+
+## Features
+
+- Open a photo from the File menu, a Finder **Open With** action, or drag and drop.
+- Reopen one of the ten most recent photos from the File menu.
+- Resize from any corner without changing the selected aspect ratio.
+- Select common print sizes from 4x6 through 24x36.
+- Create Instagram Story, portrait, and square images at exact output dimensions.
+- Create wallpapers for recent iPhones and common MacBook display sizes.
+- Crop photos to common passport and identity-photo dimensions.
+- Create monitor wallpapers from VGA through 8K UHD.
+- Tile passport or general-print crops onto physical print sheets.
+- Show hover tooltips for every macOS toolbar icon.
+- Provide built-in Help from the toolbar and Help menu.
+- Select portrait or landscape orientation.
+- Record the paper size in the output name and check whether the photo fits the paper.
+- Add an optional 0.25-inch white margin inside the selected print size.
+- Export JPEG, PNG, TIFF, or HEIC without stretching the image on macOS.
+- Choose from Photos and save back to Photos on iPhone.
+- Preserve the original base name and add all selected settings.
+- Download approved fonts and frame assets from a curated HTTPS catalog.
+- Show the creator, source, and exact license for each remote resource.
+- Cache downloaded resources for offline use.
+- Provide About and Attributions pages on macOS and iPhone.
+- Add one styled text layer to the cropped image.
+- Control the text font, size, color, opacity, rotation, and position.
+- Add classic, double, rounded, film, or Polaroid-style frames.
+- Control the frame color, width, and opacity.
+- Apply downloaded transparent frame images from the remote catalog.
+
+An example output name is `family-8x10-landscape-letter-margin.jpg`.
+
+Digital presets resize the crop to the exact destination resolution. Print presets preserve the available source pixels. CropPrint applies text and frames after resizing.
+
+The macOS app keeps decoration controls in the right sidebar. The iPhone app shows them in a movable bottom sheet.
+
+The text layer appears directly on the photo. Drag the text box to move it. Use its handles to change width, scale, or rotation.
+
+Font and style changes appear immediately. Choose a preset color swatch or use the system color picker for a custom color.
+
+## Requirements
+
+- macOS 14 or later
+- iOS 17 or later
+- Xcode 16 or later
+
+## Build and run in Xcode
+
+1. Open `CropPrint.xcodeproj` in Xcode.
+2. Select the `CropPrint` scheme.
+3. Select **My Mac** as the run destination.
+4. Press **Command-R**.
+
+If Xcode asks for a development team, select your personal team. The app does not require a paid account for local use.
+
+To run the iPhone app:
+
+1. Select the `CropPrint Mobile` scheme.
+2. Select an iPhone simulator or a connected iPhone.
+3. Select your personal team under **Signing & Capabilities** for a physical iPhone.
+4. Press **Command-R**.
+
+The iPhone version uses the system photo picker. It requests permission only when it saves the result to Photos.
+
+## Crop presets
+
+The digital presets include these output sizes:
+
+- Instagram Story: 1080x1920
+- Instagram Portrait: 1080x1350
+- Instagram Square: 1080x1080
+- iPhone 14 Pro: 1179x2556
+- iPhone 17 Pro: 1206x2622
+- iPhone 16e home and lock screens: 1170x2532
+- MacBook Air 13-inch: 2560x1664
+- MacBook Air 15-inch: 2880x1864
+- MacBook Pro 13-inch: 2560x1600
+- MacBook Pro 14-inch: 3024x1964
+- MacBook Pro 16-inch: 3456x2234
+
+Passport and identity presets include these dimensions:
+
+- India, Europe, United Kingdom, Japan, and South Korea: 35x45 mm
+- United States: 51x51 mm
+- Canada: 50x70 mm
+- China: 33x48 mm
+- Australia: 35x45 mm, which is the minimum accepted outer size
+- Singapore digital submission: 400x514 pixels
+- New Zealand digital submission: 900x1200 pixels
+
+These presets control only the outer dimensions. Check current head-size, background, expression, age, and submission rules before use.
+
+Monitor presets include VGA, SVGA, XGA, SXGA, UXGA, HD, Full HD, DCI 2K, QHD, and WQXGA.
+
+They also include Ultrawide QHD, 4K UHD, DCI 4K, 5K, 6K, and 8K UHD. Monitor presets support landscape and portrait orientation.
+
+## Print sheets
+
+Select a physical print or passport preset. Then select **Create Print Sheet** from the toolbar or File menu.
+
+The print-sheet panel supports these options:
+
+- Any configured paper size, including 4x6, 5x7, Letter, and A4
+- Portrait or landscape paper
+- 300 or 600 pixels per inch
+- Automatic tiling with safe edge spacing
+- Optional cutting guides
+
+The macOS app saves a JPEG and PDF beside the source photo. The iPhone app saves the JPEG sheet to Photos.
+
+The PDF stores the physical paper dimensions. Print it at **Actual Size** or **100 percent**.
+
+Disable **Fit to Page**, automatic cropping, and borderless enlargement. These printer options can change the physical passport-photo dimensions.
+
+Large paper at 600 pixels per inch can require excessive memory. CropPrint asks for 300 pixels per inch or smaller paper when necessary.
+
+The display dimensions come from Apple technical specifications. Instagram presets use Meta-supported ratios and a 1080-pixel output width.
+
+If command-line builds select only the Command Line Tools, run this command once:
+
+```sh
+sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+```
+
+## Create an unsigned package
+
+Run this command from the `src/cropprint` directory:
+
+```sh
+./scripts/package-unsigned.sh
+```
+
+The script creates `build/CropPrint-unsigned.zip`. This universal build supports Apple silicon and Intel Macs.
+
+macOS can block an unsigned app that another person downloads. The recipient can right-click the app and select **Open**. Use a signed release for a normal public download.
+
+## Publish a signed app
+
+Apple requires a paid Apple Developer Program membership for Developer ID signing and notarization. Notarization lets users open a downloaded app without a security workaround.
+
+The `Signed release` GitHub Actions workflow runs when you push a tag such as `v1.0.0`. Add these encrypted repository secrets first:
+
+- `BUILD_CERTIFICATE_BASE64`: A base64-encoded Developer ID Application certificate in PKCS #12 format.
+- `P12_PASSWORD`: The export password for that certificate.
+- `KEYCHAIN_PASSWORD`: A temporary password chosen for the GitHub Actions keychain.
+- `APPLE_ID`: The Apple ID for notarization.
+- `APP_SPECIFIC_PASSWORD`: An app-specific password for that Apple ID.
+- `TEAM_ID`: The 10-character Apple Developer team identifier.
+
+Then create and push a release tag:
+
+```sh
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+GitHub Actions builds, signs, notarizes, and publishes `CropPrint.zip` on the GitHub release.
+
+## Privacy
+
+CropPrint reads only the photo that you select. It writes only the exported photo.
+
+The app contacts a server only when you refresh or download remote resources. The server receives normal request data, such as your Internet Protocol address. CropPrint does not send photos, crop settings, analytics, or personal data.
+
+## Remote resource catalog
+
+Open **CropPrint > Remote Resources** on macOS. On iPhone, open the toolbar menu and select **Remote Resources**.
+
+Leave the catalog address empty to use the built-in Google Fonts list. Enter an HTTPS address to load your own catalog. CropPrint accepts these licenses:
+
+- SIL Open Font License 1.1
+- Apache License 2.0
+- Ubuntu Font License 1.0
+- Creative Commons CC0 1.0
+- Creative Commons Attribution 4.0
+- Creative Commons Attribution-ShareAlike 4.0
+- MIT License
+
+CropPrint rejects incomplete attribution data and unsupported file types. The frame list excludes licenses that prohibit modifications.
+
+Host a catalog as a static JSON file on GitHub Pages, Cloudflare Pages, or another HTTPS site. Start with [`RemoteCatalog/catalog.example.json`](RemoteCatalog/catalog.example.json).
+
+Each resource needs a stable identifier, title, kind, creator, source address, download address, exact license, and license address. The `kind` value must be `font` or `frame`.
+
+The built-in fonts come from the official Google Fonts repository. CropPrint downloads the font files and registers them only for the current app process.
+
+## License
+
+This project uses the MIT License. See `LICENSE`.

@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "resources": [
+    {
+      "id": "font-pacifico-regular",
+      "name": "Pacifico",
+      "kind": "font",
+      "creator": "Vernon Adams, Jacques Le Bailly, Botjo Nikoltchev, and Ani Petrova",
+      "sourceURL": "https://github.com/google/fonts/tree/main/ofl/pacifico",
+      "downloadURL": "https://raw.githubusercontent.com/google/fonts/main/ofl/pacifico/Pacifico-Regular.ttf",
+      "licenseName": "OFL-1.1",
+      "licenseURL": "https://raw.githubusercontent.com/google/fonts/main/ofl/pacifico/OFL.txt",
+      "notes": "Downloaded from the official Google Fonts repository.",
+      "fontName": "Pacifico-Regular"
+    }
+  ]
+}

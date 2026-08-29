@@ -1,0 +1,203 @@
+# Rapid applications
+
+This repository contains small applications under `src`. Each application owns its source, tests, build scripts, and documentation.
+
+## Repository structure
+
+```text
+rapid/
+├── build.sh
+├── clean.sh
+├── README.md
+├── .gitignore
+├── .github/
+│   └── workflows/
+└── src/
+    └── cropprint/
+        ├── build.sh
+        ├── clean.sh
+        ├── CropPrint/
+        ├── CropPrintMobile/
+        ├── CropPrintTests/
+        ├── CropPrint.xcodeproj/
+        ├── RemoteCatalog/
+        ├── scripts/
+        └── README.md
+```
+
+Add each future application as `src/<app-name>`. Give each application an executable `build.sh` and `clean.sh` script.
+
+## Repository scripts
+
+Run repository scripts from the repository root.
+
+### Build all applications
+
+```sh
+./build.sh
+```
+
+The root script calls each `src/<app-name>/build.sh` script. It stops when an application build fails.
+
+Pass a supported build mode to every application:
+
+```sh
+./build.sh test
+./build.sh macos
+./build.sh ios
+```
+
+CropPrint supports `all`, `test`, `macos`, and `ios`. The default mode is `all`.
+
+The full CropPrint build performs these tasks:
+
+1. Run the macOS unit tests.
+2. Create a universal unsigned macOS package.
+3. Build the iPhone simulator application.
+4. Build the unsigned iPhone device application.
+
+Build outputs go under `src/cropprint/build`. Git ignores this directory.
+
+Each build reads `src/cropprint/VERSION`. CropPrint currently uses semantic version `1.0.0`.
+
+The build adds the Git SHA and numeric build number to both applications. A local build from changed files adds `-dirty`.
+
+Change the semantic version with this command:
+
+```sh
+./src/cropprint/scripts/set-version.sh 1.1.0
+```
+
+The About page shows the semantic version, Git SHA, and build number. This information identifies the source for a reported bug.
+
+### Clean all applications
+
+```sh
+./clean.sh
+```
+
+The root script calls each application cleanup script. CropPrint removes build outputs, derived data, Xcode user data, Swift caches, and macOS metadata.
+
+The cleanup script does not remove source files, project settings, documentation, or remote catalog definitions.
+
+## CropPrint scripts
+
+Run these commands from `src/cropprint`.
+
+Create a normal unsigned development package:
+
+```sh
+./build.sh macos
+```
+
+Create App Store archives without uploading them:
+
+```sh
+APPLE_TEAM_ID=ABCDE12345 ./scripts/archive-app-store.sh all
+```
+
+Use `macos` or `ios` instead of `all` to archive one platform. Set `BUILD_NUMBER` to override the Xcode project build number.
+
+Upload existing archives to App Store Connect:
+
+```sh
+CONFIRM_APP_STORE_UPLOAD=YES ./scripts/upload-app-store.sh all
+```
+
+Archive and upload in one operation:
+
+```sh
+APPLE_TEAM_ID=ABCDE12345 \
+CONFIRM_APP_STORE_UPLOAD=YES \
+./scripts/publish-app-store.sh all
+```
+
+An upload sends a build to App Store Connect. It does not submit the build for App Review or release the application.
+
+The upload script records the last uploaded SHA under `src/cropprint/.publish-state`. The cleanup script preserves this ignored local state.
+
+The upload script refuses a repeated upload by default.
+
+Set `FORCE_APP_STORE_UPLOAD=YES` only when you must upload the same commit again.
+
+## Apple signing setup
+
+See [`PUBLISHING.md`](PUBLISHING.md) for the complete physical-device, TestFlight, App Store, and direct macOS release process.
+
+Complete these tasks before you use the App Store scripts:
+
+1. Join the Apple Developer Program.
+2. Accept the current agreements in App Store Connect.
+3. Add your Apple account in Xcode Settings.
+4. Select your development team for both CropPrint targets.
+5. Register the macOS and iOS bundle identifiers.
+6. Create the application record in App Store Connect.
+7. Add application icons, screenshots, privacy details, and store metadata.
+8. Test the final archives before upload.
+
+Xcode can manage signing through the account in Xcode Settings. The scripts pass `-allowProvisioningUpdates` for automatic signing.
+
+For unattended builds, set all three App Store Connect API key variables:
+
+```sh
+export APP_STORE_CONNECT_API_KEY_PATH=/secure/path/AuthKey_ABC123.p8
+export APP_STORE_CONNECT_API_KEY_ID=ABC123
+export APP_STORE_CONNECT_API_ISSUER_ID=00000000-0000-0000-0000-000000000000
+```
+
+Do not store the private key or credentials in this repository. The `.gitignore` file excludes common signing files and local environment files.
+
+## GitHub Actions publishing
+
+The Build workflow creates versioned builds for every push to `main` and for pull requests.
+
+The App Store workflow reacts only to CropPrint source, project, or `VERSION` changes on `main`. Unrelated changes do not publish CropPrint.
+
+The workflow has no manual trigger. Therefore, a GitHub build cannot publish CropPrint when its application files did not change.
+
+The publishing job remains disabled until you create the repository variable `ENABLE_APP_STORE_PUBLISH` with value `true`.
+
+Configure these encrypted GitHub secrets before you enable publishing:
+
+- `APPLE_TEAM_ID`
+- `APP_STORE_CONNECT_API_KEY_ID`
+- `APP_STORE_CONNECT_API_ISSUER_ID`
+- `APP_STORE_CONNECT_API_PRIVATE_KEY`
+
+The workflow tests CropPrint before it archives and uploads both platforms. Each uploaded application contains its semantic version and source Git SHA.
+
+## Mac App Store requirement
+
+Apple requires App Sandbox for Mac App Store applications. The CropPrint macOS target enables App Sandbox for Debug and Release builds.
+
+CropPrint allows user-selected file access and outgoing network connections. It stores security-scoped bookmarks for recent photos.
+
+Before the first store release, test file access and remote resources in a signed archive. Include external drives and iCloud Drive in these tests.
+
+## App Store privacy and product pages
+
+The macOS and iOS targets use the shared bundle identifier `com.vijaikalyan.CropPrint`. Create one App Store Connect record for both platforms.
+
+Both targets include `src/cropprint/Shared/PrivacyInfo.xcprivacy`. The manifest declares no tracking, no collected data, and the app-only `UserDefaults` reason.
+
+App Store copy, review notes, privacy answers, and the screenshot plan are in `src/cropprint/AppStore/metadata.md`.
+
+The `docs` directory contains the privacy policy and support pages. The Pages workflow publishes them from `main`.
+
+Before the first Pages run, open the repository settings on GitHub. Select **Pages**, then select **GitHub Actions** as the publishing source.
+
+The expected public addresses are:
+
+- `https://pvk2007.github.io/rapid/privacy/`
+- `https://pvk2007.github.io/rapid/support/`
+
+## Apple references
+
+- [Distributing applications with Xcode](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases)
+- [Creating an App Store Connect application record](https://developer.apple.com/help/app-store-connect/create-an-app-record/add-a-new-app/)
+- [Uploading builds](https://developer.apple.com/help/app-store-connect/manage-builds/upload-builds/)
+- [Configuring the macOS App Sandbox](https://developer.apple.com/documentation/xcode/configuring-the-macos-app-sandbox)
+
+## Application documentation
+
+See [`src/cropprint/README.md`](src/cropprint/README.md) for CropPrint features, local development, packaging, and privacy details.
