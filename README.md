@@ -198,9 +198,11 @@ The Build workflow creates versioned builds for every push to `main` and for pul
 
 The App Store workflow reacts only to CropPrint source, project, or `VERSION` changes on `main`. Unrelated changes do not publish CropPrint.
 
-The workflow has no manual trigger. Therefore, a GitHub build cannot publish CropPrint when its application files did not change.
-
 The publishing job remains disabled until you create the repository variable `ENABLE_APP_STORE_PUBLISH` with value `true`.
+
+You can start the App Store workflow manually with `publish` disabled. This mode tests CropPrint without signing or uploading an archive.
+
+Set `publish` during a manual run only when you intend to upload both applications.
 
 Configure these encrypted GitHub secrets before you enable publishing:
 

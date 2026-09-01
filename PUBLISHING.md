@@ -311,6 +311,10 @@ Use manual release for the first version. This choice lets you inspect the appro
 
 The App Store workflow remains disabled until the repository variable `ENABLE_APP_STORE_PUBLISH` equals `true`.
 
+Run the workflow manually with `publish` disabled to validate the workflow and application tests. This mode does not sign or upload applications.
+
+Set `publish` during a manual run only when you intend to upload both applications.
+
 Configure these encrypted GitHub secrets first:
 
 - `APPLE_TEAM_ID`

@@ -9,17 +9,23 @@ on:
       - src/cropprint/CropPrintMobile/**
       - src/cropprint/Shared/**
       - src/cropprint/CropPrint.xcodeproj/**
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Archive and upload both applications
+        required: true
+        default: false
+        type: boolean
 
 jobs:
   publish:
-    if: vars.ENABLE_APP_STORE_PUBLISH == 'true'
+    if: github.event_name == 'workflow_dispatch' || vars.ENABLE_APP_STORE_PUBLISH == 'true'
     runs-on: macos-15
     defaults:
       run:
         working-directory: src/cropprint
     env:
       APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      APP_STORE_CONNECT_API_KEY_PATH: ${{ runner.temp }}/AuthKey.p8
       APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
       APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
       CONFIRM_APP_STORE_UPLOAD: YES
@@ -29,12 +35,18 @@ jobs:
           fetch-depth: 0
 
       - name: Install App Store Connect API key
+        if: github.event_name == 'push' || inputs.publish
         env:
           APP_STORE_CONNECT_API_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
-        run: printf '%s' "$APP_STORE_CONNECT_API_PRIVATE_KEY" > "$APP_STORE_CONNECT_API_KEY_PATH"
+        run: |
+          api_key_path="$RUNNER_TEMP/AuthKey.p8"
+          printf '%s' "$APP_STORE_CONNECT_API_PRIVATE_KEY" > "$api_key_path"
+          chmod 600 "$api_key_path"
+          echo "APP_STORE_CONNECT_API_KEY_PATH=$api_key_path" >> "$GITHUB_ENV"
 
       - name: Test CropPrint
         run: ./build.sh test
 
       - name: Archive and upload CropPrint
+        if: github.event_name == 'push' || inputs.publish
         run: ./scripts/publish-app-store.sh all
