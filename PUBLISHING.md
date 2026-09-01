@@ -326,6 +326,8 @@ Keep automatic publishing disabled until one local archive and TestFlight upload
 
 After you enable it, the workflow reacts only to CropPrint changes on `main`. It uploads builds but does not submit them for review.
 
+A workflow-file change starts a test-only validation run. It does not publish CropPrint without an application source change.
+
 ## Release checklist
 
 Before each release, confirm all of these items:

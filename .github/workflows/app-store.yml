@@ -9,6 +9,7 @@ on:
       - src/cropprint/CropPrintMobile/**
       - src/cropprint/Shared/**
       - src/cropprint/CropPrint.xcodeproj/**
+      - .github/workflows/app-store.yml
   workflow_dispatch:
     inputs:
       publish:
@@ -19,7 +20,6 @@ on:
 
 jobs:
   publish:
-    if: github.event_name == 'workflow_dispatch' || vars.ENABLE_APP_STORE_PUBLISH == 'true'
     runs-on: macos-15
     defaults:
       run:
@@ -34,8 +34,36 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Decide whether to publish
+        id: publishing
+        env:
+          AUTO_PUBLISH_ENABLED: ${{ vars.ENABLE_APP_STORE_PUBLISH }}
+          BEFORE_SHA: ${{ github.event.before }}
+          MANUAL_PUBLISH: ${{ inputs.publish }}
+        run: |
+          publish=false
+
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
+            if [[ "$MANUAL_PUBLISH" == "true" ]]; then
+              publish=true
+            fi
+          elif [[ "$AUTO_PUBLISH_ENABLED" == "true" ]]; then
+            if [[ -z "$BEFORE_SHA" || "$BEFORE_SHA" =~ ^0+$ ]]; then
+              publish=true
+            elif ! git diff --quiet "$BEFORE_SHA" "$GITHUB_SHA" -- \
+              src/cropprint/VERSION \
+              src/cropprint/CropPrint \
+              src/cropprint/CropPrintMobile \
+              src/cropprint/Shared \
+              src/cropprint/CropPrint.xcodeproj; then
+              publish=true
+            fi
+          fi
+
+          echo "publish=$publish" >> "$GITHUB_OUTPUT"
+
       - name: Install App Store Connect API key
-        if: github.event_name == 'push' || inputs.publish
+        if: steps.publishing.outputs.publish == 'true'
         env:
           APP_STORE_CONNECT_API_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
         run: |
@@ -48,5 +76,5 @@ jobs:
         run: ./build.sh test
 
       - name: Archive and upload CropPrint
-        if: github.event_name == 'push' || inputs.publish
+        if: steps.publishing.outputs.publish == 'true'
         run: ./scripts/publish-app-store.sh all
