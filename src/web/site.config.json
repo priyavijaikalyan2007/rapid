@@ -1,0 +1,21 @@
+{
+  "organizationName": "Outcrop Inc",
+  "siteDescription": "Focused applications that solve one task and respect your privacy.",
+  "siteUrl": "https://outcrop.us",
+  "contactEmail": "admin@outcrop.us",
+  "companyLocation": "Washington, United States",
+  "legalEffectiveDate": "2026-08-31",
+  "sourceRepositoryUrl": "https://github.com/priyavijaikalyan2007/rapid",
+  "themeBaseUrl": "https://static.outcrop.us",
+  "apps": [
+    {
+      "name": "CropPrint",
+      "platforms": "macOS and iPhone",
+      "status": "Preparing for release",
+      "description": "Crop photos to print, passport, social-media, and screen sizes without distortion. Create print sheets and add text or frames.",
+      "iconSource": "../cropprint/CropPrint/Assets.xcassets/AppIcon.appiconset/AppIcon-512.png",
+      "iconOutput": "assets/apps/cropprint.png",
+      "sourceUrl": "https://github.com/priyavijaikalyan2007/rapid/tree/main/src/cropprint"
+    }
+  ]
+}

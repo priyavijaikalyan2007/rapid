@@ -1,0 +1,124 @@
+<!doctype html>
+<!-- Terms and conditions for the Outcrop Inc website and applications. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Terms and conditions for {{organizationName}} applications and website.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="{{siteUrl}}/terms/">
+  <title>Terms and Conditions | {{organizationName}}</title>
+  <link rel="icon" href="/assets/brand-mark.svg" type="image/svg+xml">
+  <script src="/js/theme-init.js"></script>
+  <link rel="stylesheet" href="{{themeBaseUrl}}/icons/bootstrap-icons.css">
+  <link rel="stylesheet" href="{{themeBaseUrl}}/css/custom.css">
+  <link rel="stylesheet" href="{{themeBaseUrl}}/components/themetoggle/themetoggle.css">
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <nav class="container site-nav" aria-label="Main navigation">
+      <a class="brand" href="/" aria-label="{{organizationName}} home">
+        <img src="/assets/brand-mark.svg" alt="" width="32" height="32">
+        <span>{{organizationName}}</span>
+      </a>
+      <div class="site-links">
+        <a href="/#apps">Apps</a>
+        <a href="/support/">Support</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/" aria-current="page">Terms</a>
+      </div>
+      <div class="theme-control"><div id="theme-toggle"></div></div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="legal-main container">
+    <header class="legal-heading">
+      <p class="eyebrow">Legal</p>
+      <h1>Terms and Conditions</h1>
+      <p class="legal-date">Effective {{legalDate}}</p>
+      <p class="lead">These terms govern your use of this website and our distributed applications.</p>
+    </header>
+
+    <section aria-labelledby="acceptance-title">
+      <h2 id="acceptance-title">1. Acceptance</h2>
+      <p>By using this website or an application, you agree to these terms.</p>
+      <p>If you do not agree, do not use the website or the application.</p>
+    </section>
+
+    <section aria-labelledby="software-title">
+      <h2 id="software-title">2. Application software</h2>
+      <p>Our catalog describes each application and its supported platforms. Features can change as we improve the software.</p>
+      <p>Application stores can apply separate terms to downloads, purchases, updates, and refunds.</p>
+    </section>
+
+    <section aria-labelledby="source-title">
+      <h2 id="source-title">3. Open-source licenses</h2>
+      <p>Source code that we publish remains subject to the license in its source repository.</p>
+      <p>Third-party code, fonts, frames, and other assets remain subject to their stated licenses.</p>
+      <p>These terms do not reduce rights that an applicable open-source license grants to you.</p>
+    </section>
+
+    <section aria-labelledby="content-title">
+      <h2 id="content-title">4. Your content</h2>
+      <p>You keep all rights to photos, documents, and other content that you process with an application.</p>
+      <p>You must have the right to use and modify that content. You remain responsible for your source files and backups.</p>
+    </section>
+
+    <section aria-labelledby="use-title">
+      <h2 id="use-title">5. Acceptable use</h2>
+      <p>Use the website and applications only for lawful purposes.</p>
+      <p>Do not interfere with the website, distribute malware, bypass security controls, or violate another person’s rights.</p>
+    </section>
+
+    <section aria-labelledby="third-party-title">
+      <h2 id="third-party-title">6. Third-party services</h2>
+      <p>An application can link to an application store, source repository, font service, or asset provider.</p>
+      <p>Those services have their own terms and privacy policies. We do not control their availability or content.</p>
+    </section>
+
+    <section aria-labelledby="disclaimer-title">
+      <h2 id="disclaimer-title">7. Warranty disclaimer</h2>
+      <p>The website and applications are provided “as is” and “as available,” to the extent that applicable law permits.</p>
+      <p>We do not promise uninterrupted operation, error-free output, or fitness for a particular purpose.</p>
+      <p>Always review an exported file before you print, publish, submit, or rely on it.</p>
+    </section>
+
+    <section aria-labelledby="liability-title">
+      <h2 id="liability-title">8. Limitation of liability</h2>
+      <p>Applicable law can give you rights that these terms cannot exclude.</p>
+      <p>To the extent that law permits, we are not liable for indirect, special, incidental, or consequential loss.</p>
+      <p>This limit includes lost data, lost profits, printing costs, and losses caused by unavailable third-party services.</p>
+    </section>
+
+    <section aria-labelledby="changes-title">
+      <h2 id="changes-title">9. Changes</h2>
+      <p>We can update the website, applications, and these terms.</p>
+      <p>We will change the effective date when revised terms take effect.</p>
+    </section>
+
+    <section aria-labelledby="law-title">
+      <h2 id="law-title">10. Applicable law</h2>
+      <p>Washington State law governs these terms, without removing mandatory consumer rights in your location.</p>
+      <p>Washington courts have jurisdiction over disputes that the parties cannot resolve informally.</p>
+    </section>
+
+    <section aria-labelledby="contact-title">
+      <h2 id="contact-title">11. Contact</h2>
+      <p>Send questions about these terms to {{contactLink}}.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer legal-footer">
+    <div class="container footer-grid">
+      <div><strong>{{organizationName}}</strong><p>{{siteDescription}}</p></div>
+      <nav aria-label="Footer navigation"><a href="/">Home</a><a href="/support/">Support</a><a href="/privacy/">Privacy Policy</a></nav>
+      <div><p>{{contactLink}}</p><p class="build-info">Site {{siteVersion}} · {{buildSha}}</p></div>
+    </div>
+    <div class="container copyright">© {{currentYear}} {{organizationName}}.</div>
+  </footer>
+  <script src="{{themeBaseUrl}}/components/themetoggle/themetoggle.js" defer></script>
+  <script src="/js/theme-toggle-init.js" defer></script>
+</body>
+</html>

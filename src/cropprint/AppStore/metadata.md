@@ -9,8 +9,8 @@ Use one App Store Connect record for iOS and macOS. Both targets use `com.vijaik
 - Primary category: Photo & Video
 - Secondary category: Utilities
 - SKU: cropprint-2026
-- Privacy policy URL: https://pvk2007.github.io/rapid/privacy/
-- Support URL: https://pvk2007.github.io/rapid/support/
+- Privacy policy URL: https://outcrop.us/privacy/
+- Support URL: https://outcrop.us/support/
 - Source URL: https://github.com/pvk2007/rapid
 - Copyright: 2026
 - Price: Free
@@ -81,4 +81,3 @@ Create separate screenshot sets for iPhone and macOS. Use the exact sizes that A
 ## Age rating assumptions
 
 CropPrint contains no built-in objectionable content, social features, purchases, gambling, unrestricted web browsing, or user accounts. Users can open their own photos.
-

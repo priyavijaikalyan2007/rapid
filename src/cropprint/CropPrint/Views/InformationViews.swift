@@ -48,7 +48,7 @@ struct AboutCropPrintView: View {
 
             Text("CropPrint is open-source software under the MIT License. Remote fonts and frames keep their own licenses.")
 
-            Link("View the Privacy Policy", destination: URL(string: "https://pvk2007.github.io/rapid/privacy/")!)
+            Link("View the Privacy Policy", destination: URL(string: "https://outcrop.us/privacy/")!)
 
             Link("View the MIT License", destination: URL(string: "https://opensource.org/license/mit")!)
 

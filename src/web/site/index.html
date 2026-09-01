@@ -1,0 +1,121 @@
+<!doctype html>
+<!-- Static application catalog for Outcrop Inc. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{siteDescription}}">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="{{siteUrl}}/">
+  <title>{{organizationName}} | Focused, private applications</title>
+  <link rel="icon" href="/assets/brand-mark.svg" type="image/svg+xml">
+  <script src="/js/theme-init.js"></script>
+  <link rel="stylesheet" href="{{themeBaseUrl}}/icons/bootstrap-icons.css">
+  <link rel="stylesheet" href="{{themeBaseUrl}}/css/custom.css">
+  <link rel="stylesheet" href="{{themeBaseUrl}}/components/themetoggle/themetoggle.css">
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <nav class="container site-nav" aria-label="Main navigation">
+      <a class="brand" href="/" aria-label="{{organizationName}} home">
+        <img src="/assets/brand-mark.svg" alt="" width="32" height="32">
+        <span>{{organizationName}}</span>
+      </a>
+      <div class="site-links">
+        <a href="/#apps" aria-current="page">Apps</a>
+        <a href="/support/">Support</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+      </div>
+      <div class="theme-control"><div id="theme-toggle"></div></div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Small tools. Clear purpose.</p>
+          <h1>Focused apps that respect your privacy.</h1>
+          <p class="hero-copy">{{siteDescription}} Our apps process your work on your device whenever the task permits.</p>
+          <a class="btn btn-primary" href="#apps">View the app catalog</a>
+        </div>
+        <aside class="privacy-panel" aria-labelledby="privacy-pledge-title">
+          <p class="eyebrow">Our pledge</p>
+          <h2 id="privacy-pledge-title" class="h4">Your data stays yours.</h2>
+          <ul class="pledge-list">
+            <li><i class="bi bi-person-x" aria-hidden="true"></i><span>No accounts</span></li>
+            <li><i class="bi bi-graph-down" aria-hidden="true"></i><span>No telemetry</span></li>
+            <li><i class="bi bi-cookie" aria-hidden="true"></i><span>No cookies or trackers</span></li>
+            <li><i class="bi bi-device-ssd" aria-hidden="true"></i><span>Local processing by default</span></li>
+          </ul>
+          <a href="/privacy/">Read the privacy policy</a>
+        </aside>
+      </div>
+    </section>
+
+    <section id="apps" class="catalog-section" aria-labelledby="apps-title">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Application catalog</p>
+          <h2 id="apps-title">Tools for real tasks</h2>
+          <p>Each app has a narrow purpose. The source code is open for inspection and contribution.</p>
+        </div>
+        <div class="app-grid">
+          {{appCards}}
+        </div>
+      </div>
+    </section>
+
+    <section class="principles-section" aria-labelledby="principles-title">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Product principles</p>
+          <h2 id="principles-title">Software without hidden collection</h2>
+        </div>
+        <div class="principle-grid">
+          <article>
+            <i class="bi bi-eye-slash" aria-hidden="true"></i>
+            <h3 class="h5">No behavioral tracking</h3>
+            <p>We do not measure which screens you open or which features you use.</p>
+          </article>
+          <article>
+            <i class="bi bi-cloud-slash" aria-hidden="true"></i>
+            <h3 class="h5">No hidden uploads</h3>
+            <p>Our apps do not send your photos, documents, or other content to us.</p>
+          </article>
+          <article>
+            <i class="bi bi-code-slash" aria-hidden="true"></i>
+            <h3 class="h5">Open source</h3>
+            <p>You can inspect how each app works and report a problem through its source repository.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <strong>{{organizationName}}</strong>
+        <p>{{siteDescription}}</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <a href="/privacy/">Privacy Policy</a>
+        <a href="/terms/">Terms and Conditions</a>
+        <a href="/support/">Support</a>
+        <a href="{{sourceRepositoryUrl}}" rel="noopener noreferrer">Source code</a>
+      </nav>
+      <div>
+        <p>{{contactLink}}</p>
+        <p class="build-info">Site {{siteVersion}} · {{buildSha}}</p>
+      </div>
+    </div>
+    <div class="container copyright">© {{currentYear}} {{organizationName}}.</div>
+  </footer>
+  <script src="{{themeBaseUrl}}/components/themetoggle/themetoggle.js" defer></script>
+  <script src="/js/theme-toggle-init.js" defer></script>
+</body>
+</html>

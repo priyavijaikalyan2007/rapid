@@ -1,0 +1,24 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "outcrop-us",
+  "compatibility_date": "2026-08-31",
+  "send_metrics": false,
+  "dependencies_instrumentation": {
+    "enabled": false
+  },
+  "routes": [
+    {
+      "pattern": "outcrop.us",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.outcrop.us",
+      "custom_domain": true
+    }
+  ],
+  "assets": {
+    "directory": "./dist/",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

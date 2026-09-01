@@ -23,6 +23,11 @@
 *.ipa
 *.xcresult
 
+# Web dependencies and build outputs
+**/node_modules/
+src/web/dist/
+src/web/.wrangler/
+
 # Packaged applications and installers
 *.zip
 *.dmg
@@ -39,6 +44,8 @@
 .env
 .env.*
 !.env.example
+.dev.vars
+.dev.vars.*
 **/.publish-state/
 *.p12
 *.cer

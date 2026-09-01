@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Simple catalog mark. Application cards use each product's own icon. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Outcrop Inc</title>
+  <rect width="64" height="64" fill="#0f172a"/>
+  <path d="M15 16h15v13H15z" fill="#5ba4e6"/>
+  <path d="M34 16h15v13H34z" fill="#ffffff"/>
+  <path d="M15 33h15v15H15z" fill="#ffffff"/>
+  <path d="M34 33h15v15H34z" fill="#5ba4e6"/>
+</svg>

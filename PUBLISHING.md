@@ -103,27 +103,26 @@ Also test Open Recent, drag and drop, Finder Open With, exports, print sheets, r
 
 ## Privacy and support pages
 
-The public documents are under `docs`:
+The public website is under `src/web`. It contains the application catalog, privacy policy, terms, and support page.
 
-- `docs/privacy.md`
-- `docs/support.md`
-- `docs/index.md`
+The publisher is Outcrop Inc, a Washington company. The website uses `admin@outcrop.us` for legal and support contact.
 
-The expected public addresses are:
+Use these addresses after the custom domains are active:
 
-- `https://pvk2007.github.io/rapid/privacy/`
-- `https://pvk2007.github.io/rapid/support/`
+- `https://outcrop.us/privacy/`
+- `https://outcrop.us/support/`
 
-These addresses assume that the public repository is `pvk2007/rapid`. Update the documents and application link if the repository name changes.
+The `www.outcrop.us` hostname serves the same website. Use the root-domain addresses for the App Store product page.
 
-Enable GitHub Pages after you push the repository:
+Publish the website after you add the domain to Cloudflare:
 
-1. Open the GitHub repository settings.
-2. Select **Pages**.
-3. Select **GitHub Actions** as the publishing source.
-4. Run the `Publish CropPrint documentation` workflow.
-5. Open both public addresses.
-6. Confirm that each page loads without authentication.
+1. Add `outcrop.us` to the Cloudflare account.
+2. Confirm that no conflicting records use the two website hostnames.
+3. Configure the Cloudflare GitHub secrets.
+4. Enable the website publishing repository variable.
+5. Push the website changes to `main`.
+6. Open both public addresses.
+7. Confirm that each page loads without authentication.
 
 Apple requires a public privacy policy address. Do not submit the application while this address returns an error.
 

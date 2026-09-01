@@ -13,7 +13,7 @@ rapid/
 ├── .github/
 │   └── workflows/
 └── src/
-    └── cropprint/
+    ├── cropprint/
         ├── build.sh
         ├── clean.sh
         ├── CropPrint/
@@ -22,6 +22,14 @@ rapid/
         ├── CropPrint.xcodeproj/
         ├── RemoteCatalog/
         ├── scripts/
+        └── README.md
+    └── web/
+        ├── build.sh
+        ├── clean.sh
+        ├── deploy.sh
+        ├── site/
+        ├── site.config.json
+        ├── wrangler.jsonc
         └── README.md
 ```
 
@@ -47,7 +55,15 @@ Pass a supported build mode to every application:
 ./build.sh ios
 ```
 
+Build only the public website:
+
+```sh
+./build.sh web
+```
+
 CropPrint supports `all`, `test`, `macos`, and `ios`. The default mode is `all`.
+
+The website supports `all`, `web`, and `test`. It skips `macos` and `ios` builds.
 
 The full CropPrint build performs these tasks:
 
@@ -79,6 +95,35 @@ The About page shows the semantic version, Git SHA, and build number. This infor
 The root script calls each application cleanup script. CropPrint removes build outputs, derived data, Xcode user data, Swift caches, and macOS metadata.
 
 The cleanup script does not remove source files, project settings, documentation, or remote catalog definitions.
+
+## Public website
+
+The static public website lives under `src/web`. It contains the application catalog, support page, privacy policy, and terms.
+
+The catalog uses each application's actual icon. Edit `src/web/site.config.json` to add an application or change public details.
+
+Build and validate the website:
+
+```sh
+./src/web/build.sh web
+```
+
+Preview the website through Cloudflare Wrangler:
+
+```sh
+cd src/web
+npm install
+./preview.sh
+```
+
+Run a deployment check:
+
+```sh
+cd src/web
+./deploy.sh --dry-run
+```
+
+See [`src/web/README.md`](src/web/README.md) for deployment, custom-domain, and GitHub Actions instructions.
 
 ## CropPrint scripts
 
@@ -182,14 +227,9 @@ Both targets include `src/cropprint/Shared/PrivacyInfo.xcprivacy`. The manifest 
 
 App Store copy, review notes, privacy answers, and the screenshot plan are in `src/cropprint/AppStore/metadata.md`.
 
-The `docs` directory contains the privacy policy and support pages. The Pages workflow publishes them from `main`.
+The Cloudflare website under `src/web` provides the public privacy and support addresses for Outcrop Inc.
 
-Before the first Pages run, open the repository settings on GitHub. Select **Pages**, then select **GitHub Actions** as the publishing source.
-
-The expected public addresses are:
-
-- `https://pvk2007.github.io/rapid/privacy/`
-- `https://pvk2007.github.io/rapid/support/`
+Use `https://outcrop.us/privacy/` and `https://outcrop.us/support/` for the App Store product page.
 
 ## Apple references
 

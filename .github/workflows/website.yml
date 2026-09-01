@@ -1,0 +1,49 @@
+name: Publish website
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - src/web/**
+      - src/*/**/Assets.xcassets/AppIcon.appiconset/**
+      - .github/workflows/website.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: website-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    if: vars.ENABLE_WEBSITE_PUBLISH == 'true'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/web
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: src/web/package-lock.json
+
+      - name: Install website tools
+        run: npm ci
+
+      - name: Build and validate website
+        run: ./build.sh web
+
+      - name: Deploy website
+        run: npx wrangler deploy
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          WRANGLER_SEND_ERROR_REPORTS: false
+          WRANGLER_SEND_METRICS: false

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Public pages on the Outcrop Inc website. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>{{siteUrl}}/</loc></url>
+  <url><loc>{{siteUrl}}/support/</loc></url>
+  <url><loc>{{siteUrl}}/privacy/</loc></url>
+  <url><loc>{{siteUrl}}/terms/</loc></url>
+</urlset>

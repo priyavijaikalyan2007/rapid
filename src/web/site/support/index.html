@@ -1,0 +1,80 @@
+<!doctype html>
+<!-- Public support page for Outcrop Inc products. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Support information for {{organizationName}} applications.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="{{siteUrl}}/support/">
+  <title>Support | {{organizationName}}</title>
+  <link rel="icon" href="/assets/brand-mark.svg" type="image/svg+xml">
+  <script src="/js/theme-init.js"></script>
+  <link rel="stylesheet" href="{{themeBaseUrl}}/icons/bootstrap-icons.css">
+  <link rel="stylesheet" href="{{themeBaseUrl}}/css/custom.css">
+  <link rel="stylesheet" href="{{themeBaseUrl}}/components/themetoggle/themetoggle.css">
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <nav class="container site-nav" aria-label="Main navigation">
+      <a class="brand" href="/" aria-label="{{organizationName}} home">
+        <img src="/assets/brand-mark.svg" alt="" width="32" height="32">
+        <span>{{organizationName}}</span>
+      </a>
+      <div class="site-links">
+        <a href="/#apps">Apps</a>
+        <a href="/support/" aria-current="page">Support</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+      </div>
+      <div class="theme-control"><div id="theme-toggle"></div></div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="legal-main container">
+    <header class="legal-heading">
+      <p class="eyebrow">Product support</p>
+      <h1>How to get help</h1>
+      <p class="lead">Report a problem, request a feature, or ask how an application works.</p>
+    </header>
+
+    <section id="cropprint" aria-labelledby="cropprint-title">
+      <h2 id="cropprint-title">CropPrint</h2>
+      <p>CropPrint supports macOS and iPhone. It crops photos, creates print sheets, and adds optional text or frames.</p>
+      <p>Send support requests to {{contactLink}}.</p>
+      <p>You can also report a source-code issue in the <a href="{{sourceRepositoryUrl}}/issues" rel="noopener noreferrer">public repository</a>.</p>
+    </section>
+
+    <section aria-labelledby="report-title">
+      <h2 id="report-title">Information for a problem report</h2>
+      <p>Include enough information to reproduce the problem:</p>
+      <ul>
+        <li>The app version and Git SHA from the About page</li>
+        <li>Your macOS or iOS version</li>
+        <li>The steps that caused the problem</li>
+        <li>The result that you expected</li>
+        <li>The result that the app produced</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="privacy-title">
+      <h2 id="privacy-title">Protect private content</h2>
+      <p>Do not send a private photo unless the image is necessary to reproduce the problem.</p>
+      <p>If possible, use a test image or remove private details before you send a file.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer legal-footer">
+    <div class="container footer-grid">
+      <div><strong>{{organizationName}}</strong><p>{{siteDescription}}</p></div>
+      <nav aria-label="Footer navigation"><a href="/">Home</a><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms and Conditions</a></nav>
+      <div><p>{{contactLink}}</p><p class="build-info">Site {{siteVersion}} · {{buildSha}}</p></div>
+    </div>
+    <div class="container copyright">© {{currentYear}} {{organizationName}}.</div>
+  </footer>
+  <script src="{{themeBaseUrl}}/components/themetoggle/themetoggle.js" defer></script>
+  <script src="/js/theme-toggle-init.js" defer></script>
+</body>
+</html>

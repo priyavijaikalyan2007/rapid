@@ -1,0 +1,123 @@
+<!doctype html>
+<!-- Privacy policy for the Outcrop Inc website and applications. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Privacy policy for {{organizationName}} applications and website.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="{{siteUrl}}/privacy/">
+  <title>Privacy Policy | {{organizationName}}</title>
+  <link rel="icon" href="/assets/brand-mark.svg" type="image/svg+xml">
+  <script src="/js/theme-init.js"></script>
+  <link rel="stylesheet" href="{{themeBaseUrl}}/icons/bootstrap-icons.css">
+  <link rel="stylesheet" href="{{themeBaseUrl}}/css/custom.css">
+  <link rel="stylesheet" href="{{themeBaseUrl}}/components/themetoggle/themetoggle.css">
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <nav class="container site-nav" aria-label="Main navigation">
+      <a class="brand" href="/" aria-label="{{organizationName}} home">
+        <img src="/assets/brand-mark.svg" alt="" width="32" height="32">
+        <span>{{organizationName}}</span>
+      </a>
+      <div class="site-links">
+        <a href="/#apps">Apps</a>
+        <a href="/support/">Support</a>
+        <a href="/privacy/" aria-current="page">Privacy</a>
+        <a href="/terms/">Terms</a>
+      </div>
+      <div class="theme-control"><div id="theme-toggle"></div></div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="legal-main container">
+    <header class="legal-heading">
+      <p class="eyebrow">Legal</p>
+      <h1>Privacy Policy</h1>
+      <p class="legal-date">Effective {{legalDate}}</p>
+      <p class="lead">We design our apps to work without accounts, advertising, telemetry, or personal-data collection.</p>
+    </header>
+
+    <section aria-labelledby="summary-title">
+      <h2 id="summary-title">Privacy summary</h2>
+      <div class="policy-callout">
+        <p>We do not sell personal data because we do not collect personal data for our own use.</p>
+        <p>Our apps do not include analytics, advertising identifiers, tracking tools, or hidden content uploads.</p>
+        <p>This website does not set cookies and does not use analytics or advertising services.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="scope-title">
+      <h2 id="scope-title">1. Scope</h2>
+      <p>{{organizationName}} is a company based in {{companyLocation}}.</p>
+      <p>This policy applies to our website and the applications listed in our catalog.</p>
+      <p>An app-specific notice takes priority if a future app needs different data to provide its stated function.</p>
+    </section>
+
+    <section aria-labelledby="apps-title">
+      <h2 id="apps-title">2. How our apps handle data</h2>
+      <p>Our apps process your files on your device. We do not receive your photos, documents, edits, or export files.</p>
+      <p>Our apps do not require an account. They do not send telemetry, crash reports, or usage statistics to us.</p>
+      <p>Your device may back up or synchronize files through services that you enable. Those services follow their own privacy policies.</p>
+    </section>
+
+    <section aria-labelledby="network-title">
+      <h2 id="network-title">3. User-requested network access</h2>
+      <p>Some features can download optional fonts, frames, or other public resources when you request them.</p>
+      <p>The resource provider receives normal network information, such as your Internet Protocol address. We do not receive or retain that information.</p>
+      <p>We identify each external source and its license inside the applicable app.</p>
+    </section>
+
+    <section aria-labelledby="website-title">
+      <h2 id="website-title">4. Website hosting</h2>
+      <p>Cloudflare delivers this website and our theme files. Cloudflare must process basic network data to answer a web request.</p>
+      <p>This data can include an Internet Protocol address, request time, browser details, and security signals.</p>
+      <p>We do not add Cloudflare Web Analytics or use request data for behavioral profiles or advertising.</p>
+    </section>
+
+    <section aria-labelledby="cookies-title">
+      <h2 id="cookies-title">5. Cookies and tracking</h2>
+      <p>This website does not set cookies. It does not use tracking pixels, fingerprinting, or cross-site tracking.</p>
+      <p>The theme control saves your light, auto, or dark preference in local browser storage.</p>
+      <p>This preference stays on your device. We do not receive or use it to identify you.</p>
+      <p>Links can take you to external websites. Those websites control their own storage, logs, and privacy practices.</p>
+    </section>
+
+    <section aria-labelledby="contact-title">
+      <h2 id="contact-title">6. Messages that you send</h2>
+      <p>If you contact us, we receive the information in your message. We use it only to reply and resolve your request.</p>
+      <p>Your email provider and our email provider process the message under their own terms.</p>
+    </section>
+
+    <section aria-labelledby="children-title">
+      <h2 id="children-title">7. Children</h2>
+      <p>Our apps do not knowingly collect personal data from children or adults.</p>
+    </section>
+
+    <section aria-labelledby="changes-title">
+      <h2 id="changes-title">8. Policy changes</h2>
+      <p>We will update this page if an app or the website changes its data practices.</p>
+      <p>The effective date shows when the current policy took effect.</p>
+    </section>
+
+    <section aria-labelledby="questions-title">
+      <h2 id="questions-title">9. Questions</h2>
+      <p>Send privacy questions to {{contactLink}}.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer legal-footer">
+    <div class="container footer-grid">
+      <div><strong>{{organizationName}}</strong><p>{{siteDescription}}</p></div>
+      <nav aria-label="Footer navigation"><a href="/">Home</a><a href="/support/">Support</a><a href="/terms/">Terms and Conditions</a></nav>
+      <div><p>{{contactLink}}</p><p class="build-info">Site {{siteVersion}} · {{buildSha}}</p></div>
+    </div>
+    <div class="container copyright">© {{currentYear}} {{organizationName}}.</div>
+  </footer>
+  <script src="{{themeBaseUrl}}/components/themetoggle/themetoggle.js" defer></script>
+  <script src="/js/theme-toggle-init.js" defer></script>
+</body>
+</html>

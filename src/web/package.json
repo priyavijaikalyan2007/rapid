@@ -1,0 +1,16 @@
+{
+  "name": "outcrop-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static catalog and legal website for Outcrop Inc",
+  "scripts": {
+    "build": "./build.sh",
+    "check": "node scripts/check-site.mjs dist",
+    "dev": "./preview.sh",
+    "deploy": "./deploy.sh",
+    "deploy:dry-run": "./deploy.sh --dry-run"
+  },
+  "devDependencies": {
+    "wrangler": "^4.73.0"
+  }
+}
