@@ -22,6 +22,8 @@ for (const htmlPath of htmlFiles) {
   check(/<meta\s+name="viewport"/i.test(html), relativePath, "does not include a viewport setting");
   check(/<main[\s>]/i.test(html), relativePath, "does not contain a main landmark");
   check(/<title>[^<]+<\/title>/i.test(html), relativePath, "does not contain a title");
+  check(/data-build-number="\d{14}"/i.test(html), relativePath, "does not contain a valid website build number");
+  check(/data-git-sha="[0-9a-f]{12}(?:-dirty)?"/i.test(html), relativePath, "does not contain a valid Git SHA");
 
   for (const match of html.matchAll(/<img\b[^>]*>/gi)) {
     check(/\balt="[^"]*"/i.test(match[0]), relativePath, "contains an image without alt text");

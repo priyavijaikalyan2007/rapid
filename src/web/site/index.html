@@ -98,10 +98,7 @@
 
   <footer class="site-footer">
     <div class="container footer-grid">
-      <div>
-        <strong>{{organizationName}}</strong>
-        <p>{{siteDescription}}</p>
-      </div>
+      {{companyRegistration}}
       <nav aria-label="Footer navigation">
         <a href="/privacy/">Privacy Policy</a>
         <a href="/terms/">Terms and Conditions</a>
@@ -110,7 +107,7 @@
       </nav>
       <div>
         <p>{{contactLink}}</p>
-        <p class="build-info">Site {{siteVersion}} · {{buildSha}}</p>
+        <p class="build-info" data-build-number="{{buildNumber}}" data-git-sha="{{buildSha}}">Site {{siteVersion}} · Build {{buildNumber}} · Git {{buildSha}}</p>
       </div>
     </div>
     <div class="container copyright">© {{currentYear}} {{organizationName}}.</div>

@@ -123,7 +123,7 @@ cd src/web
 ./deploy.sh --dry-run
 ```
 
-See [`src/web/README.md`](src/web/README.md) for deployment, custom-domain, and GitHub Actions instructions.
+See [`src/web/README.md`](src/web/README.md) for deployment, custom-domain, and Cloudflare Workers Builds instructions.
 
 ## CropPrint scripts
 

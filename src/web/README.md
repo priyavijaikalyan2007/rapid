@@ -53,6 +53,8 @@ Set these values:
 - `organizationName` sets the public publisher name.
 - `siteUrl` records the final website address.
 - `contactEmail` sets the public legal and support address.
+- `dunsNumber` and `dnbProfileUrl` define the Dun & Bradstreet profile details.
+- `washingtonUbiNumber` and `washingtonRegistrationUrl` define the state registration details.
 - `legalEffectiveDate` sets the policy and terms effective date.
 - `apps` defines each app card and its icon.
 
@@ -83,7 +85,13 @@ The build performs these tasks:
 4. Validate local links, required page metadata, and image text alternatives.
 5. Reject known analytics and tracking scripts.
 
-The site version and Git SHA appear in each page footer.
+The semantic version, build number, and Git SHA appear in each page footer.
+
+The build number uses the Git commit time in `YYYYMMDDHHMMSS` format. The time is in Coordinated Universal Time.
+
+Cloudflare supplies the source SHA through `WORKERS_CI_COMMIT_SHA`. Local builds read the same value from Git and add `-dirty` when needed.
+
+Set `SITE_BUILD_NUMBER` only when a controlled build requires an explicit 14-digit number.
 
 ## Local preview
 
@@ -123,20 +131,13 @@ The Wrangler configuration defines both production hostnames:
 
 Add `outcrop.us` to Cloudflare before the first deployment. Remove conflicting Domain Name System records for either hostname.
 
-## GitHub Actions
+## Cloudflare builds
 
-The website workflow deploys changes from `main`. It remains disabled until the repository variable is enabled.
+Cloudflare Workers Builds deploys the website after a successful build from `main`.
 
-Create this repository variable:
+The Cloudflare project uses `src/web` as its root directory. It runs `npm run build`, then `npx wrangler deploy`.
 
-- `ENABLE_WEBSITE_PUBLISH` with value `true`
-
-Create these encrypted repository secrets:
-
-- `CLOUDFLARE_ACCOUNT_ID`
-- `CLOUDFLARE_API_TOKEN`
-
-Use a Cloudflare API token that can edit Workers scripts for the target account.
+The repository does not use a GitHub Actions workflow to deploy the website.
 
 ## Legal review
 

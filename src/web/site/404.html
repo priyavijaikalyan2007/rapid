@@ -30,6 +30,14 @@
     <p>The address does not match a page on this website.</p>
     <a class="btn btn-primary" href="/">Return to the home page</a>
   </main>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      {{companyRegistration}}
+      <nav aria-label="Footer navigation"><a href="/">Home</a><a href="/support/">Support</a><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms and Conditions</a></nav>
+      <div><p>{{contactLink}}</p><p class="build-info" data-build-number="{{buildNumber}}" data-git-sha="{{buildSha}}">Site {{siteVersion}} · Build {{buildNumber}} · Git {{buildSha}}</p></div>
+    </div>
+    <div class="container copyright">© {{currentYear}} {{organizationName}}.</div>
+  </footer>
   <script src="{{themeBaseUrl}}/components/themetoggle/themetoggle.js" defer></script>
   <script src="/js/theme-toggle-init.js" defer></script>
 </body>

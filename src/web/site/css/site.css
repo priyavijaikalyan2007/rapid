@@ -255,7 +255,7 @@ a {
 .footer-grid {
   display: grid;
   gap: 2rem;
-  grid-template-columns: 1.25fr 0.75fr 0.75fr;
+  grid-template-columns: minmax(18rem, 1.4fr) minmax(10rem, 0.65fr) minmax(12rem, 0.75fr);
 }
 
 .footer-grid p {
@@ -268,6 +268,45 @@ a {
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
+}
+
+.company-registration > strong {
+  display: block;
+  font-size: 1.05rem;
+}
+
+.registration-status {
+  color: var(--theme-text-primary) !important;
+  font-weight: 600;
+}
+
+.registration-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  margin: 1rem 0;
+}
+
+.registration-details div {
+  min-width: 9rem;
+}
+
+.registration-details dt {
+  color: var(--theme-text-muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.registration-details dd {
+  font-family: var(--bs-font-monospace);
+  margin: 0.2rem 0 0;
+}
+
+.registration-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }
 
 .site-footer a {

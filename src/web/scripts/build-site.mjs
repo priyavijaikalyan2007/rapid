@@ -4,8 +4,12 @@
  */
 
 import { cp, mkdir, readFile, readdir, rm, stat, writeFile } from "node:fs/promises";
+import { execFile } from "node:child_process";
 import path from "node:path";
+import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
+
+const runFile = promisify(execFile);
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const webRoot = path.resolve(scriptDirectory, "..");
@@ -15,7 +19,7 @@ const outputRoot = path.join(webRoot, "dist");
 
 const config = JSON.parse(await readFile(path.join(webRoot, "site.config.json"), "utf8"));
 const version = (await readFile(path.join(webRoot, "VERSION"), "utf8")).trim();
-const buildSha = process.env.GITHUB_SHA?.slice(0, 12) || await getGitSha();
+const buildMetadata = await getBuildMetadata();
 
 validateConfig(config);
 
@@ -26,11 +30,13 @@ const replacements = {
   organizationName: escapeHtml(config.organizationName),
   siteDescription: escapeHtml(config.siteDescription),
   contactLink: createContactLink(config.contactEmail),
+  companyRegistration: createCompanyRegistration(config),
   appCards: createAppCards(config.apps),
   currentYear: String(new Date().getUTCFullYear()),
   legalDate: formatDate(config.legalEffectiveDate),
   siteVersion: escapeHtml(version),
-  buildSha: escapeHtml(buildSha),
+  buildNumber: escapeHtml(buildMetadata.buildNumber),
+  buildSha: escapeHtml(buildMetadata.buildSha),
   themeBaseUrl: escapeAttribute(config.themeBaseUrl.replace(/\/$/, "")),
   siteUrl: escapeAttribute(config.siteUrl.replace(/\/$/, "")),
   companyLocation: escapeHtml(config.companyLocation),
@@ -39,6 +45,8 @@ const replacements = {
 
 await copyTemplates(sourceRoot, outputRoot, replacements);
 await copyAppIcons(config.apps);
+
+console.log(`Build info: Website ${version}+${buildMetadata.buildSha} (build ${buildMetadata.buildNumber})`);
 
 async function copyTemplates(sourceDirectory, targetDirectory, values) {
   await mkdir(targetDirectory, { recursive: true });
@@ -111,6 +119,28 @@ function createContactLink(email) {
   return `<a href="mailto:${escapeAttribute(email)}">${safeEmail}</a>`;
 }
 
+function createCompanyRegistration(value) {
+  return `<div class="company-registration">
+          <strong>${escapeHtml(value.organizationName)}</strong>
+          <p>${escapeHtml(value.siteDescription)}</p>
+          <p class="registration-status">${escapeHtml(value.organizationName)} is registered in Washington State, United States.</p>
+          <dl class="registration-details">
+            <div>
+              <dt>D-U-N-S Number</dt>
+              <dd><a href="${escapeAttribute(value.dnbProfileUrl)}" rel="noopener noreferrer">${escapeHtml(value.dunsNumber)}</a></dd>
+            </div>
+            <div>
+              <dt>Washington UBI</dt>
+              <dd><a href="${escapeAttribute(value.washingtonRegistrationUrl)}" rel="noopener noreferrer">${escapeHtml(value.washingtonUbiNumber)}</a></dd>
+            </div>
+          </dl>
+          <div class="registration-links">
+            <a href="${escapeAttribute(value.dnbProfileUrl)}" rel="noopener noreferrer">Dun &amp; Bradstreet business profile</a>
+            <a href="${escapeAttribute(value.washingtonRegistrationUrl)}" rel="noopener noreferrer">Washington business registration</a>
+          </div>
+        </div>`;
+}
+
 function replaceTokens(template, values) {
   return template.replace(/\{\{([A-Za-z0-9]+)\}\}/g, (match, key) => {
     if (!(key in values)) {
@@ -122,7 +152,20 @@ function replaceTokens(template, values) {
 }
 
 function validateConfig(value) {
-  const requiredStrings = ["organizationName", "siteDescription", "siteUrl", "contactEmail", "companyLocation", "sourceRepositoryUrl", "themeBaseUrl", "legalEffectiveDate"];
+  const requiredStrings = [
+    "organizationName",
+    "siteDescription",
+    "siteUrl",
+    "contactEmail",
+    "companyLocation",
+    "dunsNumber",
+    "dnbProfileUrl",
+    "washingtonUbiNumber",
+    "washingtonRegistrationUrl",
+    "sourceRepositoryUrl",
+    "themeBaseUrl",
+    "legalEffectiveDate"
+  ];
   for (const key of requiredStrings) {
     if (typeof value[key] !== "string" || value[key].trim() === "") {
       throw new Error(`site.config.json requires a non-empty ${key}.`);
@@ -153,21 +196,62 @@ function ensureChildPath(candidate, parent, label) {
   }
 }
 
-async function getGitSha() {
-  const gitHead = await readFile(path.join(repositoryRoot, ".git", "HEAD"), "utf8").catch(() => "");
-  const head = gitHead.trim();
+async function getBuildMetadata() {
+  const sourceSha = process.env.WORKERS_CI_COMMIT_SHA
+    || process.env.GITHUB_SHA
+    || await runGit(["rev-parse", "HEAD"]);
+  const normalizedSha = sourceSha.trim().toLowerCase();
 
-  if (!head) {
-    return "unavailable";
+  if (!/^[0-9a-f]{40}$/.test(normalizedSha)) {
+    throw new Error("The website build requires a complete Git SHA.");
   }
 
-  if (!head.startsWith("ref: ")) {
-    return head.slice(0, 12);
+  const commitTime = await runGit(["show", "-s", "--format=%ct", normalizedSha]);
+  const buildNumber = process.env.SITE_BUILD_NUMBER?.trim()
+    || formatBuildNumber(commitTime.trim());
+
+  if (!/^\d{14}$/.test(buildNumber)) {
+    throw new Error("SITE_BUILD_NUMBER must use the YYYYMMDDHHMMSS format.");
   }
 
-  const reference = head.slice(5);
-  const referenceValue = await readFile(path.join(repositoryRoot, ".git", reference), "utf8").catch(() => "");
-  return referenceValue.trim().slice(0, 12) || "unavailable";
+  const dirtySuffix = await hasRelevantLocalChanges() ? "-dirty" : "";
+  return {
+    buildNumber,
+    buildSha: `${normalizedSha.slice(0, 12)}${dirtySuffix}`
+  };
+}
+
+async function runGit(argumentsList) {
+  const { stdout } = await runFile("git", ["-C", repositoryRoot, ...argumentsList]);
+  return stdout;
+}
+
+async function hasRelevantLocalChanges() {
+  if (process.env.WORKERS_CI || process.env.GITHUB_ACTIONS) {
+    return false;
+  }
+
+  const status = await runGit([
+    "status",
+    "--porcelain",
+    "--",
+    "src/web",
+    "src/cropprint/CropPrint/Assets.xcassets/AppIcon.appiconset"
+  ]);
+  return status.trim() !== "";
+}
+
+function formatBuildNumber(epochSeconds) {
+  if (!/^\d+$/.test(epochSeconds)) {
+    throw new Error("The Git commit time is not valid.");
+  }
+
+  const commitDate = new Date(Number(epochSeconds) * 1000);
+  if (Number.isNaN(commitDate.getTime())) {
+    throw new Error("The Git commit time is outside the supported date range.");
+  }
+
+  return commitDate.toISOString().replace(/\D/g, "").slice(0, 14);
 }
 
 function formatDate(dateText) {
