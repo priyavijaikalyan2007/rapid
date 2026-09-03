@@ -2,6 +2,43 @@
 
 Use one App Store Connect record for iOS and macOS. Both targets use `us.outcrop.apps.cropprint`.
 
+## Apple identifier configuration
+
+- Apple Developer Team ID: `4JD5A6Q2HL`
+- Explicit App ID: `us.outcrop.apps.cropprint`
+- Platforms: iOS and macOS
+- Bundle prefix for Outcrop consumer apps: `us.outcrop.apps`
+- Future Knobby enterprise prefix: `us.outcrop.knobbyio`
+- Future Lyfbits enterprise prefix: `us.outcrop.lyfbits`
+
+Use these selections when you register the CropPrint App ID:
+
+- Capabilities: None
+- App Services: None
+- Capability Requests: None
+
+Apple enables In-App Purchase by default for an explicit App ID. Leave that default unchanged, but do not configure an In-App Purchase product.
+
+CropPrint does not use Sign in with Apple, iCloud, push notifications, App Groups, Apple Pay, Associated Domains, or Keychain Sharing.
+
+The App ID page does not configure the following local permissions. The Xcode project contains them where required.
+
+### macOS target capabilities
+
+- App Sandbox: Enabled
+- User Selected Files: Read/Write
+- Outgoing Connections (Client): Enabled
+- App-scoped security bookmarks: Enabled in the entitlements file
+- Hardened Runtime: Enabled in the build settings
+
+### iPhone target capabilities
+
+- App ID capabilities: None
+- Photos access: Add only, declared through `NSPhotoLibraryAddUsageDescription`
+- Outgoing HTTPS access: No App ID capability required
+
+Do not enable a capability for possible future use. Enable a new capability only when the application source requires it.
+
 ## Shared information
 
 - Name: CropPrint
