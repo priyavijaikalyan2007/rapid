@@ -1,0 +1,42 @@
+name: Bug report
+description: Report a repeatable problem in an Outcrop application or website.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: Do not attach private photos or personal data. Use a test file when possible.
+  - type: input
+    id: product
+    attributes:
+      label: Product and platform
+      placeholder: CropPrint 1.0 on macOS 26
+    validations:
+      required: true
+  - type: input
+    id: build
+    attributes:
+      label: Version, build number, and Git SHA
+      description: Copy these values from the About page.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: List the actions in order.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+    validations:
+      required: true

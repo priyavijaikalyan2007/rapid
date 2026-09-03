@@ -113,9 +113,11 @@ The print-sheet panel supports these options:
 
 - Any configured paper size, including 4x6, 5x7, Letter, and A4
 - Portrait or landscape paper
-- 300 or 600 pixels per inch
+- JPEG image resolutions from 72 through 1,200 pixels per inch
+- Printer resolutions from 300 through 4,800 dots per inch
 - Automatic tiling with safe edge spacing
 - Optional cutting guides
+- A calibrated true-size preview and live physical-size information
 
 The macOS app saves a JPEG and PDF beside the source photo. The iOS app saves the JPEG sheet to Photos.
 
@@ -123,7 +125,13 @@ The PDF stores the physical paper dimensions. Print it at **Actual Size** or **1
 
 Disable **Fit to Page**, automatic cropping, and borderless enlargement. These printer options can change the physical passport-photo dimensions.
 
-Large paper at 600 pixels per inch can require excessive memory. CropPrint asks for 300 pixels per inch or smaller paper when necessary.
+Large raster sheets can require excessive memory. The macOS app creates PDF-only output when the JPEG exceeds the safe limit.
+
+On iPhone and iPad, select lower image PPI or smaller paper when the JPEG exceeds the safe limit.
+
+Printer DPI and image PPI measure different items. Printer DPI does not change the PDF paper size or the printed photo size.
+
+The true-size preview uses a saved display calibration. Match its one-inch line to a physical ruler before you judge print size.
 
 The display dimensions come from Apple technical specifications. Instagram presets use Meta-supported ratios and a 1080-pixel output width.
 

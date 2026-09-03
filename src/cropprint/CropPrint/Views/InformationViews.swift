@@ -50,6 +50,8 @@ struct AboutCropPrintView: View {
 
             Link("View the Privacy Policy", destination: URL(string: "https://outcrop.us/privacy/")!)
 
+            Link("Report an Issue", destination: URL(string: "https://github.com/priyavijaikalyan2007/rapid/issues/new/choose")!)
+
             Link("View the MIT License", destination: URL(string: "https://opensource.org/license/mit")!)
 
             Spacer()
@@ -111,7 +113,9 @@ struct CropPrintHelpView: View {
 
                 Section("Print sheets") {
                     Text("Select a physical print or passport preset before you create a print sheet.")
-                    Text("Choose the paper, paper orientation, resolution, and cutting guides.")
+                    Text("Choose the paper, orientation, image PPI, printer DPI, and cutting guides.")
+                    Text("Select View True Size to calibrate the display and inspect the printed dimensions on screen.")
+                    Text("The live size section shows crop pixels, photo sampling, sheet pixels, and estimated raster memory.")
                     Text("The macOS app saves JPEG and PDF files. The iOS app saves the JPEG sheet to Photos.")
                     Text("Print at Actual Size or 100 percent. Disable Fit to Page and borderless enlargement.")
                 }
@@ -125,6 +129,12 @@ struct CropPrintHelpView: View {
                     Text("CropPrint never changes the original photo.")
                     Text("The macOS app saves new files beside the original. The iOS app saves results to Photos.")
                     Text("Remote fonts and frames download only when you request them.")
+                }
+
+                Section("Support") {
+                    Text("CropPrint provides support only through the public GitHub issue tracker.")
+                    Link("Report an Issue", destination: URL(string: "https://github.com/priyavijaikalyan2007/rapid/issues/new/choose")!)
+                    Text("Do not attach a private photo. Use a test photo or remove private details first.")
                 }
             }
             .formStyle(.grouped)

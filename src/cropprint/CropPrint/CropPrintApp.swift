@@ -104,6 +104,10 @@ private struct InformationCommands: Commands {
                 openWindow(id: "cropprint-help")
             }
             .keyboardShortcut("?", modifiers: .command)
+
+            Link(destination: URL(string: "https://github.com/priyavijaikalyan2007/rapid/issues/new/choose")!) {
+                Text("Report an Issue…")
+            }
         }
     }
 }

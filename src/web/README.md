@@ -61,7 +61,7 @@ Set these values:
 
 - `organizationName` sets the public publisher name.
 - `siteUrl` records the final website address.
-- `contactEmail` sets the public legal and support address.
+- `sourceRepositoryUrl` sets the public source and GitHub Issues addresses.
 - `dunsNumber` and `dnbProfileUrl` define the Dun & Bradstreet profile details.
 - `washingtonUbiNumber` and `washingtonRegistrationUrl` define the state registration details.
 - `legalEffectiveDate` sets the policy and terms effective date.
@@ -70,7 +70,7 @@ Set these values:
 
 The public name is `Outcrop Inc`. The canonical website is `https://outcrop.us`.
 
-The site uses `admin@outcrop.us` for legal and support contact.
+The site sends all support, defect, and feature requests to GitHub Issues.
 
 ## App catalog
 

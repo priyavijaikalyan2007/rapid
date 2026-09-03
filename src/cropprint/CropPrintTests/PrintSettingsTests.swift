@@ -232,4 +232,28 @@ final class PrintSettingsTests: XCTestCase {
         XCTAssertTrue(layout.canRenderRaster(at: .ppi300))
         XCTAssertFalse(layout.canRenderRaster(at: .ppi600))
     }
+
+    func testPrintAndPrinterResolutionChoices() {
+        XCTAssertEqual(
+            PrintSheetResolution.allCases.map(\.rawValue),
+            [72, 96, 150, 200, 240, 300, 360, 600, 720, 1200]
+        )
+        XCTAssertEqual(
+            PrinterResolution.allCases.map(\.rawValue),
+            [300, 600, 720, 1200, 1440, 2400, 4800]
+        )
+    }
+
+    func testRasterSizeAndMemoryEstimate() throws {
+        var sheetSettings = PrintSheetSettings()
+        sheetSettings.paperSize = .fiveBySeven
+        let layout = try PrintSheetLayout.make(
+            photoSizeInches: CropPreset.passportUS.dimensions(for: .portrait),
+            settings: sheetSettings
+        )
+
+        XCTAssertEqual(layout.rasterPixelSize(at: .ppi300), CGSize(width: 1500, height: 2100))
+        XCTAssertEqual(layout.estimatedRasterBytes(at: .ppi300), 12_600_000)
+        XCTAssertTrue(layout.canRenderRaster(at: .ppi1200))
+    }
 }

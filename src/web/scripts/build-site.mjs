@@ -29,7 +29,6 @@ await mkdir(outputRoot, { recursive: true });
 const replacements = {
   organizationName: escapeHtml(config.organizationName),
   siteDescription: escapeHtml(config.siteDescription),
-  contactLink: createContactLink(config.contactEmail),
   appCards: createAppCards(config.apps),
   legalDate: formatDate(config.legalEffectiveDate),
   themeBaseUrl: escapeAttribute(config.themeBaseUrl.replace(/\/$/, "")),
@@ -119,11 +118,6 @@ function createAnalyticsTag(measurementId) {
   <script src="/js/google-analytics.js" data-measurement-id="${safeId}"></script>`;
 }
 
-function createContactLink(email) {
-  const safeEmail = escapeHtml(email);
-  return `<a href="mailto:${escapeAttribute(email)}">${safeEmail}</a>`;
-}
-
 function createSiteFooter(value, siteVersion, metadata) {
   const organizationName = escapeHtml(value.organizationName);
   const buildNumber = escapeAttribute(metadata.buildNumber);
@@ -138,10 +132,8 @@ function createSiteFooter(value, siteVersion, metadata) {
         <p class="sitefooter-orgname">${organizationName}</p>
         <meta itemprop="name" content="${organizationName}">
         <meta itemprop="url" content="${escapeAttribute(value.siteUrl)}">
-        <meta itemprop="email" content="${escapeAttribute(value.contactEmail)}">
         <p class="sitefooter-orgdesc">${escapeHtml(value.siteDescription)} ${organizationName} is registered in Washington State, United States.</p>
         <address class="sitefooter-contact">
-          <p><a href="mailto:${escapeAttribute(value.contactEmail)}">${escapeHtml(value.contactEmail)}</a></p>
           <p>${escapeHtml(value.companyLocation)}</p>
         </address>
       </div>
@@ -194,7 +186,6 @@ function validateConfig(value) {
     "organizationName",
     "siteDescription",
     "siteUrl",
-    "contactEmail",
     "companyLocation",
     "dunsNumber",
     "dnbProfileUrl",

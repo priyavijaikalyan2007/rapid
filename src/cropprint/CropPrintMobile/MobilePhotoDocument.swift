@@ -45,6 +45,15 @@ final class MobilePhotoDocument: ObservableObject {
         canSave && settings.preset.physicalInches != nil
     }
 
+    var croppedPreviewImage: CGImage? {
+        guard let photo else { return nil }
+        let pixelRect = CropGeometry.pixelCrop(
+            from: normalizedCrop,
+            imageSize: photo.pixelSize
+        )
+        return photo.cgImage.cropping(to: pixelRect)
+    }
+
     func load(data: Data) {
         guard let sourceImage = UIImage(data: data),
               let normalized = sourceImage.normalizedForCropping(),

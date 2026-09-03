@@ -34,6 +34,15 @@ final class PhotoDocument: ObservableObject {
         canExport && settings.preset.physicalInches != nil
     }
 
+    var croppedPreviewImage: CGImage? {
+        guard let photo else { return nil }
+        let pixelRect = CropGeometry.pixelCrop(
+            from: normalizedCrop,
+            imageSize: photo.pixelSize
+        )
+        return photo.cgImage.cropping(to: pixelRect)
+    }
+
     func showOpenPanel() {
         let panel = NSOpenPanel()
         panel.title = "Open Photo"
@@ -128,9 +137,14 @@ final class PhotoDocument: ObservableObject {
                 },
                 sheetSettings: printSheetSettings
             )
-            message = "Saved a \(output.copyCount)-copy print sheet as JPEG and PDF."
+            if output.jpegURL == nil {
+                message = "Saved a \(output.copyCount)-copy PDF print sheet. The JPEG exceeded the safe raster limit."
+            } else {
+                message = "Saved a \(output.copyCount)-copy print sheet as JPEG and PDF."
+            }
             showsError = false
-            NSWorkspace.shared.activateFileViewerSelecting([output.jpegURL, output.pdfURL])
+            let outputURLs = [output.jpegURL, output.pdfURL].compactMap { $0 }
+            NSWorkspace.shared.activateFileViewerSelecting(outputURLs)
         } catch {
             report(error)
         }

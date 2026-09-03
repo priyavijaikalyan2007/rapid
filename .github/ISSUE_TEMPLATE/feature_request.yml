@@ -1,0 +1,28 @@
+name: Feature request
+description: Request a change to an Outcrop application or website.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: dropdown
+    id: product
+    attributes:
+      label: Product
+      options:
+        - CropPrint
+        - Outcrop website
+    validations:
+      required: true
+  - type: textarea
+    id: need
+    attributes:
+      label: User need
+      description: Describe the task and the current difficulty.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Requested result
+    validations:
+      required: true

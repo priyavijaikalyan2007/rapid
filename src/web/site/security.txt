@@ -1,4 +1,4 @@
-Contact: mailto:admin@outcrop.us
+Contact: https://github.com/priyavijaikalyan2007/rapid/issues/new/choose
 Expires: 2027-09-01T00:00:00Z
 Preferred-Languages: en
 Canonical: https://outcrop.us/.well-known/security.txt

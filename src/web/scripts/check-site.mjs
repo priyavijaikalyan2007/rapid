@@ -113,7 +113,7 @@ async function validatePublicFiles() {
   check(robots.includes("Sitemap: https://outcrop.us/sitemap.xml"), "robots.txt", "does not name the canonical sitemap");
 
   const security = await readRequiredFile(".well-known/security.txt");
-  check(security.includes("Contact: mailto:admin@outcrop.us"), ".well-known/security.txt", "does not contain the security contact");
+  check(security.includes("Contact: https://github.com/priyavijaikalyan2007/rapid/issues/new/choose"), ".well-known/security.txt", "does not contain the security contact");
   check(security.includes("Canonical: https://outcrop.us/.well-known/security.txt"), ".well-known/security.txt", "does not contain its canonical address");
   check(/^Expires: \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/m.test(security), ".well-known/security.txt", "does not contain a valid expiration time");
 

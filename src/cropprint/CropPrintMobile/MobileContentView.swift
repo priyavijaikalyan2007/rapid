@@ -46,6 +46,10 @@ struct MobileContentView: View {
                             informationPage = .help
                         }
 
+                        Link(destination: URL(string: "https://github.com/priyavijaikalyan2007/rapid/issues/new/choose")!) {
+                            Label("Report an Issue", systemImage: "exclamationmark.bubble")
+                        }
+
                         Button("About CropPrint", systemImage: "info.circle") {
                             informationPage = .about
                         }
@@ -101,6 +105,7 @@ struct MobileContentView: View {
                         photoSizeInches: document.settings.preset.dimensions(
                             for: document.settings.orientation
                         ),
+                        previewImage: document.croppedPreviewImage,
                         onCreate: document.createPrintSheetInPhotos
                     )
                 }

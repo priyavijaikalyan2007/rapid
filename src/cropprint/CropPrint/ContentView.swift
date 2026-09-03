@@ -75,6 +75,7 @@ struct ContentView: View {
                 PrintSheetOptionsView(
                     settings: $document.printSheetSettings,
                     photoSizeInches: orientedSize,
+                    previewImage: document.croppedPreviewImage,
                     onCreate: document.createPrintSheet
                 )
             }

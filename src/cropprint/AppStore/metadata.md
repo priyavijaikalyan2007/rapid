@@ -71,7 +71,9 @@ Choose a standard print size, passport-photo size, social-media format, phone wa
 
 Add a text layer or photo frame and see the result directly on the image. Change the font, style, color, opacity, size, position, and rotation.
 
-Create print sheets that place multiple passport or identity photos at their correct physical size. Select the paper size, orientation, resolution, margins, and cutting guides.
+Create print sheets that place multiple passport or identity photos at their correct physical size. Select paper, resolution, margins, and cutting guides.
+
+Use live size details and a ruler-calibrated true-size preview to inspect the expected printed dimensions before export.
 
 CropPrint processes photos on your device. It has no account, advertising, analytics, or tracking. The optional resource library downloads licensed fonts and frames only when you request them.
 

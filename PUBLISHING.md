@@ -110,7 +110,7 @@ Also test Open Recent, drag and drop, Finder Open With, exports, print sheets, r
 
 The public website is under `src/web`. It contains the application catalog, privacy policy, terms, and support page.
 
-The publisher is Outcrop Inc, a Washington company. The website uses `admin@outcrop.us` for legal and support contact.
+The publisher is Outcrop Inc, a Washington company. The website sends all public support requests to GitHub Issues.
 
 Use these addresses after the custom domains are active:
 

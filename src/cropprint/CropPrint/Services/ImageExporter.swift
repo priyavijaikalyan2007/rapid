@@ -43,7 +43,7 @@ struct LoadedPhoto {
 }
 
 struct PrintSheetOutput {
-    let jpegURL: URL
+    let jpegURL: URL?
     let pdfURL: URL
     let copyCount: Int
 }
@@ -86,15 +86,6 @@ enum ImageExporter {
             photoSizeInches: orientedPhotoSize,
             settings: sheetSettings
         )
-        let raster = try PrintSheetRenderer.rasterImage(
-            photo: decoratedImage,
-            layout: layout,
-            settings: sheetSettings
-        )
-        let jpegData = try PrintSheetRenderer.jpegData(
-            for: raster,
-            resolution: sheetSettings.resolution
-        )
         let pdfData = try PrintSheetRenderer.pdfData(
             photo: decoratedImage,
             layout: layout,
@@ -104,10 +95,23 @@ enum ImageExporter {
             for: photo.sourceURL,
             settings: sheetSettings
         )
-        try jpegData.write(to: urls.jpeg, options: .atomic)
+        var jpegURL: URL?
+        if layout.canRenderRaster(at: sheetSettings.resolution) {
+            let raster = try PrintSheetRenderer.rasterImage(
+                photo: decoratedImage,
+                layout: layout,
+                settings: sheetSettings
+            )
+            let jpegData = try PrintSheetRenderer.jpegData(
+                for: raster,
+                resolution: sheetSettings.resolution
+            )
+            try jpegData.write(to: urls.jpeg, options: .atomic)
+            jpegURL = urls.jpeg
+        }
         try pdfData.write(to: urls.pdf, options: .atomic)
         return PrintSheetOutput(
-            jpegURL: urls.jpeg,
+            jpegURL: jpegURL,
             pdfURL: urls.pdf,
             copyCount: layout.copyCount
         )
