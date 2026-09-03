@@ -138,7 +138,7 @@ Create a normal unsigned development package:
 Create App Store archives without uploading them:
 
 ```sh
-APPLE_TEAM_ID=ABCDE12345 ./scripts/archive-app-store.sh all
+./scripts/archive-app-store.sh all
 ```
 
 Use `macos` or `ios` instead of `all` to archive one platform. Set `BUILD_NUMBER` to override the Xcode project build number.
@@ -152,7 +152,6 @@ CONFIRM_APP_STORE_UPLOAD=YES ./scripts/upload-app-store.sh all
 Archive and upload in one operation:
 
 ```sh
-APPLE_TEAM_ID=ABCDE12345 \
 CONFIRM_APP_STORE_UPLOAD=YES \
 ./scripts/publish-app-store.sh all
 ```
@@ -206,9 +205,8 @@ You can start the App Store workflow manually with `publish` disabled. This mode
 
 Set `publish` during a manual run only when you intend to upload both applications.
 
-Configure these encrypted GitHub secrets before you enable publishing:
+The public Team ID is stored in `config/apple-developer.env`. Configure these encrypted GitHub secrets before publishing:
 
-- `APPLE_TEAM_ID`
 - `APP_STORE_CONNECT_API_KEY_ID`
 - `APP_STORE_CONNECT_API_ISSUER_ID`
 - `APP_STORE_CONNECT_API_PRIVATE_KEY`
@@ -225,7 +223,7 @@ Before the first store release, test file access and remote resources in a signe
 
 ## App Store privacy and product pages
 
-The macOS and iOS targets use the shared bundle identifier `com.vijaikalyan.CropPrint`. Create one App Store Connect record for both platforms.
+The macOS and iOS targets use `us.outcrop.apps.cropprint`. Create one App Store Connect record for both platforms.
 
 Both targets include `src/cropprint/Shared/PrivacyInfo.xcprivacy`. The manifest declares no tracking, no collected data, and the app-only `UserDefaults` reason.
 

@@ -2,7 +2,7 @@
 
 CropPrint is a small, private photo-cropping app for macOS and iPhone. It does not use a login, analytics, advertising, or data collection.
 
-Both applications use the bundle identifier `com.vijaikalyan.CropPrint` for one multi-platform App Store listing. Both products include the shared privacy manifest under `Shared`.
+Both applications use `us.outcrop.apps.cropprint` for one multi-platform App Store listing. Both products include the shared privacy manifest under `Shared`.
 
 The About page shows the semantic version, Git SHA, and numeric build number. Repository builds read the semantic version from `VERSION`.
 
@@ -154,7 +154,7 @@ The `Signed release` GitHub Actions workflow runs when you push a tag such as `v
 - `KEYCHAIN_PASSWORD`: A temporary password chosen for the GitHub Actions keychain.
 - `APPLE_ID`: The Apple ID for notarization.
 - `APP_SPECIFIC_PASSWORD`: An app-specific password for that Apple ID.
-- `TEAM_ID`: The 10-character Apple Developer team identifier.
+The public Apple Developer Team ID comes from `../../config/apple-developer.env`.
 
 Then create and push a release tag:
 

@@ -5,14 +5,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Terms and conditions for {{organizationName}} applications and website.">
-  <meta name="robots" content="index,follow">
+  <meta name="robots" content="index,follow,max-snippet:-1">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{organizationName}}">
+  <meta property="og:title" content="Terms and Conditions | {{organizationName}}">
+  <meta property="og:description" content="Terms for the Outcrop website and Outcrop applications.">
+  <meta property="og:url" content="{{siteUrl}}/terms/">
   <link rel="canonical" href="{{siteUrl}}/terms/">
   <title>Terms and Conditions | {{organizationName}}</title>
   <link rel="icon" href="/assets/brand-mark.svg" type="image/svg+xml">
   <script src="/js/theme-init.js"></script>
+  {{analyticsTag}}
   <link rel="stylesheet" href="{{themeBaseUrl}}/icons/bootstrap-icons.css">
   <link rel="stylesheet" href="{{themeBaseUrl}}/css/custom.css">
   <link rel="stylesheet" href="{{themeBaseUrl}}/components/themetoggle/themetoggle.css">
+  <link rel="stylesheet" href="{{themeBaseUrl}}/components/sitefooter/sitefooter.css">
   <link rel="stylesheet" href="/css/site.css">
 </head>
 <body>
@@ -110,14 +117,7 @@
     </section>
   </main>
 
-  <footer class="site-footer legal-footer">
-    <div class="container footer-grid">
-      {{companyRegistration}}
-      <nav aria-label="Footer navigation"><a href="/">Home</a><a href="/support/">Support</a><a href="/privacy/">Privacy Policy</a></nav>
-      <div><p>{{contactLink}}</p><p class="build-info" data-build-number="{{buildNumber}}" data-git-sha="{{buildSha}}">Site {{siteVersion}} · Build {{buildNumber}} · Git {{buildSha}}</p></div>
-    </div>
-    <div class="container copyright">© {{currentYear}} {{organizationName}}.</div>
-  </footer>
+  {{siteFooter}}
   <script src="{{themeBaseUrl}}/components/themetoggle/themetoggle.js" defer></script>
   <script src="/js/theme-toggle-init.js" defer></script>
 </body>

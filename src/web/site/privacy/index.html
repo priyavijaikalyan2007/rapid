@@ -5,14 +5,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Privacy policy for {{organizationName}} applications and website.">
-  <meta name="robots" content="index,follow">
+  <meta name="robots" content="index,follow,max-snippet:-1">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{organizationName}}">
+  <meta property="og:title" content="Privacy Policy | {{organizationName}}">
+  <meta property="og:description" content="How Outcrop apps and the Outcrop website handle data.">
+  <meta property="og:url" content="{{siteUrl}}/privacy/">
   <link rel="canonical" href="{{siteUrl}}/privacy/">
   <title>Privacy Policy | {{organizationName}}</title>
   <link rel="icon" href="/assets/brand-mark.svg" type="image/svg+xml">
   <script src="/js/theme-init.js"></script>
+  {{analyticsTag}}
   <link rel="stylesheet" href="{{themeBaseUrl}}/icons/bootstrap-icons.css">
   <link rel="stylesheet" href="{{themeBaseUrl}}/css/custom.css">
   <link rel="stylesheet" href="{{themeBaseUrl}}/components/themetoggle/themetoggle.css">
+  <link rel="stylesheet" href="{{themeBaseUrl}}/components/sitefooter/sitefooter.css">
   <link rel="stylesheet" href="/css/site.css">
 </head>
 <body>
@@ -44,9 +51,10 @@
     <section aria-labelledby="summary-title">
       <h2 id="summary-title">Privacy summary</h2>
       <div class="policy-callout">
-        <p>We do not sell personal data because we do not collect personal data for our own use.</p>
+        <p>We do not sell personal data. We use website analytics only to understand aggregate traffic and performance.</p>
         <p>Our apps do not include analytics, advertising identifiers, tracking tools, or hidden content uploads.</p>
-        <p>This website does not set cookies and does not use analytics or advertising services.</p>
+        <p>This website uses Google Analytics only to measure website visits and performance.</p>
+        <p>Our applications do not use Google Analytics or send app telemetry.</p>
       </div>
     </section>
 
@@ -75,48 +83,50 @@
       <h2 id="website-title">4. Website hosting</h2>
       <p>Cloudflare delivers this website and our theme files. Cloudflare must process basic network data to answer a web request.</p>
       <p>This data can include an Internet Protocol address, request time, browser details, and security signals.</p>
-      <p>We do not add Cloudflare Web Analytics or use request data for behavioral profiles or advertising.</p>
+      <p>We do not add Cloudflare Web Analytics or use Cloudflare request data for advertising profiles.</p>
     </section>
 
-    <section aria-labelledby="cookies-title">
-      <h2 id="cookies-title">5. Cookies and tracking</h2>
-      <p>This website does not set cookies. It does not use tracking pixels, fingerprinting, or cross-site tracking.</p>
+    <section aria-labelledby="analytics-title">
+      <h2 id="analytics-title">5. Website analytics</h2>
+      <p>This website uses Google Analytics to understand aggregate traffic and website performance.</p>
+      <p>Google Analytics can process page visits, session details, approximate location, browser details, and device details.</p>
+      <p>Google Analytics can set first-party cookies, including the <code>_ga</code> cookie, to distinguish browser sessions.</p>
+      <p>We disable Google signals and advertising personalization in our website configuration.</p>
+      <p>We do not use this analytics data for advertising or cross-site behavioral profiles.</p>
+      <p>Google processes analytics data under its <a href="https://policies.google.com/privacy" rel="noopener noreferrer">Privacy Policy</a>.</p>
+    </section>
+
+    <section aria-labelledby="storage-title">
+      <h2 id="storage-title">6. Local browser storage</h2>
       <p>The theme control saves your light, auto, or dark preference in local browser storage.</p>
       <p>This preference stays on your device. We do not receive or use it to identify you.</p>
       <p>Links can take you to external websites. Those websites control their own storage, logs, and privacy practices.</p>
     </section>
 
     <section aria-labelledby="contact-title">
-      <h2 id="contact-title">6. Messages that you send</h2>
+      <h2 id="contact-title">7. Messages that you send</h2>
       <p>If you contact us, we receive the information in your message. We use it only to reply and resolve your request.</p>
       <p>Your email provider and our email provider process the message under their own terms.</p>
     </section>
 
     <section aria-labelledby="children-title">
-      <h2 id="children-title">7. Children</h2>
+      <h2 id="children-title">8. Children</h2>
       <p>Our apps do not knowingly collect personal data from children or adults.</p>
     </section>
 
     <section aria-labelledby="changes-title">
-      <h2 id="changes-title">8. Policy changes</h2>
+      <h2 id="changes-title">9. Policy changes</h2>
       <p>We will update this page if an app or the website changes its data practices.</p>
       <p>The effective date shows when the current policy took effect.</p>
     </section>
 
     <section aria-labelledby="questions-title">
-      <h2 id="questions-title">9. Questions</h2>
+      <h2 id="questions-title">10. Questions</h2>
       <p>Send privacy questions to {{contactLink}}.</p>
     </section>
   </main>
 
-  <footer class="site-footer legal-footer">
-    <div class="container footer-grid">
-      {{companyRegistration}}
-      <nav aria-label="Footer navigation"><a href="/">Home</a><a href="/support/">Support</a><a href="/terms/">Terms and Conditions</a></nav>
-      <div><p>{{contactLink}}</p><p class="build-info" data-build-number="{{buildNumber}}" data-git-sha="{{buildSha}}">Site {{siteVersion}} · Build {{buildNumber}} · Git {{buildSha}}</p></div>
-    </div>
-    <div class="container copyright">© {{currentYear}} {{organizationName}}.</div>
-  </footer>
+  {{siteFooter}}
   <script src="{{themeBaseUrl}}/components/themetoggle/themetoggle.js" defer></script>
   <script src="/js/theme-toggle-init.js" defer></script>
 </body>

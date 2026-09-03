@@ -19,7 +19,7 @@ if git -C "$metadata_app_root" rev-parse --is-inside-work-tree >/dev/null 2>&1 \
   GIT_FULL_SHA="${GIT_FULL_SHA:-$(git -C "$metadata_app_root" rev-parse HEAD)}"
   GIT_SHA="${GIT_SHA:-$(git -C "$metadata_app_root" rev-parse --short=12 HEAD)}"
   BUILD_NUMBER="${BUILD_NUMBER:-$(git -C "$metadata_app_root" rev-list --count HEAD)}"
-  if [[ -n "$(git -C "$metadata_app_root" status --porcelain --untracked-files=normal)" ]]; then
+  if [[ -n "$(git -C "$metadata_app_root" status --porcelain --untracked-files=normal)" && "$GIT_SHA" != *-dirty ]]; then
     GIT_SHA="$GIT_SHA-dirty"
   fi
 else

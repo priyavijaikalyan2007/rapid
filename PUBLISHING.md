@@ -6,7 +6,8 @@ This guide describes how to publish CropPrint for macOS and iPhone. Complete the
 
 The repository already includes these release controls:
 
-- Both applications use the bundle identifier `com.vijaikalyan.CropPrint`.
+- Both applications use the bundle identifier `us.outcrop.apps.cropprint`.
+- The Apple Developer Team ID is stored in `config/apple-developer.env`.
 - The applications can use one multi-platform App Store Connect record.
 - Both products include `src/cropprint/Shared/PrivacyInfo.xcprivacy`.
 - The privacy manifest declares no tracking and no developer data collection.
@@ -25,7 +26,7 @@ Use one App Store Connect record for the macOS and iOS versions. Both targets us
 Use these initial values:
 
 - Application name: CropPrint
-- Bundle identifier: `com.vijaikalyan.CropPrint`
+- Bundle identifier: `us.outcrop.apps.cropprint`
 - SKU: `cropprint-2026`
 - Platforms: iOS and macOS
 - Price: Free
@@ -55,7 +56,7 @@ Configure each application target:
 3. Open **Signing & Capabilities**.
 4. Enable **Automatically manage signing**.
 5. Select your developer team.
-6. Confirm the bundle identifier is `com.vijaikalyan.CropPrint`.
+6. Confirm the bundle identifier is `us.outcrop.apps.cropprint`.
 7. Repeat these steps for the `CropPrint Mobile` target.
 
 The macOS target must retain these sandbox permissions:
@@ -222,17 +223,16 @@ The App Store scripts require a clean Git commit. They stop when the source tree
 Run this command from `src/cropprint`:
 
 ```sh
-APPLE_TEAM_ID=ABCDE12345 \
 ./scripts/archive-app-store.sh all
 ```
 
-Replace `ABCDE12345` with your Apple developer team identifier.
+The script reads the Outcrop Inc Team ID from `config/apple-developer.env`.
 
 Use one platform when necessary:
 
 ```sh
-APPLE_TEAM_ID=ABCDE12345 ./scripts/archive-app-store.sh ios
-APPLE_TEAM_ID=ABCDE12345 ./scripts/archive-app-store.sh macos
+./scripts/archive-app-store.sh ios
+./scripts/archive-app-store.sh macos
 ```
 
 The archives appear under `src/cropprint/build/AppStore`.
@@ -251,7 +251,6 @@ CONFIRM_APP_STORE_UPLOAD=YES \
 Archive and upload in one operation with this command:
 
 ```sh
-APPLE_TEAM_ID=ABCDE12345 \
 CONFIRM_APP_STORE_UPLOAD=YES \
 ./scripts/publish-app-store.sh all
 ```
@@ -317,7 +316,6 @@ Set `publish` during a manual run only when you intend to upload both applicatio
 
 Configure these encrypted GitHub secrets first:
 
-- `APPLE_TEAM_ID`
 - `APP_STORE_CONNECT_API_KEY_ID`
 - `APP_STORE_CONNECT_API_ISSUER_ID`
 - `APP_STORE_CONNECT_API_PRIVATE_KEY`

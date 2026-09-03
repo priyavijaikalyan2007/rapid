@@ -8,9 +8,10 @@
   "dnbProfileUrl": "https://www.dnb.com/business-directory/company-profiles/outcrop-inc.abbff3c7ca583de6529be1430e358f11",
   "washingtonUbiNumber": "603 411 034",
   "washingtonRegistrationUrl": "https://ccfs.sos.wa.gov/?ubi=603411034",
-  "legalEffectiveDate": "2026-08-31",
+  "legalEffectiveDate": "2026-09-03",
   "sourceRepositoryUrl": "https://github.com/priyavijaikalyan2007/rapid",
   "themeBaseUrl": "https://static.outcrop.us",
+  "googleAnalyticsId": "G-3KMGPMLH78",
   "apps": [
     {
       "name": "CropPrint",
@@ -19,6 +20,7 @@
       "description": "Crop photos to print, passport, social-media, and screen sizes without distortion. Create print sheets and add text or frames.",
       "iconSource": "../cropprint/CropPrint/Assets.xcassets/AppIcon.appiconset/AppIcon-512.png",
       "iconOutput": "assets/apps/cropprint.png",
+      "pagePath": "apps/cropprint/",
       "sourceUrl": "https://github.com/priyavijaikalyan2007/rapid/tree/main/src/cropprint"
     }
   ]

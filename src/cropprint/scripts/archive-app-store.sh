@@ -3,10 +3,12 @@
 set -euo pipefail
 
 app_root="$(cd "$(dirname "$0")/.." && pwd)"
+repository_root="$(cd "$app_root/../.." && pwd)"
 project="$app_root/CropPrint.xcodeproj"
 archive_root="$app_root/build/AppStore"
 platform="${1:-all}"
 
+source "$repository_root/config/apple-developer.env"
 source "$app_root/scripts/build-metadata.sh"
 
 if [[ "$GIT_FULL_SHA" == "nogit" || "$GIT_SHA" == *-dirty ]]; then
@@ -14,8 +16,8 @@ if [[ "$GIT_FULL_SHA" == "nogit" || "$GIT_SHA" == *-dirty ]]; then
   exit 1
 fi
 
-if [[ -z "${APPLE_TEAM_ID:-}" ]]; then
-  echo "Set APPLE_TEAM_ID to your Apple Developer team identifier." >&2
+if [[ ! "$APPLE_TEAM_ID" =~ ^[A-Z0-9]{10}$ ]]; then
+  echo "The repository Apple Developer Team ID is invalid." >&2
   exit 1
 fi
 

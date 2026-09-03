@@ -30,21 +30,19 @@ const replacements = {
   organizationName: escapeHtml(config.organizationName),
   siteDescription: escapeHtml(config.siteDescription),
   contactLink: createContactLink(config.contactEmail),
-  companyRegistration: createCompanyRegistration(config),
   appCards: createAppCards(config.apps),
-  currentYear: String(new Date().getUTCFullYear()),
   legalDate: formatDate(config.legalEffectiveDate),
-  siteVersion: escapeHtml(version),
-  buildNumber: escapeHtml(buildMetadata.buildNumber),
-  buildSha: escapeHtml(buildMetadata.buildSha),
   themeBaseUrl: escapeAttribute(config.themeBaseUrl.replace(/\/$/, "")),
   siteUrl: escapeAttribute(config.siteUrl.replace(/\/$/, "")),
   companyLocation: escapeHtml(config.companyLocation),
-  sourceRepositoryUrl: escapeAttribute(config.sourceRepositoryUrl)
+  sourceRepositoryUrl: escapeAttribute(config.sourceRepositoryUrl),
+  analyticsTag: createAnalyticsTag(config.googleAnalyticsId),
+  siteFooter: createSiteFooter(config, version, buildMetadata)
 };
 
 await copyTemplates(sourceRoot, outputRoot, replacements);
 await copyAppIcons(config.apps);
+await validateAppPages(config.apps);
 
 console.log(`Build info: Website ${version}+${buildMetadata.buildSha} (build ${buildMetadata.buildNumber})`);
 
@@ -107,11 +105,18 @@ function createAppCards(apps) {
           <p class="card-text">${escapeHtml(app.description)}</p>
         </div>
         <div class="card-footer app-card-actions">
-          <a class="btn btn-primary btn-sm" href="/support/#${slugify(app.name)}">Get support</a>
+          <a class="btn btn-primary btn-sm" href="/${escapeAttribute(app.pagePath)}">Learn more</a>
+          <a class="btn btn-outline-primary btn-sm" href="/support/#${slugify(app.name)}">Get support</a>
           ${sourceLink}
         </div>
       </article>`;
   }).join("\n");
+}
+
+function createAnalyticsTag(measurementId) {
+  const safeId = escapeAttribute(measurementId);
+  return `<script async src="https://www.googletagmanager.com/gtag/js?id=${safeId}"></script>
+  <script src="/js/google-analytics.js" data-measurement-id="${safeId}"></script>`;
 }
 
 function createContactLink(email) {
@@ -119,26 +124,59 @@ function createContactLink(email) {
   return `<a href="mailto:${escapeAttribute(email)}">${safeEmail}</a>`;
 }
 
-function createCompanyRegistration(value) {
-  return `<div class="company-registration">
-          <strong>${escapeHtml(value.organizationName)}</strong>
-          <p>${escapeHtml(value.siteDescription)}</p>
-          <p class="registration-status">${escapeHtml(value.organizationName)} is registered in Washington State, United States.</p>
-          <dl class="registration-details">
-            <div>
-              <dt>D-U-N-S Number</dt>
-              <dd><a href="${escapeAttribute(value.dnbProfileUrl)}" rel="noopener noreferrer">${escapeHtml(value.dunsNumber)}</a></dd>
-            </div>
-            <div>
-              <dt>Washington UBI</dt>
-              <dd><a href="${escapeAttribute(value.washingtonRegistrationUrl)}" rel="noopener noreferrer">${escapeHtml(value.washingtonUbiNumber)}</a></dd>
-            </div>
-          </dl>
-          <div class="registration-links">
-            <a href="${escapeAttribute(value.dnbProfileUrl)}" rel="noopener noreferrer">Dun &amp; Bradstreet business profile</a>
-            <a href="${escapeAttribute(value.washingtonRegistrationUrl)}" rel="noopener noreferrer">Washington business registration</a>
-          </div>
-        </div>`;
+function createSiteFooter(value, siteVersion, metadata) {
+  const organizationName = escapeHtml(value.organizationName);
+  const buildNumber = escapeAttribute(metadata.buildNumber);
+  const buildSha = escapeAttribute(metadata.buildSha);
+  const appLinks = value.apps.map((app) =>
+    `<li><a href="/${escapeAttribute(app.pagePath)}">${escapeHtml(app.name)}</a></li>`
+  ).join("\n          ");
+
+  return `<footer class="sitefooter outcrop-sitefooter">
+    <div class="sitefooter-grid sitefooter-cols-4">
+      <div class="sitefooter-org" itemscope itemtype="https://schema.org/Organization">
+        <p class="sitefooter-orgname">${organizationName}</p>
+        <meta itemprop="name" content="${organizationName}">
+        <meta itemprop="url" content="${escapeAttribute(value.siteUrl)}">
+        <meta itemprop="email" content="${escapeAttribute(value.contactEmail)}">
+        <p class="sitefooter-orgdesc">${escapeHtml(value.siteDescription)} ${organizationName} is registered in Washington State, United States.</p>
+        <address class="sitefooter-contact">
+          <p><a href="mailto:${escapeAttribute(value.contactEmail)}">${escapeHtml(value.contactEmail)}</a></p>
+          <p>${escapeHtml(value.companyLocation)}</p>
+        </address>
+      </div>
+      <nav class="sitefooter-group" aria-labelledby="footer-applications">
+        <h2 class="sitefooter-grouptitle" id="footer-applications">Applications</h2>
+        <ul class="sitefooter-links">
+          ${appLinks}
+        </ul>
+      </nav>
+      <nav class="sitefooter-group" aria-labelledby="footer-company">
+        <h2 class="sitefooter-grouptitle" id="footer-company">Company</h2>
+        <ul class="sitefooter-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/#apps">App catalog</a></li>
+          <li><a href="/support/">Support</a></li>
+          <li><a href="${escapeAttribute(value.sourceRepositoryUrl)}" rel="noopener noreferrer">Source code</a></li>
+        </ul>
+      </nav>
+      <nav class="sitefooter-group" aria-labelledby="footer-registration">
+        <h2 class="sitefooter-grouptitle" id="footer-registration">Business registration</h2>
+        <ul class="sitefooter-links">
+          <li><a href="${escapeAttribute(value.dnbProfileUrl)}" rel="noopener noreferrer">D-U-N-S ${escapeHtml(value.dunsNumber)}</a></li>
+          <li><a href="${escapeAttribute(value.washingtonRegistrationUrl)}" rel="noopener noreferrer">Washington UBI ${escapeHtml(value.washingtonUbiNumber)}</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="sitefooter-legal">
+      <p class="sitefooter-copyright">© ${new Date().getUTCFullYear()} ${organizationName}</p>
+      <ul class="sitefooter-legallinks">
+        <li><a href="/privacy/">Privacy Policy</a></li>
+        <li><a href="/terms/">Terms and Conditions</a></li>
+      </ul>
+      <p class="sitefooter-build" data-build-number="${buildNumber}" data-git-sha="${buildSha}">Site ${escapeHtml(siteVersion)} · Build ${buildNumber} · Git ${buildSha}</p>
+    </div>
+  </footer>`;
 }
 
 function replaceTokens(template, values) {
@@ -164,6 +202,7 @@ function validateConfig(value) {
     "washingtonRegistrationUrl",
     "sourceRepositoryUrl",
     "themeBaseUrl",
+    "googleAnalyticsId",
     "legalEffectiveDate"
   ];
   for (const key of requiredStrings) {
@@ -172,15 +211,34 @@ function validateConfig(value) {
     }
   }
 
+  if (!/^G-[A-Z0-9]+$/.test(value.googleAnalyticsId)) {
+    throw new Error("googleAnalyticsId must be a valid Google Analytics measurement ID.");
+  }
+
   if (!Array.isArray(value.apps) || value.apps.length === 0) {
     throw new Error("site.config.json requires at least one app.");
   }
 
   for (const app of value.apps) {
-    for (const key of ["name", "platforms", "status", "description", "iconSource", "iconOutput"]) {
+    for (const key of ["name", "platforms", "status", "description", "iconSource", "iconOutput", "pagePath"]) {
       if (typeof app[key] !== "string" || app[key].trim() === "") {
         throw new Error(`Each app requires a non-empty ${key}.`);
       }
+    }
+
+    if (app.pagePath.startsWith("/") || !app.pagePath.endsWith("/")) {
+      throw new Error("Each app pagePath must be a relative directory that ends with a slash.");
+    }
+  }
+}
+
+async function validateAppPages(apps) {
+  for (const app of apps) {
+    const pagePath = path.resolve(outputRoot, app.pagePath, "index.html");
+    ensureChildPath(pagePath, outputRoot, "app page");
+    const pageInfo = await stat(pagePath).catch(() => null);
+    if (!pageInfo?.isFile()) {
+      throw new Error(`App page does not exist: ${app.pagePath}`);
     }
   }
 }

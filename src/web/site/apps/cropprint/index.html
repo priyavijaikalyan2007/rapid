@@ -1,0 +1,205 @@
+<!doctype html>
+<!-- Product page and user guide for CropPrint. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CropPrint crops photos without distortion for prints, passport photos, social media, and screen backgrounds on macOS and iPhone.">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{organizationName}}">
+  <meta property="og:title" content="CropPrint photo crop and print sheet app">
+  <meta property="og:description" content="Crop photos to exact ratios, make passport print sheets, and add text or frames on macOS and iPhone.">
+  <meta property="og:url" content="{{siteUrl}}/apps/cropprint/">
+  <meta property="og:image" content="{{siteUrl}}/assets/apps/cropprint.png">
+  <meta property="og:image:alt" content="CropPrint app icon">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="{{siteUrl}}/apps/cropprint/">
+  <title>CropPrint photo crop and print sheet app | {{organizationName}}</title>
+  <link rel="icon" href="/assets/apps/cropprint.png" type="image/png">
+  <script src="/js/theme-init.js"></script>
+  {{analyticsTag}}
+  <link rel="stylesheet" href="{{themeBaseUrl}}/icons/bootstrap-icons.css">
+  <link rel="stylesheet" href="{{themeBaseUrl}}/css/custom.css">
+  <link rel="stylesheet" href="{{themeBaseUrl}}/components/themetoggle/themetoggle.css">
+  <link rel="stylesheet" href="{{themeBaseUrl}}/components/marketinghero/marketinghero.css">
+  <link rel="stylesheet" href="{{themeBaseUrl}}/components/sitefooter/sitefooter.css">
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <nav class="container site-nav" aria-label="Main navigation">
+      <a class="brand" href="/" aria-label="{{organizationName}} home">
+        <img src="/assets/brand-mark.svg" alt="" width="32" height="32">
+        <span>{{organizationName}}</span>
+      </a>
+      <div class="site-links">
+        <a href="/#apps" aria-current="page">Apps</a>
+        <a href="/support/">Support</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+      </div>
+      <div class="theme-control"><div id="theme-toggle"></div></div>
+    </nav>
+  </header>
+
+  <main id="main-content" itemscope itemtype="https://schema.org/SoftwareApplication">
+    <meta itemprop="name" content="CropPrint">
+    <meta itemprop="applicationCategory" content="PhotoApplication">
+    <meta itemprop="operatingSystem" content="macOS 14 or later, iOS 17 or later">
+    <meta itemprop="url" content="{{siteUrl}}/apps/cropprint/">
+    <div class="outcrop-hero-shell">
+      <div class="container">
+        <section class="marketinghero marketinghero-split marketinghero-stack-lg outcrop-marketinghero app-hero" aria-labelledby="cropprint-title">
+          <div class="marketinghero-content">
+            <h1 class="marketinghero-title" id="cropprint-title" itemprop="headline">Crop photos for the exact result you need.</h1>
+            <p class="marketinghero-eyebrow">CropPrint for macOS and iPhone</p>
+            <p class="marketinghero-lede" itemprop="description">CropPrint keeps the selected aspect ratio while you move and resize the crop rectangle. It never stretches your photo.</p>
+            <div class="marketinghero-actions">
+              <a class="btn btn-primary" href="#how-to-crop">Read the guide</a>
+              <a class="btn btn-outline-primary" href="{{sourceRepositoryUrl}}/tree/main/src/cropprint" rel="noopener noreferrer">View source code</a>
+            </div>
+          </div>
+          <aside class="marketinghero-aside app-icon-panel" aria-label="CropPrint application details">
+            <img class="app-detail-icon" src="/assets/apps/cropprint.png" alt="CropPrint app icon" width="220" height="220" itemprop="image">
+            <dl class="app-facts">
+              <div><dt>Platforms</dt><dd>macOS and iPhone</dd></div>
+              <div><dt>Status</dt><dd>Preparing for release</dd></div>
+              <div><dt>Data handling</dt><dd>Local processing</dd></div>
+              <div><dt>Source</dt><dd>Open source</dd></div>
+            </dl>
+          </aside>
+        </section>
+      </div>
+    </div>
+
+    <div class="container app-guide">
+      <nav class="app-guide-nav" aria-label="CropPrint guide">
+        <a href="#features">Features</a>
+        <a href="#how-to-crop">Crop a photo</a>
+        <a href="#print-sheets">Print sheets</a>
+        <a href="#presets">Presets</a>
+        <a href="#help">Help</a>
+        <a href="#privacy">Privacy</a>
+      </nav>
+
+      <section id="features" aria-labelledby="features-title">
+        <p class="eyebrow">Purpose</p>
+        <h2 id="features-title">One photo workflow for common output sizes</h2>
+        <p>CropPrint opens one photo and places a fixed-ratio crop rectangle over the image.</p>
+        <p>Move or resize the rectangle while CropPrint preserves the selected ratio. The exported image contains only the selected area.</p>
+        <div class="feature-grid">
+          <article>
+            <i class="bi bi-crop" aria-hidden="true"></i>
+            <h3>Precise cropping</h3>
+            <p>Select a size and orientation. Then compose the photo without calculating pixels or distorting the image.</p>
+          </article>
+          <article>
+            <i class="bi bi-printer" aria-hidden="true"></i>
+            <h3>Physical print sheets</h3>
+            <p>Tile passport or general photos on 4x6, 5x7, Letter, A4, and other paper sizes.</p>
+          </article>
+          <article>
+            <i class="bi bi-fonts" aria-hidden="true"></i>
+            <h3>Text and frames</h3>
+            <p>Place, resize, and rotate live text. Add a built-in frame or an approved downloaded frame.</p>
+          </article>
+          <article>
+            <i class="bi bi-shield-check" aria-hidden="true"></i>
+            <h3>Private by design</h3>
+            <p>Your photo stays on your device. CropPrint has no account, analytics, advertising, or app telemetry.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="how-to-crop" aria-labelledby="crop-guide-title">
+        <p class="eyebrow">Basic workflow</p>
+        <h2 id="crop-guide-title">Crop a photo</h2>
+        <ol class="task-steps">
+          <li><strong>Open a photo.</strong> Use the File menu, Finder Open With, drag and drop, or the iPhone photo picker.</li>
+          <li><strong>Select a preset.</strong> Choose a print, passport, social, phone, MacBook, or monitor size.</li>
+          <li><strong>Select an orientation.</strong> Choose portrait or landscape when the preset supports both options.</li>
+          <li><strong>Compose the photo.</strong> Move the crop rectangle and drag a corner to resize it.</li>
+          <li><strong>Add decorations.</strong> Add live text or a frame when the photo needs those elements.</li>
+          <li><strong>Export the crop.</strong> CropPrint saves a new file and keeps the original unchanged.</li>
+        </ol>
+        <p>On macOS, CropPrint can export JPEG, PNG, TIFF, or HEIC. On iPhone, CropPrint saves the result to Photos.</p>
+      </section>
+
+      <section id="print-sheets" aria-labelledby="print-sheet-title">
+        <p class="eyebrow">Correct physical dimensions</p>
+        <h2 id="print-sheet-title">Create a passport or photo print sheet</h2>
+        <p>A cropped passport photo and the paper usually have different physical sizes. A print sheet places exact-size copies on the paper.</p>
+        <ol class="task-steps">
+          <li><strong>Select a physical preset.</strong> Choose a passport or general print size before you create the sheet.</li>
+          <li><strong>Open Create Print Sheet.</strong> Use the toolbar or the File menu after you finish the crop.</li>
+          <li><strong>Select the paper.</strong> Choose its size, orientation, resolution, spacing, and optional cutting guides.</li>
+          <li><strong>Save the sheet.</strong> The macOS app saves JPEG and PDF files. The iPhone app saves a JPEG.</li>
+          <li><strong>Print at actual size.</strong> Use 100 percent scale and disable Fit to Page or borderless enlargement.</li>
+        </ol>
+        <div class="policy-callout">
+          <p><strong>Check current passport rules before use.</strong> A preset controls the outer photo size only.</p>
+          <p>Government rules can also control head size, background, expression, photo age, and submission method.</p>
+        </div>
+      </section>
+
+      <section id="presets" aria-labelledby="presets-title">
+        <p class="eyebrow">Included targets</p>
+        <h2 id="presets-title">Print, identity, social, and screen presets</h2>
+        <div class="preset-grid">
+          <article>
+            <h3>Print and identity photos</h3>
+            <p>Use common print ratios or identity-photo dimensions for the United States, Canada, India, Europe, China, and parts of Asia.</p>
+          </article>
+          <article>
+            <h3>Social media</h3>
+            <p>Create exact output sizes for Instagram Story, Instagram Portrait, and Instagram Square.</p>
+          </article>
+          <article>
+            <h3>Phones and MacBooks</h3>
+            <p>Create backgrounds for supported iPhone and MacBook display sizes, including portrait and landscape options where applicable.</p>
+          </article>
+          <article>
+            <h3>Monitors</h3>
+            <p>Choose VGA through 8K UHD, including Full HD, DCI 2K, QHD, 4K, 5K, and 6K targets.</p>
+          </article>
+        </div>
+        <p>Digital presets resize the crop to exact pixels. Physical print presets preserve the available source pixels.</p>
+      </section>
+
+      <section aria-labelledby="decorations-title">
+        <p class="eyebrow">Live composition</p>
+        <h2 id="decorations-title">Add text and photo frames</h2>
+        <p>The text layer appears directly on the photo. Drag its box to move it and use its handles to resize or rotate it.</p>
+        <p>Change the font, style, size, color, opacity, and position. Each change appears in the preview.</p>
+        <p>Frame styles include classic, double, rounded, film, and Polaroid. You can control the frame color, width, and opacity.</p>
+        <p>CropPrint can download approved fonts and frames from listed sources. The app shows each resource license and attribution.</p>
+      </section>
+
+      <section id="help" aria-labelledby="help-title">
+        <p class="eyebrow">Support</p>
+        <h2 id="help-title">Get help or report a problem</h2>
+        <p>Use the built-in Help menu for interface guidance. Hover over a macOS toolbar icon to see its purpose.</p>
+        <p>Send a support request to {{contactLink}} or report a <a href="{{sourceRepositoryUrl}}/issues" rel="noopener noreferrer">public source-code issue</a>.</p>
+        <p>Include the app version, Git SHA, operating-system version, steps, expected result, and actual result.</p>
+        <p>Do not send a private photo unless the image is necessary. Use a test photo when possible.</p>
+      </section>
+
+      <section id="privacy" aria-labelledby="app-privacy-title">
+        <p class="eyebrow">App privacy</p>
+        <h2 id="app-privacy-title">Your photo remains on your device</h2>
+        <p>CropPrint reads only the photo that you select. It writes only the exported photo or print sheet.</p>
+        <p>The app contacts a server only when you refresh or download optional fonts and frame resources.</p>
+        <p>CropPrint does not send photos, crop settings, analytics, telemetry, advertising identifiers, or personal data to Outcrop.</p>
+        <p>The Outcrop website uses Google Analytics for aggregate website metrics. That service is separate from the CropPrint app.</p>
+        <p>Read the <a href="/privacy/">Privacy Policy</a> for complete website and application details.</p>
+      </section>
+    </div>
+  </main>
+
+  {{siteFooter}}
+  <script src="{{themeBaseUrl}}/components/themetoggle/themetoggle.js" defer></script>
+  <script src="/js/theme-toggle-init.js" defer></script>
+</body>
+</html>

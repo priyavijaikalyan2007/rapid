@@ -5,14 +5,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{{siteDescription}}">
-  <meta name="robots" content="index,follow">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{organizationName}}">
+  <meta property="og:title" content="Focused, private applications | {{organizationName}}">
+  <meta property="og:description" content="{{siteDescription}}">
+  <meta property="og:url" content="{{siteUrl}}/">
+  <meta name="twitter:card" content="summary">
   <link rel="canonical" href="{{siteUrl}}/">
   <title>{{organizationName}} | Focused, private applications</title>
   <link rel="icon" href="/assets/brand-mark.svg" type="image/svg+xml">
   <script src="/js/theme-init.js"></script>
+  {{analyticsTag}}
   <link rel="stylesheet" href="{{themeBaseUrl}}/icons/bootstrap-icons.css">
   <link rel="stylesheet" href="{{themeBaseUrl}}/css/custom.css">
   <link rel="stylesheet" href="{{themeBaseUrl}}/components/themetoggle/themetoggle.css">
+  <link rel="stylesheet" href="{{themeBaseUrl}}/components/marketinghero/marketinghero.css">
+  <link rel="stylesheet" href="{{themeBaseUrl}}/components/sitefooter/sitefooter.css">
   <link rel="stylesheet" href="/css/site.css">
 </head>
 <body>
@@ -34,27 +43,33 @@
   </header>
 
   <main id="main-content">
-    <section class="hero-section">
-      <div class="container hero-grid">
-        <div>
-          <p class="eyebrow">Small tools. Clear purpose.</p>
-          <h1>Focused apps that respect your privacy.</h1>
-          <p class="hero-copy">{{siteDescription}} Our apps process your work on your device whenever the task permits.</p>
-          <a class="btn btn-primary" href="#apps">View the app catalog</a>
-        </div>
-        <aside class="privacy-panel" aria-labelledby="privacy-pledge-title">
-          <p class="eyebrow">Our pledge</p>
-          <h2 id="privacy-pledge-title" class="h4">Your data stays yours.</h2>
-          <ul class="pledge-list">
-            <li><i class="bi bi-person-x" aria-hidden="true"></i><span>No accounts</span></li>
-            <li><i class="bi bi-graph-down" aria-hidden="true"></i><span>No telemetry</span></li>
-            <li><i class="bi bi-cookie" aria-hidden="true"></i><span>No cookies or trackers</span></li>
-            <li><i class="bi bi-device-ssd" aria-hidden="true"></i><span>Local processing by default</span></li>
-          </ul>
-          <a href="/privacy/">Read the privacy policy</a>
-        </aside>
+    <div class="outcrop-hero-shell">
+      <div class="container">
+        <section class="marketinghero marketinghero-split marketinghero-stack-lg outcrop-marketinghero" aria-labelledby="hero-title">
+          <div class="marketinghero-content">
+            <h1 class="marketinghero-title" id="hero-title">Focused apps that respect your privacy.</h1>
+            <p class="marketinghero-eyebrow">Small tools. Clear purpose.</p>
+            <p class="marketinghero-lede">{{siteDescription}} Our apps process your work on your device whenever the task permits.</p>
+            <div class="marketinghero-actions">
+              <a class="btn btn-primary" href="#apps">View the app catalog</a>
+            </div>
+          </div>
+          <aside class="marketinghero-aside">
+            <div class="privacy-panel" aria-labelledby="privacy-pledge-title">
+              <p class="eyebrow">Our pledge</p>
+              <h2 id="privacy-pledge-title" class="h4">Your data stays yours.</h2>
+              <ul class="pledge-list">
+                <li><i class="bi bi-person-x" aria-hidden="true"></i><span>No accounts</span></li>
+                <li><i class="bi bi-graph-down" aria-hidden="true"></i><span>No app telemetry</span></li>
+                <li><i class="bi bi-bar-chart" aria-hidden="true"></i><span>Website metrics only</span></li>
+                <li><i class="bi bi-device-ssd" aria-hidden="true"></i><span>Local processing by default</span></li>
+              </ul>
+              <a href="/privacy/">Read the privacy policy</a>
+            </div>
+          </aside>
+        </section>
       </div>
-    </section>
+    </div>
 
     <section id="apps" class="catalog-section" aria-labelledby="apps-title">
       <div class="container">
@@ -78,8 +93,8 @@
         <div class="principle-grid">
           <article>
             <i class="bi bi-eye-slash" aria-hidden="true"></i>
-            <h3 class="h5">No behavioral tracking</h3>
-            <p>We do not measure which screens you open or which features you use.</p>
+            <h3 class="h5">No app behavioral tracking</h3>
+            <p>Our apps do not measure which screens you open or which features you use.</p>
           </article>
           <article>
             <i class="bi bi-cloud-slash" aria-hidden="true"></i>
@@ -96,22 +111,7 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      {{companyRegistration}}
-      <nav aria-label="Footer navigation">
-        <a href="/privacy/">Privacy Policy</a>
-        <a href="/terms/">Terms and Conditions</a>
-        <a href="/support/">Support</a>
-        <a href="{{sourceRepositoryUrl}}" rel="noopener noreferrer">Source code</a>
-      </nav>
-      <div>
-        <p>{{contactLink}}</p>
-        <p class="build-info" data-build-number="{{buildNumber}}" data-git-sha="{{buildSha}}">Site {{siteVersion}} · Build {{buildNumber}} · Git {{buildSha}}</p>
-      </div>
-    </div>
-    <div class="container copyright">© {{currentYear}} {{organizationName}}.</div>
-  </footer>
+  {{siteFooter}}
   <script src="{{themeBaseUrl}}/components/themetoggle/themetoggle.js" defer></script>
   <script src="/js/theme-toggle-init.js" defer></script>
 </body>

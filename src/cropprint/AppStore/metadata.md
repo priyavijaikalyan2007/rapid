@@ -1,6 +1,6 @@
 # CropPrint App Store metadata
 
-Use one App Store Connect record for iOS and macOS. Both targets use `com.vijaikalyan.CropPrint`.
+Use one App Store Connect record for iOS and macOS. Both targets use `us.outcrop.apps.cropprint`.
 
 ## Shared information
 

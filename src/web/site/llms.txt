@@ -1,0 +1,23 @@
+# Outcrop Inc
+
+Outcrop Inc builds focused, open-source applications for macOS and iPhone.
+The company is registered in Washington State, United States.
+
+## Applications
+
+- [CropPrint]({{siteUrl}}/apps/cropprint/): Crop photos without distortion for printing, passports, social media, and screen backgrounds. Create print sheets and add text or frames.
+
+## Privacy
+
+Outcrop applications process user content on the device and do not contain analytics, advertising, or telemetry.
+The Outcrop website uses Google Analytics only for aggregate website metrics.
+The website does not use analytics data for advertising or cross-site profiles.
+
+## Important pages
+
+- [App catalog]({{siteUrl}}/#apps)
+- [CropPrint help]({{siteUrl}}/apps/cropprint/#help)
+- [Support]({{siteUrl}}/support/)
+- [Privacy Policy]({{siteUrl}}/privacy/)
+- [Terms and Conditions]({{siteUrl}}/terms/)
+- [Source code](https://github.com/priyavijaikalyan2007/rapid)

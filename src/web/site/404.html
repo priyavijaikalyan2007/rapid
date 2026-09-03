@@ -8,9 +8,11 @@
   <title>Page not found | {{organizationName}}</title>
   <link rel="icon" href="/assets/brand-mark.svg" type="image/svg+xml">
   <script src="/js/theme-init.js"></script>
+  {{analyticsTag}}
   <link rel="stylesheet" href="{{themeBaseUrl}}/icons/bootstrap-icons.css">
   <link rel="stylesheet" href="{{themeBaseUrl}}/css/custom.css">
   <link rel="stylesheet" href="{{themeBaseUrl}}/components/themetoggle/themetoggle.css">
+  <link rel="stylesheet" href="{{themeBaseUrl}}/components/sitefooter/sitefooter.css">
   <link rel="stylesheet" href="/css/site.css">
 </head>
 <body>
@@ -30,14 +32,7 @@
     <p>The address does not match a page on this website.</p>
     <a class="btn btn-primary" href="/">Return to the home page</a>
   </main>
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      {{companyRegistration}}
-      <nav aria-label="Footer navigation"><a href="/">Home</a><a href="/support/">Support</a><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms and Conditions</a></nav>
-      <div><p>{{contactLink}}</p><p class="build-info" data-build-number="{{buildNumber}}" data-git-sha="{{buildSha}}">Site {{siteVersion}} · Build {{buildNumber}} · Git {{buildSha}}</p></div>
-    </div>
-    <div class="container copyright">© {{currentYear}} {{organizationName}}.</div>
-  </footer>
+  {{siteFooter}}
   <script src="{{themeBaseUrl}}/components/themetoggle/themetoggle.js" defer></script>
   <script src="/js/theme-toggle-init.js" defer></script>
 </body>

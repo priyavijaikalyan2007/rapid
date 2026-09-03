@@ -4,7 +4,9 @@ This directory contains the static catalog, support, and legal website for the a
 
 The site loads the Enterprise Application theme directly from `https://static.outcrop.us`.
 
-The site does not load Google Fonts, analytics, advertising, or tracking scripts.
+The website uses Google Analytics only for aggregate website metrics. The applications do not contain Google Analytics or app telemetry.
+
+The analytics configuration disables Google signals and advertising personalization. The privacy policy explains the website data collection and Google Analytics cookies.
 
 The `static.outcrop.us` hostname must be a Custom Domain on the deployed theme Worker. A Domain Name System CNAME alone does not route the hostname to that Worker.
 
@@ -12,7 +14,9 @@ Remove the existing CNAME before you add the Custom Domain. Cloudflare will crea
 
 The Wrangler configuration also disables Wrangler usage metrics and dependency instrumentation for this project.
 
-The website uses the theme's ThemeToggle component. It supports light, automatic, and dark modes.
+The website uses the theme's ThemeToggle, MarketingHero, and SiteFooter components directly from the CDN.
+
+MarketingHero and SiteFooter use their canonical static markup. They require their CDN stylesheets but no component scripts.
 
 The selected mode uses local browser storage. The preference remains on the visitor's device.
 
@@ -24,11 +28,16 @@ src/web/
 ├── site.config.json
 ├── site/
 │   ├── index.html
+│   ├── apps/cropprint/index.html
 │   ├── privacy/index.html
 │   ├── terms/index.html
 │   ├── support/index.html
 │   ├── 404.html
 │   ├── _headers
+│   ├── robots.txt
+│   ├── security.txt
+│   ├── .well-known/security.txt
+│   ├── llms.txt
 │   ├── assets/
 │   └── css/
 ├── scripts/
@@ -56,6 +65,7 @@ Set these values:
 - `dunsNumber` and `dnbProfileUrl` define the Dun & Bradstreet profile details.
 - `washingtonUbiNumber` and `washingtonRegistrationUrl` define the state registration details.
 - `legalEffectiveDate` sets the policy and terms effective date.
+- `googleAnalyticsId` sets the website-only Google Analytics property.
 - `apps` defines each app card and its icon.
 
 The public name is `Outcrop Inc`. The canonical website is `https://outcrop.us`.
@@ -64,9 +74,11 @@ The site uses `admin@outcrop.us` for legal and support contact.
 
 ## App catalog
 
-Add one object to the `apps` array for each application. Point `iconSource` to that app's actual icon in this repository.
+Add one object to the `apps` array for each application. Point `iconSource` to the app icon in this repository.
 
-The build copies the icon into the generated website. For example, the CropPrint card uses its macOS application icon.
+Set `pagePath` to the directory for the app page. Add a long-form page at the same path under `site`.
+
+The build copies the icon into the generated website. The CropPrint card and page use the macOS application icon.
 
 ## Build and test
 
@@ -83,7 +95,8 @@ The build performs these tasks:
 2. Copy each application icon from its asset catalog.
 3. Link to the Enterprise Application theme on its Content Delivery Network.
 4. Validate local links, required page metadata, and image text alternatives.
-5. Reject known analytics and tracking scripts.
+5. Validate the approved analytics property and reject unapproved tracking services.
+6. Validate the crawler, sitemap, security contact, and AI summary files.
 
 The semantic version, build number, and Git SHA appear in each page footer.
 
@@ -145,8 +158,8 @@ The privacy policy matches the current local-processing design. The terms and po
 
 Review the publisher identity, Washington jurisdiction, third-party services, and store behavior before publication.
 
-## Theme feature requests
+## Theme components
 
-See `THEME_FEATURE_REQUESTS.md` for proposed MarketingHero and SiteFooter components.
+MarketingHero provides the responsive home-page introduction and privacy callout layout.
 
-Bootstrap already provides the other primitives used by this site. The requests do not duplicate Bootstrap navigation, cards, badges, buttons, or grids.
+SiteFooter provides organization details, navigation, registration links, legal links, contact details, and build information on every page.

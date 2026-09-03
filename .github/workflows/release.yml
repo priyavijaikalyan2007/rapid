@@ -17,7 +17,9 @@ jobs:
 
       - name: Set build information
         run: |
+          source ../../config/apple-developer.env
           source ./scripts/build-metadata.sh
+          echo "APPLE_TEAM_ID=$APPLE_TEAM_ID" >> "$GITHUB_ENV"
           echo "APP_VERSION=$APP_VERSION" >> "$GITHUB_ENV"
           echo "BUILD_NUMBER=$BUILD_NUMBER" >> "$GITHUB_ENV"
           echo "GIT_SHA=$GIT_SHA" >> "$GITHUB_ENV"
@@ -39,15 +41,13 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" "$keychain_path"
 
       - name: Archive and export
-        env:
-          TEAM_ID: ${{ secrets.TEAM_ID }}
         run: |
           xcodebuild archive \
             -project CropPrint.xcodeproj \
             -scheme CropPrint \
             -configuration Release \
             -archivePath build/CropPrint.xcarchive \
-            DEVELOPMENT_TEAM="$TEAM_ID" \
+            DEVELOPMENT_TEAM="$APPLE_TEAM_ID" \
             MARKETING_VERSION="$APP_VERSION" \
             CURRENT_PROJECT_VERSION="$BUILD_NUMBER" \
             GIT_SHA="$GIT_SHA"
@@ -60,13 +60,12 @@ jobs:
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APP_SPECIFIC_PASSWORD: ${{ secrets.APP_SPECIFIC_PASSWORD }}
-          TEAM_ID: ${{ secrets.TEAM_ID }}
         run: |
           ditto -c -k --keepParent build/export/CropPrint.app build/CropPrint-notarization.zip
           xcrun notarytool submit build/CropPrint-notarization.zip \
             --apple-id "$APPLE_ID" \
             --password "$APP_SPECIFIC_PASSWORD" \
-            --team-id "$TEAM_ID" \
+            --team-id "$APPLE_TEAM_ID" \
             --wait
           xcrun stapler staple build/export/CropPrint.app
           ditto -c -k --keepParent build/export/CropPrint.app build/CropPrint.zip

@@ -25,7 +25,6 @@ jobs:
       run:
         working-directory: src/cropprint
     env:
-      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
       APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
       APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
       CONFIRM_APP_STORE_UPLOAD: YES
