@@ -15,7 +15,7 @@
   "apps": [
     {
       "name": "CropPrint",
-      "platforms": "macOS and iPhone",
+      "platforms": "macOS, iPhone, and iPad",
       "status": "Preparing for release",
       "description": "Crop photos to print, passport, social-media, and screen sizes without distortion. Create print sheets and add text or frames.",
       "iconSource": "../cropprint/CropPrint/Assets.xcassets/AppIcon.appiconset/AppIcon-512.png",

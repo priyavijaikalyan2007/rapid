@@ -1,6 +1,6 @@
 # Outcrop Inc
 
-Outcrop Inc builds focused, open-source applications for macOS and iPhone.
+Outcrop Inc builds focused, open-source applications for macOS, iPhone, and iPad.
 The company is registered in Washington State, United States.
 
 ## Applications

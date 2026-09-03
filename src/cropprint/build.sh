@@ -61,6 +61,13 @@ build_ios() {
     echo "Install the iOS platform in Xcode Settings > Components, then retry." >&2
     return 1
   fi
+
+  local mobile_info="$build_root/MobileDeviceDerivedData/Build/Products/Release-iphoneos/CropPrint Mobile.app/Info.plist"
+  if [[ "$(plutil -extract UIDeviceFamily.0 raw "$mobile_info")" != "1" \
+    || "$(plutil -extract UIDeviceFamily.1 raw "$mobile_info")" != "2" ]]; then
+    echo "The mobile application must support both iPhone and iPad." >&2
+    return 1
+  fi
 }
 
 case "$mode" in

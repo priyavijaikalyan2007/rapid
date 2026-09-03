@@ -3,6 +3,7 @@ import SwiftUI
 
 struct MobileContentView: View {
     @EnvironmentObject private var resourceLibrary: ResourceLibrary
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @StateObject private var document = MobilePhotoDocument()
     @State private var selectedItem: PhotosPickerItem?
     @State private var informationPage: InformationPage?
@@ -10,57 +11,13 @@ struct MobileContentView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 12) {
-                if let photo = document.photo {
-                    MobileCropCanvas(
-                        photo: photo,
-                        normalizedCrop: $document.normalizedCrop,
-                        aspectRatio: document.settings.aspectRatio,
-                        decoration: $document.decoration,
-                        remoteFrame: remoteFrameImage
-                    )
-                        .frame(maxHeight: .infinity)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .padding(.horizontal)
+            Group {
+                if horizontalSizeClass == .regular {
+                    regularLayout
                 } else {
-                    ContentUnavailableView(
-                        "No Photo",
-                        systemImage: "photo",
-                        description: Text("Choose a photo from your library.")
-                    )
-                    .frame(maxHeight: .infinity)
+                    compactLayout
                 }
-
-                controls
-
-                Button {
-                    document.saveToPhotos()
-                } label: {
-                    Label("Crop and Save to Photos", systemImage: "crop")
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.borderedProminent)
-                .disabled(!document.canSave)
-                .padding(.horizontal)
-
-                Button {
-                    document.printSheetSettings.paperSize = document.settings.paperSize
-                    showsPrintSheetOptions = true
-                } label: {
-                    Label("Create Print Sheet", systemImage: "square.grid.2x2")
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.bordered)
-                .disabled(!document.canCreatePrintSheet)
-                .padding(.horizontal)
-
-                Text(document.message)
-                    .font(.caption)
-                    .foregroundStyle(document.showsError ? .red : .secondary)
-                    .lineLimit(2)
-                    .padding(.horizontal)
             }
-            .padding(.vertical)
             .navigationTitle("CropPrint")
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -149,6 +106,88 @@ struct MobileContentView: View {
                 }
             }
         }
+    }
+
+    private var compactLayout: some View {
+        VStack(spacing: 12) {
+            photoCanvas
+                .frame(maxHeight: .infinity)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .padding(.horizontal)
+
+            controls
+            actions
+        }
+        .padding(.vertical)
+    }
+
+    private var regularLayout: some View {
+        HStack(spacing: 0) {
+            photoCanvas
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .padding()
+
+            Divider()
+
+            ScrollView {
+                VStack(spacing: 16) {
+                    controls
+                    actions
+                }
+                .padding(.vertical)
+            }
+            .frame(minWidth: 320, idealWidth: 360, maxWidth: 420)
+        }
+    }
+
+    @ViewBuilder
+    private var photoCanvas: some View {
+        if let photo = document.photo {
+            MobileCropCanvas(
+                photo: photo,
+                normalizedCrop: $document.normalizedCrop,
+                aspectRatio: document.settings.aspectRatio,
+                decoration: $document.decoration,
+                remoteFrame: remoteFrameImage
+            )
+        } else {
+            ContentUnavailableView(
+                "No Photo",
+                systemImage: "photo",
+                description: Text("Choose a photo from your library.")
+            )
+        }
+    }
+
+    private var actions: some View {
+        VStack(spacing: 12) {
+            Button {
+                document.saveToPhotos()
+            } label: {
+                Label("Crop and Save to Photos", systemImage: "crop")
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.borderedProminent)
+            .disabled(!document.canSave)
+
+            Button {
+                document.printSheetSettings.paperSize = document.settings.paperSize
+                showsPrintSheetOptions = true
+            } label: {
+                Label("Create Print Sheet", systemImage: "square.grid.2x2")
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.bordered)
+            .disabled(!document.canCreatePrintSheet)
+
+            Text(document.message)
+                .font(.caption)
+                .foregroundStyle(document.showsError ? .red : .secondary)
+                .lineLimit(3)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding(.horizontal)
     }
 
     private var remoteFrameImage: Image? {

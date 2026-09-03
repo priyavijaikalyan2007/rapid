@@ -2,11 +2,13 @@
 
 Use one App Store Connect record for iOS and macOS. Both targets use `us.outcrop.apps.cropprint`.
 
+Do not create a separate iPad platform or app record. The iOS binary supports both iPhone and iPad device families.
+
 ## Apple identifier configuration
 
 - Apple Developer Team ID: `4JD5A6Q2HL`
 - Explicit App ID: `us.outcrop.apps.cropprint`
-- Platforms: iOS and macOS
+- Platforms: iOS, iPadOS, and macOS
 - Bundle prefix for Outcrop consumer apps: `us.outcrop.apps`
 - Future Knobby enterprise prefix: `us.outcrop.knobbyio`
 - Future Lyfbits enterprise prefix: `us.outcrop.lyfbits`
@@ -31,8 +33,11 @@ The App ID page does not configure the following local permissions. The Xcode pr
 - App-scoped security bookmarks: Enabled in the entitlements file
 - Hardened Runtime: Enabled in the build settings
 
-### iPhone target capabilities
+### iPhone and iPad target capabilities
 
+- Supported device families: iPhone and iPad
+- iPhone orientations: Portrait
+- iPad orientations: Portrait, Portrait Upside Down, Landscape Left, and Landscape Right
 - App ID capabilities: None
 - Photos access: Add only, declared through `NSPhotoLibraryAddUsageDescription`
 - Outgoing HTTPS access: No App ID capability required
@@ -80,7 +85,9 @@ Crop photos for prints, passports, social media, and screens without distortion.
 
 CropPrint has no login or account.
 
-On iPhone, select Choose Photo and choose an image through the system photo picker. Move or resize the crop rectangle. Select Crop and Save to Photos. The application requests add-only Photos access at that point.
+On iPhone or iPad, select Choose Photo and choose an image through the system photo picker.
+
+Move or resize the crop rectangle. Select Crop and Save to Photos. The application requests add-only Photos access at that point.
 
 To test a passport print sheet, select a physical Passport Print preset. Then select Create Print Sheet and choose the paper settings.
 
@@ -113,7 +120,9 @@ Capture real application screens without private photos:
 5. Passport print-sheet layout
 6. Remote licensed-resource library
 
-Create separate screenshot sets for iPhone and macOS. Use the exact sizes that App Store Connect requests.
+Create separate screenshot sets for iPhone, iPad, and macOS. Use the exact sizes that App Store Connect requests.
+
+The iPad screenshots must show the adaptive two-column layout in a regular-width window.
 
 ## Age rating assumptions
 

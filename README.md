@@ -69,8 +69,8 @@ The full CropPrint build performs these tasks:
 
 1. Run the macOS unit tests.
 2. Create a universal unsigned macOS package.
-3. Build the iPhone simulator application.
-4. Build the unsigned iPhone device application.
+3. Build the universal iPhone and iPad simulator application.
+4. Build the unsigned universal iOS device application.
 
 Build outputs go under `src/cropprint/build`. Git ignores this directory.
 

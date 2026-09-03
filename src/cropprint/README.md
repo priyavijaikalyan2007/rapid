@@ -1,6 +1,6 @@
 # CropPrint
 
-CropPrint is a small, private photo-cropping app for macOS and iPhone. It does not use a login, analytics, advertising, or data collection.
+CropPrint is a private photo-cropping app for macOS, iPhone, and iPad. It does not use login, analytics, advertising, or data collection.
 
 Both applications use `us.outcrop.apps.cropprint` for one multi-platform App Store listing. Both products include the shared privacy manifest under `Shared`.
 
@@ -25,12 +25,12 @@ The app keeps the crop rectangle at the selected ratio. You can move or resize t
 - Record the paper size in the output name and check whether the photo fits the paper.
 - Add an optional 0.25-inch white margin inside the selected print size.
 - Export JPEG, PNG, TIFF, or HEIC without stretching the image on macOS.
-- Choose from Photos and save back to Photos on iPhone.
+- Choose from Photos and save back to Photos on iPhone and iPad.
 - Preserve the original base name and add all selected settings.
 - Download approved fonts and frame assets from a curated HTTPS catalog.
 - Show the creator, source, and exact license for each remote resource.
 - Cache downloaded resources for offline use.
-- Provide About and Attributions pages on macOS and iPhone.
+- Provide About and Attributions pages on macOS, iPhone, and iPad.
 - Add one styled text layer to the cropped image.
 - Control the text font, size, color, opacity, rotation, and position.
 - Add classic, double, rounded, film, or Polaroid-style frames.
@@ -41,7 +41,9 @@ An example output name is `family-8x10-landscape-letter-margin.jpg`.
 
 Digital presets resize the crop to the exact destination resolution. Print presets preserve the available source pixels. CropPrint applies text and frames after resizing.
 
-The macOS app keeps decoration controls in the right sidebar. The iPhone app shows them in a movable bottom sheet.
+The macOS app keeps decoration controls in the right sidebar. The iOS app shows them in a movable bottom sheet.
+
+The iPad layout places the photo canvas and controls side by side when regular horizontal space is available.
 
 The text layer appears directly on the photo. Drag the text box to move it. Use its handles to change width, scale, or rotation.
 
@@ -50,7 +52,7 @@ Font and style changes appear immediately. Choose a preset color swatch or use t
 ## Requirements
 
 - macOS 14 or later
-- iOS 17 or later
+- iOS or iPadOS 17 or later
 - Xcode 16 or later
 
 ## Build and run in Xcode
@@ -62,14 +64,14 @@ Font and style changes appear immediately. Choose a preset color swatch or use t
 
 If Xcode asks for a development team, select your personal team. The app does not require a paid account for local use.
 
-To run the iPhone app:
+To run the iPhone or iPad app:
 
 1. Select the `CropPrint Mobile` scheme.
-2. Select an iPhone simulator or a connected iPhone.
-3. Select your personal team under **Signing & Capabilities** for a physical iPhone.
+2. Select an iPhone or iPad simulator, or select a connected device.
+3. Select your team under **Signing & Capabilities** for a physical device.
 4. Press **Command-R**.
 
-The iPhone version uses the system photo picker. It requests permission only when it saves the result to Photos.
+The iOS version uses the system photo picker. It requests permission only when it saves the result to Photos.
 
 ## Crop presets
 
@@ -115,7 +117,7 @@ The print-sheet panel supports these options:
 - Automatic tiling with safe edge spacing
 - Optional cutting guides
 
-The macOS app saves a JPEG and PDF beside the source photo. The iPhone app saves the JPEG sheet to Photos.
+The macOS app saves a JPEG and PDF beside the source photo. The iOS app saves the JPEG sheet to Photos.
 
 The PDF stores the physical paper dimensions. Print it at **Actual Size** or **100 percent**.
 
@@ -173,7 +175,7 @@ The app contacts a server only when you refresh or download remote resources. Th
 
 ## Remote resource catalog
 
-Open **CropPrint > Remote Resources** on macOS. On iPhone, open the toolbar menu and select **Remote Resources**.
+Open **CropPrint > Remote Resources** on macOS. On iPhone or iPad, open the toolbar menu and select **Remote Resources**.
 
 Leave the catalog address empty to use the built-in Google Fonts list. Enter an HTTPS address to load your own catalog. CropPrint accepts these licenses:
 

@@ -11,6 +11,7 @@
 *.xccheckout
 *.xcscmblueprint
 *.moved-aside
+**/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
 
 # Xcode and Swift build outputs
 **/DerivedData/

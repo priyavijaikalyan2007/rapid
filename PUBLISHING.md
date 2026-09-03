@@ -1,6 +1,6 @@
 # Publishing CropPrint
 
-This guide describes how to publish CropPrint for macOS and iPhone. Complete the steps in order because later steps depend on earlier account and signing work.
+This guide describes how to publish CropPrint for macOS, iPhone, and iPad. Complete the steps in order.
 
 ## Current release setup
 
@@ -17,11 +17,13 @@ The repository already includes these release controls:
 - Build information includes the semantic version, build number, and source Git SHA.
 - Upload scripts reject dirty source trees and repeated uploads.
 
-The repository build verifies the macOS application, iPhone simulator application, and iPhone device application.
+The repository build verifies macOS and universal iOS applications. The iOS build supports iPhone and iPad.
 
 ## Distribution model
 
 Use one App Store Connect record for the macOS and iOS versions. Both targets use the same bundle identifier for this purpose.
+
+The iOS version supports iPhone and iPad. Do not create a separate App Store Connect platform for iPad.
 
 Use these initial values:
 
@@ -65,11 +67,11 @@ The macOS target must retain these sandbox permissions:
 - App-scoped security bookmarks
 - Outgoing network connections
 
-The iPhone target requires add-only Photos access when it saves an image.
+The iPhone and iPad target requires add-only Photos access when it saves an image.
 
 ## Physical-device testing
 
-Test the iPhone application on at least one physical iPhone before TestFlight.
+Test the mobile application on a physical iPhone and iPad before release.
 
 1. Connect the iPhone to the Mac.
 2. Trust the Mac when the iPhone requests confirmation.
@@ -77,6 +79,8 @@ Test the iPhone application on at least one physical iPhone before TestFlight.
 4. Select the `CropPrint Mobile` scheme.
 5. Select the connected iPhone as the run destination.
 6. Press **Command-R**.
+
+Repeat these steps on a physical iPad. Test portrait, landscape, split-screen, and full-screen layouts.
 
 Test these behaviors:
 
@@ -166,7 +170,7 @@ Review these answers before each release. Change them if the application or remo
 
 ## Screenshots
 
-Use nonprivate photos in all screenshots. Capture separate screenshot sets for iPhone and macOS.
+Use nonprivate photos in all screenshots. Capture separate screenshot sets for iPhone, iPad, and macOS.
 
 Show these main workflows:
 

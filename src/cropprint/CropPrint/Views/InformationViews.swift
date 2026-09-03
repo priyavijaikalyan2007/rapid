@@ -112,7 +112,7 @@ struct CropPrintHelpView: View {
                 Section("Print sheets") {
                     Text("Select a physical print or passport preset before you create a print sheet.")
                     Text("Choose the paper, paper orientation, resolution, and cutting guides.")
-                    Text("The macOS app saves JPEG and PDF files. The iPhone app saves the JPEG sheet to Photos.")
+                    Text("The macOS app saves JPEG and PDF files. The iOS app saves the JPEG sheet to Photos.")
                     Text("Print at Actual Size or 100 percent. Disable Fit to Page and borderless enlargement.")
                 }
 
@@ -123,7 +123,7 @@ struct CropPrintHelpView: View {
 
                 Section("Files and privacy") {
                     Text("CropPrint never changes the original photo.")
-                    Text("The macOS app saves new files beside the original. The iPhone app saves results to Photos.")
+                    Text("The macOS app saves new files beside the original. The iOS app saves results to Photos.")
                     Text("Remote fonts and frames download only when you request them.")
                 }
             }
