@@ -52,6 +52,29 @@ version_arguments=(
   GIT_SHA="$GIT_SHA"
 )
 
+verify_macos_dsym() {
+  local archive_path="$archive_root/CropPrint-macOS.xcarchive"
+  local binary_path="$archive_path/Products/Applications/CropPrint.app/Contents/MacOS/CropPrint"
+  local dsym_path="$archive_path/dSYMs/CropPrint.app.dSYM/Contents/Resources/DWARF/CropPrint"
+
+  if [[ ! -f "$dsym_path" ]]; then
+    echo "The macOS archive does not contain the CropPrint dSYM." >&2
+    exit 1
+  fi
+
+  local binary_uuids
+  local dsym_uuids
+  binary_uuids="$(dwarfdump --uuid "$binary_path" | awk '{print $2}' | sort)"
+  dsym_uuids="$(dwarfdump --uuid "$dsym_path" | awk '{print $2}' | sort)"
+
+  if [[ -z "$binary_uuids" || "$binary_uuids" != "$dsym_uuids" ]]; then
+    echo "The macOS archive dSYM UUIDs do not match the application binary." >&2
+    exit 1
+  fi
+
+  echo "Verified the macOS dSYM UUIDs."
+}
+
 archive_macos() {
   run_xcodebuild archive \
     -project "$project" \
@@ -63,6 +86,7 @@ archive_macos() {
     DEVELOPMENT_TEAM="$APPLE_TEAM_ID" \
     CODE_SIGN_STYLE=Automatic \
     "${version_arguments[@]}"
+  verify_macos_dsym
 }
 
 archive_ios() {

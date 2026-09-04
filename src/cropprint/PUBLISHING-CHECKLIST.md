@@ -5,8 +5,8 @@ This checklist tracks the first CropPrint release.
 ## Current release
 
 - Version: `1.0.0`
-- Build: `10`
-- Git commit: `d93bec40ecb4`
+- Build: `12`
+- Git commit: Read the exact SHA from the archive or About page.
 - Apple Developer Team: `4JD5A6Q2HL`
 - Bundle identifier: `us.outcrop.apps.cropprint`
 - Platforms: macOS, iPhone, and iPad
@@ -22,8 +22,8 @@ This checklist tracks the first CropPrint release.
 - [x] Test the application on Shreya's physical iPhone 12 mini.
 - [x] Test the iPhone and iPad layouts in Simulator.
 - [x] Run the automated tests.
-- [x] Create the macOS archive.
-- [x] Create the iOS and iPadOS archive.
+- [ ] Recreate the macOS archive with its matching dSYM.
+- [ ] Recreate the iOS and iPadOS archive as build `12`.
 - [ ] Validate both archives in Xcode Organizer.
 - [ ] Upload both archives to App Store Connect.
 - [ ] Test the uploaded build through TestFlight.
@@ -82,15 +82,15 @@ The command uploads both existing archives. It does not submit either applicatio
 - [ ] The iOS and iPadOS upload succeeds.
 - [ ] App Store Connect shows both builds.
 
-If Apple rejects build `10`, fix the issue and create a new commit. The next build must use a larger number.
+If Apple rejects build `12`, fix the issue and create a new commit. The next build must use a larger number.
 
 ## 3. Wait for Apple processing
 
 1. Open the CropPrint record in App Store Connect.
 2. Open the build section for iOS.
-3. Wait until build `10` finishes processing.
+3. Wait until build `12` finishes processing.
 4. Open the build section for macOS.
-5. Wait until build `10` finishes processing.
+5. Wait until build `12` finishes processing.
 6. Answer any export-compliance questions.
 7. Confirm that Apple reports no processing error.
 
@@ -106,7 +106,7 @@ CropPrint sets `ITSAppUsesNonExemptEncryption` to `false` for both platforms.
 
 1. Open **TestFlight** in App Store Connect.
 2. Create an internal testing group.
-3. Add build `10` to the group.
+3. Add build `12` to the group.
 4. Add the household testers.
 5. Install CropPrint through the TestFlight application.
 6. Repeat the release tests.
@@ -121,7 +121,7 @@ CropPrint sets `ITSAppUsesNonExemptEncryption` to `false` for both platforms.
 - [ ] The TestFlight iPhone test passes.
 - [ ] The TestFlight iPad test passes.
 - [ ] The TestFlight macOS test passes.
-- [ ] The About page shows version `1.0.0`, build `10`, and Git `d93bec40ecb4`.
+- [ ] The About page shows version `1.0.0`, build `12`, and the archive Git SHA.
 
 ## 5. Complete the product pages
 
@@ -179,14 +179,14 @@ Use only the screenshot dimensions that App Store Connect requests.
 ## 7. Attach the builds
 
 1. Open the iOS version page.
-2. Select build `10`.
+2. Select build `12`.
 3. Save the iOS version page.
 4. Open the macOS version page.
-5. Select build `10`.
+5. Select build `12`.
 6. Save the macOS version page.
 
-- [ ] Build `10` is attached to the iOS version.
-- [ ] Build `10` is attached to the macOS version.
+- [ ] Build `12` is attached to the iOS version.
+- [ ] Build `12` is attached to the macOS version.
 
 ## 8. Submit for review
 
@@ -215,7 +215,7 @@ Use only the screenshot dimensions that App Store Connect requests.
 
 - [ ] CropPrint is available for iPhone and iPad.
 - [ ] CropPrint is available for macOS.
-- [ ] The public application matches build `10`.
+- [ ] The public application matches build `12`.
 
 ## Later automation
 
