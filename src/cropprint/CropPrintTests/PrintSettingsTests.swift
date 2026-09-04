@@ -244,6 +244,15 @@ final class PrintSettingsTests: XCTestCase {
         )
     }
 
+    func testPresetCategoriesContainEveryPresetOnce() {
+        let categorizedPresets = PresetCategory.allCases.flatMap(\.presets)
+
+        XCTAssertEqual(categorizedPresets.count, CropPreset.allCases.count)
+        XCTAssertEqual(Set(categorizedPresets), Set(CropPreset.allCases))
+        XCTAssertTrue(PresetCategory.passport.presets.contains(.passportUS))
+        XCTAssertTrue(PresetCategory.monitor.presets.contains(.monitorUHD8K))
+    }
+
     func testRasterSizeAndMemoryEstimate() throws {
         var sheetSettings = PrintSheetSettings()
         sheetSettings.paperSize = .fiveBySeven

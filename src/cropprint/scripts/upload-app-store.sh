@@ -37,6 +37,14 @@ if [[ -n "${APP_STORE_CONNECT_API_KEY_PATH:-}" || -n "${APP_STORE_CONNECT_API_KE
   )
 fi
 
+run_xcodebuild() {
+  if (( ${#authentication_arguments[@]} > 0 )); then
+    xcodebuild "$@" "${authentication_arguments[@]}"
+  else
+    xcodebuild "$@"
+  fi
+}
+
 upload_archive() {
   local archive_path="$1"
   local export_path="$2"
@@ -54,12 +62,11 @@ upload_archive() {
     exit 1
   fi
 
-  xcodebuild -exportArchive \
+  run_xcodebuild -exportArchive \
     -archivePath "$archive_path" \
     -exportPath "$export_path" \
     -exportOptionsPlist "$export_options" \
-    -allowProvisioningUpdates \
-    "${authentication_arguments[@]}"
+    -allowProvisioningUpdates
 
   printf '%s\n' "$GIT_FULL_SHA" > "$upload_marker"
 }

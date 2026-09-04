@@ -38,6 +38,14 @@ if [[ -n "${APP_STORE_CONNECT_API_KEY_PATH:-}" || -n "${APP_STORE_CONNECT_API_KE
   )
 fi
 
+run_xcodebuild() {
+  if (( ${#authentication_arguments[@]} > 0 )); then
+    xcodebuild "$@" "${authentication_arguments[@]}"
+  else
+    xcodebuild "$@"
+  fi
+}
+
 version_arguments=(
   MARKETING_VERSION="$APP_VERSION"
   CURRENT_PROJECT_VERSION="$BUILD_NUMBER"
@@ -45,28 +53,26 @@ version_arguments=(
 )
 
 archive_macos() {
-  xcodebuild archive \
+  run_xcodebuild archive \
     -project "$project" \
     -scheme CropPrint \
     -configuration Release \
     -sdk macosx \
     -archivePath "$archive_root/CropPrint-macOS.xcarchive" \
     -allowProvisioningUpdates \
-    "${authentication_arguments[@]}" \
     DEVELOPMENT_TEAM="$APPLE_TEAM_ID" \
     CODE_SIGN_STYLE=Automatic \
     "${version_arguments[@]}"
 }
 
 archive_ios() {
-  xcodebuild archive \
+  run_xcodebuild archive \
     -project "$project" \
     -scheme 'CropPrint Mobile' \
     -configuration Release \
     -sdk iphoneos \
     -archivePath "$archive_root/CropPrint-iOS.xcarchive" \
     -allowProvisioningUpdates \
-    "${authentication_arguments[@]}" \
     DEVELOPMENT_TEAM="$APPLE_TEAM_ID" \
     CODE_SIGN_STYLE=Automatic \
     "${version_arguments[@]}"

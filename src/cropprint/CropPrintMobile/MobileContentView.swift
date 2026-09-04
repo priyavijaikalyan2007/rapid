@@ -206,13 +206,16 @@ struct MobileContentView: View {
 
     private var controls: some View {
         VStack(spacing: 10) {
-            Picker("Crop size", selection: $document.settings.preset) {
+            Picker("Category", selection: presetCategory) {
                 ForEach(PresetCategory.allCases) { category in
-                    Section(category.rawValue) {
-                        ForEach(CropPreset.allCases.filter { $0.category == category }) { preset in
-                            Text(preset.title).tag(preset)
-                        }
-                    }
+                    Text(category.rawValue).tag(category)
+                }
+            }
+            .pickerStyle(.menu)
+
+            Picker("Crop size", selection: $document.settings.preset) {
+                ForEach(document.settings.preset.category.presets) { preset in
+                    Text(preset.title).tag(preset)
                 }
             }
             .pickerStyle(.menu)
@@ -256,6 +259,16 @@ struct MobileContentView: View {
             }
         }
         .padding(.horizontal)
+    }
+
+    private var presetCategory: Binding<PresetCategory> {
+        Binding(
+            get: { document.settings.preset.category },
+            set: { category in
+                guard let firstPreset = category.presets.first else { return }
+                document.settings.preset = firstPreset
+            }
+        )
     }
 }
 

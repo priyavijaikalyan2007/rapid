@@ -18,6 +18,10 @@ enum PresetCategory: String, CaseIterable, Identifiable {
     case monitor = "Monitor wallpaper"
 
     var id: Self { self }
+
+    var presets: [CropPreset] {
+        CropPreset.allCases.filter { $0.category == self }
+    }
 }
 
 enum CropPreset: String, CaseIterable, Identifiable {
