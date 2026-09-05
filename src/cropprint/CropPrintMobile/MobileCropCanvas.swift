@@ -2,8 +2,10 @@ import SwiftUI
 
 struct MobileCropCanvas: View {
     let photo: MobilePhoto
+    let displayImage: CGImage
     @Binding var normalizedCrop: CGRect
     let aspectRatio: CGFloat
+    let passportGuide: PassportGuide?
     @Binding var decoration: DecorationSettings
     let remoteFrame: Image?
 
@@ -23,7 +25,7 @@ struct MobileCropCanvas: View {
 
             ZStack(alignment: .topLeading) {
                 Color.black
-                Image(uiImage: photo.image)
+                Image(decorative: displayImage, scale: 1, orientation: .up)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: imageRect.width, height: imageRect.height)
@@ -39,7 +41,11 @@ struct MobileCropCanvas: View {
                 Rectangle()
                     .fill(.clear)
                     .overlay { Rectangle().stroke(.white, lineWidth: 2) }
-                    .overlay { MobileThirdsGrid().stroke(.white.opacity(0.55), lineWidth: 1) }
+                    .overlay {
+                        if passportGuide == nil {
+                            MobileThirdsGrid().stroke(.white.opacity(0.55), lineWidth: 1)
+                        }
+                    }
                     .frame(width: cropRect.width, height: cropRect.height)
                     .position(x: cropRect.midX, y: cropRect.midY)
                     .contentShape(Rectangle())
@@ -58,6 +64,12 @@ struct MobileCropCanvas: View {
                             }
                             .onEnded { _ in dragStart = .zero }
                     )
+
+                if let passportGuide {
+                    PassportGuideOverlay(guide: passportGuide)
+                        .frame(width: cropRect.width, height: cropRect.height)
+                        .position(x: cropRect.midX, y: cropRect.midY)
+                }
 
                 InteractiveDecorationOverlay(settings: $decoration, remoteFrame: remoteFrame)
                     .frame(width: cropRect.width, height: cropRect.height)

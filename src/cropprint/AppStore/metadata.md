@@ -23,6 +23,8 @@ Apple enables In-App Purchase by default for an explicit App ID. Leave that defa
 
 CropPrint does not use Sign in with Apple, iCloud, push notifications, App Groups, Apple Pay, Associated Domains, or Keychain Sharing.
 
+Local photo adjustments use Apple Core Image and Vision. These frameworks require no App ID capability or additional entitlement.
+
 The App ID page does not configure the following local permissions. The Xcode project contains them where required.
 
 ### macOS target capabilities

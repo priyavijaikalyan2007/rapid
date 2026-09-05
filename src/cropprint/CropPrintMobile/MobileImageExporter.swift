@@ -4,6 +4,7 @@ import Foundation
 enum MobileImageExporter {
     static func renderPrintSheet(
         photo: MobilePhoto,
+        sourceImage: CGImage,
         normalizedCrop: CGRect,
         settings: PrintSettings,
         decoration: DecorationSettings,
@@ -15,6 +16,7 @@ enum MobileImageExporter {
         }
         let preparedPhoto = try render(
             photo: photo,
+            sourceImage: sourceImage,
             normalizedCrop: normalizedCrop,
             settings: settings,
             decoration: decoration,
@@ -35,6 +37,7 @@ enum MobileImageExporter {
 
     static func render(
         photo: MobilePhoto,
+        sourceImage: CGImage,
         normalizedCrop: CGRect,
         settings: PrintSettings,
         decoration: DecorationSettings,
@@ -42,10 +45,10 @@ enum MobileImageExporter {
     ) throws -> CGImage {
         let pixelRect = CropGeometry.pixelCrop(
             from: normalizedCrop,
-            imageSize: photo.pixelSize
+            imageSize: CGSize(width: sourceImage.width, height: sourceImage.height)
         )
         guard pixelRect.width > 0, pixelRect.height > 0,
-              let cropped = photo.cgImage.cropping(to: pixelRect) else {
+              let cropped = sourceImage.cropping(to: pixelRect) else {
             throw MobilePhotoError.invalidCrop
         }
 

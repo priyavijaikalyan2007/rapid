@@ -1,11 +1,18 @@
+import AppKit
 import SwiftUI
 import UniformTypeIdentifiers
+
+#if DEBUG
+private var appStoreScreenshotBackgroundWindow: NSWindow?
+#endif
 
 struct ContentView: View {
     @Environment(\.openWindow) private var openWindow
     @EnvironmentObject private var document: PhotoDocument
     @EnvironmentObject private var resourceLibrary: ResourceLibrary
     @State private var isDropTargeted = false
+    @State private var showsScreenshotResources = false
+    @State private var sidebarMode = SidebarMode.decorate
 
     var body: some View {
         NavigationSplitView {
@@ -15,9 +22,29 @@ struct ContentView: View {
             canvas
                 .navigationSplitViewColumnWidth(min: 520, ideal: 700)
         } detail: {
-            DecorationEditorView(settings: $document.decoration, showsDoneButton: false)
-                .environmentObject(resourceLibrary)
-                .navigationSplitViewColumnWidth(min: 285, ideal: 320, max: 380)
+            VStack(spacing: 0) {
+                Picker("Editor", selection: $sidebarMode) {
+                    ForEach(SidebarMode.allCases) { mode in
+                        Text(mode.title).tag(mode)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .padding()
+
+                switch sidebarMode {
+                case .decorate:
+                    DecorationEditorView(settings: $document.decoration, showsDoneButton: false)
+                        .environmentObject(resourceLibrary)
+                case .adjust:
+                    PhotoAdjustmentEditor(
+                        settings: $document.adjustments,
+                        allowsBackgroundRemoval: supportsBackgroundRemoval,
+                        isPassportPhoto: document.settings.isPassportPreset,
+                        isProcessing: document.isProcessingPhoto
+                    )
+                }
+            }
+            .navigationSplitViewColumnWidth(min: 300, ideal: 340, max: 400)
         }
         .toolbar {
             ToolbarItemGroup {
@@ -64,9 +91,14 @@ struct ContentView: View {
             if preset.category == .monitor {
                 document.settings.orientation = .landscape
             }
+            if preset.category != .passport && preset.category != .instagram {
+                document.adjustments.background = .original
+            }
             document.resetCrop()
         }
         .onChange(of: document.settings.orientation) { _, _ in document.resetCrop() }
+        .onChange(of: document.adjustments) { _, _ in document.updatePhotoProcessing() }
+        .onAppear(perform: prepareAppStoreScreenshot)
         .sheet(isPresented: $document.showsPrintSheetOptions) {
             if document.settings.preset.physicalInches != nil {
                 let orientedSize = document.settings.preset.dimensions(
@@ -79,6 +111,10 @@ struct ContentView: View {
                     onCreate: document.createPrintSheet
                 )
             }
+        }
+        .sheet(isPresented: $showsScreenshotResources) {
+            ResourceLibraryView()
+                .environmentObject(resourceLibrary)
         }
     }
 
@@ -139,7 +175,17 @@ struct ContentView: View {
                 }
 
                 if document.settings.isPassportPreset {
-                    Text("This preset sets only the outer dimensions. Check head size, background, and current government rules before submission.")
+                    Toggle("Show passport head guide", isOn: $document.settings.showsPassportGuide)
+
+                    if let guide = document.settings.preset.passportGuide {
+                        Text(guide.measurement)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                        Link("Open current rules from \(guide.sourceName)", destination: guide.sourceURL)
+                            .font(.caption)
+                    }
+
+                    Text("The guide is a visual aid. Check the current government rules before submission.")
                         .font(.caption)
                         .foregroundStyle(.secondary)
 
@@ -164,11 +210,17 @@ struct ContentView: View {
 
     @ViewBuilder
     private var canvas: some View {
-        if let photo = document.photo {
+        if let photo = document.photo,
+           let displayImage = document.displayImage {
             CropCanvas(
                 photo: photo,
+                displayImage: displayImage,
                 normalizedCrop: $document.normalizedCrop,
                 aspectRatio: document.settings.aspectRatio,
+                passportGuide: document.settings.isPassportPreset
+                    && document.settings.showsPassportGuide
+                    ? document.settings.preset.passportGuide
+                    : nil,
                 decoration: $document.decoration,
                 remoteFrame: remoteFrameImage
             )
@@ -203,6 +255,11 @@ struct ContentView: View {
         return Image(nsImage: image)
     }
 
+    private var supportsBackgroundRemoval: Bool {
+        let category = document.settings.preset.category
+        return category == .passport || category == .instagram
+    }
+
     private func handleDrop(providers: [NSItemProvider]) -> Bool {
         guard let provider = providers.first else { return false }
         provider.loadItem(forTypeIdentifier: UTType.fileURL.identifier, options: nil) { item, _ in
@@ -218,4 +275,78 @@ struct ContentView: View {
         }
         return true
     }
+
+    private func prepareAppStoreScreenshot() {
+#if DEBUG
+        configureAppStoreScreenshotWindow()
+        switch AppStoreScreenshotScenario.current {
+        case .printSheet, .trueSize:
+            document.showPrintSheetPanel()
+        case .resources:
+            showsScreenshotResources = true
+        case .preview:
+            playAppStorePreview()
+        default:
+            break
+        }
+#endif
+    }
+
+#if DEBUG
+    private func configureAppStoreScreenshotWindow() {
+        guard let scenario = AppStoreScreenshotScenario.current else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            guard let window = NSApp.windows.first(where: \.isVisible),
+                  let screen = window.screen ?? NSScreen.main else {
+                return
+            }
+            let height: CGFloat = scenario == .preview ? 720 : 800
+            let frame = CGRect(
+                x: screen.visibleFrame.minX + 100,
+                y: screen.visibleFrame.maxY - height - 80,
+                width: 1280,
+                height: height
+            )
+            let backgroundWindow = NSWindow(
+                contentRect: screen.frame,
+                styleMask: .borderless,
+                backing: .buffered,
+                defer: false
+            )
+            backgroundWindow.backgroundColor = .windowBackgroundColor
+            backgroundWindow.ignoresMouseEvents = true
+            backgroundWindow.orderFront(nil)
+            appStoreScreenshotBackgroundWindow = backgroundWindow
+            window.setFrame(frame, display: true)
+            NSApp.activate(ignoringOtherApps: true)
+            window.makeKeyAndOrderFront(nil)
+        }
+    }
+
+    private func playAppStorePreview() {
+        Task { @MainActor in
+            try? await Task.sleep(nanoseconds: 3_000_000_000)
+            document.decoration.text = "Make it yours"
+            document.decoration.textStyle = .shadow
+            document.decoration.frameStyle = .double
+            document.decoration.frameColor = .gold
+
+            try? await Task.sleep(nanoseconds: 4_000_000_000)
+            document.settings.preset = .passportUS
+            document.settings.paperSize = .fiveBySeven
+            document.resetCrop()
+
+            try? await Task.sleep(nanoseconds: 4_000_000_000)
+            document.showPrintSheetPanel()
+        }
+    }
+#endif
+}
+
+private enum SidebarMode: String, CaseIterable, Identifiable {
+    case decorate
+    case adjust
+
+    var id: Self { self }
+    var title: String { rawValue.capitalized }
 }

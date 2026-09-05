@@ -339,6 +339,7 @@ struct PrintSettings {
     var orientation: PrintOrientation = .portrait
     var paperSize: PaperSize = .postcard
     var includesMargin = false
+    var showsPassportGuide = true
 
     var aspectRatio: CGFloat { preset.aspectRatio(for: orientation) }
     var isPrintPreset: Bool { preset.category == .print }

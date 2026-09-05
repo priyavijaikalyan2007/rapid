@@ -29,16 +29,29 @@ enum MobilePhotoError: LocalizedError {
 
 @MainActor
 final class MobilePhotoDocument: ObservableObject {
+    private var personMask: CGImage?
+    private var processingTask: Task<Void, Never>?
+
     @Published var photo: MobilePhoto?
     @Published var settings = PrintSettings()
     @Published var printSheetSettings = PrintSheetSettings()
     @Published var decoration = DecorationSettings()
+    @Published var adjustments = PhotoAdjustmentSettings()
+    @Published private(set) var processedImage: CGImage?
+    @Published private(set) var isProcessingPhoto = false
     @Published var normalizedCrop = CGRect.zero
     @Published var message = "Choose a photo to begin."
     @Published var showsError = false
 
+    init() {
+#if DEBUG
+        loadAppStoreScreenshotSampleIfNeeded()
+#endif
+    }
+
     var canSave: Bool {
         photo != nil && normalizedCrop.width > 0 && normalizedCrop.height > 0
+            && !isProcessingPhoto
     }
 
     var canCreatePrintSheet: Bool {
@@ -51,7 +64,12 @@ final class MobilePhotoDocument: ObservableObject {
             from: normalizedCrop,
             imageSize: photo.pixelSize
         )
-        return photo.cgImage.cropping(to: pixelRect)
+        return (processedImage ?? photo.cgImage).cropping(to: pixelRect)
+    }
+
+    var displayImage: CGImage? {
+        guard let photo else { return nil }
+        return processedImage ?? photo.cgImage
     }
 
     func load(data: Data) {
@@ -63,6 +81,7 @@ final class MobilePhotoDocument: ObservableObject {
         }
 
         photo = MobilePhoto(image: normalized, cgImage: cgImage)
+        resetPhotoProcessing()
         resetCrop()
         message = "Loaded \(cgImage.width) x \(cgImage.height) pixels."
         showsError = false
@@ -79,11 +98,62 @@ final class MobilePhotoDocument: ObservableObject {
         )
     }
 
+    func updatePhotoProcessing() {
+        guard let photo else { return }
+        processingTask?.cancel()
+
+        if adjustments.isDefault {
+            processedImage = nil
+            isProcessingPhoto = false
+            message = "Photo edits reset."
+            showsError = false
+            return
+        }
+
+        let source = photo.cgImage
+        let requestedSettings = adjustments
+        let cachedMask = personMask
+        isProcessingPhoto = true
+        message = "Applying local photo edits…"
+        showsError = false
+
+        processingTask = Task { [weak self] in
+            try? await Task.sleep(nanoseconds: 120_000_000)
+            guard !Task.isCancelled else { return }
+            let result = await Task.detached(priority: .userInitiated) {
+                Result {
+                    try LocalPhotoProcessor.render(
+                        source: source,
+                        settings: requestedSettings,
+                        cachedPersonMask: cachedMask
+                    )
+                }
+            }.value
+            guard let self, !Task.isCancelled, self.adjustments == requestedSettings else {
+                return
+            }
+            switch result {
+            case .success(let output):
+                self.processedImage = output.image
+                if let mask = output.personMask {
+                    self.personMask = mask
+                }
+                self.isProcessingPhoto = false
+                self.message = "Photo edits preview updated locally."
+                self.showsError = false
+            case .failure(let error):
+                self.isProcessingPhoto = false
+                self.report(error)
+            }
+        }
+    }
+
     func saveToPhotos() {
         guard let photo else { return }
         do {
             let output = try MobileImageExporter.render(
                 photo: photo,
+                sourceImage: processedImage ?? photo.cgImage,
                 normalizedCrop: normalizedCrop,
                 settings: settings,
                 decoration: decoration,
@@ -116,6 +186,7 @@ final class MobilePhotoDocument: ObservableObject {
         do {
             let output = try MobileImageExporter.renderPrintSheet(
                 photo: photo,
+                sourceImage: processedImage ?? photo.cgImage,
                 normalizedCrop: normalizedCrop,
                 settings: settings,
                 decoration: decoration,
@@ -164,6 +235,59 @@ final class MobilePhotoDocument: ObservableObject {
         message = error.localizedDescription
         showsError = true
     }
+
+    private func resetPhotoProcessing() {
+        processingTask?.cancel()
+        adjustments = PhotoAdjustmentSettings()
+        processedImage = nil
+        personMask = nil
+        isProcessingPhoto = false
+    }
+
+#if DEBUG
+    private func loadAppStoreScreenshotSampleIfNeeded() {
+        guard let scenario = AppStoreScreenshotScenario.current,
+              let sampleURL = AppStoreScreenshotScenario.samplePhotoURL,
+              let data = try? Data(contentsOf: sampleURL) else {
+            return
+        }
+
+        load(data: data)
+        configureAppStoreScreenshot(for: scenario)
+    }
+
+    private func configureAppStoreScreenshot(for scenario: AppStoreScreenshotScenario) {
+        switch scenario {
+        case .passport, .printSheet, .trueSize:
+            settings.preset = .passportUS
+            settings.paperSize = .fiveBySeven
+            printSheetSettings.paperSize = .fiveBySeven
+            printSheetSettings.printerResolution = .dpi1200
+        case .decorate:
+            settings.preset = .instagramPortrait
+            decoration.text = "Make it yours"
+            decoration.textColor = .white
+            decoration.textStyle = .shadow
+            decoration.textRotation = -4
+            decoration.textY = 0.78
+            decoration.frameStyle = .double
+            decoration.frameColor = .gold
+        case .crop, .resources, .preview:
+            settings.preset = .fiveBySeven
+            settings.orientation = .landscape
+            settings.paperSize = .letter
+        }
+
+        resetCrop()
+        if scenario == .crop || scenario == .preview {
+            let crop = normalizedCrop
+            normalizedCrop = crop.insetBy(
+                dx: crop.width * 0.08,
+                dy: crop.height * 0.08
+            ).offsetBy(dx: -0.04, dy: 0.02)
+        }
+    }
+#endif
 }
 
 private extension UIImage {

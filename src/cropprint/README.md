@@ -17,6 +17,9 @@ The app keeps the crop rectangle at the selected ratio. You can move or resize t
 - Create Instagram Story, portrait, and square images at exact output dimensions.
 - Create wallpapers for recent iPhones and common MacBook display sizes.
 - Crop photos to common passport and identity-photo dimensions.
+- Show preset-specific head and chin guides for passport photos.
+- Replace portrait backgrounds locally for passport and Instagram presets.
+- Adjust exposure, contrast, highlights, shadows, saturation, hue, sharpness, and angle.
 - Create monitor wallpapers from VGA through 8K UHD.
 - Tile passport or general-print crops onto physical print sheets.
 - Show hover tooltips for every macOS toolbar icon.
@@ -99,7 +102,11 @@ Passport and identity presets include these dimensions:
 - Singapore digital submission: 400x514 pixels
 - New Zealand digital submission: 900x1200 pixels
 
-These presets control only the outer dimensions. Check current head-size, background, expression, age, and submission rules before use.
+Passport presets include translucent bands for the recommended crown and chin positions. Each preset links to current official guidance.
+
+The bands are visual aids. Check current head-size, background, expression, age, and submission rules before use.
+
+Some authorities prohibit digital background replacement or other alterations. CropPrint warns users but does not determine compliance.
 
 Monitor presets include VGA, SVGA, XGA, SXGA, UXGA, HD, Full HD, DCI 2K, QHD, and WQXGA.
 
@@ -178,6 +185,8 @@ GitHub Actions builds, signs, notarizes, and publishes `CropPrint.zip` on the Gi
 ## Privacy
 
 CropPrint reads only the photo that you select. It writes only the exported photo.
+
+Photo adjustments, angle correction, and person segmentation run on the device through Apple Core Image and Vision.
 
 The app contacts a server only when you refresh or download remote resources. The server receives normal request data, such as your Internet Protocol address. CropPrint does not send photos, crop settings, analytics, or personal data.
 

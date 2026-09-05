@@ -2,8 +2,10 @@ import SwiftUI
 
 struct CropCanvas: View {
     let photo: LoadedPhoto
+    let displayImage: CGImage
     @Binding var normalizedCrop: CGRect
     let aspectRatio: CGFloat
+    let passportGuide: PassportGuide?
     @Binding var decoration: DecorationSettings
     let remoteFrame: Image?
 
@@ -24,7 +26,7 @@ struct CropCanvas: View {
             ZStack(alignment: .topLeading) {
                 Color(nsColor: .windowBackgroundColor)
 
-                Image(nsImage: photo.image)
+                Image(decorative: displayImage, scale: 1, orientation: .up)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: imageRect.width, height: imageRect.height)
@@ -43,8 +45,10 @@ struct CropCanvas: View {
                         Rectangle().stroke(.white, lineWidth: 2)
                     }
                     .overlay {
-                        RuleOfThirdsGrid()
-                            .stroke(.white.opacity(0.55), lineWidth: 1)
+                        if passportGuide == nil {
+                            RuleOfThirdsGrid()
+                                .stroke(.white.opacity(0.55), lineWidth: 1)
+                        }
                     }
                     .frame(width: cropRect.width, height: cropRect.height)
                     .position(x: cropRect.midX, y: cropRect.midY)
@@ -70,6 +74,12 @@ struct CropCanvas: View {
                             }
                     )
                     .cursor(.openHand)
+
+                if let passportGuide {
+                    PassportGuideOverlay(guide: passportGuide)
+                        .frame(width: cropRect.width, height: cropRect.height)
+                        .position(x: cropRect.midX, y: cropRect.midY)
+                }
 
                 InteractiveDecorationOverlay(settings: $decoration, remoteFrame: remoteFrame)
                     .frame(width: cropRect.width, height: cropRect.height)

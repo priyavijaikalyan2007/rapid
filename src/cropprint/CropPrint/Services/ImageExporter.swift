@@ -51,6 +51,7 @@ struct PrintSheetOutput {
 enum ImageExporter {
     static func createPrintSheet(
         photo: LoadedPhoto,
+        sourceImage: CGImage,
         normalizedCrop: CGRect,
         settings: PrintSettings,
         decoration: DecorationSettings,
@@ -63,10 +64,10 @@ enum ImageExporter {
 
         let pixelRect = CropGeometry.pixelCrop(
             from: normalizedCrop,
-            imageSize: photo.pixelSize
+            imageSize: CGSize(width: sourceImage.width, height: sourceImage.height)
         )
         guard pixelRect.width > 0, pixelRect.height > 0,
-              let cropped = photo.cgImage.cropping(to: pixelRect) else {
+              let cropped = sourceImage.cropping(to: pixelRect) else {
             throw ImageExportError.invalidCrop
         }
 
@@ -119,6 +120,7 @@ enum ImageExporter {
 
     static func export(
         photo: LoadedPhoto,
+        sourceImage: CGImage,
         normalizedCrop: CGRect,
         settings: PrintSettings,
         decoration: DecorationSettings,
@@ -126,11 +128,11 @@ enum ImageExporter {
     ) throws -> URL {
         let pixelRect = CropGeometry.pixelCrop(
             from: normalizedCrop,
-            imageSize: photo.pixelSize
+            imageSize: CGSize(width: sourceImage.width, height: sourceImage.height)
         )
 
         guard pixelRect.width > 0, pixelRect.height > 0,
-              let cropped = photo.cgImage.cropping(to: pixelRect) else {
+              let cropped = sourceImage.cropping(to: pixelRect) else {
             throw ImageExportError.invalidCrop
         }
 

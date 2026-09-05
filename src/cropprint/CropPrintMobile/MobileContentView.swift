@@ -38,6 +38,11 @@ struct MobileContentView: View {
                         }
                         .disabled(document.photo == nil)
 
+                        Button("Adjust Photo", systemImage: "slider.horizontal.3") {
+                            informationPage = .adjust
+                        }
+                        .disabled(document.photo == nil)
+
                         Button("Attributions", systemImage: "doc.text") {
                             informationPage = .attributions
                         }
@@ -76,9 +81,14 @@ struct MobileContentView: View {
                 if preset.category == .monitor {
                     document.settings.orientation = .landscape
                 }
+                if preset.category != .passport && preset.category != .instagram {
+                    document.adjustments.background = .original
+                }
                 document.resetCrop()
             }
             .onChange(of: document.settings.orientation) { _, _ in document.resetCrop() }
+            .onChange(of: document.adjustments) { _, _ in document.updatePhotoProcessing() }
+            .onAppear(perform: prepareAppStoreScreenshot)
             .sheet(item: $informationPage) { page in
                 switch page {
                 case .about:
@@ -96,6 +106,18 @@ struct MobileContentView: View {
                         .environmentObject(resourceLibrary)
                         .presentationDetents([.height(330), .large])
                         .presentationBackgroundInteraction(.enabled(upThrough: .height(330)))
+                case .adjust:
+                    NavigationStack {
+                        PhotoAdjustmentEditor(
+                            settings: $document.adjustments,
+                            allowsBackgroundRemoval: supportsBackgroundRemoval,
+                            isPassportPhoto: document.settings.isPassportPreset,
+                            isProcessing: document.isProcessingPhoto,
+                            showsDoneButton: true
+                        )
+                    }
+                    .presentationDetents([.medium, .large])
+                    .presentationBackgroundInteraction(.enabled(upThrough: .medium))
                 }
             }
             .sheet(isPresented: $showsPrintSheetOptions) {
@@ -148,11 +170,17 @@ struct MobileContentView: View {
 
     @ViewBuilder
     private var photoCanvas: some View {
-        if let photo = document.photo {
+        if let photo = document.photo,
+           let displayImage = document.displayImage {
             MobileCropCanvas(
                 photo: photo,
+                displayImage: displayImage,
                 normalizedCrop: $document.normalizedCrop,
                 aspectRatio: document.settings.aspectRatio,
+                passportGuide: document.settings.isPassportPreset
+                    && document.settings.showsPassportGuide
+                    ? document.settings.preset.passportGuide
+                    : nil,
                 decoration: $document.decoration,
                 remoteFrame: remoteFrameImage
             )
@@ -247,7 +275,17 @@ struct MobileContentView: View {
             }
 
             if document.settings.isPassportPreset {
-                Text("This preset sets only the outer dimensions. Check head size, background, and current government rules before submission.")
+                Toggle("Show passport head guide", isOn: $document.settings.showsPassportGuide)
+
+                if let guide = document.settings.preset.passportGuide {
+                    Text(guide.measurement)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    Link("Open current rules from \(guide.sourceName)", destination: guide.sourceURL)
+                        .font(.caption)
+                }
+
+                Text("The guide is a visual aid. Check the current government rules before submission.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
 
@@ -270,6 +308,48 @@ struct MobileContentView: View {
             }
         )
     }
+
+    private var supportsBackgroundRemoval: Bool {
+        let category = document.settings.preset.category
+        return category == .passport || category == .instagram
+    }
+
+    private func prepareAppStoreScreenshot() {
+#if DEBUG
+        switch AppStoreScreenshotScenario.current {
+        case .decorate:
+            informationPage = .decorate
+        case .resources:
+            informationPage = .resources
+        case .printSheet, .trueSize:
+            showsPrintSheetOptions = true
+        case .preview:
+            playAppStorePreview()
+        default:
+            break
+        }
+#endif
+    }
+
+#if DEBUG
+    private func playAppStorePreview() {
+        Task { @MainActor in
+            try? await Task.sleep(nanoseconds: 3_000_000_000)
+            document.decoration.text = "Make it yours"
+            document.decoration.textStyle = .shadow
+            document.decoration.frameStyle = .double
+            document.decoration.frameColor = .gold
+
+            try? await Task.sleep(nanoseconds: 4_000_000_000)
+            document.settings.preset = .passportUS
+            document.settings.paperSize = .fiveBySeven
+            document.resetCrop()
+
+            try? await Task.sleep(nanoseconds: 4_000_000_000)
+            showsPrintSheetOptions = true
+        }
+    }
+#endif
 }
 
 private enum InformationPage: String, Identifiable {
@@ -278,6 +358,7 @@ private enum InformationPage: String, Identifiable {
     case resources
     case help
     case decorate
+    case adjust
 
     var id: String { rawValue }
 }

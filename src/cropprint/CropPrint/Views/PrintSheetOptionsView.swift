@@ -11,7 +11,7 @@ struct PrintSheetOptionsView: View {
     let photoSizeInches: CGSize
     let previewImage: CGImage?
     let onCreate: () -> Void
-    @State private var showsTrueSizePreview = false
+    @State private var showsTrueSizePreview = AppStoreScreenshotScenario.current == .trueSize
 
     private var layout: PrintSheetLayout? {
         try? PrintSheetLayout.make(photoSizeInches: photoSizeInches, settings: settings)

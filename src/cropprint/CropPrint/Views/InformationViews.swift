@@ -108,7 +108,16 @@ struct CropPrintHelpView: View {
 
                 Section("Passport photos") {
                     Text("Passport presets set the outer dimensions or required digital pixel size.")
+                    Text("Enable the passport guide to align the top of the head and the chin with the translucent bands.")
+                    Text("Open the linked government page because passport rules can change.")
                     Text("Check current government rules for head size, background, expression, image age, and file format.")
+                }
+
+                Section("Photo adjustments") {
+                    Text("Use Photo Adjustments to change exposure, contrast, highlights, shadows, saturation, hue, sharpness, and angle.")
+                    Text("Background replacement uses Apple person segmentation and runs only on this device.")
+                    Text("Some passport authorities reject background replacement or other digital edits.")
+                    Text("Reset Photo Edits restores the loaded photo without changing the original file.")
                 }
 
                 Section("Print sheets") {
@@ -128,6 +137,7 @@ struct CropPrintHelpView: View {
                 Section("Files and privacy") {
                     Text("CropPrint never changes the original photo.")
                     Text("The macOS app saves new files beside the original. The iOS app saves results to Photos.")
+                    Text("Photo adjustments and background replacement run locally.")
                     Text("Remote fonts and frames download only when you request them.")
                 }
 
