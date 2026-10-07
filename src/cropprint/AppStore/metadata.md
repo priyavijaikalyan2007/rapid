@@ -55,49 +55,77 @@ Do not enable a capability for possible future use. Enable a new capability only
 - SKU: cropprint-2026
 - Privacy policy URL: https://outcrop.us/privacy/
 - Support URL: https://outcrop.us/support/
-- Source URL: https://github.com/pvk2007/rapid
-- Copyright: 2026
+- Source URL: https://github.com/priyavijaikalyan2007/rapid
+- Copyright: 2026 Outcrop Inc
 - Price: Free
 
 ## Keywords
 
 ```text
-crop,photo,print,passport,sheet,frame,text,wallpaper,instagram,aspect ratio
+photo,passport,ID,sheet,wallpaper,resize,aspect ratio,4x6,5x7,social media,frame,text
 ```
 
 ## Description
 
-CropPrint crops photos to exact aspect ratios without stretching the image.
+CropPrint helps people prepare personal photos for standard prints, passport or identity applications, social media, and screen backgrounds. It removes manual aspect-ratio calculations and never stretches the image.
 
-Choose a standard print size, passport-photo size, social-media format, phone wallpaper, or monitor resolution. Move and resize the fixed-ratio crop area until it contains the part of the photo that you want.
+Choose a photo and select a preset. Move or resize the fixed-ratio crop rectangle until it contains the area that you want. CropPrint exports only that area and keeps the source photo unchanged.
 
-Add a text layer or photo frame and see the result directly on the image. Change the font, style, color, opacity, size, position, and rotation.
+Built-in presets include:
 
-Create print sheets that place multiple passport or identity photos at their correct physical size. Select paper, resolution, margins, and cutting guides.
+• Common print sizes from 4x6 through 24x36
+• Passport and identity-photo sizes for several countries and regions
+• Instagram Story, portrait, and square formats
+• iPhone and MacBook wallpaper sizes
+• Common monitor resolutions from VGA through 8K
 
-Use live size details and a ruler-calibrated true-size preview to inspect the expected printed dimensions before export.
+Create print sheets that place multiple passport or identity photos at the selected physical size. Choose the paper size, printer resolution, margins, and cutting guides.
 
-CropPrint processes photos on your device. It has no account, advertising, analytics, or tracking. The optional resource library downloads licensed fonts and frames only when you request them.
+Add a movable text layer or a photo frame and preview the result on the image. Change the text font, style, color, opacity, size, position, and rotation.
+
+Use live size details and a ruler-calibrated true-size preview to inspect expected print dimensions before export.
+
+CropPrint is designed for individuals, families, photographers, travelers, students, and anyone preparing personal photos. It is a public consumer utility. It is not limited to a business, school, employer, or other organization.
+
+Passport presets set the crop's outer dimensions only. Rules can change. Confirm current government requirements before submitting a photo.
+
+CropPrint processes photos on the device. It has no account, advertising, analytics, tracking, paid content, or subscription. The optional resource library downloads licensed fonts and frames only when you request them.
 
 CropPrint is open-source software.
 
 ## Promotional text
 
-Crop photos for prints, passports, social media, and screens without distortion. Add text, frames, and exact-size print sheets.
+Crop personal photos without distortion. Use print, passport, social, and wallpaper presets, then create exact-size photo sheets with cut marks.
 
 ## Review notes
 
-CropPrint has no login or account.
+Use the following notes for version 1.0.0, build 12. Add the same relevant text to each platform's App Review Information section.
 
-On iPhone or iPad, select Choose Photo and choose an image through the system photo picker.
+CropPrint is a public consumer photo utility for individuals and families. It prepares existing photos for prints, passport or identity applications, social media, and screen backgrounds. It replaces manual aspect-ratio calculations with a fixed-ratio crop rectangle and exact-size export presets.
 
-Move or resize the crop rectangle. Select Crop and Save to Photos. The application requests add-only Photos access at that point.
+No setup, account, login, registration, demo credentials, purchase, subscription, or paid content is required. The app contains no shared user-generated content. Reviewers can use any nonprivate photo already on the test device. A sample file is available at:
 
-To test a passport print sheet, select a physical Passport Print preset. Then select Create Print Sheet and choose the paper settings.
+```text
+https://raw.githubusercontent.com/priyavijaikalyan2007/rapid/main/src/cropprint/AppStore/Media/Source/sample-landscape.png
+```
 
-Remote Resources is optional. The built-in entries download open-source Google Fonts from the official Google Fonts repository on GitHub.
+On iPhone or iPad, select Choose Photo and choose an image through the system photo picker. Select a category and crop size. Move or resize the crop rectangle. Select Crop and Save to Photos. The app requests add-only Photos access when it saves the result.
 
-On macOS, use File > Open Photo or drag an image into the window. The application uses user-selected file access under App Sandbox.
+To test a passport print sheet, select Passport and ID. Select a physical preset, such as United States Passport. Select Create Print Sheet. Choose the paper, resolution, margins, and cut-mark options. Digital-only passport presets do not offer print sheets because they have no physical dimensions.
+
+On macOS, use File > Open Photo or drag an image into the window. Select a crop size, move or resize the rectangle, and select Crop and Save. The app saves a new file beside the source. It never changes the source file. The app uses user-selected file access under App Sandbox.
+
+Core photo processing runs locally through Apple platform frameworks. The app does not upload photos or crop settings.
+
+The app does not use authentication, payment processors, advertising networks, analytics services, cloud storage, server-side processing, or external artificial-intelligence services.
+
+Remote Resources is optional and is not required for core functionality. When the reviewer requests a download, the app connects to GitHub and `raw.githubusercontent.com`. Built-in entries download open-source Google Fonts and their Open Font License files from the official Google Fonts repository. The app shows licenses and attributions.
+
+The app provides the same features in all regions. Country and region names identify passport crop dimensions. These presets are available worldwide and do not guarantee acceptance by any government.
+
+CropPrint is not a government service, identity-verification service, medical product, financial product, or other regulated service. It does not include protected third-party content. Optional fonts use open-source licenses. CropPrint itself uses the MIT License.
+
+A physical-device recording is attached to the corresponding App Review message. The recording starts with app launch and shows the normal workflow. There are no account, deletion, shared-content, or paid-feature flows to demonstrate.
 
 ## App privacy answers
 

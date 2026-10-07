@@ -182,6 +182,12 @@ git push origin v1.0.0
 
 GitHub Actions builds, signs, notarizes, and publishes `CropPrint.zip` on the GitHub release.
 
+## Physical-device testing
+
+Generated, nonprivate test photos are stored under `Testing/SampleImages`.
+
+Follow `Testing/TESTING-GUIDE.md` for physical-device testing, App Review recordings, screenshot states, and the full regression checklist.
+
 ## Privacy
 
 CropPrint reads only the photo that you select. It writes only the exported photo.

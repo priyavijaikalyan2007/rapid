@@ -165,7 +165,7 @@ record_simulator_preview() {
 
 capture_iphone() {
   prepare_simulator "$iphone_id"
-  capture_simulator_set "$iphone_id" "$media_root/iPhone" 1284 2778
+  capture_simulator_set "$iphone_id" "$media_root/iPhone" 1206 2622
   record_simulator_preview "$iphone_id" "$media_root/iPhone" 886 1920
 }
 

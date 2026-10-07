@@ -6,7 +6,7 @@ This checklist tracks the first CropPrint release.
 
 - Version: `1.0.0`
 - Build: `12`
-- Git commit: Read the exact SHA from the archive or About page.
+- Git commit: `b9e9fcf40db53f4ef72d1bff979ffdb1ee34dac5`
 - Apple Developer Team: `4JD5A6Q2HL`
 - Bundle identifier: `us.outcrop.apps.cropprint`
 - Platforms: macOS, iPhone, and iPad
@@ -22,14 +22,17 @@ This checklist tracks the first CropPrint release.
 - [x] Test the application on Shreya's physical iPhone 12 mini.
 - [x] Test the iPhone and iPad layouts in Simulator.
 - [x] Run the automated tests.
-- [ ] Recreate the macOS archive with its matching dSYM.
-- [ ] Recreate the iOS and iPadOS archive as build `12`.
-- [ ] Validate both archives in Xcode Organizer.
-- [ ] Upload both archives to App Store Connect.
+- [x] Recreate the macOS archive with its matching dSYM.
+- [x] Recreate the iOS and iPadOS archive as build `12`.
+- [x] Validate both archives in Xcode Organizer.
+- [x] Upload both archives to App Store Connect.
 - [ ] Test the uploaded build through TestFlight.
-- [ ] Complete the iOS App Store page.
-- [ ] Complete the macOS App Store page.
-- [ ] Submit both platform versions for review.
+- [x] Complete the iOS App Store page.
+- [x] Complete the macOS App Store page.
+- [x] Submit both platform versions for review.
+- [ ] Respond to Apple's additional-information request.
+- [ ] Add the complete response to both App Review Notes fields.
+- [ ] Attach physical-device recordings for iPhone, iPad, and Mac.
 - [ ] Release the approved version manually.
 
 ## 1. Validate the archives
@@ -48,7 +51,7 @@ Validate both archives before any upload.
 8. Save any warning or error text.
 9. Mark the macOS archive complete below.
 
-- [ ] The macOS archive passes validation.
+- [x] The macOS archive passes validation.
 
 ### iPhone and iPad
 
@@ -62,7 +65,7 @@ Validate both archives before any upload.
 8. Save any warning or error text.
 9. Mark the iOS archive complete below.
 
-- [ ] The iPhone and iPad archive passes validation.
+- [x] The iPhone and iPad archive passes validation.
 
 Stop before upload if either validation reports an error.
 
@@ -78,9 +81,9 @@ CONFIRM_APP_STORE_UPLOAD=YES ./scripts/upload-app-store.sh all
 
 The command uploads both existing archives. It does not submit either application for review.
 
-- [ ] The macOS upload succeeds.
-- [ ] The iOS and iPadOS upload succeeds.
-- [ ] App Store Connect shows both builds.
+- [x] The macOS upload succeeds.
+- [x] The iOS and iPadOS upload succeeds.
+- [x] App Store Connect shows both builds.
 
 If Apple rejects build `12`, fix the issue and create a new commit. The next build must use a larger number.
 
@@ -94,9 +97,9 @@ If Apple rejects build `12`, fix the issue and create a new commit. The next bui
 6. Answer any export-compliance questions.
 7. Confirm that Apple reports no processing error.
 
-- [ ] The iOS build finishes processing.
-- [ ] The macOS build finishes processing.
-- [ ] Export compliance is complete.
+- [x] The iOS build finishes processing.
+- [x] The macOS build finishes processing.
+- [x] Export compliance is complete.
 
 CropPrint sets `ITSAppUsesNonExemptEncryption` to `false` for both platforms.
 
@@ -129,19 +132,19 @@ Use `AppStore/metadata.md` for the prepared text and answers.
 
 Complete these fields for iOS and macOS:
 
-- [ ] Application description
-- [ ] Promotional text
-- [ ] Keywords
-- [ ] Primary and secondary categories
-- [ ] Support URL: `https://outcrop.us/support/`
-- [ ] Privacy URL: `https://outcrop.us/privacy/`
-- [ ] Copyright: `2026 Outcrop Inc`
-- [ ] Price: Free
-- [ ] Availability
-- [ ] Age rating
-- [ ] Content-rights declaration
-- [ ] App privacy answers
-- [ ] Review contact information
+- [x] Application description
+- [x] Promotional text
+- [x] Keywords
+- [x] Primary and secondary categories
+- [x] Support URL: `https://outcrop.us/support/`
+- [x] Privacy URL: `https://outcrop.us/privacy/`
+- [x] Copyright: `2026 Outcrop Inc`
+- [x] Price: Free
+- [x] Availability
+- [x] Age rating
+- [x] Content-rights declaration
+- [x] App privacy answers
+- [x] Review contact information
 - [ ] Review notes
 
 The private review contact can use an Outcrop email address. Apple does not publish that contact.
@@ -160,9 +163,9 @@ Use photos that contain no private information.
 
 Upload separate screenshot sets for:
 
-- [ ] iPhone
-- [ ] iPad
-- [ ] macOS
+- [x] iPhone
+- [x] iPad
+- [x] macOS
 
 Show these workflows:
 
@@ -185,8 +188,8 @@ Use only the screenshot dimensions that App Store Connect requests.
 5. Select build `12`.
 6. Save the macOS version page.
 
-- [ ] Build `12` is attached to the iOS version.
-- [ ] Build `12` is attached to the macOS version.
+- [x] Build `12` is attached to the iOS version.
+- [x] Build `12` is attached to the macOS version.
 
 ## 8. Submit for review
 
@@ -199,8 +202,8 @@ Use only the screenshot dimensions that App Store Connect requests.
 7. Confirm that both platforms are included.
 8. Submit the review.
 
-- [ ] The iOS version is waiting for review.
-- [ ] The macOS version is waiting for review.
+- [x] The iOS version was submitted for review.
+- [x] The macOS version was submitted for review.
 
 ## 9. Release after approval
 
@@ -230,3 +233,27 @@ The GitHub workflow needs these encrypted secrets:
 Set `ENABLE_APP_STORE_PUBLISH` to `true` only after the local release process works.
 
 The durable reference guide remains at the repository root in `PUBLISHING.md`.
+
+## Current App Review information request
+
+Apple requested more information because the developer account has limited App Review history.
+
+Use `AppStore/APP-REVIEW-RESPONSE.md` for the prepared response. Use `AppStore/metadata.md` for the Notes field and public product-page copy.
+
+Before you reply, complete these checks:
+
+- [ ] Install the submitted iOS build through TestFlight on the iPhone 12 mini.
+- [ ] Record the normal workflow on the physical iPhone.
+- [ ] Install the submitted iOS build through TestFlight on the physical iPad.
+- [ ] Record the normal workflow on the physical iPad.
+- [ ] Install the submitted macOS build through TestFlight on the MacBook Pro.
+- [ ] Record the normal workflow on the physical Mac.
+- [ ] Confirm that each device uses its latest stable supported operating system.
+- [ ] Confirm that each recording starts with launching CropPrint.
+- [ ] Attach all recordings to the App Review response.
+- [ ] Paste the complete requested information into each platform's Notes field.
+- [ ] Send the response through the App Review message thread.
+
+The repository contains later features that are not part of submitted build `12`. Read the current local build from the About page.
+
+Do not record a later build as evidence for build `12`. The recording must show the exact submitted build.

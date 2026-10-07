@@ -310,6 +310,25 @@ Submit only after physical-device and TestFlight testing succeeds.
 
 Use manual release for the first version. This choice lets you inspect the approved product page before release.
 
+## Respond to an App Review information request
+
+If Apple requests more context, reply through the App Review message thread. Add the same durable information to each platform's Notes field.
+
+Provide these items:
+
+1. Attach a recording from each requested physical device.
+2. State the app's purpose and target audience.
+3. Give exact setup and feature-access instructions.
+4. List required and optional external services.
+5. State all regional differences or confirm consistent behavior.
+6. Explain regulated functions and protected material, if any.
+
+Record the exact submitted build. Start each recording with app launch and show a normal user workflow.
+
+Do not use a Simulator recording when Apple requests a physical-device recording. Do not record a newer local build as evidence for an older submitted build.
+
+CropPrint response text is stored in `src/cropprint/AppStore/APP-REVIEW-RESPONSE.md`. The durable Notes text is stored in `src/cropprint/AppStore/metadata.md`.
+
 ## GitHub Actions publishing
 
 The App Store workflow remains disabled until the repository variable `ENABLE_APP_STORE_PUBLISH` equals `true`.
