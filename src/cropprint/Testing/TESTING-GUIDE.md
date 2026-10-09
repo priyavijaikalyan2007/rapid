@@ -334,4 +334,8 @@ Record failures through GitHub Issues. Do not attach private photos or device in
 4. Copy the response from `AppStore/APP-REVIEW-RESPONSE.md`.
 5. Send the response through App Store Connect.
 6. Paste the durable details into both platform Notes fields.
-7. Resubmit the existing build.
+7. Wait for Apple to continue the existing review.
+
+Do not resubmit when Apple requested information only. A resubmission starts a new review and closes the existing message exchange.
+
+If App Store Connect shows a rejected item that requires editing, follow the displayed Edit and Resubmit workflow instead.
