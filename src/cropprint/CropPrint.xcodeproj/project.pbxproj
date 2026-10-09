@@ -32,6 +32,16 @@
 		010000000000000000000017 /* PrintSheetSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000013 /* PrintSheetSettings.swift */; };
 		010000000000000000000018 /* Services/PrintSheetRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000014 /* Services/PrintSheetRenderer.swift */; };
 		010000000000000000000019 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000017 /* PrivacyInfo.xcprivacy */; };
+		C10000000000000000000001 /* AppStoreScreenshotSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000001 /* AppStoreScreenshotSupport.swift */; };
+		C10000000000000000000002 /* AppStoreScreenshotSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000001 /* AppStoreScreenshotSupport.swift */; };
+		C10000000000000000000003 /* PhotoProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000002 /* PhotoProcessing.swift */; };
+		C10000000000000000000004 /* PhotoProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000002 /* PhotoProcessing.swift */; };
+		C10000000000000000000005 /* PhotoAdjustmentEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000003 /* PhotoAdjustmentEditor.swift */; };
+		C10000000000000000000006 /* PhotoAdjustmentEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000003 /* PhotoAdjustmentEditor.swift */; };
+		C10000000000000000000007 /* PassportGuides.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000004 /* PassportGuides.swift */; };
+		C10000000000000000000008 /* PassportGuides.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000004 /* PassportGuides.swift */; };
+		C10000000000000000000009 /* PhotoProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000002 /* PhotoProcessing.swift */; };
+		C1000000000000000000000A /* PhotoProcessingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000005 /* PhotoProcessingTests.swift */; };
 		D10000000000000000000001 /* CropPrintMobileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000000000000000000001 /* CropPrintMobileApp.swift */; };
 		D10000000000000000000002 /* MobileContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000000000000000000002 /* MobileContentView.swift */; };
 		D10000000000000000000003 /* MobilePhotoDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000000000000000000003 /* MobilePhotoDocument.swift */; };
@@ -48,16 +58,6 @@
 		D1000000000000000000000E /* Services/PrintSheetRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000014 /* Services/PrintSheetRenderer.swift */; };
 		D1000000000000000000000F /* Views/PrintSheetOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000015 /* Views/PrintSheetOptionsView.swift */; };
 		D10000000000000000000010 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000017 /* PrivacyInfo.xcprivacy */; };
-		C10000000000000000000001 /* AppStoreScreenshotSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000001 /* AppStoreScreenshotSupport.swift */; };
-		C10000000000000000000002 /* AppStoreScreenshotSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000001 /* AppStoreScreenshotSupport.swift */; };
-		C10000000000000000000003 /* PhotoProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000002 /* PhotoProcessing.swift */; };
-		C10000000000000000000004 /* PhotoProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000002 /* PhotoProcessing.swift */; };
-		C10000000000000000000005 /* PhotoAdjustmentEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000003 /* PhotoAdjustmentEditor.swift */; };
-		C10000000000000000000006 /* PhotoAdjustmentEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000003 /* PhotoAdjustmentEditor.swift */; };
-		C10000000000000000000007 /* PassportGuides.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000004 /* PassportGuides.swift */; };
-		C10000000000000000000008 /* PassportGuides.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000004 /* PassportGuides.swift */; };
-		C10000000000000000000009 /* PhotoProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000002 /* PhotoProcessing.swift */; };
-		C1000000000000000000000A /* PhotoProcessingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000005 /* PhotoProcessingTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +84,11 @@
 		020000000000000000000015 /* Views/PrintSheetOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/PrintSheetOptionsView.swift; sourceTree = "<group>"; };
 		020000000000000000000016 /* CropPrint.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CropPrint.entitlements; sourceTree = "<group>"; };
 		020000000000000000000017 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		C20000000000000000000001 /* AppStoreScreenshotSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreScreenshotSupport.swift; sourceTree = "<group>"; };
+		C20000000000000000000002 /* PhotoProcessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoProcessing.swift; sourceTree = "<group>"; };
+		C20000000000000000000003 /* PhotoAdjustmentEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAdjustmentEditor.swift; sourceTree = "<group>"; };
+		C20000000000000000000004 /* PassportGuides.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassportGuides.swift; sourceTree = "<group>"; };
+		C20000000000000000000005 /* PhotoProcessingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoProcessingTests.swift; sourceTree = "<group>"; };
 		D20000000000000000000001 /* CropPrintMobileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropPrintMobileApp.swift; sourceTree = "<group>"; };
 		D20000000000000000000002 /* MobileContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileContentView.swift; sourceTree = "<group>"; };
 		D20000000000000000000003 /* MobilePhotoDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilePhotoDocument.swift; sourceTree = "<group>"; };
@@ -92,11 +97,6 @@
 		D20000000000000000000006 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D20000000000000000000007 /* CropPrint Mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CropPrint Mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D20000000000000000000008 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C20000000000000000000001 /* AppStoreScreenshotSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreScreenshotSupport.swift; sourceTree = "<group>"; };
-		C20000000000000000000002 /* PhotoProcessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoProcessing.swift; sourceTree = "<group>"; };
-		C20000000000000000000003 /* PhotoAdjustmentEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAdjustmentEditor.swift; sourceTree = "<group>"; };
-		C20000000000000000000004 /* PassportGuides.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassportGuides.swift; sourceTree = "<group>"; };
-		C20000000000000000000005 /* PhotoProcessingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoProcessingTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
