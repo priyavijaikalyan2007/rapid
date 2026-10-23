@@ -1,0 +1,122 @@
+[
+  {
+    "name": "CropPrint",
+    "definition": "Native photo-cropping utility for macOS, iPhone, and iPad.",
+    "anchor_file": "src/cropprint/README.md",
+    "related": [
+      "CropGeometry",
+      "PrintPresets",
+      "PhotoProcessing",
+      "CropPrintRelease"
+    ]
+  },
+  {
+    "name": "CropGeometry",
+    "definition": "Calculates crop rectangles and aspect-ratio constraints.",
+    "anchor_file": "src/cropprint/CropPrint/Models/CropGeometry.swift",
+    "related": [
+      "CropPrint",
+      "PrintPresets"
+    ]
+  },
+  {
+    "name": "PrintPresets",
+    "definition": "Defines physical print, passport, social, phone, and display dimensions.",
+    "anchor_file": "src/cropprint/CropPrint/Models/PrintSettings.swift",
+    "related": [
+      "CropGeometry",
+      "PrintSheets"
+    ]
+  },
+  {
+    "name": "PrintSheets",
+    "definition": "Lays out cropped photos on physical paper and exports sheets.",
+    "anchor_file": "src/cropprint/CropPrint/Services/PrintSheetRenderer.swift",
+    "related": [
+      "PrintPresets",
+      "Decorations"
+    ]
+  },
+  {
+    "name": "PhotoProcessing",
+    "definition": "Applies local Core Image adjustments and Vision person segmentation.",
+    "anchor_file": "src/cropprint/Shared/PhotoProcessing.swift",
+    "related": [
+      "CropPrint",
+      "PhotoDocuments"
+    ]
+  },
+  {
+    "name": "Decorations",
+    "definition": "Renders text and frames on crops and print-sheet copies.",
+    "anchor_file": "src/cropprint/CropPrint/Services/DecorationRenderer.swift",
+    "related": [
+      "PrintSheets",
+      "RemoteResources"
+    ]
+  },
+  {
+    "name": "RemoteResources",
+    "definition": "Validates and downloads optional licensed fonts and frames.",
+    "anchor_file": "src/cropprint/CropPrint/Models/RemoteResource.swift",
+    "related": [
+      "Decorations"
+    ]
+  },
+  {
+    "name": "PhotoDocuments",
+    "definition": "Owns photo state, crop edits, export requests, and recent-file access.",
+    "anchor_file": "src/cropprint/CropPrint/PhotoDocument.swift",
+    "related": [
+      "PhotoProcessing",
+      "CropGeometry"
+    ]
+  },
+  {
+    "name": "CropPrintRelease",
+    "definition": "Documents signing, archives, upload, device testing, and App Review gates.",
+    "anchor_file": "PUBLISHING.md",
+    "related": [
+      "CropPrint"
+    ]
+  },
+  {
+    "name": "OutcropWebsite",
+    "definition": "Static application catalog, support, privacy, and terms website.",
+    "anchor_file": "src/web/README.md",
+    "related": [
+      "WebsiteBuild",
+      "CropPrint"
+    ]
+  },
+  {
+    "name": "WebsiteBuild",
+    "definition": "Builds templates and app icons into ignored dist output and checks local links.",
+    "anchor_file": "src/web/scripts/build-site.mjs",
+    "related": [
+      "OutcropWebsite"
+    ]
+  },
+  {
+    "name": "Composure",
+    "definition": "Planned private conversation coach with no implemented application target.",
+    "anchor_file": "src/composure/implementation-specification.md",
+    "related": []
+  },
+  {
+    "name": "RepositoryConfiguration",
+    "definition": "Selects component scope and shared agent instructions through configure.sh.",
+    "anchor_file": "PROJECT_PROFILE.md",
+    "related": [
+      "RepositoryIndex"
+    ]
+  },
+  {
+    "name": "RepositoryIndex",
+    "definition": "Provides local SQLite full-text search without a tracked database.",
+    "anchor_file": "scripts/repo-index.py",
+    "related": [
+      "RepositoryConfiguration"
+    ]
+  }
+]

@@ -1,3 +1,10 @@
+// SPDX-FileCopyrightText: 2026 Outcrop Inc, WA, USA.
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Repository: rapid
+// File GUID: 45cb7c71-e0c2-4fa7-a717-a9d03c91321b
+// Created: 2026
+// AGENT: Validates generated website markup, local links, and private security contacts.
+
 /**
  * Validate generated website files without external dependencies.
  */
@@ -112,10 +119,7 @@ async function validatePublicFiles() {
   check(robots.includes("User-agent: GPTBot\nAllow: /"), "robots.txt", "does not explicitly allow GPTBot");
   check(robots.includes("Sitemap: https://outcrop.us/sitemap.xml"), "robots.txt", "does not name the canonical sitemap");
 
-  const security = await readRequiredFile(".well-known/security.txt");
-  check(security.includes("Contact: https://github.com/priyavijaikalyan2007/rapid/issues/new/choose"), ".well-known/security.txt", "does not contain the security contact");
-  check(security.includes("Canonical: https://outcrop.us/.well-known/security.txt"), ".well-known/security.txt", "does not contain its canonical address");
-  check(/^Expires: \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/m.test(security), ".well-known/security.txt", "does not contain a valid expiration time");
+  await validateSecurityContact();
 
   const sitemap = await readRequiredFile("sitemap.xml");
   check(sitemap.includes("https://outcrop.us/apps/cropprint/"), "sitemap.xml", "does not list the CropPrint page");
@@ -126,6 +130,31 @@ async function validatePublicFiles() {
   const headers = await readRequiredFile("_headers");
   check(headers.includes("https://www.googletagmanager.com"), "_headers", "does not permit the approved analytics script");
   check(headers.includes("https://*.google-analytics.com"), "_headers", "does not permit Google Analytics requests");
+}
+
+async function validateSecurityContact()
+{
+    const canonicalPath = ".well-known/security.txt";
+    const security = await readRequiredFile(canonicalPath);
+    const alias = await readRequiredFile("security.txt");
+    check(
+        security.includes("Contact: https://github.com/priyavijaikalyan2007/rapid/security/advisories/new"),
+        canonicalPath, "does not contain the private vulnerability reporting form"
+    );
+    check(
+        security.includes("Contact: mailto:admin+security@outcrop.us"),
+        canonicalPath, "has no private email contact"
+    );
+    check(!security.includes("/issues"), canonicalPath, "must not direct vulnerabilities to public issues");
+    check(alias === security, "security.txt", "does not match the canonical security contact file");
+    check(
+        security.includes("Canonical: https://outcrop.us/.well-known/security.txt"),
+        canonicalPath, "does not contain its canonical address"
+    );
+    check(
+        /^Expires: \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/m.test(security),
+        canonicalPath, "does not contain a valid expiration time"
+    );
 }
 
 async function readRequiredFile(relativePath) {

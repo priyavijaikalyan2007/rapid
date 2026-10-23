@@ -220,4 +220,5 @@ The built-in fonts come from the official Google Fonts repository. CropPrint dow
 
 ## License
 
-This project uses the MIT License. See `LICENSE`.
+CropPrint uses GPL-3.0-or-later. See [the project license](../../LICENSE).
+Downloaded fonts, frames, and other third-party materials retain their own licenses.

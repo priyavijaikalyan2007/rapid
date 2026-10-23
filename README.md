@@ -2,6 +2,53 @@
 
 This repository contains small applications under `src`. Each application owns its source, tests, build scripts, and documentation.
 
+Project-owned software and documentation use GPL-3.0-or-later under [LICENSE](LICENSE).
+Third-party materials retain the notices described in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Code and documentation contributions are limited to maintainers.
+
+Read [PROJECT.md](PROJECT.md) for project facts and prerequisites.
+Read [SETUP.md](SETUP.md) for setup completion and [specs/README.md](specs/README.md) for current component status.
+Composure has planning documents under src/composure and does not yet have an application target.
+
+## Repository validation and navigation
+
+Repository checks require Python 3.10 or later and Bats 1.12 or later.
+Install Bats through your development-tool manager, or set BATS_BIN to an existing Bats executable.
+The root scripts also recognize local/tools/bats-core/bin/bats when present.
+Keep downloaded tools and the local SQLite search index under ignored local/.
+
+Run the complete local validation sequence:
+
+```sh
+./test.sh
+```
+
+Use ./test.sh repository for instruction, index, knowledge, and root-command checks.
+Use ./test.sh cropprint or ./test.sh web for a component's checks.
+The configuration check alone does not build or test an application.
+
+Start code navigation at [agentknowledge/README.md](agentknowledge/README.md).
+Build and search the local index:
+
+```sh
+python3 scripts/repo-index.py build
+python3 scripts/repo-index.py search LocalPhotoProcessor --limit 5
+```
+
+Use rebuild after source changes. The database at local/repo-index.sqlite is not committed.
+
+Root operation commands require an explicit target:
+
+| Command | Purpose |
+| --- | --- |
+| ./run.sh web | Starts the local website preview |
+| ./package.sh macos | Creates the unsigned macOS development ZIP |
+| ./smoke.sh web | Builds and checks the local static website |
+| ./deploy.sh --dry-run | Previews the configured website deployment |
+
+Use Xcode to select a native scheme and device.
+Read [PUBLISHING.md](PUBLISHING.md) before signing, uploading, submitting, or releasing an application.
+
 ## Repository structure
 
 ```text

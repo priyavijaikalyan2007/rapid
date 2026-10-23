@@ -52,3 +52,8 @@ src/web/.wrangler/
 *.cer
 *.provisionprofile
 *.p8
+
+# Local search index, development tools, and Python bytecode
+/local/
+__pycache__/
+*.pyc

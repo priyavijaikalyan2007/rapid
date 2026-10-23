@@ -1,3 +1,10 @@
+// SPDX-FileCopyrightText: 2026 Outcrop Inc, WA, USA.
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Repository: rapid
+// File GUID: 307f05f8-c6e2-4aa5-9bc6-2fb4dc6c5e97
+// Created: 2026
+// AGENT: Native About, help, and licensed-resource attribution views.
+
 import SwiftUI
 #if os(macOS)
 import AppKit
@@ -46,13 +53,13 @@ struct AboutCropPrintView: View {
 
             Text("CropPrint has no login, analytics, advertising, or data collection. It contacts a server only when you refresh or download remote resources. The server receives normal request data, such as your Internet Protocol address.")
 
-            Text("CropPrint is open-source software under the MIT License. Remote fonts and frames keep their own licenses.")
+            Text("CropPrint uses GNU GPL version 3 or later. Remote fonts and frames keep their own licenses.")
 
             Link("View the Privacy Policy", destination: URL(string: "https://outcrop.us/privacy/")!)
 
             Link("Report an Issue", destination: URL(string: "https://github.com/priyavijaikalyan2007/rapid/issues/new/choose")!)
 
-            Link("View the MIT License", destination: URL(string: "https://opensource.org/license/mit")!)
+            Link("View the GNU GPL", destination: URL(string: "https://www.gnu.org/licenses/gpl-3.0.html")!)
 
             Spacer()
         }

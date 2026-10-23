@@ -70,7 +70,9 @@ Set these values:
 
 The public name is `Outcrop Inc`. The canonical website is `https://outcrop.us`.
 
-The site sends all support, defect, and feature requests to GitHub Issues.
+The site sends ordinary support, defect, and feature requests to GitHub Issues.
+Security vulnerabilities use the repository's private vulnerability reporting form or admin+security@outcrop.us.
+Both security.txt sources contain these private reporting contacts.
 
 ## App catalog
 

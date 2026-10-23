@@ -123,7 +123,7 @@ Remote Resources is optional and is not required for core functionality. When th
 
 The app provides the same features in all regions. Country and region names identify passport crop dimensions. These presets are available worldwide and do not guarantee acceptance by any government.
 
-CropPrint is not a government service, identity-verification service, medical product, financial product, or other regulated service. It does not include protected third-party content. Optional fonts use open-source licenses. CropPrint itself uses the MIT License.
+CropPrint is not a government service, identity-verification service, medical product, financial product, or other regulated service. It does not include protected third-party content. Optional fonts use open-source licenses. CropPrint itself uses GPL-3.0-or-later.
 
 A physical-device recording is attached to the corresponding App Review message. The recording starts with app launch and shows the normal workflow. There are no account, deletion, shared-content, or paid-feature flows to demonstrate.
 

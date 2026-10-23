@@ -1,0 +1,257 @@
+{
+  ".github/CODE_OF_CONDUCT.md": [
+    "38be995706c143ca3b6b00621f66b52356b05f1d0f03cc08915edbe778447e29"
+  ],
+  ".github/CONTRIBUTING.md": [
+    "17d38676bea611910457cd589f8bedb4b59d239b3adebb679c113709959e9020"
+  ],
+  ".github/README.md": [
+    "0f1e377c22beb2db6a6efdb3ea3a94e90ec51c1de7859cec63fc0ff781b08dc8",
+    "917f808ca3164abf42ae9b0ad71d15f37be9fe5b0547d348a6eacb7b20e6b3a5",
+    "92c462f386b26088ae26733991c079e5962b6e50125970421dd04619bc8acda9",
+    "c076fe1f9347d189320ceb4b799e8e73392a2afe527ef9fcca8319b8a908104a"
+  ],
+  ".github/SECURITY.md": [
+    "093366e8c71f268d8b91ed7c0d8288a1beb4cc57a97b0f8b986830d8c6363b92"
+  ],
+  "ADDITIONAL.md": [
+    "62fd02680b920e0fbc80a34f090f992047d3d0a8f6ca7825f945e469feda4c2c"
+  ],
+  "AGENTS.md": [
+    "4a06f20fa4642b0a6e4b956062c08631e4021868e4c733cb1689b33062a9b9ad",
+    "ec1b0dea95c942343750b1d6cf9279c16ae6655003773cdf4c500305a1e77c8b",
+    "fd8015aa17e405a6f48a06b5bba41a153e14f16c48afc5b7f0ed86b6be522c2a"
+  ],
+  "CHANGELOG.md": [
+    "1f7be07a496ac085c71eadeb4f6bcd15a5264e4b64af443bcb9db338a15fdd26",
+    "2c63e50b00f95a613da1a45282d3e35446dee1386aa18874fe5153a5457065e2",
+    "40dc42b0e38debf10a5acbcb11b8792ea8dd4db19204a60f397c51ef880afaa5",
+    "606256234a0b3d5843f69b924098c461583efb522b34abcc9bced138101ad3c7",
+    "6077b87b87f7fd3bf3199c273c07c3552a1fe72daecae826198ba1823fa308a2",
+    "84a001b076d22ae3699b3a009219e2e8f18cb5e37a6fd5371ee28ffa54288685",
+    "8d0e3dedeadd8e67d0a2baa6e4dfe9cc042a8b74067dddb3327b8ca3104747dd",
+    "c0436e91accb543fbfadc25defa267cbcd5b91fcc7dc9f090106d79c5998bdb3"
+  ],
+  "CLAUDE.md": [
+    "9867919f6070b352a691d22e195483d9edaff186edb40d452a06481375bd0961",
+    "dee3175554ac326ff92a89ed862133695d8956d4a0926ebbc25964df5f247c37"
+  ],
+  "CODEX.md": [
+    "2d39880b883b4e90cc2dd5a823161cd441fe98a8025afcc25f06ddcc21cdb716",
+    "eec39e4ae2ff6b312acdbe30674cfe8e23b7fc7a9d97703bcd1c49138e3a1e82"
+  ],
+  "CODE_OF_CONDUCT.md": [
+    "38be995706c143ca3b6b00621f66b52356b05f1d0f03cc08915edbe778447e29"
+  ],
+  "CONTRIBUTING.md": [
+    "29b58e4107151fa2d9b99c492f1fb3b02fa7af0f527eeb5bce804a7b7ed4d012"
+  ],
+  "CONVERSATION.md": [
+    "0007098d6b4d91586e54872c54c4ca33c4e85532d5f9d925f42de6b63db1433c",
+    "33f07e4425fef9b4184dd432f0f7d69fd6a1850c14e8a1fc7046b6d24e66ca78",
+    "5e1d3f1a5b8156d57dab18daf014b2b3f30ffd56b595237f7398a36737e31872",
+    "89f2b9eaa8c79c72d74f6f6b51cda98ca5ebf97a4539ce9f0f6c2ab7b05e5055",
+    "901ab13bca6f2ed5f2c76211792cba26fec0c875286851ae77c183db4211a762",
+    "ba32f2ef9b73116e75ed71e2e9d358f8902d07dbe85ffa73ae48132aeae38551",
+    "c6d2779e200cd20c11f935d6eb2a75935e3dcd3ef85e25b2e750c7bc16581877",
+    "f9457dc4f7079d945d97982665715e129265d3957ff336348a64041d9efa5a65"
+  ],
+  "GEMINI.md": [
+    "13aa9e4feddfa81ad2a9c639c72d6b690828b40207d765784050e524baf06394",
+    "8bf6fe052a5f993dc513793a4e45bec9163452583962be4460f5dce4098a134e"
+  ],
+  "LICENSE": [
+    "12df52735802c33e97b57f9c59e976a700f79bf854bde40136a2c17511e61601"
+  ],
+  "PROJECT.md": [
+    "17d4470ce96fdee2a3b186cdaf54378fe2584a97b251199d9f4d2b6827a7453a",
+    "4774a86caf635b137380ba8eaed6e3d41fd6edaf9763c8ea41adf72467e67f73",
+    "4a0564e1fd1416f531a4cb87e1f652fe865c1abf7ed0966478baa03130f900ef",
+    "68fc6ef18f93cacdff924d1d4564e5bb4539bc0ce61c203dc6bc1755cbb9735a",
+    "8611b1d11597375f942b1b80fe6a2f194dad0c3731cfa22285797a53cd304898",
+    "f86d043c610c9ad7ca726ab8637d1b3ec15fae3292d9e91fe24539f9b997f830"
+  ],
+  "PROJECT_PROFILE.md": [
+    "0dc91f253b17c02b58d6ca3c73774be98dd8cd7f126211d07bebdfe7d4befcef",
+    "2e3ebebc4f13842b38f311d26af6cd8d6e1f11fe98334fa935b3a4507a129184",
+    "3da22345925946a6a8eb335b5c1159dc88fff7952d2e2c3676b594595a4cc1db",
+    "b8ad76a915f33a0484d1dc63f7cbb2a64fbed16ef19e876b825f152f088abf09"
+  ],
+  "README.md": [
+    "14a19c265c5fa3d8674ccdc41ab72adda96fa541e9b0ab945210047901a59f75",
+    "41dc2e04cd41ef6b44c9489b2885e52012a9cd2f14377e3afe4daac1d3af968b",
+    "8143f0642337528a3d680bb5efaaa5d1fa2212e9c99502fb0441d749c405b66c",
+    "aee35b14dafe7f19b859ec7b4a2094b328bf9fcfc7d1c5eb4be1860b3b70a14c"
+  ],
+  "SECURITY.md": [
+    "093366e8c71f268d8b91ed7c0d8288a1beb4cc57a97b0f8b986830d8c6363b92"
+  ],
+  "agentknowledge/concepts.yaml": [
+    "0890f7435e208a49a76e5ccd2814a3a8c7529edced1b036d96eff97349c24ff9",
+    "1ba634f1f289cea51e28c11979c3e37dde64356bf58ca770d65d9a0a1864ff13",
+    "315d062f551b68fcc59e8934628f7681e51ed3c945d6702e65b0bf37aa242ffc",
+    "5fc635b9785f98f56d03351a6dbbdf463047c28fe0b6749a97dfcdbf2a26e9e5",
+    "710313639b2f2b787503eff3dc6b2f51c0e723011ce72e37cb506d11de504542",
+    "874e665fd3b91e786fa2c2aecadc8a1f46ef03c766367135fe4ef0f8fe500024",
+    "b35de914beb0081c6a1626780bb509ce532bf915dd7d05391031366fc88b9cd3",
+    "bee2510bf03a422a22f0150e455b11d4b25d83a5f9c569fdfee6361395181027",
+    "cf33e598617de794311b4f1a4ea279dde2a31e11c1c4a815a3ed67fd7583b7aa"
+  ],
+  "agentknowledge/decisions.yaml": [
+    "0a5a40d4ef0d220f2613424e78636143408e05023cafef33a010b5b9ab3ff34b",
+    "0cb47b96bc886c9e31108106f75c6ae961450e91cc344ff6e98a9c492f9af056",
+    "0e2f75e861876331975ebb71ca4a30a58e82563641a6bebf5cc6c2ea0972ef9a",
+    "1e306c3d5a35b4b66d0c8ef26aa3167fbc4f973325bd32720c17c4788f34a5b3",
+    "1e7372fbe9e6b7fcd65d1ab29871b2843e67a8fc35bca518ce773e84ab2795ea",
+    "2ec62f074ea851ed88530bdee03e7ba771f7dfc5f473350fc3add1591ca0fbd9",
+    "6863aa37fcd63a4ed2d5155bbf548291804744ec0f8028465342ea1369ab9fa0",
+    "79019653d0658d32a057030f361519e0b967fe4fd5e2f6d6e5e1dddd9f30fe3f",
+    "a31080bee93c4d032c80fc7a44543555e192c6e469e52461fb4a3dbfdbbe6ded",
+    "bcedd74114696464dd11a512a8baf1529dfed7295dc03fd653af483c88eebf32"
+  ],
+  "agentknowledge/history.jsonl": [
+    "084ca7c0ad008c9c84a13d7d7d3e302ed555424a2c5824ff0d79cfc59ffc5dd6",
+    "342d6d6a1a3e64e6266b85b902510ed93a2d7d5bd6ba6b5fb28cc82195a7eed1",
+    "4eab9b7213bb84de9ea08f860732e2292d95da5da51fd8d82ef520cd8358e86c",
+    "6a4988661f4cbc37f4e0336cd402610037d8f0672bab48d908ec054e0e01e04c",
+    "6adef2033808063179767461548587ee81e752e2d81eec758cd6bbe936951827",
+    "7657d71496ad84c4753722d30cd24cb4c60294dab5c7ef3e6e4943c5264a9b1c",
+    "90951c86e6449c443e8c5a1887c7976f84c2869abd1ad966a8ca78258551a98a",
+    "a15fb7ae74067d29ba5fec92779c4da7c0e255ccf8430f294aca8ffb7e680c66",
+    "a79e63e83b286b129275d688124c9a509148a7ac0fa6bb6bf903c548942b5e06",
+    "b8975060ca4716ecb78c3efaa257713d5f7f9b38eabea882ae79a0bb9b77d584",
+    "bdb54de970fb12f99e339ea2b9b25da175eec9acf2a48e09f610f8e18ba1b140",
+    "bfb3454c6864224efd3bfeeac4786a555c31cc9bf156476a7aee6c2fe15be109",
+    "d697eca6a39542e4418278af2fce7f24e61dcb0e86b5777123df86299b4390b0",
+    "d9f935ad4b8db851cbcba22fc21706cf6f10adef2844fe4672a67515d5bdb0b1",
+    "e3736bf29d9b8c2d290e849f401100f63d374c21520733d1cefb2774ae31a833"
+  ],
+  "agentknowledge/lcv_constraints.yaml": [
+    "92aef6dc2b2bb8f3665fcbf147fc889d84dbac5184d255da2e21b2fd7fef1b01"
+  ],
+  "instructions/maintenance/apps-script-guidance-review.md": [
+    "668f0b8c13cfb7b6839d758255466ff8d6f56e23f4ddf1af0293c649d9ccaf6f"
+  ],
+  "instructions/maintenance/contextual-profile-choices-review.md": [
+    "26f388432fb40e0cfdc9725ba524c33f073d320a32d590c8ed97e46e94ff7ee2",
+    "505b48dc148c5784f115aca90d132b9d25821fe156e50ef7b78d5b15b3f3cf1a"
+  ],
+  "instructions/maintenance/examples/java-saas/ADDITIONAL.md": [
+    "5924b3e04f50040805ffd7bb55dab863e35a30a9b0b4f222096a14b5bb5d92e9"
+  ],
+  "instructions/maintenance/examples/java-saas/PROJECT.md": [
+    "ac3d5b0aa9274c86f972e8fc712d31c48dab54dd9c3b8b6f27e8e4412c8bf9c9"
+  ],
+  "instructions/maintenance/examples/java-saas/PROJECT_PROFILE.md": [
+    "ca7b90c9d2c9db6898cf2d29b9b5b7d8b39eb8277d76fff0faf6f4a87508cc0c"
+  ],
+  "instructions/maintenance/examples/java-saas/instructions/project/ADDITIONAL.md": [
+    "5924b3e04f50040805ffd7bb55dab863e35a30a9b0b4f222096a14b5bb5d92e9"
+  ],
+  "instructions/maintenance/examples/java-saas/instructions/project/PROJECT.md": [
+    "ac3d5b0aa9274c86f972e8fc712d31c48dab54dd9c3b8b6f27e8e4412c8bf9c9"
+  ],
+  "instructions/maintenance/examples/java-saas/instructions/project/PROJECT_PROFILE.md": [
+    "a0997f3d2ad764a772f6857c89f0dce2e096f6d873c76fb8ac434cc80f9ddb9c"
+  ],
+  "instructions/maintenance/extension-bootstrap-review.md": [
+    "409af9bcdb6638e50fab87b7a427172ae8c656f96b08fa2928b0cfdd242d4933",
+    "a48f2f1d7cba76f463982eede54bece074ec0abc81de7f2a41f8dec472913651"
+  ],
+  "instructions/maintenance/extension-profiles-review.md": [
+    "fedd46905a740cccf0bac6bffcd121583e0129d99e5288cd3c3f1ba0eda5f40a"
+  ],
+  "instructions/maintenance/instructions-plan.md": [
+    "04c7037ad5b713d50bc536d1516caa501b370fac36b1bc327c0d50c2bcaa87db"
+  ],
+  "instructions/maintenance/instructions-review.md": [
+    "aea643ec76e01d16a5183b95a7de2982f22d886e15396e34505fd5900cdf9b2e"
+  ],
+  "instructions/maintenance/instructions-source-inventory.md": [
+    "3f0c5dea6ba5ce752ed5ce248177ef8c3e45c9e9eb0b46a05c7e6693e81b6a20"
+  ],
+  "instructions/maintenance/instructions.status.md": [
+    "14face1724a3c40dcbb5185c4b4a36a58f7100f8b3897630b3c31e8cebab43b1",
+    "5dcbd4d581b9af6254551afdff38abb55df84dff255e818728349b4f054e6250"
+  ],
+  "instructions/maintenance/interview-navigation-review.md": [
+    "05009628cd80dba363d5dad6ddfc3c765997aaf9535ab6063b899354c4f16309",
+    "aff8236fd0d35a47ec53f80af06d8b031023384f6dcdccf1e7db7dcfb56899e6"
+  ],
+  "instructions/maintenance/native-apple-instruction-audit.md": [
+    "79beaab6b5755301eb496a33e996ae0448d8595a4d875d55350508e29679a8d4"
+  ],
+  "instructions/maintenance/profile-selector-validation.md": [
+    "ff3df97760e09d0e75af8847478c93fe801a37a3e3a371bc6489b5cd56c76be0"
+  ],
+  "instructions/maintenance/project-initialization-review.md": [
+    "1fa28700a2ddf822aecc15c3198e25836be9b4eee77982d742b4c63b95a51028",
+    "63c6c1afbb7ab2180a3bd559b6f08218144442645b781c42056f06776fa5a866",
+    "a8a444c8d21dd6e3c76236975f45fdcc0c41db36b09175575cc58bece945059d",
+    "ac78384fe1f3490c6c8d87535f9e1a3aa123dd2a9b88dc9c635422785abd92f4"
+  ],
+  "instructions/maintenance/project-profile-validation.md": [
+    "66db1ccc228f131ef11100331cad3c57b46399448ccb5dda1c6c268842edef66",
+    "9eaa2e368f3204cd061036d7a9c8009cb0614605bb30cc65171807b3aee42da8"
+  ],
+  "instructions/maintenance/project-root-local-setup-review.md": [
+    "042bc90e9c8700ebd42eae935f278f70273bbe33a42f5ab6673544b85ac7b9fd",
+    "2917ffd1934f8b7e586233e7a9e1e17ead347e4965cffdc0009b3827d4f60105",
+    "32a46a695374345cb4557399baef982b9dbc539be1dac4eefb14c4cce760165c",
+    "6481764a102697171aea64d85d564d428e9cdddbb768d3699534501474f509da",
+    "693a27841eeea0a91eaa37d2ab6dbb3af577e7a08a0357281fc971de2aca1dd9",
+    "6a4a349f004946ddefdf388433332420a290830f97d0b671b7322f9e7472a1e4",
+    "824a9c182e8ff0cb98f07ea69b0215420676ac1b77cb925ca9e7ef5194cc677b",
+    "fee5d320a3312ed7fa9b1001c7039ff5e28ce4712f80ddbd203e4f1f046693cf"
+  ],
+  "instructions/maintenance/recommended-layouts-review.md": [
+    "5ef2c56647f9b740e67667b9663822557fff434bf394404019ce77719b19c97b"
+  ],
+  "instructions/maintenance/scoped-guides-security-review.md": [
+    "73c19b2f14de0ff869fa4021ad3d202e93a19eb0e2ff7aef594abd4affe69c95"
+  ],
+  "instructions/maintenance/ui-ux-and-java-saas-audit.md": [
+    "210d69362b347c5c42ae9a5a3c69b5209e3cea2def2a8cbbff17f9e858d14cd3"
+  ],
+  "instructions/maintenance/workspace-interview-review.md": [
+    "8d31c25f9ea7f6243fd3668887c90cf700c335afa8139d135c120542d1ad6f53",
+    "a226041d0c92790bcd03587f85a56a729f4f50a6a6567bd5552f668a1ade5a26",
+    "def51a7b0d36c259726fe9d70a88c5a45cd989ec8f296d0424821447665b31c7"
+  ],
+  "instructions/project/ADDITIONAL.md": [
+    "62fd02680b920e0fbc80a34f090f992047d3d0a8f6ca7825f945e469feda4c2c"
+  ],
+  "instructions/project/CHANGELOG.md": [
+    "2055531cbed913e131d3e406f71aefc155b4d50eb08e7934d10d461d31035dba",
+    "355389b91c9e8c662315c57e5d14046f54198cd56008b3ebc380c54e3522f070",
+    "40dc42b0e38debf10a5acbcb11b8792ea8dd4db19204a60f397c51ef880afaa5",
+    "54b228c09362073d7a5418f3fa61ededca32474af571bc1e199ac24ce4007d62",
+    "7b88f2d6b7e65d4be3b5dc76c78f596eae7548806f13e2f67bc87bd87b870721",
+    "9099ce19375424fb14b53bd53e15bc9eefa7be18983cc04ffb0888ba6fd244db"
+  ],
+  "instructions/project/CONVERSATION.md": [
+    "11002b8da400fd747e6ec53130600e2ce818918ca57760b77291d1f85e3f982b",
+    "2436df79242341bc3846ab571756a6db3c662ba5adda1227464e938c4a1132b6",
+    "35d1b487ade97f58a693f0a9c4e9bc79e0b32cf869b590f4f9e96acd6d05d726",
+    "3df8340420c493874199d047cb9aa8f4d686943a1ce480d4c7072cf8571a2c94",
+    "3e74378d8bfb733b1e696c20a19b9b00895211e4fc428a6b90256eaaafb63533",
+    "77bfc91364d320266e91697b0a0bc4a5426d34a7e04a1e12feb179c7809381fb",
+    "7e3d9fa172761392e1e50f03828ca0a1bc5b482208f2581ff54f412e9586853b",
+    "89f2b9eaa8c79c72d74f6f6b51cda98ca5ebf97a4539ce9f0f6c2ab7b05e5055",
+    "a0a3e759672f989d343a463f26addee0bd6224347cb940efe9d5ec1e29341a20",
+    "d5e61df491911ffe6a2b610283f0ec73bd6cf479de9d235d204ab4ca22d57595",
+    "ea05d42af23b44dccbc1d7af83f7462248eed0eac448234c791af05cbde81c59",
+    "f271fbb24885ac3593d0a0d0f947cc85c86493d41e6965ae937e60c0b18ae00a"
+  ],
+  "instructions/project/PROJECT.md": [
+    "6a8adb4f932993b9d439d8598704fe2f9603b74ac01b3f9ef40fcd21a1c4ce9c",
+    "7ca98eb4ac9a637437170396b0144f80961510f68793cd8531a69756d58cb473",
+    "8fa0690e74673a38e0785d0c2eed0fae139c7caf34c729d9209f12ff38c7ce6b",
+    "9165b150de1a12cba25c1d9d61bf88a9dbb52d31d249016bc595a0b24afc08e1",
+    "97c30d2449738f2240b7128f44cc52c93c2778e5f0887e53dab47ca9d865f49b",
+    "ec03bc12f0b9240c12157f5315160c27640874362a01afedf6f1d74e13fddaaf"
+  ],
+  "instructions/project/PROJECT_PROFILE.md": [
+    "c07cfa6c0b7279bb15498ffd5fd1e35e17e2e61273f44b29caf80783ba258931"
+  ]
+}

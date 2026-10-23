@@ -1,0 +1,73 @@
+[
+  {
+    "id": "ADR-001",
+    "title": "Use on-device processing and AI",
+    "date": "2026-10-23",
+    "status": "Accepted",
+    "context": "PROJECT.md requires local models and on-device APIs. Optional resource downloads do not authorize content uploads.",
+    "files": [
+      "PROJECT.md",
+      "src/cropprint/Shared/PhotoProcessing.swift"
+    ],
+    "date_basis": "Recorded during repository setup; not an inferred historical decision date."
+  },
+  {
+    "id": "ADR-002",
+    "title": "Use native platform themes and controls",
+    "date": "2026-10-23",
+    "status": "Accepted",
+    "context": "The owner assigns Codex native platform themes, colors, components, and official interaction guidance.",
+    "files": [
+      "PROJECT_PROFILE.md"
+    ],
+    "date_basis": "Recorded during repository setup; not an inferred historical decision date."
+  },
+  {
+    "id": "ADR-003",
+    "title": "Keep application and website operations component-owned",
+    "date": "2026-10-23",
+    "status": "Observed",
+    "context": "Existing root scripts delegate to src/cropprint and src/web. This record reconstructs the current design, not its original rationale.",
+    "files": [
+      "build.sh",
+      "src/cropprint/build.sh",
+      "src/web/build.sh"
+    ],
+    "date_basis": "Recorded during repository setup; not an inferred historical decision date."
+  },
+  {
+    "id": "ADR-004",
+    "title": "Keep Composure sessions private and transient",
+    "date": "2026-10-23",
+    "status": "Planned",
+    "context": "The normative specification prohibits cloud AI, recordings, and transcript persistence. No app implementation is present.",
+    "files": [
+      "src/composure/implementation-specification.md"
+    ],
+    "date_basis": "Recorded during repository setup; not an inferred historical decision date."
+  },
+  {
+    "id": "ADR-005",
+    "title": "Use GPL-3.0-or-later for project-owned material",
+    "date": "2026-10-23",
+    "status": "Accepted",
+    "context": "On 23 October 2026, the owner selected GPL-3.0-or-later for past and present project material. Preserve copied third-party notices.",
+    "files": [
+      "LICENSE",
+      "CONVERSATION.md"
+    ],
+    "date_basis": "Recorded during repository setup; not an inferred historical decision date."
+  },
+  {
+    "id": "ADR-006",
+    "title": "Limit contributions to maintainers",
+    "date": "2026-10-23",
+    "status": "Accepted",
+    "context": "On 23 October 2026, the owner limited contributions to maintainers. Public issue reports remain available.",
+    "files": [
+      "CONTRIBUTING.md",
+      "CONVERSATION.md"
+    ],
+    "date_basis": "Recorded during repository setup; not an inferred historical decision date."
+  }
+]

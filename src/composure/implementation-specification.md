@@ -2,7 +2,7 @@
 
 This file is the **authoritative implementation contract** for Composure V1. If other project documents disagree with this file, this file wins unless the product owner explicitly changes the requirement.
 
-For rationale and expanded design guidance, see `COMPOSURE_PRODUCT_ENGINEERING_SPEC.md`.
+For rationale and expanded design guidance, see [product-specification.md](product-specification.md).
 
 ---
 

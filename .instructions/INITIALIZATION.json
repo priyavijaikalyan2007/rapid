@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "project": {
+    "name": "rapid",
+    "owner": "Outcrop Inc, WA, USA.",
+    "year": "2026",
+    "repository_url": "https://github.com/priyavijaikalyan2007/rapid",
+    "description": "Utility applications for iOS, iPadOS and macOS users for specialized or niche capabilities.",
+    "business_context": {
+      "users": "All users.",
+      "problem": "Solves various utility problems. Completely local, using local foundational models and local on-device capabilities.",
+      "value": "These are utilities. Anyone with the specialized need these applications solve will find them useful.",
+      "scope": "Applications for cropping images in predefined ways, providing emotional intelligence and quotient feedback in meetings and more.",
+      "success_criteria": "",
+      "constraints": "Should always use local foundational models for AI. Should always use on-device capabilities and APIs without requiring any proprietary external system. Open source or creative commons resources downloaded locally are allowed. Privacy and security are key."
+    },
+    "license": {
+      "software": [
+        "GPL-3.0-or-later"
+      ],
+      "content": null,
+      "content_paths": [],
+      "custom_terms": ""
+    }
+  }
+}

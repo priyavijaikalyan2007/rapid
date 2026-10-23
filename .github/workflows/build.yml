@@ -14,6 +14,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install repository test runner
+        run: brew install bats-core
+
+      - name: Validate repository instructions and tools
+        run: ./test.sh repository
+
       - name: Build and test all applications
         run: ./build.sh
 

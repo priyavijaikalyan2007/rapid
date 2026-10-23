@@ -6,8 +6,8 @@ The implementation should proceed milestone-by-milestone. Do not begin post-V1 w
 
 Read first:
 
-1. `SPEC.md` — normative requirements.
-2. `COMPOSURE_PRODUCT_ENGINEERING_SPEC.md` — detailed rationale and design.
+1. [implementation-specification.md](implementation-specification.md) — normative requirements.
+2. [product-specification.md](product-specification.md) — detailed rationale and design.
 3. This file — build order and acceptance gates.
 
 ---

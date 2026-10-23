@@ -1,0 +1,83 @@
+[
+  {
+    "name": "PrintSettings",
+    "table": null,
+    "file": "src/cropprint/CropPrint/Models/PrintSettings.swift",
+    "description": "Crop preset, orientation, paper size, margins, and passport guides.",
+    "related": [
+      "PrintPresets"
+    ]
+  },
+  {
+    "name": "PrintSheetSettings",
+    "table": null,
+    "file": "src/cropprint/CropPrint/Models/PrintSheetSettings.swift",
+    "description": "Paper orientation, image resolution, printer resolution, and cutting guides.",
+    "related": [
+      "PrintSheets"
+    ]
+  },
+  {
+    "name": "PrintSheetLayout",
+    "table": null,
+    "file": "src/cropprint/CropPrint/Models/PrintSheetSettings.swift",
+    "description": "Calculated sheet dimensions, placements, and raster limits.",
+    "related": [
+      "PrintSheets"
+    ]
+  },
+  {
+    "name": "DecorationSettings",
+    "table": null,
+    "file": "src/cropprint/CropPrint/Models/DecorationSettings.swift",
+    "description": "Text, font, frame, color, position, and rotation settings.",
+    "related": [
+      "Decorations"
+    ]
+  },
+  {
+    "name": "RemoteResource",
+    "table": null,
+    "file": "src/cropprint/CropPrint/Models/RemoteResource.swift",
+    "description": "Codable catalog entry containing source, download, creator, and license details.",
+    "related": [
+      "RemoteResources"
+    ]
+  },
+  {
+    "name": "RemoteResourceCatalog",
+    "table": null,
+    "file": "src/cropprint/CropPrint/Models/RemoteResource.swift",
+    "description": "Versioned JSON collection of remote resource entries.",
+    "related": [
+      "RemoteResources"
+    ]
+  },
+  {
+    "name": "PhotoAdjustmentSettings",
+    "table": null,
+    "file": "src/cropprint/Shared/PhotoProcessing.swift",
+    "description": "In-memory tone, angle, sharpness, and replacement-background settings.",
+    "related": [
+      "PhotoProcessing"
+    ]
+  },
+  {
+    "name": "PhotoProcessingResult",
+    "table": null,
+    "file": "src/cropprint/Shared/PhotoProcessing.swift",
+    "description": "Processed image and optional reusable person mask.",
+    "related": [
+      "PhotoProcessing"
+    ]
+  },
+  {
+    "name": "MobilePhoto",
+    "table": null,
+    "file": "src/cropprint/CropPrintMobile/MobilePhotoDocument.swift",
+    "description": "Selected mobile photo data and image metadata.",
+    "related": [
+      "PhotoDocuments"
+    ]
+  }
+]
