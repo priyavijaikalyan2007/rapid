@@ -14,6 +14,7 @@ Created: 2026
 
 ### Fixed
 
+- Pinned the CI formatter to the verified SwiftFormat 0.64.1 release and selected a macOS 26 host for Composure tests.
 - Bounded photo decoding, catalog metadata, resource downloads, crop geometry, and raster allocation before expensive native work.
 - Preserved existing files through exclusive export publication and safe preview-media staging.
 - Propagated edit cancellation and aligned exported decoration colors with native sRGB previews.

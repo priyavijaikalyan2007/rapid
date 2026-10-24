@@ -59,5 +59,8 @@ The conventions remain subject to the full shared instructions. Format checks do
 5. Run `./test.sh`.
 
 The audit used SwiftFormat 0.64.1, ShellCheck 0.11.0, shfmt 3.14.1, ESLint 10.13.0, and Node.js 26.
+The formatting configuration requires SwiftFormat 0.64.1 or later.
+CI downloads SwiftFormat 0.64.1 from its official release and verifies its SHA-256 digest before extraction.
+CI uses a macOS 26 host because Composure's package tests require that operating system baseline.
 The native and shell checker uses installed tools and never downloads a formatter during validation.
 CI installs its tools explicitly. The hosted workflow must still run after an authorized push.

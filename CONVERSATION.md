@@ -229,3 +229,9 @@ Expanded the Composure README with the current build command, physical-device la
 This stage requires shell checks on one Mac, one iPhone, and one iPad with OS version 26 or later.
 Apple Intelligence, audio, preparation, and profile persistence are not part of this foundation test.
 No new application behavior was changed.
+
+The first pushed Build run failed at source formatting because the runner contained SwiftFormat 0.63.0.
+Its unknown-option error prevented application tests from running.
+Pinned the official SwiftFormat 0.64.1 asset and verified its published SHA-256 digest before extraction.
+Changed the build host to macOS 26 so Composure's version 26 package tests can run.
+Recorded the tool requirements in CONTRIBUTING.md and kept remote results separate from passed local checks.

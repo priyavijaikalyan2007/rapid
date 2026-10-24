@@ -18,14 +18,27 @@ on:
 
 jobs:
   test-and-package:
-    runs-on: macos-15
+    # Composure's package tests require a macOS 26 host, matching the application baseline.
+    runs-on: macos-26
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Install repository validation tools
-        run: brew install bats-core swiftformat shellcheck shfmt
+        run: brew install bats-core shellcheck shfmt
+
+      - name: Install pinned SwiftFormat
+        run: |
+          curl -fsSL https://github.com/nicklockwood/SwiftFormat/releases/download/0.64.1/swiftformat.zip \
+            -o "$RUNNER_TEMP/swiftformat.zip"
+          printf '%s  %s\n' \
+            '0e5762a848d738602c7a983b26812031e634d85e357db070968b9c805f253eff' \
+            "$RUNNER_TEMP/swiftformat.zip" | shasum -a 256 -c -
+          mkdir -p local/tools/swiftformat
+          ditto -x -k "$RUNNER_TEMP/swiftformat.zip" local/tools/swiftformat
+          chmod +x local/tools/swiftformat/swiftformat
+          local/tools/swiftformat/swiftformat --version
 
       - uses: actions/setup-node@v6
         with:

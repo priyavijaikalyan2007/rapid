@@ -76,3 +76,12 @@ Use the [device launch procedure](../src/composure/README.md#device-launch-check
 Record device models, OS versions, and launch results before marking the Phase 0 device gate complete.
 The next feature slice implements privacy onboarding, the Coaching Profile, and non-sensitive preference persistence.
 Prepare follows, with deterministic fallback and explicit model readiness.
+
+## GitHub checkpoint on 24 October 2026
+
+The owner authorized ongoing commits and pushes. Foundation commit 1974880 reached origin/main.
+The first remote Build run failed because the runner used SwiftFormat 0.63.0.
+That version rejected the checked-in wrap-closure-bodies option before application tests ran.
+The workflow now downloads the official 0.64.1 release and verifies the release asset's SHA-256 digest.
+The workflow also selects macOS 26 because the Composure package tests require a version 26 host.
+These workflow changes do not alter application behavior. Their remote result remains separate from local build evidence.
