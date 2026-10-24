@@ -23,3 +23,9 @@ The [implementation plan](../src/composure/implementation-plan.md) defines miles
 Before implementation, confirm supported devices and operating systems against actual Apple APIs.
 Enable a native component with explicit planned source paths through configure.sh before creating its application structure.
 Preserve the specification's on-device processing, explicit listening controls, and transient session-data requirements.
+
+## Source audit on 24 October 2026
+
+The source audit reviewed all three planning documents on 24 October 2026.
+The changes add notices, clarify wording, reflow prose, and format illustrative Swift examples.
+The normative product requirements remain planned. No Composure app was implemented or tested.

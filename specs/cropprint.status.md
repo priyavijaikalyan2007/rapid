@@ -32,3 +32,11 @@ The App Review guide describes historical build 12 and contains pending device r
 Verify the currently submitted build directly in App Store Connect before preparing review evidence.
 Follow [PUBLISHING.md](../PUBLISHING.md) for the release gates.
 No archive, upload, App Review submission, or public release occurred during this setup task.
+
+## Source audit on 24 October 2026
+
+The source audit completed on 24 October 2026. All original source files and added files have review outcomes.
+The complete unsigned build passed, including both mobile variants and universal macOS packaging.
+The native suite passed 79 tests. Shared production-code line coverage is 84.27%, above the 80% minimum.
+The full app target has 21.23% coverage, so UI and device verification remain separate work.
+See the [audit report](source-audit.report.md) for safety changes, evidence, and remaining checks.

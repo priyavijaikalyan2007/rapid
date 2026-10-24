@@ -1,3 +1,18 @@
+<!--
+SPDX-FileCopyrightText: 2026 Vijai Kalyan
+SPDX-FileCopyrightText: 2026 Outcrop Inc
+SPDX-License-Identifier: GPL-3.0-or-later
+Repository: rapid
+File GUID: a02b32bf-2cf3-49ae-8c9c-415c9c720ff3
+Created: 2026
+COMPONENT: APP-REVIEW-RESPONSE
+PURPOSE: Records the APP REVIEW RESPONSE project specification.
+RELATES: PROJECT.md, instructions/WORKFLOW.md
+FLOW: Authored source -> component validation -> local result.
+-->
+
+<!-- AGENT: Records the APP REVIEW RESPONSE project specification. -->
+
 # CropPrint App Review response
 
 Use this response for the App Review information request for version 1.0.0, build 12.
@@ -8,7 +23,8 @@ Attach these physical-device recordings before you send the response:
 - `CropPrint-iPad-physical-device.mov`
 - `CropPrint-macOS-physical-device.mov`
 
-Each recording must start with launching CropPrint. Record each device on the latest stable operating system that the device supports.
+Each recording must start with launching CropPrint. Record each device on the latest stable operating system
+that the device supports.
 
 Copy the following response into the App Review message:
 
@@ -45,7 +61,7 @@ The app uses the Apple system photo picker and Photos library on iPhone and iPad
 
 CropPrint does not use authentication, payment processors, advertising networks, analytics services, cloud storage, server-side photo processing, or external artificial-intelligence services.
 
-Remote Resources is optional and is not required for core functionality. When requested by the user, it connects to GitHub and raw.githubusercontent.com. Built-in entries download open-source Google Fonts and their Open Font License files from the official Google Fonts repository. The app shows the related licenses and attributions.
+Remote Resources is optional and is not required for core functionality. When requested by the user, it connects to GitHub and raw.githubusercontent.com. Built-in entries download open-source Google Fonts from the official Google Fonts repository. Each entry links to its Open Font License file. The app shows the related licenses and attributions.
 
 5. Regional differences
 
@@ -55,9 +71,11 @@ CropPrint provides the same features in all regions. Country and region names id
 
 CropPrint is not a government service, identity-verification service, medical product, financial product, or other regulated service. Passport presets are geometry aids for users. Users must confirm the current requirements of the relevant authority.
 
-The app does not include protected third-party content. Optional fonts use open-source licenses. CropPrint itself uses the MIT License. No authorization credentials or regulatory documents are required.
+The app does not include protected third-party content. Optional fonts use open-source licenses. CropPrint itself uses GNU GPL version 3 or later. No authorization credentials or regulatory documents are required.
 ```
 
-Add the information from `metadata.md` to the Notes field for both platform versions. Apple limits the Notes field to 4,000 bytes.
+Add the information from `metadata.md` to the Notes field for both platform versions. Apple limits the Notes
+field to 4,000 bytes.
 
-Do not claim that physical-device testing passed until every attached recording and test uses the submitted build.
+Do not claim that physical-device testing passed until every attached recording and test uses the submitted
+build.

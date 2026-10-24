@@ -1,8 +1,24 @@
+<!--
+SPDX-FileCopyrightText: 2026 Vijai Kalyan
+SPDX-FileCopyrightText: 2026 Outcrop Inc
+SPDX-License-Identifier: GPL-3.0-or-later
+Repository: rapid
+File GUID: 8824fc96-e839-4916-94a6-7c68537b1e04
+Created: 2026
+COMPONENT: implementation-plan
+PURPOSE: Records the implementation plan project specification.
+RELATES: PROJECT.md, instructions/WORKFLOW.md
+FLOW: Authored source -> component validation -> local result.
+-->
+
+<!-- AGENT: Records the implementation plan project specification. -->
+
 # Composure — Implementation Plan
 
 This plan is designed to be handed directly to Codex or another implementation agent.
 
-The implementation should proceed milestone-by-milestone. Do not begin post-V1 work until V1 acceptance and privacy criteria are met.
+The implementation should proceed milestone-by-milestone. Do not begin post-V1 work until V1 acceptance and
+privacy criteria are met.
 
 Read first:
 
@@ -36,7 +52,8 @@ Do not introduce:
 - recording;
 - provider-specific integrations.
 
-If an Apple API behaves differently from the design assumption, preserve the privacy/product invariant and choose the simplest supported implementation.
+If an Apple API behaves differently from the design assumption, preserve the privacy/product invariant and
+choose the simplest supported implementation.
 
 ---
 
@@ -161,7 +178,8 @@ Do not accept arbitrary strings as an event body.
 
 ## Exit Gate
 
-Both apps launch on physical devices and contain no networking, audio, AI, database, or third-party dependencies.
+Both apps launch on physical devices and contain no networking, audio, AI, database, or third-party
+dependencies.
 
 ---
 
@@ -227,7 +245,8 @@ Implement:
 
 ## Exit Gate
 
-A fresh install can complete onboarding, configure coaching preferences, quit, relaunch, and retain only those preferences.
+A fresh install can complete onboarding, configure coaching preferences, quit, relaunch, and retain only those
+preferences.
 
 ---
 
@@ -309,7 +328,8 @@ needMoreCuriosity > 1
 
 Do not persist user input or generated preparation.
 
-Leaving the preparation flow may keep state while the view is alive, but relaunching the app must not recover it.
+Leaving the preparation flow may keep state while the view is alive, but relaunching the app must not recover
+it.
 
 ## Tests
 
@@ -403,7 +423,8 @@ Capture live microphone audio on macOS and iOS without writing audio to disk.
 
 ### P4-001 — MicrophoneAudioSource
 
-Implement a streaming `AudioSource` using AVFoundation/AVAudioEngine or the current preferred Apple capture path.
+Implement a streaming `AudioSource` using AVFoundation/AVAudioEngine or the current preferred Apple capture
+path.
 
 Output PCM buffers as transient `AudioEvent`s.
 
@@ -448,7 +469,8 @@ Do not silently select an unexpected device during an active session when the AP
 
 ## Exit Gate
 
-Both platforms can stream microphone buffers for at least 60 minutes without persistence or unbounded memory growth.
+Both platforms can stream microphone buffers for at least 60 minutes without persistence or unbounded memory
+growth.
 
 ---
 
@@ -502,7 +524,8 @@ On Stop:
 
 ### P5-005 — No transcript UI
 
-Do not build transcript display except optional developer-only diagnostic views behind compile-time DEBUG flags. DEBUG views must never persist text.
+Do not build transcript display except optional developer-only diagnostic views behind compile-time DEBUG
+flags. DEBUG views must never persist text.
 
 ## Tests
 
@@ -669,7 +692,8 @@ Model instructions and post-processing must prefer no cue unless the interventio
 
 ### P7-006 — Agenda pulse
 
-When a meeting objective exists, optionally run a separate lower-frequency comparison at 30–60 second intervals.
+When a meeting objective exists, optionally run a separate lower-frequency comparison at 30–60 second
+intervals.
 
 ## Tests
 
@@ -708,7 +732,8 @@ Register/process ScreenCaptureKit `.audio` output.
 
 ### P8-003 — Microphone stream
 
-Use ScreenCaptureKit `.microphone` output where appropriate for the shipping SDK, or another Apple-supported simultaneous microphone path if testing proves more reliable.
+Use ScreenCaptureKit `.microphone` output where appropriate for the shipping SDK, or another Apple-supported
+simultaneous microphone path if testing proves more reliable.
 
 Do not reroute the mic away from the meeting app.
 
@@ -782,7 +807,8 @@ Record results in `Docs/REMOTE_AUDIO_COMPATIBILITY.md`.
 
 ## Exit Gate
 
-At least the supported compatibility matrix passes without breaking the user's ability to participate in the meeting and without writing audio to disk.
+At least the supported compatibility matrix passes without breaking the user's ability to participate in the
+meeting and without writing audio to disk.
 
 ---
 
@@ -836,7 +862,8 @@ No automatic executive detection.
 
 ## Tests
 
-Same synthetic input + different profiles should produce meaningfully different cue preference while staying within product rules.
+Same synthetic input + different profiles should produce meaningfully different cue preference while staying
+within product rules.
 
 ## Exit Gate
 
@@ -885,7 +912,8 @@ Include at least:
 
 ### P10-003 — Regression runner
 
-Build a developer evaluation runner that can execute the corpus against the current system model and summarize:
+Build a developer evaluation runner that can execute the corpus against the current system model and
+summarize:
 
 - cue rate;
 - no-cue rate;
@@ -1108,7 +1136,8 @@ Write accurate microphone and ScreenCaptureKit/system capture usage descriptions
 
 ### P14-003 — App Privacy answers
 
-Answers must match implementation. Do not claim data collection that does not occur; do not omit any data collection that does occur.
+Answers must match implementation. Do not claim data collection that does not occur; do not omit any data
+collection that does occur.
 
 ### P14-004 — App Review notes
 

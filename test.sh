@@ -32,7 +32,7 @@ check_repository()
         return 1
     fi
     python3 -m unittest discover -s "$repository_root/test" -p 'test_*.py'
-    "$bats_bin" "$repository_root/test/repository-operations.bats"
+    "$bats_bin" "$repository_root"/test/*.bats
 }
 
 validate_arguments()
@@ -42,7 +42,7 @@ validate_arguments()
         return 2
     fi
     case "${1:-all}" in
-        all|repository|cropprint|web|--help|-h) ;;
+        all | repository | cropprint | web | --help | -h) ;;
         *)
             usage >&2
             return 2

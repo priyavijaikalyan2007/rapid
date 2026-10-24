@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: 2026 Outcrop Inc
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Repository: rapid
+# File GUID: 155d92eb-51ad-4a77-9591-c5bd214e92ec
+# Created: 2026
+# COMPONENT: Source licensing annotations
+# PURPOSE: License media and formats that cannot safely contain source comments.
+# RELATES: ../LICENSE, ../THIRD_PARTY_NOTICES.md
+# FLOW: Source path -> closest file notice or project-owned GPL annotation.
+
+version = 1
+
+[[annotations]]
+path = ["**"]
+precedence = "closest"
+SPDX-FileCopyrightText = ["2026 Vijai Kalyan", "2026 Outcrop Inc"]
+SPDX-License-Identifier = "GPL-3.0-or-later"
+SPDX-FileComment = "Covers project-owned assets, JSON, lockfiles, versions, and protocol files without changing their format. Existing third-party notices remain applicable."

@@ -1,3 +1,18 @@
+<!--
+SPDX-FileCopyrightText: 2026 Vijai Kalyan
+SPDX-FileCopyrightText: 2026 Outcrop Inc
+SPDX-License-Identifier: GPL-3.0-or-later
+Repository: rapid
+File GUID: 1298f959-fee9-4bd2-be4e-48854f98c7fc
+Created: 2026
+COMPONENT: TESTING-GUIDE
+PURPOSE: Records the TESTING GUIDE project specification.
+RELATES: PROJECT.md, instructions/WORKFLOW.md
+FLOW: Authored source -> component validation -> local result.
+-->
+
+<!-- AGENT: Records the TESTING GUIDE project specification. -->
+
 # CropPrint physical-device testing guide
 
 This guide covers App Review evidence for build 12 and full regression testing for later builds.
@@ -6,9 +21,11 @@ This guide covers App Review evidence for build 12 and full regression testing f
 
 Apple is reviewing version 1.0.0, build 12, from Git commit `b9e9fcf40db53f4ef72d1bff979ffdb1ee34dac5`.
 
-Use the TestFlight build 12 application for every App Review recording. Do not record a local development build as build-12 evidence.
+Use the TestFlight build 12 application for every App Review recording. Do not record a local development
+build as build-12 evidence.
 
-Later source builds contain photo adjustments, background replacement, angle correction, and passport head guides. Test those features separately.
+Later source builds contain photo adjustments, background replacement, angle correction, and passport head
+guides. Test those features separately.
 
 ## Device matrix
 
@@ -171,9 +188,11 @@ Use these sizes for new product-page captures:
 
 Confirm the accepted sizes in App Store Connect before uploading replacements.
 
-An iPhone 12 mini screenshot does not satisfy the current required Dynamic Island slot. Use it only as review evidence.
+An iPhone 12 mini screenshot does not satisfy the current required Dynamic Island slot. Use it only as review
+evidence.
 
-Use the existing Simulator capture process for exact product-page dimensions. Do not stretch a physical-device screenshot.
+Use the existing Simulator capture process for exact product-page dimensions. Do not stretch a physical-device
+screenshot.
 
 ## Verify build-12 capabilities
 
@@ -336,6 +355,8 @@ Record failures through GitHub Issues. Do not attach private photos or device in
 6. Paste the durable details into both platform Notes fields.
 7. Wait for Apple to continue the existing review.
 
-Do not resubmit when Apple requested information only. A resubmission starts a new review and closes the existing message exchange.
+Do not resubmit when Apple requested information only. A resubmission starts a new review and closes the
+existing message exchange.
 
-If App Store Connect shows a rejected item that requires editing, follow the displayed Edit and Resubmit workflow instead.
+If App Store Connect shows a rejected item that requires editing, follow the displayed Edit and Resubmit
+workflow instead.

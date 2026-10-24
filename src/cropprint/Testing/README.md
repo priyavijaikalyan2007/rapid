@@ -1,18 +1,38 @@
+<!--
+SPDX-FileCopyrightText: 2026 Vijai Kalyan
+SPDX-FileCopyrightText: 2026 Outcrop Inc
+SPDX-License-Identifier: GPL-3.0-or-later
+Repository: rapid
+File GUID: 6e41eb86-f2bf-4394-9905-247177ff6a88
+Created: 2026
+COMPONENT: README
+PURPOSE: Records the README project specification.
+RELATES: PROJECT.md, instructions/WORKFLOW.md
+FLOW: Authored source -> component validation -> local result.
+-->
+
+<!-- AGENT: Records the README project specification. -->
+
 # CropPrint test assets
 
 This directory contains generated sample photos for CropPrint quality assurance and App Store evidence.
 
-The project owner supplied these images for testing. They do not show household photos or other private content.
+The project owner supplied these images for testing. They do not show household photos or other private
+content.
 
-The sample photos are not compiled into either application. They remain separate from the shipping application bundles.
+The sample photos are not compiled into either application. They remain separate from the shipping application
+bundles.
 
 ## File formats
 
-The main set contains 20 quality-85 JPEG files. These files preserve the original pixel dimensions while reducing repository storage.
+The main set contains 20 quality-85 JPEG files. These files preserve the original pixel dimensions while
+reducing repository storage.
 
-`SampleImages/22-format-test-portrait.heic` provides a HEIC input test. Use the existing `AppStore/Media/Source/sample-landscape.png` file for PNG input tests.
+`SampleImages/22-format-test-portrait.heic` provides a HEIC input test. Use the existing
+`AppStore/Media/Source/sample-landscape.png` file for PNG input tests.
 
-The complete sample set uses about 33 MB. The original PNG files remain outside the repository in the project owner's Downloads folder.
+The complete sample set uses about 33 MB. The original PNG files remain outside the repository in the project
+owner's Downloads folder.
 
 ## Recommended samples
 

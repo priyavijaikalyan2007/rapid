@@ -1,0 +1,32 @@
+# SPDX-FileCopyrightText: 2026 Outcrop Inc
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Repository: rapid
+# File GUID: 20833f56-81c6-45a7-8cbb-89b5466ba218
+# Created: 2026
+# COMPONENT: Source editor defaults
+# PURPOSE: Keep future authored edits aligned with the shared whitespace conventions.
+# RELATES: .swiftformat, ../scripts/check-source-style.sh
+# FLOW: Source file -> editor configuration -> consistent text layout.
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+max_line_length = 120
+
+# Markdown can contain intentional hard line breaks.
+[*.md]
+trim_trailing_whitespace = false
+
+# Preserve native tool-owned project and asset formats.
+[*.{pbxproj,xcscheme,json}]
+indent_style = unset
+indent_size = unset
+
+[LICENSE]
+max_line_length = unset

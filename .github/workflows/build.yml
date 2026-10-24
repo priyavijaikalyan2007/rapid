@@ -1,3 +1,13 @@
+# SPDX-FileCopyrightText: 2026 Outcrop Inc
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Repository: rapid
+# File GUID: fa7f6a0b-1d1e-4b8d-9488-0e7cc5e3bd8b
+# Created: 2026
+# COMPONENT: Source validation and development packaging
+# PURPOSE: Reject convention and regression failures before producing unsigned development artifacts.
+# RELATES: scripts/check-source-style.sh, src/web/eslint.config.mjs, test.sh
+# FLOW: Explicit tool installation -> style checks -> repository tests -> native and website builds.
+
 name: Build
 
 on:
@@ -14,8 +24,21 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install repository test runner
-        run: brew install bats-core
+      - name: Install repository validation tools
+        run: brew install bats-core swiftformat shellcheck shfmt
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '26'
+          package-manager-cache: false
+
+      - name: Install locked website tools
+        run: npm ci --prefix src/web --ignore-scripts
+
+      - name: Check source conventions
+        run: |
+          ./scripts/check-source-style.sh
+          npm run lint --prefix src/web
 
       - name: Validate repository instructions and tools
         run: ./test.sh repository

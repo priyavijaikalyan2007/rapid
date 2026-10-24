@@ -7,7 +7,7 @@
     "context": "PROJECT.md requires local models and on-device APIs. Optional resource downloads do not authorize content uploads.",
     "files": [
       "PROJECT.md",
-      "src/cropprint/Shared/PhotoProcessing.swift"
+      "src/cropprint/Shared/LocalPhotoProcessor.swift"
     ],
     "date_basis": "Recorded during repository setup; not an inferred historical decision date."
   },
@@ -69,5 +69,55 @@
       "CONVERSATION.md"
     ],
     "date_basis": "Recorded during repository setup; not an inferred historical decision date."
+  },
+  {
+    "id": "ADR-007",
+    "title": "Bound external inputs before native decoding and cache publication",
+    "date": "2026-10-24",
+    "status": "Accepted",
+    "context": "The source audit found unbounded buffered downloads and decoder inputs. Stream optional HTTPS resources with byte caps, reject insecure redirects and credential URLs, bound catalog metadata and concurrency, and inspect image dimensions before decompression. Keep photos local. Receive picker files and validate metadata before reading bounded chunks, rather than requesting an unbounded Data transfer.",
+    "files": [
+      "src/cropprint/Shared/ResourceDownloadPolicy.swift",
+      "src/cropprint/Shared/ResourceCatalogPolicy.swift",
+      "src/cropprint/Shared/ImageInputLimits.swift",
+      "src/cropprint/Shared/ImportedPhoto.swift"
+    ]
+  },
+  {
+    "id": "ADR-008",
+    "title": "Publish complete exports with exclusive destination creation",
+    "date": "2026-10-24",
+    "status": "Accepted",
+    "context": "A preexisting-path check alone races another creator. Stage complete bytes beside the destination, publish using an exclusive local rename, and retain device/inode identity for rollback. Unsupported filesystems fail without replacing an existing file. File-group publication is not crash-atomic across multiple paths.",
+    "files": [
+      "src/cropprint/Shared/ExportFileWriter.swift",
+      "src/cropprint/CropPrintTests/ExportFileWriterTests.swift"
+    ]
+  },
+  {
+    "id": "ADR-009",
+    "title": "Use scoped REUSE annotations for non-commentable source assets",
+    "date": "2026-10-24",
+    "status": "Accepted",
+    "context": "Keep strict JSON, protocol files, tool-generated formats, and binary media valid. Apply GPL-3.0-or-later through a scoped REUSE.toml and preserve third-party attribution. Commentable source retains per-file SPDX and navigation headers.",
+    "files": [
+      "src/REUSE.toml",
+      "LICENSES/GPL-3.0-or-later.txt"
+    ]
+  },
+  {
+    "id": "ADR-010",
+    "title": "Make source conventions repeatable before product builds",
+    "date": "2026-10-24",
+    "status": "Accepted",
+    "context": "The owner asked that future edits conform to the audited instructions. Check in editor, SwiftFormat and ESLint rules, require installed tools for read-only checks, and run those checks in the existing build workflow. Keep behavior tests separate. Pin the patched Undici 7.30.1 transitive dependency until Wrangler updates its requirement.",
+    "files": [
+      "scripts/check-source-style.sh",
+      "src/.editorconfig",
+      "src/.swiftformat",
+      "src/web/eslint.config.mjs",
+      "src/web/package.json",
+      ".github/workflows/build.yml"
+    ]
   }
 ]

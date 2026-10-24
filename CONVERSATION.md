@@ -103,3 +103,43 @@ Added repository checks before the existing GitHub Actions build. The hosted wor
 The setup did not push, deploy, sign a release, upload, submit for review, or verify mailbox delivery.
 The public website and existing App Store submission do not receive these local source changes until their separate publishing steps occur.
 The configurator still prints generic scaffold reminders after a no-change dry run. SETUP.md records actual completion.
+
+## 23–24 October 2026: Complete source audit
+
+### User request
+
+> great. now, the code in this repository was written before any of the instructions were avialable. Now that the instructions are present and many of them were vetted in other repositorys, I want you to audit and fix every file in this repo under src/ so that it adheres to language, coding style, conventions, security guidelines, comments, markers etc.
+
+The user supplied the workspace instruction entry point and the full writing guide again.
+The environment date advanced to 24 October 2026 during this work.
+
+### Response summary
+
+Reviewed every original tracked source file and every file added during the audit.
+Applied language layout, type ownership, useful comments, markers, and scoped GPL notices.
+Fixed native input and download limits, cancellation, file publication, color-space consistency, and recovery messages.
+Hardened script arguments, preview output handling, archive provenance, and website configuration boundaries.
+The full unsigned build passed. The native suite passed 77 tests, and website tests passed 23 cases.
+Shared production-code coverage measured 84.50%. The app target measured 21.01%, so UI coverage remains limited.
+All 73 binary media files retained their baseline hashes. No location metadata was found in the metadata scan.
+The permanent audit report and inventory record evidence, SDK warnings, and remaining device and UI checks.
+No push, deployment, upload, or release occurred.
+
+### Priority clarification and repeatable checks
+
+> yes, but you should first finish the original task of making sure codebase adheres to the instructions and is brought up to speed so that future edits can conform.
+
+The audit finishes before the separate website release-status update.
+The repository now contains editor rules, Swift and shell style validation, and an exact website ESLint toolchain.
+The existing build workflow checks conventions before it builds the products.
+The local source-style command and all 26 Bats checks passed. The hosted workflow still needs an authorized push.
+
+### Final source-audit verification
+
+The final review also moved the photo picker to bounded file transfers before compressed-byte buffering.
+The complete native suite passed 79 tests. Shared production coverage measured 84.27%, and the app target measured 21.23%.
+The website suite passed 23 tests. All 26 Bats checks and 12 Python checks passed.
+The completed inventory records 169 original files and 85 added source files, with 248 files in the resulting source set.
+The source-style checker and website lint passed. The workflow YAML parsed and includes the new convention gate.
+The development dependency installation reported zero vulnerabilities after the patched Undici override.
+The source-audit changes are ready for a local commit before the separate website publication update.

@@ -1,7 +1,21 @@
+// SPDX-FileCopyrightText: 2026 Vijai Kalyan
+// SPDX-FileCopyrightText: 2026 Outcrop Inc
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Repository: rapid
+// File GUID: e5253588-2159-4582-b801-38f8a426521d
+// Created: 2026
+// COMPONENT: MobileImageExporter
+// PURPOSE: Prepares cropped mobile pixels and physical sheet rasters for add-only Photos saves.
+// RELATES: [[CropPrint]]
+// FLOW: Native application -> MobileImageExporter -> local result.
+
 import CoreGraphics
 import Foundation
 
-enum MobileImageExporter {
+/// Prepares cropped mobile pixels and physical sheet rasters for add-only Photos saves.
+enum MobileImageExporter
+{
+    /// Renders a bounded print-sheet raster and returns its actual copy count.
     static func renderPrintSheet(
         photo: MobilePhoto,
         sourceImage: CGImage,
@@ -10,8 +24,11 @@ enum MobileImageExporter {
         decoration: DecorationSettings,
         remoteFrameURL: URL?,
         sheetSettings: PrintSheetSettings
-    ) throws -> (image: CGImage, copyCount: Int) {
-        guard settings.preset.physicalInches != nil else {
+    ) throws -> (image: CGImage, copyCount: Int)
+    {
+        guard settings.preset.physicalInches != nil
+        else
+        {
             throw PrintSheetError.missingPhysicalSize
         }
         let preparedPhoto = try render(
@@ -27,14 +44,10 @@ enum MobileImageExporter {
             photoSizeInches: physicalSize,
             settings: sheetSettings
         )
-        let image = try PrintSheetRenderer.rasterImage(
-            photo: preparedPhoto,
-            layout: layout,
-            settings: sheetSettings
-        )
-        return (image, layout.copyCount)
+        return try renderedSheet(photo: preparedPhoto, layout: layout, settings: sheetSettings)
     }
 
+    /// Produces decorated output pixels and throws when validation or rendering fails.
     static func render(
         photo: MobilePhoto,
         sourceImage: CGImage,
@@ -42,26 +55,16 @@ enum MobileImageExporter {
         settings: PrintSettings,
         decoration: DecorationSettings,
         remoteFrameURL: URL?
-    ) throws -> CGImage {
-        let pixelRect = CropGeometry.pixelCrop(
-            from: normalizedCrop,
-            imageSize: CGSize(width: sourceImage.width, height: sourceImage.height)
-        )
-        guard pixelRect.width > 0, pixelRect.height > 0,
-              let cropped = sourceImage.cropping(to: pixelRect) else {
-            throw MobilePhotoError.invalidCrop
-        }
-
-        let prepared: CGImage
-        if settings.isPrintPreset && settings.includesMargin {
-            prepared = try addMargin(to: cropped, settings: settings)
-        } else {
-            prepared = cropped
-        }
+    ) throws -> CGImage
+    {
+        let prepared = try croppedImage(sourceImage, crop: normalizedCrop, settings: settings)
         let finalImage: CGImage
-        if let target = settings.outputPixels {
+        if let target = settings.outputPixels
+        {
             finalImage = try draw(prepared, canvasSize: target, inset: 0)
-        } else {
+        }
+        else
+        {
             finalImage = prepared
         }
         return try DecorationRenderer.render(
@@ -71,8 +74,14 @@ enum MobileImageExporter {
         )
     }
 
-    private static func addMargin(to image: CGImage, settings: PrintSettings) throws -> CGImage {
-        guard let baseSize = settings.preset.physicalInches else { return image }
+    /// Fits source pixels inside the selected quarter-inch white margin.
+    private static func addMargin(to image: CGImage, settings: PrintSettings) throws -> CGImage
+    {
+        guard let baseSize = settings.preset.physicalInches
+        else
+        {
+            return image
+        }
         let physicalSize = settings.orientation == .portrait
             ? baseSize
             : CGSize(width: baseSize.height, height: baseSize.width)
@@ -88,9 +97,11 @@ enum MobileImageExporter {
         )
     }
 
-    private static func draw(_ image: CGImage, canvasSize: CGSize, inset: CGFloat) throws -> CGImage {
-        let width = Int(canvasSize.width.rounded())
-        let height = Int(canvasSize.height.rounded())
+    /// Draws source pixels into the destination context at the supplied scale.
+    private static func draw(_ image: CGImage, canvasSize: CGSize, inset: CGFloat) throws -> CGImage
+    {
+        let width = canvasSize.width.rounded()
+        let height = canvasSize.height.rounded()
         let availableWidth = max(1, CGFloat(width) - inset * 2)
         let availableHeight = max(1, CGFloat(height) - inset * 2)
         let scale = min(
@@ -105,25 +116,67 @@ enum MobileImageExporter {
             height: drawSize.height
         )
 
-        guard let colorSpace = CGColorSpace(name: CGColorSpace.sRGB),
-              let context = CGContext(
-                data: nil,
-                width: width,
-                height: height,
-                bitsPerComponent: 8,
-                bytesPerRow: 0,
-                space: colorSpace,
-                bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
-              ) else {
+        guard let context = BitmapCanvas.make(size: CGSize(width: width, height: height), alpha: .premultipliedLast)
+        else
+        {
             throw MobilePhotoError.renderFailed
         }
         context.setFillColor(CGColor(gray: 1, alpha: 1))
         context.fill(CGRect(x: 0, y: 0, width: width, height: height))
         context.interpolationQuality = .high
         context.draw(image, in: drawRect)
-        guard let result = context.makeImage() else {
+        return try completedImage(from: context)
+    }
+
+    /// Validates and crops source pixels before the optional physical inside margin.
+    private static func croppedImage(_ sourceImage: CGImage, crop: CGRect, settings: PrintSettings) throws -> CGImage
+    {
+        let pixelRect = CropGeometry.pixelCrop(
+            from: crop,
+            imageSize: CGSize(width: sourceImage.width, height: sourceImage.height)
+        )
+        guard pixelRect.width > 0, pixelRect.height > 0,
+              let cropped = sourceImage.cropping(to: pixelRect)
+        else
+        {
+            throw MobilePhotoError.invalidCrop
+        }
+
+        let prepared: CGImage
+        if settings.isPrintPreset && settings.includesMargin
+        {
+            prepared = try addMargin(to: cropped, settings: settings)
+        }
+        else
+        {
+            prepared = cropped
+        }
+        return prepared
+    }
+
+    /// Returns completed pixels or a recoverable renderer-specific allocation failure.
+    private static func completedImage(from context: CGContext) throws -> CGImage
+    {
+        guard let image = context.makeImage()
+        else
+        {
             throw MobilePhotoError.renderFailed
         }
-        return result
+        return image
+    }
+
+    /// Couples the completed raster with its physical layout copy count.
+    private static func renderedSheet(
+        photo preparedPhoto: CGImage,
+        layout: PrintSheetLayout,
+        settings sheetSettings: PrintSheetSettings
+    ) throws -> (image: CGImage, copyCount: Int)
+    {
+        let image = try PrintSheetRenderer.rasterImage(
+            photo: preparedPhoto,
+            layout: layout,
+            settings: sheetSettings
+        )
+        return (image, layout.copyCount)
     }
 }

@@ -1,6 +1,21 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: 2026 Vijai Kalyan
+# SPDX-FileCopyrightText: 2026 Outcrop Inc
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Repository: rapid
+# File GUID: dd82cefa-b7c2-4b1b-9f5e-104e60e92875
+# Created: 2026
+# COMPONENT: archive-app-store
+# PURPOSE: Create clean-commit App Store archives for selected native platforms.
+# RELATES: PROJECT.md, instructions/WORKFLOW.md
+# FLOW: Authored source -> component validation -> local result.
 
 set -euo pipefail
+
+component_script_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=src/cropprint/scripts/script-support.sh
+source "$component_script_root/script-support.sh"
+validate_mode "${1:-all}" "$#" "Usage: $0 [all|macos|ios]" all macos ios
 
 app_root="$(cd "$(dirname "$0")/.." && pwd)"
 repository_root="$(cd "$app_root/../.." && pwd)"
@@ -9,116 +24,125 @@ archive_root="$app_root/build/AppStore"
 platform="${1:-all}"
 
 source "$repository_root/config/apple-developer.env"
+# shellcheck source=src/cropprint/scripts/build-metadata.sh
 source "$app_root/scripts/build-metadata.sh"
 
 if [[ "$GIT_FULL_SHA" == "nogit" || "$GIT_SHA" == *-dirty ]]; then
-  echo "App Store archives require a clean Git commit." >&2
-  exit 1
+    echo "App Store archives require a clean Git commit." >&2
+    exit 1
 fi
 
 if [[ ! "$APPLE_TEAM_ID" =~ ^[A-Z0-9]{10}$ ]]; then
-  echo "The repository Apple Developer Team ID is invalid." >&2
-  exit 1
+    echo "The repository Apple Developer Team ID is invalid." >&2
+    exit 1
 fi
 
 if [[ -d /Applications/Xcode.app/Contents/Developer ]]; then
-  export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
+    export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
 fi
 
 authentication_arguments=()
 if [[ -n "${APP_STORE_CONNECT_API_KEY_PATH:-}" || -n "${APP_STORE_CONNECT_API_KEY_ID:-}" || -n "${APP_STORE_CONNECT_API_ISSUER_ID:-}" ]]; then
-  if [[ -z "${APP_STORE_CONNECT_API_KEY_PATH:-}" || -z "${APP_STORE_CONNECT_API_KEY_ID:-}" || -z "${APP_STORE_CONNECT_API_ISSUER_ID:-}" ]]; then
-    echo "Set all three App Store Connect API key variables, or set none of them." >&2
-    exit 1
-  fi
-  authentication_arguments=(
-    -authenticationKeyPath "$APP_STORE_CONNECT_API_KEY_PATH"
-    -authenticationKeyID "$APP_STORE_CONNECT_API_KEY_ID"
-    -authenticationKeyIssuerID "$APP_STORE_CONNECT_API_ISSUER_ID"
-  )
+    if [[ -z "${APP_STORE_CONNECT_API_KEY_PATH:-}" || -z "${APP_STORE_CONNECT_API_KEY_ID:-}" || -z "${APP_STORE_CONNECT_API_ISSUER_ID:-}" ]]; then
+        echo "Set all three App Store Connect API key variables, or set none of them." >&2
+        exit 1
+    fi
+    authentication_arguments=(
+        -authenticationKeyPath "$APP_STORE_CONNECT_API_KEY_PATH"
+        -authenticationKeyID "$APP_STORE_CONNECT_API_KEY_ID"
+        -authenticationKeyIssuerID "$APP_STORE_CONNECT_API_ISSUER_ID"
+    )
 fi
 
-run_xcodebuild() {
-  if (( ${#authentication_arguments[@]} > 0 )); then
-    xcodebuild "$@" "${authentication_arguments[@]}"
-  else
-    xcodebuild "$@"
-  fi
+# Pass authentication arguments only to the explicitly authorized Xcode operation.
+run_xcodebuild()
+{
+    if ((${#authentication_arguments[@]} > 0)); then
+        xcodebuild "$@" "${authentication_arguments[@]}"
+    else
+        xcodebuild "$@"
+    fi
 }
 
 version_arguments=(
-  MARKETING_VERSION="$APP_VERSION"
-  CURRENT_PROJECT_VERSION="$BUILD_NUMBER"
-  GIT_SHA="$GIT_SHA"
+    MARKETING_VERSION="$APP_VERSION"
+    CURRENT_PROJECT_VERSION="$BUILD_NUMBER"
+    GIT_SHA="$GIT_SHA"
 )
 
-verify_macos_dsym() {
-  local archive_path="$archive_root/CropPrint-macOS.xcarchive"
-  local binary_path="$archive_path/Products/Applications/CropPrint.app/Contents/MacOS/CropPrint"
-  local dsym_path="$archive_path/dSYMs/CropPrint.app.dSYM/Contents/Resources/DWARF/CropPrint"
+# Verify matching debug symbols before an archive enters the upload path.
+verify_macos_dsym()
+{
+    local archive_path="$archive_root/CropPrint-macOS.xcarchive"
+    local binary_path="$archive_path/Products/Applications/CropPrint.app/Contents/MacOS/CropPrint"
+    local dsym_path="$archive_path/dSYMs/CropPrint.app.dSYM/Contents/Resources/DWARF/CropPrint"
 
-  if [[ ! -f "$dsym_path" ]]; then
-    echo "The macOS archive does not contain the CropPrint dSYM." >&2
-    exit 1
-  fi
+    if [[ ! -f "$dsym_path" ]]; then
+        echo "The macOS archive does not contain the CropPrint dSYM." >&2
+        exit 1
+    fi
 
-  local binary_uuids
-  local dsym_uuids
-  binary_uuids="$(dwarfdump --uuid "$binary_path" | awk '{print $2}' | sort)"
-  dsym_uuids="$(dwarfdump --uuid "$dsym_path" | awk '{print $2}' | sort)"
+    local binary_uuids
+    local dsym_uuids
+    binary_uuids="$(dwarfdump --uuid "$binary_path" | awk '{print $2}' | sort)"
+    dsym_uuids="$(dwarfdump --uuid "$dsym_path" | awk '{print $2}' | sort)"
 
-  if [[ -z "$binary_uuids" || "$binary_uuids" != "$dsym_uuids" ]]; then
-    echo "The macOS archive dSYM UUIDs do not match the application binary." >&2
-    exit 1
-  fi
+    if [[ -z "$binary_uuids" || "$binary_uuids" != "$dsym_uuids" ]]; then
+        echo "The macOS archive dSYM UUIDs do not match the application binary." >&2
+        exit 1
+    fi
 
-  echo "Verified the macOS dSYM UUIDs."
+    echo "Verified the macOS dSYM UUIDs."
 }
 
-archive_macos() {
-  run_xcodebuild archive \
-    -project "$project" \
-    -scheme CropPrint \
-    -configuration Release \
-    -sdk macosx \
-    -archivePath "$archive_root/CropPrint-macOS.xcarchive" \
-    -allowProvisioningUpdates \
-    DEVELOPMENT_TEAM="$APPLE_TEAM_ID" \
-    CODE_SIGN_STYLE=Automatic \
-    "${version_arguments[@]}"
-  verify_macos_dsym
+# Archive the macOS product only after the source release gates pass.
+archive_macos()
+{
+    run_xcodebuild archive \
+        -project "$project" \
+        -scheme CropPrint \
+        -configuration Release \
+        -sdk macosx \
+        -archivePath "$archive_root/CropPrint-macOS.xcarchive" \
+        -allowProvisioningUpdates \
+        DEVELOPMENT_TEAM="$APPLE_TEAM_ID" \
+        CODE_SIGN_STYLE=Automatic \
+        "${version_arguments[@]}"
+    verify_macos_dsym
 }
 
-archive_ios() {
-  run_xcodebuild archive \
-    -project "$project" \
-    -scheme 'CropPrint Mobile' \
-    -configuration Release \
-    -sdk iphoneos \
-    -archivePath "$archive_root/CropPrint-iOS.xcarchive" \
-    -allowProvisioningUpdates \
-    DEVELOPMENT_TEAM="$APPLE_TEAM_ID" \
-    CODE_SIGN_STYLE=Automatic \
-    "${version_arguments[@]}"
+# Archive the iOS product only after the source release gates pass.
+archive_ios()
+{
+    run_xcodebuild archive \
+        -project "$project" \
+        -scheme 'CropPrint Mobile' \
+        -configuration Release \
+        -sdk iphoneos \
+        -archivePath "$archive_root/CropPrint-iOS.xcarchive" \
+        -allowProvisioningUpdates \
+        DEVELOPMENT_TEAM="$APPLE_TEAM_ID" \
+        CODE_SIGN_STYLE=Automatic \
+        "${version_arguments[@]}"
 }
 
 mkdir -p "$archive_root"
 
 case "$platform" in
-  all)
-    archive_macos
-    archive_ios
-    ;;
-  macos)
-    archive_macos
-    ;;
-  ios)
-    archive_ios
-    ;;
-  *)
-    echo "Usage: $0 [all|macos|ios]" >&2
-    exit 2
-    ;;
+    all)
+        archive_macos
+        archive_ios
+        ;;
+    macos)
+        archive_macos
+        ;;
+    ios)
+        archive_ios
+        ;;
+    *)
+        echo "Usage: $0 [all|macos|ios]" >&2
+        exit 2
+        ;;
 esac
 
 echo "Created App Store archives under $archive_root."

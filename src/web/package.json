@@ -8,9 +8,15 @@
     "check": "node scripts/check-site.mjs dist",
     "dev": "./preview.sh",
     "deploy": "./deploy.sh",
-    "deploy:dry-run": "./deploy.sh --dry-run"
+    "deploy:dry-run": "./deploy.sh --dry-run",
+    "lint": "eslint ."
   },
   "devDependencies": {
+    "@stylistic/eslint-plugin": "5.10.0",
+    "eslint": "10.13.0",
     "wrangler": "^4.73.0"
+  },
+  "overrides": {
+    "undici": "7.30.1"
   }
 }

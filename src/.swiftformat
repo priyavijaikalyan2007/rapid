@@ -1,0 +1,28 @@
+# SPDX-FileCopyrightText: 2026 Outcrop Inc
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Repository: rapid
+# File GUID: d19efc1f-d2c5-430c-a846-1668199e68e0
+# Created: 2026
+# COMPONENT: Swift source formatting
+# PURPOSE: Preserve the repository's explicit layout without semantic rewrite rules.
+# RELATES: ../instructions/CODING_STYLE.md
+# FLOW: Authored Swift -> syntax-aware formatting -> compiler and tests.
+
+--min-version 0.64.1
+--swift-version 5.9
+--language-mode 5
+--allman true
+--indent 4
+--max-width 120
+--else-position next-line
+--guard-else next-line
+--ifdef no-indent
+--wrap-arguments before-first
+--wrap-parameters before-first
+--wrap-collections before-first
+--wrap-closure-bodies always
+--indent-strings true
+--empty-braces linebreak
+--semicolons never
+--exclude **/build/**,**/node_modules/**,**/dist/**
+--rules indent,linebreaks,braces,elseOnSameLine,emptyBraces,spaceAroundOperators,spaceAroundBraces,spaceInsideBraces,spaceAroundParens,spaceInsideParens,spaceAroundBrackets,spaceInsideBrackets,blankLinesAtStartOfScope,blankLinesAtEndOfScope,blankLinesBetweenScopes,consecutiveBlankLines,linebreakAtEndOfFile,trailingSpace,wrap,wrapArguments,wrapAttributes,wrapMultilineStatementBraces,wrapDoBodies,wrapFunctionBodies,wrapPropertyBodies,wrapIfStatementBodies,wrapLoopBodies,wrapGuardStatementBodies,wrapClosureBodies,wrapSingleLineStrings,wrapSingleLineComments,semicolons

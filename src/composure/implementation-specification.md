@@ -1,6 +1,22 @@
+<!--
+SPDX-FileCopyrightText: 2026 Vijai Kalyan
+SPDX-FileCopyrightText: 2026 Outcrop Inc
+SPDX-License-Identifier: GPL-3.0-or-later
+Repository: rapid
+File GUID: b2f5d739-e130-4724-88f0-6054f5be4783
+Created: 2026
+COMPONENT: implementation-specification
+PURPOSE: Records the implementation specification project specification.
+RELATES: PROJECT.md, instructions/WORKFLOW.md
+FLOW: Authored source -> component validation -> local result.
+-->
+
+<!-- AGENT: Records the implementation specification project specification. -->
+
 # Composure — Normative Implementation Specification
 
-This file is the **authoritative implementation contract** for Composure V1. If other project documents disagree with this file, this file wins unless the product owner explicitly changes the requirement.
+This file is the **authoritative implementation contract** for Composure V1. If other project documents
+disagree with this file, this file wins unless the product owner explicitly changes the requirement.
 
 For rationale and expanded design guidance, see [product-specification.md](product-specification.md).
 
@@ -17,7 +33,8 @@ For rationale and expanded design guidance, see [product-specification.md](produ
 **Meeting recording:** None\
 **Persistent transcripts:** None
 
-Composure is an on-device behavioral coach for high-stakes conversations. It gives short, situational cues such as `ASK FIRST`, `KEEP IT SHORT`, `LET THEM FINISH`, or `BRING IT BACK`.
+Composure is an on-device behavioral coach for high-stakes conversations. It gives short, situational cues
+such as `ASK FIRST`, `KEEP IT SHORT`, `LET THEM FINISH`, or `BRING IT BACK`.
 
 It is not a meeting notes product.
 
@@ -29,7 +46,8 @@ The following are non-negotiable V1 requirements.
 
 ### PRIV-001 — No live-content upload
 
-The app MUST NOT upload live audio, transcript text, derived meeting state, model prompts containing meeting content, or generated meeting-specific cues to any application-controlled server.
+The app MUST NOT upload conversation content to an application-controlled server. This restriction covers live
+audio, transcript text, derived meeting state, model prompts, and meeting-specific cues.
 
 ### PRIV-002 — No audio recording
 
@@ -37,41 +55,50 @@ The app MUST NOT create audio recordings or audio files from live sessions.
 
 ### PRIV-003 — No transcript persistence
 
-The app MUST NOT save live transcript text to disk, databases, preferences, logs, analytics, crash breadcrumbs, or cloud storage.
+The app MUST NOT save live transcript text to disk, databases, preferences, logs, analytics, crash
+breadcrumbs, or cloud storage.
 
 ### PRIV-004 — Ephemeral session state
 
-Live audio buffers, transcript events, semantic analyses, conversation state, and session cue history MUST be memory-only and MUST be released when the session stops.
+Live audio buffers, transcript events, semantic analyses, conversation state, and session cue history MUST be
+memory-only and MUST be released when the session stops.
 
 ### PRIV-005 — No stealth mode
 
-The app MUST show a persistent visible listening/capture indicator whenever it is processing microphone or meeting audio.
+The app MUST show a persistent visible listening/capture indicator whenever it is processing microphone or
+meeting audio.
 
 ### PRIV-006 — Explicit start/stop
 
-Audio processing MUST begin only after an explicit user action and MUST stop immediately when the user presses Stop or the capture source terminates.
+Audio processing MUST begin only after an explicit user action and MUST stop immediately when the user presses
+Stop or the capture source terminates.
 
 ### PRIV-007 — No screen analysis
 
-The macOS remote-meeting implementation MUST NOT analyze, OCR, save, or otherwise process screen pixels for product functionality.
+The macOS remote-meeting implementation MUST NOT analyze, OCR, save, or otherwise process screen pixels for
+product functionality.
 
 ### NET-001 — No backend
 
-V1 MUST NOT contain an application backend, remote API, remote logging service, analytics SDK, or third-party cloud model.
+V1 MUST NOT contain an application backend, remote API, remote logging service, analytics SDK, or third-party
+cloud model.
 
 Apple-managed system model/speech asset downloads are allowed.
 
 ### MODEL-001 — Local semantic model
 
-Semantic coaching MUST use an on-device model. The initial implementation MUST use Apple Foundation Models `SystemLanguageModel` when available.
+Semantic coaching MUST use an on-device model. The initial implementation MUST use Apple Foundation Models
+`SystemLanguageModel` when available.
 
 ### MODEL-002 — No cloud fallback
 
-If the semantic model is unavailable, the app MUST degrade to deterministic/template behavior. It MUST NOT silently route to cloud AI.
+If the semantic model is unavailable, the app MUST degrade to deterministic/template behavior. It MUST NOT
+silently route to cloud AI.
 
 ### PROD-001 — No meeting-history product
 
-V1 MUST NOT expose meeting history, transcripts, recordings, notes, summaries, participant analytics, or action items.
+V1 MUST NOT expose meeting history, transcripts, recordings, notes, summaries, participant analytics, or
+action items.
 
 ---
 
@@ -112,7 +139,8 @@ MUST capture:
 - meeting/system/application audio;
 - user's microphone audio where supported.
 
-The sources SHOULD remain logically separate so the app can identify `USER` versus `OTHER` speech without speaker recognition.
+The sources SHOULD remain logically separate so the app can identify `USER` versus `OTHER` speech without
+speaker recognition.
 
 Provider integrations are forbidden in V1.
 
@@ -196,7 +224,8 @@ Composure/
 └── Docs/
 ```
 
-Shared behavioral logic MUST live in `ComposureCore`. Platform audio/windowing code SHOULD remain in platform targets.
+Shared behavioral logic MUST live in `ComposureCore`. Platform audio/windowing code SHOULD remain in platform
+targets.
 
 ---
 
@@ -208,7 +237,8 @@ Live audio MUST be processed as streaming PCM buffers.
 
 ### AUDIO-002 — No files
 
-The live pipeline MUST NOT instantiate file-recording paths such as `AVAudioFile` or `SCRecordingOutput` for session content.
+The live pipeline MUST NOT instantiate file-recording paths such as `AVAudioFile` or `SCRecordingOutput` for
+session content.
 
 ### AUDIO-003 — Remote source separation
 
@@ -251,15 +281,18 @@ Each live audio sequence MUST have an appropriate SpeechAnalyzer lifecycle.
 
 ### SPEECH-002 — Two-sequence remote mode
 
-Because a SpeechAnalyzer handles one input sequence at a time, remote mode SHOULD use distinct analyzers for user microphone and meeting audio.
+Because a SpeechAnalyzer handles one input sequence at a time, remote mode SHOULD use distinct analyzers for
+user microphone and meeting audio.
 
 ### SPEECH-003 — Asset readiness
 
-Required speech assets MUST be checked before the session starts. The app SHOULD provide a setup/readiness action so downloads happen before sensitive meetings.
+Required speech assets MUST be checked before the session starts. The app SHOULD provide a setup/readiness
+action so downloads happen before sensitive meetings.
 
 ### SPEECH-004 — Bounded context
 
-Finalized transcript events MUST be kept in a bounded in-memory rolling window. Initial target: 60–120 seconds.
+Finalized transcript events MUST be kept in a bounded in-memory rolling window. Initial target: 60–120
+seconds.
 
 ### SPEECH-005 — No transcript UI
 
@@ -272,13 +305,15 @@ Live Coach MUST NOT display a transcript.
 The core event model SHOULD express at minimum:
 
 ```swift
-enum SpeakerRole: Sendable {
+enum SpeakerRole: Sendable
+{
     case user
     case other
     case unknown
 }
 
-struct TranscriptEvent: Sendable, Identifiable {
+struct TranscriptEvent: Sendable, Identifiable
+{
     let id: UUID
     let timestamp: ContinuousClock.Instant
     let speaker: SpeakerRole
@@ -356,11 +391,13 @@ ESCALATION
 
 ### COACH-004 — Usually no cue
 
-Prompts, heuristics, and arbitration MUST explicitly bias toward `NO_ACTION` when a cue would not materially help.
+Prompts, heuristics, and arbitration MUST explicitly bias toward `NO_ACTION` when a cue would not materially
+help.
 
 ### COACH-005 — Behavioral, not diagnostic
 
-The app MUST NOT infer participant emotions, personality, honesty, competence, or mental state in order to coach the user.
+The app MUST NOT infer participant emotions, personality, honesty, competence, or mental state in order to
+coach the user.
 
 ---
 
@@ -465,7 +502,8 @@ Initial target:
 - ignore filler-only fragments;
 - discard/cancel stale analysis results.
 
-Agenda drift analysis, when meeting objectives exist, SHOULD run much less frequently (approximately every 30–60 seconds).
+Agenda drift analysis, when meeting objectives exist, SHOULD run much less frequently (approximately every
+30–60 seconds).
 
 ---
 
@@ -474,7 +512,8 @@ Agenda drift analysis, when meeting objectives exist, SHOULD run much less frequ
 Use an explicit state machine, not unrelated booleans.
 
 ```swift
-enum CoachSessionState: Sendable {
+enum CoachSessionState: Sendable
+{
     case idle
     case checkingReadiness
     case requestingPermissions
@@ -586,7 +625,8 @@ The app MUST explain why macOS Screen/System Audio permission is needed:
 
 During active capture, the app MUST show a visible listening indication and provide Stop.
 
-The onboarding/privacy text MUST tell users to comply with their organization's policies and applicable participant-notice/legal requirements.
+The onboarding/privacy text MUST tell users to comply with their organization's policies and applicable
+participant-notice/legal requirements.
 
 ---
 
@@ -619,7 +659,8 @@ V1 is not releasable until it has automated or repeatable tests for:
 - preparation fallback;
 - session cleanup.
 
-Privacy verification MUST include searching the app's writable directories and logs for known test phrases after a session.
+Privacy verification MUST include searching the app's writable directories and logs for known test phrases
+after a session.
 
 Expected result: zero persisted matches.
 
@@ -650,19 +691,23 @@ Run the corpus when changing prompts and before adopting a new major OS/system-m
 
 ### macOS Remote
 
-A user can start remote coaching, select a meeting source, participate normally, receive occasional cues, stop coaching, and find no recording/transcript/history.
+A user can start remote coaching, select a meeting source, participate normally, receive occasional cues, stop
+coaching, and find no recording/transcript/history.
 
 ### macOS/iOS In-Person
 
-A user can start microphone coaching, receive occasional semantic cues, stop, and leave no meeting-content persistence.
+A user can start microphone coaching, receive occasional semantic cues, stop, and leave no meeting-content
+persistence.
 
 ### Prepare
 
-A user can prepare for a difficult conversation and receive concise behavioral guidance without that content being automatically stored.
+A user can prepare for a difficult conversation and receive concise behavioral guidance without that content
+being automatically stored.
 
 ### Privacy
 
-Controlled filesystem/log/network inspection confirms the app does not intentionally persist or transmit conversation content.
+Controlled filesystem/log/network inspection confirms the app does not intentionally persist or transmit
+conversation content.
 
 ---
 

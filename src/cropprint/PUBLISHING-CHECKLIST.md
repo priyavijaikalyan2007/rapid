@@ -1,3 +1,18 @@
+<!--
+SPDX-FileCopyrightText: 2026 Vijai Kalyan
+SPDX-FileCopyrightText: 2026 Outcrop Inc
+SPDX-License-Identifier: GPL-3.0-or-later
+Repository: rapid
+File GUID: 3cfe6c7b-65be-408e-a675-2ed161e80534
+Created: 2026
+COMPONENT: PUBLISHING-CHECKLIST
+PURPOSE: Records the PUBLISHING CHECKLIST project specification.
+RELATES: PROJECT.md, instructions/WORKFLOW.md
+FLOW: Authored source -> component validation -> local result.
+-->
+
+<!-- AGENT: Records the PUBLISHING CHECKLIST project specification. -->
+
 # CropPrint App Store publishing checklist
 
 This checklist tracks the first CropPrint release.
@@ -238,7 +253,8 @@ The durable reference guide remains at the repository root in `PUBLISHING.md`.
 
 Apple requested more information because the developer account has limited App Review history.
 
-Use `AppStore/APP-REVIEW-RESPONSE.md` for the prepared response. Use `AppStore/metadata.md` for the Notes field and public product-page copy.
+Use `AppStore/APP-REVIEW-RESPONSE.md` for the prepared response. Use `AppStore/metadata.md` for the Notes
+field and public product-page copy.
 
 Before you reply, complete these checks:
 
@@ -254,6 +270,7 @@ Before you reply, complete these checks:
 - [ ] Paste the complete requested information into each platform's Notes field.
 - [ ] Send the response through the App Review message thread.
 
-The repository contains later features that are not part of submitted build `12`. Read the current local build from the About page.
+The repository contains later features that are not part of submitted build `12`. Read the current local build
+from the About page.
 
 Do not record a later build as evidence for build `12`. The recording must show the exact submitted build.

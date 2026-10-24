@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+SPDX-FileCopyrightText: 2026 Vijai Kalyan
+SPDX-FileCopyrightText: 2026 Outcrop Inc
+SPDX-License-Identifier: GPL-3.0-or-later
+Repository: rapid
+File GUID: 4e94ac05-5a28-4877-971e-e68671aa3f3a
+Created: 2026
+COMPONENT: CropPrint
+PURPOSE: Records the CropPrint component configuration.
+RELATES: PROJECT.md, instructions/WORKFLOW.md
+FLOW: Authored source -> component validation -> local result.
+-->
+
 <Scheme
    LastUpgradeVersion = "2700"
    version = "1.3">

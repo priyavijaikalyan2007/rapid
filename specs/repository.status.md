@@ -61,3 +61,14 @@ Local preview and deployment commands passed routing checks but were not started
 The existing cleanup scripts were reviewed without deleting local caches.
 
 Read [SETUP.md](../SETUP.md) for the completion record and [the status index](README.md) for component-specific work.
+
+## Source audit on 24 October 2026
+
+The source audit completed on 24 October 2026 and recorded every original and added source file.
+The knowledge graph now contains 20 concepts, 12 model records, and ten decision records.
+The root test command now includes component shell-boundary tests. All 12 Python and 26 Bats checks passed.
+See the [audit report](source-audit.report.md) and [inventory](source-audit.inventory.md) for complete evidence.
+No source changes were pushed or deployed.
+
+Checked-in editor and formatter rules now support repeatable source checks.
+The build workflow runs those checks before product builds. The hosted workflow still awaits an authorized push.

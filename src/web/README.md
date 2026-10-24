@@ -1,22 +1,44 @@
+<!--
+SPDX-FileCopyrightText: 2026 Vijai Kalyan
+SPDX-FileCopyrightText: 2026 Outcrop Inc
+SPDX-License-Identifier: GPL-3.0-or-later
+Repository: rapid
+File GUID: 4ee0166b-20b5-4909-8da9-39a5ba4f2a56
+Created: 2026
+COMPONENT: README
+PURPOSE: Records the README project specification.
+RELATES: PROJECT.md, instructions/WORKFLOW.md
+FLOW: Authored source -> component validation -> local result.
+-->
+
+<!-- AGENT: Records the README project specification. -->
+
 # Outcrop Inc website
 
-This directory contains the static catalog, support, and legal website for the applications in this repository.
+This directory contains the static catalog, support, and legal website for the applications in this
+repository.
 
 The site loads the Enterprise Application theme directly from `https://static.outcrop.us`.
 
-The website uses Google Analytics only for aggregate website metrics. The applications do not contain Google Analytics or app telemetry.
+The website uses Google Analytics only for aggregate website metrics. The applications do not contain Google
+Analytics or app telemetry.
 
-The analytics configuration disables Google signals and advertising personalization. The privacy policy explains the website data collection and Google Analytics cookies.
+The analytics configuration disables Google signals and advertising personalization. The privacy policy
+explains the website data collection and Google Analytics cookies.
 
-The `static.outcrop.us` hostname must be a Custom Domain on the deployed theme Worker. A Domain Name System CNAME alone does not route the hostname to that Worker.
+The `static.outcrop.us` hostname must be a Custom Domain on the deployed theme Worker. A Domain Name System
+CNAME alone does not route the hostname to that Worker.
 
-Remove the existing CNAME before you add the Custom Domain. Cloudflare will create the required Domain Name System record and certificate.
+Remove the existing CNAME before you add the Custom Domain. Cloudflare will create the required Domain Name
+System record and certificate.
 
-The Wrangler configuration also disables Wrangler usage metrics and dependency instrumentation for this project.
+The Wrangler configuration also disables Wrangler usage metrics and dependency instrumentation for this
+project.
 
 The website uses the theme's ThemeToggle, MarketingHero, and SiteFooter components directly from the CDN.
 
-MarketingHero and SiteFooter use their canonical static markup. They require their CDN stylesheets but no component scripts.
+MarketingHero and SiteFooter use their canonical static markup. They require their CDN stylesheets but no
+component scripts.
 
 The selected mode uses local browser storage. The preference remains on the visitor's device.
 
@@ -51,7 +73,8 @@ src/web/
 
 The `dist` directory contains generated files. Git ignores this directory.
 
-Run `./clean.sh` to remove `dist`, `.wrangler`, `node_modules`, and macOS metadata. The script preserves all source files.
+Run `./clean.sh` to remove `dist`, `.wrangler`, `node_modules`, and macOS metadata. The script preserves all
+source files.
 
 ## Public settings
 
@@ -70,17 +93,19 @@ Set these values:
 
 The public name is `Outcrop Inc`. The canonical website is `https://outcrop.us`.
 
-The site sends ordinary support, defect, and feature requests to GitHub Issues.
-Security vulnerabilities use the repository's private vulnerability reporting form or admin+security@outcrop.us.
-Both security.txt sources contain these private reporting contacts.
+The site sends ordinary support, defect, and feature requests to GitHub Issues. Security vulnerabilities use
+the repository's private vulnerability reporting form or admin+security@outcrop.us. Both security.txt sources
+contain these private reporting contacts.
 
 ## App catalog
 
-Add one object to the `apps` array for each application. Point `iconSource` to the app icon in this repository.
+Add one object to the `apps` array for each application. Point `iconSource` to the app icon in this
+repository.
 
 Set `pagePath` to the directory for the app page. Add a long-form page at the same path under `site`.
 
-The build copies the icon into the generated website. The CropPrint card and page use the macOS application icon.
+The build copies the icon into the generated website. The CropPrint card and page use the macOS application
+icon.
 
 ## Build and test
 
@@ -102,9 +127,11 @@ The build performs these tasks:
 
 The semantic version, build number, and Git SHA appear in each page footer.
 
-The build number uses the Git commit time in `YYYYMMDDHHMMSS` format. The time is in Coordinated Universal Time.
+The build number uses the Git commit time in `YYYYMMDDHHMMSS` format. The time is in Coordinated Universal
+Time.
 
-Cloudflare supplies the source SHA through `WORKERS_CI_COMMIT_SHA`. Local builds read the same value from Git and add `-dirty` when needed.
+Cloudflare supplies the source SHA through `WORKERS_CI_COMMIT_SHA`. Local builds read the same value from Git
+and add `-dirty` when needed.
 
 Set `SITE_BUILD_NUMBER` only when a controlled build requires an explicit 14-digit number.
 
@@ -144,24 +171,37 @@ The Wrangler configuration defines both production hostnames:
 - `outcrop.us`
 - `www.outcrop.us`
 
-Add `outcrop.us` to Cloudflare before the first deployment. Remove conflicting Domain Name System records for either hostname.
+Add `outcrop.us` to Cloudflare before the first deployment. Remove conflicting Domain Name System records for
+either hostname.
 
 ## Cloudflare builds
 
 Cloudflare Workers Builds deploys the website after a successful build from `main`.
 
-The Cloudflare project uses `src/web` as its root directory. It runs `npm run build`, then `npx wrangler deploy`.
+The Cloudflare project uses `src/web` as its root directory. It runs `npm run build`, then `npx wrangler
+deploy`.
 
 The repository does not use a GitHub Actions workflow to deploy the website.
 
 ## Legal review
 
-The privacy policy matches the current local-processing design. The terms and policy are general templates, not legal advice.
+The privacy policy matches the current local-processing design. The terms and policy are general templates,
+not legal advice.
 
-Review the publisher identity, Washington jurisdiction, third-party services, and store behavior before publication.
+Review the publisher identity, Washington jurisdiction, third-party services, and store behavior before
+publication.
 
 ## Theme components
 
 MarketingHero provides the responsive home-page introduction and privacy callout layout.
 
-SiteFooter provides organization details, navigation, registration links, legal links, contact details, and build information on every page.
+SiteFooter provides organization details, navigation, registration links, legal links, contact details, and
+build information on every page.
+
+## Source audit
+
+The [source audit report](../../specs/source-audit.report.md) records the completed review, security boundaries, and verification limits.
+
+Run `npm ci --ignore-scripts` before `npm run lint` to install the locked development tools.
+The Undici override pins the security patch used by Wrangler's local tooling.
+Recheck that override against upstream requirements when updating Wrangler.

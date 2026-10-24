@@ -26,3 +26,9 @@ The owner enabled GitHub private vulnerability reporting during setup.
 The GitHub API confirmed that it is enabled on 23 October 2026.
 Both security.txt sources now use the private report form and the owner-provided contact address.
 These source changes are local. The deployed website still needs an explicitly requested deployment.
+
+## Source audit on 24 October 2026
+
+The source audit completed on 24 October 2026. Website configuration and browser-state tests passed all 23 cases.
+The generated site passed all six HTML-page checks. The updated development-tool lockfile reported zero audit vulnerabilities.
+No deployment or production-rendering verification occurred. See the [audit report](source-audit.report.md).

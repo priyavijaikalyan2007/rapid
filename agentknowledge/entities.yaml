@@ -20,7 +20,7 @@
   {
     "name": "PrintSheetLayout",
     "table": null,
-    "file": "src/cropprint/CropPrint/Models/PrintSheetSettings.swift",
+    "file": "src/cropprint/CropPrint/Models/PrintSheetLayout.swift",
     "description": "Calculated sheet dimensions, placements, and raster limits.",
     "related": [
       "PrintSheets"
@@ -47,7 +47,7 @@
   {
     "name": "RemoteResourceCatalog",
     "table": null,
-    "file": "src/cropprint/CropPrint/Models/RemoteResource.swift",
+    "file": "src/cropprint/CropPrint/Models/RemoteResourceCatalog.swift",
     "description": "Versioned JSON collection of remote resource entries.",
     "related": [
       "RemoteResources"
@@ -56,7 +56,7 @@
   {
     "name": "PhotoAdjustmentSettings",
     "table": null,
-    "file": "src/cropprint/Shared/PhotoProcessing.swift",
+    "file": "src/cropprint/Shared/PhotoAdjustmentSettings.swift",
     "description": "In-memory tone, angle, sharpness, and replacement-background settings.",
     "related": [
       "PhotoProcessing"
@@ -65,7 +65,7 @@
   {
     "name": "PhotoProcessingResult",
     "table": null,
-    "file": "src/cropprint/Shared/PhotoProcessing.swift",
+    "file": "src/cropprint/Shared/PhotoProcessingResult.swift",
     "description": "Processed image and optional reusable person mask.",
     "related": [
       "PhotoProcessing"
@@ -74,9 +74,38 @@
   {
     "name": "MobilePhoto",
     "table": null,
-    "file": "src/cropprint/CropPrintMobile/MobilePhotoDocument.swift",
+    "file": "src/cropprint/CropPrintMobile/MobilePhoto.swift",
     "description": "Selected mobile photo data and image metadata.",
     "related": [
+      "PhotoDocuments"
+    ]
+  },
+  {
+    "name": "LoadedPhoto",
+    "table": null,
+    "file": "src/cropprint/CropPrint/Models/LoadedPhoto.swift",
+    "description": "Validated selected macOS source photo, decoded pixels, and local file identity.",
+    "related": [
+      "PhotoDocuments",
+      "ImageInputBoundary"
+    ]
+  },
+  {
+    "name": "PreviewExportRequest",
+    "table": null,
+    "file": "src/cropprint/scripts/PreviewExportRequest.swift",
+    "description": "Validated bounded preview dimensions and distinct, nonexisting output path.",
+    "related": [
+      "CropPrintRelease"
+    ]
+  },
+  {
+    "name": "ImportedPhoto",
+    "table": null,
+    "file": "src/cropprint/Shared/ImportedPhoto.swift",
+    "description": "System picker transfer that validates metadata before buffering a bounded compressed image.",
+    "related": [
+      "ImageInputBoundary",
       "PhotoDocuments"
     ]
   }

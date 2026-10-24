@@ -22,7 +22,7 @@
   {
     "name": "PrintPresets",
     "definition": "Defines physical print, passport, social, phone, and display dimensions.",
-    "anchor_file": "src/cropprint/CropPrint/Models/PrintSettings.swift",
+    "anchor_file": "src/cropprint/CropPrint/Models/CropPreset.swift",
     "related": [
       "CropGeometry",
       "PrintSheets"
@@ -40,7 +40,7 @@
   {
     "name": "PhotoProcessing",
     "definition": "Applies local Core Image adjustments and Vision person segmentation.",
-    "anchor_file": "src/cropprint/Shared/PhotoProcessing.swift",
+    "anchor_file": "src/cropprint/Shared/LocalPhotoProcessor.swift",
     "related": [
       "CropPrint",
       "PhotoDocuments"
@@ -58,7 +58,7 @@
   {
     "name": "RemoteResources",
     "definition": "Validates and downloads optional licensed fonts and frames.",
-    "anchor_file": "src/cropprint/CropPrint/Models/RemoteResource.swift",
+    "anchor_file": "src/cropprint/CropPrint/Services/ResourceLibrary.swift",
     "related": [
       "Decorations"
     ]
@@ -116,6 +116,60 @@
     "definition": "Provides local SQLite full-text search without a tracked database.",
     "anchor_file": "scripts/repo-index.py",
     "related": [
+      "RepositoryConfiguration"
+    ]
+  },
+  {
+    "name": "ImageInputBoundary",
+    "definition": "Validates compressed bytes and finite pixel dimensions before native image decoding.",
+    "anchor_file": "src/cropprint/Shared/ImageInputLimits.swift",
+    "related": [
+      "PhotoDocuments",
+      "PhotoProcessing"
+    ]
+  },
+  {
+    "name": "BoundedResourceIO",
+    "definition": "Validates HTTPS metadata, redirect security, streaming byte limits, and bounded resource concurrency.",
+    "anchor_file": "src/cropprint/Shared/BoundedResourceDownloader.swift",
+    "related": [
+      "RemoteResources",
+      "ImageInputBoundary"
+    ]
+  },
+  {
+    "name": "ExportFilePublication",
+    "definition": "Stages completed local exports and uses exclusive publication to preserve existing files.",
+    "anchor_file": "src/cropprint/Shared/ExportFileWriter.swift",
+    "related": [
+      "PrintSheets",
+      "PhotoDocuments"
+    ]
+  },
+  {
+    "name": "WebsiteConfiguration",
+    "definition": "Validates addresses, unique destinations, path boundaries, and real calendar dates before website output changes.",
+    "anchor_file": "src/web/scripts/site-config.mjs",
+    "related": [
+      "WebsiteBuild"
+    ]
+  },
+  {
+    "name": "CancellablePhotoPreview",
+    "definition": "Debounces edit requests and propagates cancellation into detached native processing.",
+    "anchor_file": "src/cropprint/Shared/PhotoProcessingTask.swift",
+    "related": [
+      "PhotoProcessing",
+      "PhotoDocuments"
+    ]
+  },
+  {
+    "name": "SourceConventions",
+    "definition": "Checked-in editor rules and read-only Swift, shell, and JavaScript validation before product builds.",
+    "anchor_file": "scripts/check-source-style.sh",
+    "related": [
+      "CropPrint",
+      "WebsiteBuild",
       "RepositoryConfiguration"
     ]
   }

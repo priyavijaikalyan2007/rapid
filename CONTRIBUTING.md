@@ -45,3 +45,19 @@ Read [the code of conduct](CODE_OF_CONDUCT.md) and [the project license](<LICENS
 Project-owned contributions use GPL-3.0-or-later under the root LICENSE.
 Preserve third-party copyright and license notices.
 Only include material that the project has permission to distribute under its applicable terms.
+
+## Maintainer source checks
+
+Use the checked-in editor defaults, SwiftFormat rules, and website ESLint rules for future source edits.
+The build workflow checks these conventions before it builds the applications.
+The conventions remain subject to the full shared instructions. Format checks do not replace review or behavior tests.
+
+1. Install the validation tools with `brew install bats-core swiftformat shellcheck shfmt`.
+2. Install locked website tools with `npm ci --prefix src/web --ignore-scripts`.
+3. Run `./scripts/check-source-style.sh`.
+4. Run `npm run lint --prefix src/web`.
+5. Run `./test.sh`.
+
+The audit used SwiftFormat 0.64.1, ShellCheck 0.11.0, shfmt 3.14.1, ESLint 10.13.0, and Node.js 26.
+The native and shell checker uses installed tools and never downloads a formatter during validation.
+CI installs its tools explicitly. The hosted workflow must still run after an authorized push.

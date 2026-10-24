@@ -1,12 +1,31 @@
+<!--
+SPDX-FileCopyrightText: 2026 Vijai Kalyan
+SPDX-FileCopyrightText: 2026 Outcrop Inc
+SPDX-License-Identifier: GPL-3.0-or-later
+Repository: rapid
+File GUID: 904068a0-739b-414f-a84e-b3c5b392db6b
+Created: 2026
+COMPONENT: README
+PURPOSE: Records the README project specification.
+RELATES: PROJECT.md, instructions/WORKFLOW.md
+FLOW: Authored source -> component validation -> local result.
+-->
+
+<!-- AGENT: Records the README project specification. -->
+
 # CropPrint
 
-CropPrint is a private photo-cropping app for macOS, iPhone, and iPad. It does not use login, analytics, advertising, or data collection.
+CropPrint is a private photo-cropping app for macOS, iPhone, and iPad. It does not use login, analytics,
+advertising, or data collection.
 
-Both applications use `us.outcrop.apps.cropprint` for one multi-platform App Store listing. Both products include the shared privacy manifest under `Shared`.
+Both applications use `us.outcrop.apps.cropprint` for one multi-platform App Store listing. Both products
+include the shared privacy manifest under `Shared`.
 
-The About page shows the semantic version, Git SHA, and numeric build number. Repository builds read the semantic version from `VERSION`.
+The About page shows the semantic version, Git SHA, and numeric build number. Repository builds read the
+semantic version from `VERSION`.
 
-The app keeps the crop rectangle at the selected ratio. You can move or resize the rectangle to choose the composition. CropPrint saves a new image beside the original and never changes the original file.
+The app keeps the crop rectangle at the selected ratio. You can move or resize the rectangle to choose the
+composition. CropPrint saves a new image beside the original and never changes the original file.
 
 ## Features
 
@@ -42,15 +61,19 @@ The app keeps the crop rectangle at the selected ratio. You can move or resize t
 
 An example output name is `family-8x10-landscape-letter-margin.jpg`.
 
-Digital presets resize the crop to the exact destination resolution. Print presets preserve the available source pixels. CropPrint applies text and frames after resizing.
+Digital presets resize the crop to the exact destination resolution. Print presets preserve the available
+source pixels. CropPrint applies text and frames after resizing.
 
-The macOS app keeps decoration controls in the right sidebar. The iOS app shows them in a movable bottom sheet.
+The macOS app keeps decoration controls in the right sidebar. The iOS app shows them in a movable bottom
+sheet.
 
 The iPad layout places the photo canvas and controls side by side when regular horizontal space is available.
 
-The text layer appears directly on the photo. Drag the text box to move it. Use its handles to change width, scale, or rotation.
+The text layer appears directly on the photo. Drag the text box to move it. Use its handles to change width,
+scale, or rotation.
 
-Font and style changes appear immediately. Choose a preset color swatch or use the system color picker for a custom color.
+Font and style changes appear immediately. Choose a preset color swatch or use the system color picker for a
+custom color.
 
 ## Requirements
 
@@ -65,7 +88,8 @@ Font and style changes appear immediately. Choose a preset color swatch or use t
 3. Select **My Mac** as the run destination.
 4. Press **Command-R**.
 
-If Xcode asks for a development team, select your personal team. The app does not require a paid account for local use.
+If Xcode asks for a development team, select your personal team. The app does not require a paid account for
+local use.
 
 To run the iPhone or iPad app:
 
@@ -102,15 +126,19 @@ Passport and identity presets include these dimensions:
 - Singapore digital submission: 400x514 pixels
 - New Zealand digital submission: 900x1200 pixels
 
-Passport presets include translucent bands for the recommended crown and chin positions. Each preset links to current official guidance.
+Passport presets include translucent bands for the recommended crown and chin positions. Each preset links to
+current official guidance.
 
-The bands are visual aids. Check current head-size, background, expression, age, and submission rules before use.
+The bands are visual aids. Check current head-size, background, expression, age, and submission rules before
+use.
 
-Some authorities prohibit digital background replacement or other alterations. CropPrint warns users but does not determine compliance.
+Some authorities prohibit digital background replacement or other alterations. CropPrint warns users but does
+not determine compliance.
 
 Monitor presets include VGA, SVGA, XGA, SXGA, UXGA, HD, Full HD, DCI 2K, QHD, and WQXGA.
 
-They also include Ultrawide QHD, 4K UHD, DCI 4K, 5K, 6K, and 8K UHD. Monitor presets support landscape and portrait orientation.
+They also include Ultrawide QHD, 4K UHD, DCI 4K, 5K, 6K, and 8K UHD. Monitor presets support landscape and
+portrait orientation.
 
 ## Print sheets
 
@@ -130,17 +158,22 @@ The macOS app saves a JPEG and PDF beside the source photo. The iOS app saves th
 
 The PDF stores the physical paper dimensions. Print it at **Actual Size** or **100 percent**.
 
-Disable **Fit to Page**, automatic cropping, and borderless enlargement. These printer options can change the physical passport-photo dimensions.
+Disable **Fit to Page**, automatic cropping, and borderless enlargement. These printer options can change the
+physical passport-photo dimensions.
 
-Large raster sheets can require excessive memory. The macOS app creates PDF-only output when the JPEG exceeds the safe limit.
+Large raster sheets can require excessive memory. The macOS app creates PDF-only output when the JPEG exceeds
+the safe limit.
 
 On iPhone and iPad, select lower image PPI or smaller paper when the JPEG exceeds the safe limit.
 
-Printer DPI and image PPI measure different items. Printer DPI does not change the PDF paper size or the printed photo size.
+Printer DPI and image PPI measure different items. Printer DPI does not change the PDF paper size or the
+printed photo size.
 
-The true-size preview uses a saved display calibration. Match its one-inch line to a physical ruler before you judge print size.
+The true-size preview uses a saved display calibration. Match its one-inch line to a physical ruler before you
+judge print size.
 
-The display dimensions come from Apple technical specifications. Instagram presets use Meta-supported ratios and a 1080-pixel output width.
+The display dimensions come from Apple technical specifications. Instagram presets use Meta-supported ratios
+and a 1080-pixel output width.
 
 If command-line builds select only the Command Line Tools, run this command once:
 
@@ -158,13 +191,16 @@ Run this command from the `src/cropprint` directory:
 
 The script creates `build/CropPrint-unsigned.zip`. This universal build supports Apple silicon and Intel Macs.
 
-macOS can block an unsigned app that another person downloads. The recipient can right-click the app and select **Open**. Use a signed release for a normal public download.
+macOS can block an unsigned app that another person downloads. The recipient can right-click the app and
+select **Open**. Use a signed release for a normal public download.
 
 ## Publish a signed app
 
-Apple requires a paid Apple Developer Program membership for Developer ID signing and notarization. Notarization lets users open a downloaded app without a security workaround.
+Apple requires a paid Apple Developer Program membership for Developer ID signing and notarization.
+Notarization lets users open a downloaded app without a security workaround.
 
-The `Signed release` GitHub Actions workflow runs when you push a tag such as `v1.0.0`. Add these encrypted repository secrets first:
+The `Signed release` GitHub Actions workflow runs when you push a tag such as `v1.0.0`. Add these encrypted
+repository secrets first:
 
 - `BUILD_CERTIFICATE_BASE64`: A base64-encoded Developer ID Application certificate in PKCS #12 format.
 - `P12_PASSWORD`: The export password for that certificate.
@@ -186,21 +222,27 @@ GitHub Actions builds, signs, notarizes, and publishes `CropPrint.zip` on the Gi
 
 Generated, nonprivate test photos are stored under `Testing/SampleImages`.
 
-Follow `Testing/TESTING-GUIDE.md` for physical-device testing, App Review recordings, screenshot states, and the full regression checklist.
+Follow `Testing/TESTING-GUIDE.md` for physical-device testing, App Review recordings, screenshot states, and
+the full regression checklist.
 
 ## Privacy
 
 CropPrint reads only the photo that you select. It writes only the exported photo.
 
-Photo adjustments, angle correction, and person segmentation run on the device through Apple Core Image and Vision.
+Photo adjustments, angle correction, and person segmentation run on the device through Apple Core Image and
+Vision.
 
-The app contacts a server only when you refresh or download remote resources. The server receives normal request data, such as your Internet Protocol address. CropPrint does not send photos, crop settings, analytics, or personal data.
+The app contacts a server only when you refresh or download remote resources. The server receives normal
+request data, such as your Internet Protocol address. CropPrint does not upload photos or crop settings and
+does not send app analytics.
 
 ## Remote resource catalog
 
-Open **CropPrint > Remote Resources** on macOS. On iPhone or iPad, open the toolbar menu and select **Remote Resources**.
+Open **CropPrint > Remote Resources** on macOS. On iPhone or iPad, open the toolbar menu and select **Remote
+Resources**.
 
-Leave the catalog address empty to use the built-in Google Fonts list. Enter an HTTPS address to load your own catalog. CropPrint accepts these licenses:
+Leave the catalog address empty to use the built-in Google Fonts list. Enter an HTTPS address to load your own
+catalog. CropPrint accepts these licenses:
 
 - SIL Open Font License 1.1
 - Apache License 2.0
@@ -210,15 +252,27 @@ Leave the catalog address empty to use the built-in Google Fonts list. Enter an 
 - Creative Commons Attribution-ShareAlike 4.0
 - MIT License
 
-CropPrint rejects incomplete attribution data and unsupported file types. The frame list excludes licenses that prohibit modifications.
+CropPrint rejects incomplete attribution data and unsupported file types. The frame list excludes licenses
+that prohibit modifications.
 
-Host a catalog as a static JSON file on GitHub Pages, Cloudflare Pages, or another HTTPS site. Start with [`RemoteCatalog/catalog.example.json`](RemoteCatalog/catalog.example.json).
+Host a catalog as a static JSON file on GitHub Pages, Cloudflare Pages, or another HTTPS site. Start with
+[`RemoteCatalog/catalog.example.json`](RemoteCatalog/catalog.example.json).
 
-Each resource needs a stable identifier, title, kind, creator, source address, download address, exact license, and license address. The `kind` value must be `font` or `frame`.
+Each resource needs a stable identifier, title, kind, creator, source address, download address, exact
+license, and license address. The `kind` value must be `font` or `frame`.
 
-The built-in fonts come from the official Google Fonts repository. CropPrint downloads the font files and registers them only for the current app process.
+The built-in fonts come from the official Google Fonts repository. CropPrint downloads the font files and
+registers them only for the current app process.
 
 ## License
 
-CropPrint uses GPL-3.0-or-later. See [the project license](../../LICENSE).
-Downloaded fonts, frames, and other third-party materials retain their own licenses.
+CropPrint uses GPL-3.0-or-later. See [the project license](../../LICENSE). Downloaded fonts, frames, and other
+third-party materials retain their own licenses.
+
+## Source audit
+
+The [source audit report](../../specs/source-audit.report.md) records the completed review, security boundaries, and verification limits.
+
+Photo input is limited to 200 MB and 80 million pixels. Optional catalogs are limited to 1 MB and 250 entries.
+Resource downloads are limited to 25 MB each and four concurrent requests.
+Run `CROPPRINT_CODE_COVERAGE=YES ./build.sh test` from this component directory to collect native coverage.

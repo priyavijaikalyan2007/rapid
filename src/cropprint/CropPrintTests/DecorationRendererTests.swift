@@ -1,8 +1,39 @@
+// SPDX-FileCopyrightText: 2026 Vijai Kalyan
+// SPDX-FileCopyrightText: 2026 Outcrop Inc
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Repository: rapid
+// File GUID: 9291e8b6-5ffe-457f-ac08-b8d031f98ae3
+// Created: 2026
+// COMPONENT: DecorationRendererTests
+// PURPOSE: Verifies DecorationRenderer contracts and failure boundaries.
+// RELATES: [[CropPrint]]
+// FLOW: Test scenario -> contract -> XCTest result.
+
 import AppKit
 import XCTest
 
-final class DecorationRendererTests: XCTestCase {
-    func testClassicFrameChangesEdgesButNotCenter() throws {
+/// Verifies DecorationRenderer contracts and failure boundaries.
+final class DecorationRendererTests: XCTestCase
+{
+    /// Verifies every frame style draws at the image edge.
+    func testEveryFrameStyleDrawsAtTheImageEdge() throws
+    {
+        let source = try solidImage(width: 120, height: 80, color: .white)
+        for style in PhotoFrameStyle.allCases where style != .none
+        {
+            var settings = DecorationSettings()
+            settings.frameStyle = style
+            settings.frameColor = .black
+            settings.frameWidth = 0.1
+            let image = try DecorationRenderer.render(image: source, settings: settings, remoteFrameURL: nil)
+            let bitmap = NSBitmapImageRep(cgImage: image)
+            XCTAssertLessThan(bitmap.colorAt(x: 1, y: 40)?.redComponent ?? 1, 0.5, style.rawValue)
+        }
+    }
+
+    /// Verifies classic frame changes edges but not center.
+    func testClassicFrameChangesEdgesButNotCenter() throws
+    {
         let source = try solidImage(width: 100, height: 80, color: .red)
         var settings = DecorationSettings()
         settings.frameStyle = .classic
@@ -22,7 +53,9 @@ final class DecorationRendererTests: XCTestCase {
         XCTAssertGreaterThan(bitmap.colorAt(x: 50, y: 40)?.redComponent ?? 0, 0.9)
     }
 
-    func testTextDecorationPreservesOutputDimensions() throws {
+    /// Verifies text decoration preserves output dimensions.
+    func testTextDecorationPreservesOutputDimensions() throws
+    {
         let source = try solidImage(width: 160, height: 120, color: .white)
         var settings = DecorationSettings()
         settings.text = "CropPrint"
@@ -39,22 +72,30 @@ final class DecorationRendererTests: XCTestCase {
         XCTAssertEqual(output.height, source.height)
     }
 
-    private func solidImage(width: Int, height: Int, color: NSColor) throws -> CGImage {
+    /// Creates a bounded deterministic color fixture without reading personal images.
+    private func solidImage(width: Int, height: Int, color: NSColor) throws -> CGImage
+    {
         guard let space = CGColorSpace(name: CGColorSpace.sRGB),
               let context = CGContext(
-                data: nil,
-                width: width,
-                height: height,
-                bitsPerComponent: 8,
-                bytesPerRow: 0,
-                space: space,
-                bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
-              ) else {
+                  data: nil,
+                  width: width,
+                  height: height,
+                  bitsPerComponent: 8,
+                  bytesPerRow: 0,
+                  space: space,
+                  bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+              )
+        else
+        {
             throw DecorationRenderError.renderFailed
         }
         context.setFillColor(color.cgColor)
         context.fill(CGRect(x: 0, y: 0, width: width, height: height))
-        guard let image = context.makeImage() else { throw DecorationRenderError.renderFailed }
+        guard let image = context.makeImage()
+        else
+        {
+            throw DecorationRenderError.renderFailed
+        }
         return image
     }
 }

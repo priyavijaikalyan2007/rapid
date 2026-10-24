@@ -10,6 +10,28 @@ Created: 2026
 
 # Changelog
 
+## 24 October 2026
+
+### Fixed
+
+- Bounded photo decoding, catalog metadata, resource downloads, crop geometry, and raster allocation before expensive native work.
+- Preserved existing files through exclusive export publication and safe preview-media staging.
+- Propagated edit cancellation and aligned exported decoration colors with native sRGB previews.
+- Added recovery actions to expected errors and validated exact archive provenance before upload.
+- Rejected unsafe website addresses and output paths and updated vulnerable development-tool dependencies.
+
+### Changed
+
+- Split native types into named files and applied source layout, useful comments, navigation markers, and license notices.
+- Preserved binary media and strict data formats under scoped REUSE annotations.
+- Reviewed source documentation and updated knowledge anchors and component status records.
+
+### Added
+
+- Added source-audit inventory and evidence, 79 native regression tests in total, and 23 website tests in total.
+- Added component shell boundary and source-style checks to the root repository test suite.
+- Added checked-in editor defaults and JavaScript lint rules, with convention checks in the build workflow.
+
 ## 23 October 2026
 
 ### Added

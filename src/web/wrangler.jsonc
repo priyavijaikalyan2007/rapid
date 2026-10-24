@@ -1,3 +1,14 @@
+// SPDX-FileCopyrightText: 2026 Vijai Kalyan
+// SPDX-FileCopyrightText: 2026 Outcrop Inc
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Repository: rapid
+// File GUID: c4f4cc43-57d3-4991-895a-d9781a14a41b
+// Created: 2026
+// COMPONENT: wrangler
+// PURPOSE: Records the wrangler component configuration.
+// RELATES: PROJECT.md, instructions/WORKFLOW.md
+// FLOW: Authored source -> component validation -> local result.
+
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "outcrop-us",

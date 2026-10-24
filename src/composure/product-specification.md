@@ -1,3 +1,18 @@
+<!--
+SPDX-FileCopyrightText: 2026 Vijai Kalyan
+SPDX-FileCopyrightText: 2026 Outcrop Inc
+SPDX-License-Identifier: GPL-3.0-or-later
+Repository: rapid
+File GUID: a9263a15-fea5-4c78-9288-aa8b8dd95a52
+Created: 2026
+COMPONENT: product-specification
+PURPOSE: Records the product specification project specification.
+RELATES: PROJECT.md, instructions/WORKFLOW.md
+FLOW: Authored source -> component validation -> local result.
+-->
+
+<!-- AGENT: Records the product specification project specification. -->
+
 # Composure — Product and Engineering Specification
 
 **Status:** Implementation specification\
@@ -21,7 +36,9 @@
 
 ## 1. Product Definition
 
-Composure is not a meeting recorder, transcription product, note taker, or meeting-summary application. It listens only while the user explicitly starts a coaching session, processes speech transiently on the device, recognizes situations where behavioral guidance may be useful, and displays very short cues.
+Composure is not a meeting recorder, transcription product, note taker, or meeting-summary application. The
+user must start a coaching session before Composure listens. Composure processes speech in memory and
+identifies situations that can benefit from guidance. It then displays short cues.
 
 Typical cues:
 
@@ -94,19 +111,22 @@ Two modes:
 1. **In-Person** — microphone input only.
 2. **Remote Meeting** — meeting application audio plus the user's microphone, captured separately where the OS and audio hardware allow.
 
-Remote mode is provider-independent. Composure must not integrate with Zoom, Teams, Google Meet, Webex, Slack Huddles, or any other meeting provider.
+Remote mode is provider-independent. Composure must not integrate with Zoom, Teams, Google Meet, Webex, Slack
+Huddles, or any other meeting provider.
 
 ### 2.3 Live Coach — iOS
 
 V1 supports **In-Person** mode only.
 
-The iPhone can be placed on the table and used as a discreet behavioral cue display. Composure should not depend on capturing a Zoom/Teams/Webex call running on the same iPhone.
+The iPhone can be placed on the table and used as a discreet behavioral cue display. Composure should not
+depend on capturing a Zoom/Teams/Webex call running on the same iPhone.
 
 ### 2.4 Practice
 
 Post-V1.
 
-The user can rehearse a difficult conversation with an on-device model playing a skeptical or challenging counterpart. Afterward, Composure may give behavioral feedback.
+The user can rehearse a difficult conversation with an on-device model playing a skeptical or challenging
+counterpart. Afterward, Composure may give behavioral feedback.
 
 ---
 
@@ -140,7 +160,8 @@ V1 explicitly excludes:
 - sync;
 - subscriptions/payments.
 
-If a future feature requires persistent meeting content, it must be treated as a major product/privacy change rather than an incremental feature.
+If a future feature requires persistent meeting content, it must be treated as a major product/privacy change
+rather than an incremental feature.
 
 ---
 
@@ -148,7 +169,8 @@ If a future feature requires persistent meeting content, it must be treated as a
 
 ### 4.1 Privacy before feature breadth
 
-All live meeting audio, derived transcript fragments, semantic classifications, conversation state, and coaching prompts remain on the device.
+All live meeting audio, derived transcript fragments, semantic classifications, conversation state, and
+coaching prompts remain on the device.
 
 There is no cloud fallback.
 
@@ -201,7 +223,8 @@ Prefer missing a mediocre coaching opportunity over distracting the user.
 
 ### 4.6 Provider independence
 
-Remote meeting capture must happen at the OS audio layer. The application must not depend on meeting-provider APIs, browser extensions, authentication, or bots.
+Remote meeting capture must happen at the OS audio layer. The application must not depend on meeting-provider
+APIs, browser extensions, authentication, or bots.
 
 ---
 
@@ -264,7 +287,8 @@ Composure/
     └── APP_STORE.md
 ```
 
-Use a shared Swift package for domain logic. Platform-specific capture/window code should remain in the macOS/iOS targets.
+Use a shared Swift package for domain logic. Platform-specific capture/window code should remain in the
+macOS/iOS targets.
 
 ---
 
@@ -300,7 +324,8 @@ Fast Detectors   Semantic Analyzer
               UI
 ```
 
-The application must be organized so capture, speech, semantic analysis, and cue arbitration can be unit-tested or replaced independently.
+The application must be organized so capture, speech, semantic analysis, and cue arbitration can be
+unit-tested or replaced independently.
 
 ---
 
@@ -309,24 +334,28 @@ The application must be organized so capture, speech, semantic analysis, and cue
 Illustrative interfaces:
 
 ```swift
-protocol AudioSource: Sendable {
+protocol AudioSource: Sendable
+{
     var events: AsyncStream<AudioEvent> { get }
     func start() async throws
     func stop() async
 }
 
-protocol TranscriptionService: Sendable {
+protocol TranscriptionService: Sendable
+{
     var events: AsyncStream<TranscriptEvent> { get }
     func start() async throws
     func consume(_ event: AudioEvent) async throws
     func stop() async
 }
 
-protocol CoachingModel: Sendable {
+protocol CoachingModel: Sendable
+{
     func analyze(_ input: SemanticCoachingInput) async throws -> SemanticAnalysis
 }
 
-protocol CoachDetector: Sendable {
+protocol CoachDetector: Sendable
+{
     func evaluate(_ context: CoachingContext) async -> [CueCandidate]
 }
 ```
@@ -378,18 +407,22 @@ A. Meeting application/system audio → OTHER
 B. Microphone audio                  → USER
 ```
 
-Use ScreenCaptureKit for meeting audio. Prefer `SCContentSharingPicker` or another Apple-provided content selection flow so the user explicitly chooses what Composure may hear.
+Use ScreenCaptureKit for meeting audio. Prefer `SCContentSharingPicker` or another Apple-provided content
+selection flow so the user explicitly chooses what Composure may hear.
 
 Use ScreenCaptureKit audio output types where supported by the deployment target:
 
 - `.audio` for captured application/system audio;
 - `.microphone` for microphone audio.
 
-The meeting application must continue to own/use the microphone normally. Composure is an additional consumer and must never hijack or reroute the microphone away from the meeting app.
+The meeting application must continue to own/use the microphone normally. Composure is an additional consumer
+and must never hijack or reroute the microphone away from the meeting app.
 
-Compatibility with shared microphone devices, AirPods, Bluetooth headsets, USB microphones, and common meeting applications must be proven by testing before release.
+Compatibility with shared microphone devices, AirPods, Bluetooth headsets, USB microphones, and common meeting
+applications must be proven by testing before release.
 
-If simultaneous microphone access is unavailable for a specific configuration, Composure must fail clearly or offer a documented degraded mode; it must not silently steal or switch the input device.
+If simultaneous microphone access is unavailable, Composure must report the failure or offer a documented mode
+with fewer features. Composure must not silently take control of the microphone or switch the input device.
 
 ---
 
@@ -408,9 +441,11 @@ The app must not:
 - extract participant names from meeting UI;
 - store visual buffers.
 
-If the API delivers any visual buffers as an implementation consequence, discard them immediately and do not pass them into application logic.
+If the API delivers any visual buffers as an implementation consequence, discard them immediately and do not
+pass them into application logic.
 
-The privacy explanation must say why macOS presents a screen/system-audio permission even though Composure does not use screen content.
+The privacy explanation must say why macOS presents a screen/system-audio permission even though Composure
+does not use screen content.
 
 ---
 
@@ -422,7 +457,8 @@ Primary implementation:
 - `SpeechTranscriber`;
 - `AssetInventory`.
 
-Speech assets are system-managed Apple assets. Composure should provide a readiness flow before a sensitive meeting so required speech assets can be downloaded in advance.
+Speech assets are system-managed Apple assets. Composure should provide a readiness flow before a sensitive
+meeting so required speech assets can be downloaded in advance.
 
 English is the first supported language.
 
@@ -430,7 +466,8 @@ Architecture must allow additional locales later.
 
 ### 12.1 Separate analyzers for remote mode
 
-Apple's `SpeechAnalyzer` handles one input sequence at a time. Therefore remote meeting mode should use separate analyzer instances for microphone and meeting audio:
+Apple's `SpeechAnalyzer` handles one input sequence at a time. Therefore remote meeting mode should use
+separate analyzer instances for microphone and meeting audio:
 
 ```text
 Microphone     → SpeechAnalyzer A → USER events
@@ -452,13 +489,15 @@ Do not render raw transcript text in the normal Live Coach UI.
 ## 13. Transcript Events
 
 ```swift
-enum SpeakerRole: Sendable {
+enum SpeakerRole: Sendable
+{
     case user
     case other
     case unknown
 }
 
-struct TranscriptEvent: Sendable, Identifiable {
+struct TranscriptEvent: Sendable, Identifiable
+{
     let id: UUID
     let timestamp: ContinuousClock.Instant
     let speaker: SpeakerRole
@@ -519,7 +558,8 @@ Recommended bounds:
 - no unbounded arrays.
 
 ```swift
-struct CoachingContext: Sendable {
+struct CoachingContext: Sendable
+{
     var recentEvents: [TranscriptEvent]
     var meetingGoal: MeetingGoal?
     var profile: CoachingProfile
@@ -538,14 +578,16 @@ The rolling transcript is an implementation detail. It is never exposed as a tra
 Use a compact, ephemeral state object rather than maintaining the entire meeting indefinitely.
 
 ```swift
-struct ConversationalState: Sendable {
+struct ConversationalState: Sendable
+{
     var currentTopic: String?
     var currentDecision: String?
     var unresolvedQuestion: String?
     var phase: ConversationPhase
 }
 
-enum ConversationPhase: Sendable {
+enum ConversationPhase: Sendable
+{
     case discussion
     case clarification
     case disagreement
@@ -578,7 +620,8 @@ Before use, check model availability and handle at least:
 
 V1 must not automatically use Private Cloud Compute or any third-party cloud model.
 
-The app should remain partially useful when the semantic model is unavailable through deterministic detectors and template-based Prepare guidance.
+The app should remain partially useful when the semantic model is unavailable through deterministic detectors
+and template-based Prepare guidance.
 
 ---
 
@@ -587,7 +630,8 @@ The app should remain partially useful when the semantic model is unavailable th
 Do not couple domain logic directly to `SystemLanguageModel`.
 
 ```swift
-protocol CoachingModel: Sendable {
+protocol CoachingModel: Sendable
+{
     func analyze(_ input: SemanticCoachingInput) async throws -> SemanticAnalysis
 }
 ```
@@ -616,7 +660,8 @@ Use guided/structured generation. Do not parse arbitrary model prose if avoidabl
 Illustrative model:
 
 ```swift
-enum CoachingSituation: String, Codable, Sendable {
+enum CoachingSituation: String, Codable, Sendable
+{
     case none
     case directQuestion
     case challenge
@@ -630,7 +675,8 @@ enum CoachingSituation: String, Codable, Sendable {
     case escalation
 }
 
-enum CueType: String, Codable, Sendable {
+enum CueType: String, Codable, Sendable
+{
     case none
     case askFirst
     case clarify
@@ -644,7 +690,8 @@ enum CueType: String, Codable, Sendable {
     case slowDown
 }
 
-struct SemanticAnalysis: Sendable {
+struct SemanticAnalysis: Sendable
+{
     var shouldCue: Bool
     var situation: CoachingSituation
     var cueType: CueType
@@ -654,7 +701,8 @@ struct SemanticAnalysis: Sendable {
 }
 ```
 
-Use the current Foundation Models guided-generation mechanism in the installed SDK (`@Generable`, generation schemas, or its current equivalent).
+Use the current Foundation Models guided-generation mechanism in the installed SDK (`@Generable`, generation
+schemas, or its current equivalent).
 
 ---
 
@@ -738,7 +786,8 @@ shouldCue = false
 
 ## 23. Agenda Pulse
 
-If Prepare mode or session setup provides a meeting objective, Composure may compare the current discussion with that objective at low frequency.
+If Prepare mode or session setup provides a meeting objective, Composure may compare the current discussion
+with that objective at low frequency.
 
 Suggested cadence: 30–60 seconds.
 
@@ -755,7 +804,8 @@ Do not flag normal subtopics as drift.
 Personalization should be lightweight and behavioral.
 
 ```swift
-struct CoachingProfile: Codable, Sendable {
+struct CoachingProfile: Codable, Sendable
+{
     var respondTooQuickly: Int
     var becomeDefensive: Int
     var overExplain: Int
@@ -812,14 +862,16 @@ Difficult conversation
 
 Do not infer executive presence from voices, names, titles, or meeting-provider metadata.
 
-If the user runs Prepare immediately before Live Coach, allow the preparation objective to flow into the live session in memory only.
+If the user runs Prepare immediately before Live Coach, allow the preparation objective to flow into the live
+session in memory only.
 
 ---
 
 ## 26. Cue Model
 
 ```swift
-struct CoachCue: Identifiable, Sendable {
+struct CoachCue: Identifiable, Sendable
+{
     let id: UUID
     let type: CueType
     let priority: CuePriority
@@ -829,7 +881,8 @@ struct CoachCue: Identifiable, Sendable {
     let expiresAt: ContinuousClock.Instant
 }
 
-enum CuePriority: Int, Sendable {
+enum CuePriority: Int, Sendable
+{
     case low
     case normal
     case high
@@ -918,7 +971,8 @@ LET THEM FINISH
 Hold your response until they are done.
 ```
 
-Avoid therapy-like or patronizing language such as “calm down,” “relax,” “control yourself,” or “you are being emotional.”
+Avoid therapy-like or patronizing language such as “calm down,” “relax,” “control yourself,” or “you are being
+emotional.”
 
 ---
 
@@ -948,7 +1002,8 @@ Tune this against natural conversational hand-offs and device latency.
 
 Optional V1 detector.
 
-If another participant finishes a challenging question and the user starts almost immediately, generate a candidate only when the profile says rapid responses are a major coaching focus.
+If another participant finishes a challenging question, detect whether the user responds almost immediately.
+Generate a candidate only when the profile identifies rapid responses as a major coaching focus.
 
 Do not coach every quick answer.
 
@@ -1006,7 +1061,8 @@ This is not a “never disagree with executives” mode. The goal is deliberate,
 Input:
 
 ```swift
-struct MeetingPreparationInput: Sendable {
+struct MeetingPreparationInput: Sendable
+{
     var topic: String
     var desiredOutcome: String?
     var difficulty: String?
@@ -1018,7 +1074,8 @@ struct MeetingPreparationInput: Sendable {
 Output:
 
 ```swift
-struct MeetingPreparation: Sendable {
+struct MeetingPreparation: Sendable
+{
     var objective: String
     var watchFor: [String]
     var questionsToAsk: [String]
@@ -1027,7 +1084,8 @@ struct MeetingPreparation: Sendable {
 }
 ```
 
-The model must behave as a communication coach, not a generic strategy consultant. Business context is used only to understand the behavioral situation.
+The model must behave as a communication coach, not a generic strategy consultant. Business context is used
+only to understand the behavioral situation.
 
 Default output sections:
 
@@ -1093,7 +1151,8 @@ ASK FIRST
 Understand the concern before explaining.
 ```
 
-Default position should be near the top center, close enough to the camera to reduce obvious eye movement. User can change it.
+Default position should be near the top center, close enough to the camera to reduce obvious eye movement.
+User can change it.
 
 ---
 
@@ -1193,7 +1252,8 @@ Forbidden:
 Generated cue for transcript: "Why did you..."
 ```
 
-Create a logging facade that accepts event identifiers and scalar metadata only, not arbitrary strings from meeting content.
+Create a logging facade that accepts event identifiers and scalar metadata only, not arbitrary strings from
+meeting content.
 
 ---
 
@@ -1210,9 +1270,12 @@ Do not add:
 - analytics SDKs;
 - crash-reporting SDKs.
 
-Apple system frameworks may download required Apple-managed model/speech assets. Composure should make those downloads explicit in readiness/setup flows and should not require network connectivity during a live session once assets are installed.
+Apple system frameworks may download required Apple-managed model/speech assets. Composure should explain
+these downloads during setup. After the assets are installed, live sessions should work without a network
+connection.
 
-Where feasible, test whether the macOS app can ship without outgoing-network client entitlements. Do not assume; verify with the target SDK and App Sandbox behavior.
+Where feasible, test whether the macOS app can ship without outgoing-network client entitlements. Verify this
+behavior with the target SDK and App Sandbox.
 
 ---
 
@@ -1272,7 +1335,8 @@ No hidden listening.
 
 Always provide Stop.
 
-Onboarding should explain that the user is responsible for complying with applicable organizational policies, participant-notice requirements, and local law.
+Onboarding should explain that the user is responsible for complying with applicable organizational policies,
+participant-notice requirements, and local law.
 
 Composure should not attempt jurisdiction-specific legal advice.
 
@@ -1347,7 +1411,8 @@ Avoid global mutable state.
 Use one explicit state machine:
 
 ```swift
-enum CoachSessionState: Sendable {
+enum CoachSessionState: Sendable
+{
     case idle
     case checkingReadiness
     case requestingPermissions
@@ -1587,7 +1652,8 @@ Each fixture should specify:
 - unacceptable cue types;
 - maximum acceptable verbosity.
 
-Apple periodically changes the system model with OS updates. Treat this corpus as a product regression suite, not disposable test data.
+Apple periodically changes the system model with OS updates. Treat this corpus as a product regression suite,
+not disposable test data.
 
 ---
 
@@ -1633,7 +1699,9 @@ Do not market it as:
 - employee monitoring;
 - surveillance.
 
-Apple's App Review Guidelines require explicit consent and a clear visual and/or audible indication when an app records, logs, or otherwise makes a record of user activity involving microphone, screen, or other user input. Composure should exceed that baseline through explicit Start/Stop and a persistent listening indicator.
+Apple's App Review Guidelines require explicit consent before an app records user activity. Apps must also
+give a clear visual or audible indication. This requirement covers microphone, screen, and other user input.
+Composure should exceed that baseline through explicit Start/Stop and a persistent listening indicator.
 
 ---
 
@@ -1650,7 +1718,8 @@ Expected areas:
 
 Do not grant broad file-system access.
 
-Investigate whether the app can omit outgoing network entitlements while still allowing Apple-managed system model assets to be provisioned; verify against the shipping SDK rather than assuming.
+Test whether the app can omit outgoing network entitlements while Apple manages the required model assets.
+Verify this behavior against the shipping SDK.
 
 ---
 
