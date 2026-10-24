@@ -40,6 +40,7 @@ STUB
     [[ "$(wc -l < "$STYLE_CALL_LOG" | tr -d ' ')" -eq 3 ]]
     run cat "$STYLE_CALL_LOG"
     [[ "$output" == *'--lint'* ]]
+    [[ "$output" == *'src/composure'* ]]
     [[ "$output" == *'shfmt:-d '* ]]
     [[ "$output" != *'--fix'* ]]
 }

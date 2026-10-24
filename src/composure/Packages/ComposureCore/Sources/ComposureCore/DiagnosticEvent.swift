@@ -1,0 +1,17 @@
+// SPDX-FileCopyrightText: 2026 Outcrop Inc
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Repository: rapid
+// File GUID: 78c1e386-8448-4784-afac-66449dcf156f
+// Created: 2026
+// COMPONENT: Approved diagnostic events
+// PURPOSE: Restrict diagnostic messages to fixed non-content identifiers.
+// RELATES: DiagnosticLogger, ApplicationDiagnostics
+// FLOW: Application event -> enum case -> local unified log.
+
+/// Closed event vocabulary. Add cases only when a specific diagnostic need exists.
+public enum DiagnosticEvent: String, Sendable
+{
+    case applicationLaunched = "application.launched"
+    case sessionStarted = "session.started"
+    case sessionStopped = "session.stopped"
+}

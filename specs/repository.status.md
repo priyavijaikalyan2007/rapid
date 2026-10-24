@@ -14,7 +14,8 @@ Updated on 23 October 2026.
 
 The local setup is complete. configure.sh corrected the profile and managed instruction routing.
 Enabled components are CropPrint, the public website, documentation, and repository tools.
-Composure documents remain in the documentation component until implementation begins.
+Composure now has a separate native component for its application targets and shared package.
+Its [status record](composure.status.md) separates the executable foundation from planned coaching features.
 Codex retains all configured roles and the native platform design requirement.
 
 The knowledge bootstrap contains fourteen concepts, nine model records, and six decision records.

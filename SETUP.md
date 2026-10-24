@@ -56,6 +56,7 @@ The private GitHub reporting setting is live.
 The policy files, updated security.txt sources, and license text remain local until an authorized push and deployment.
 The supplied contact address was recorded. This task did not send a test email or verify mailbox delivery.
 Physical-device testing, signed archives, App Store Connect state, uploads, and App Review submissions remain separate release work.
-Composure remains planned. No application project or source folders were created for it.
+The original setup left Composure as planning documents only.
+The later [Composure foundation work](specs/composure.status.md) added native targets and a shared package.
 
 See [the status index](specs/README.md) for ongoing work and verification limits.

@@ -48,9 +48,10 @@ Cloudflare Workers Static Assets serves the generated dist directory.
 The existing website uses an external theme and website-only Google Analytics.
 Native application processing and privacy constraints do not describe website analytics.
 
-Composure contains planning documents under src/composure.
-Its normative implementation specification defines planned on-device coaching behavior.
-No Composure application target exists yet.
+Composure contains an executable foundation under src/composure.
+Its Mac and universal iPhone/iPad targets use a local ComposureCore Swift package and require OS version 26 or later.
+The foundation provides native navigation, a pure session transition policy, and content-safe local logging.
+Profiles, Prepare, capture, speech, and model coaching remain planned in its normative implementation specification.
 
 ## Development prerequisites
 
@@ -67,12 +68,14 @@ Website preview and deployment require the dependencies from src/web/package-loc
 | Command | Result |
 | --- | --- |
 | ./configure.sh --check | Validates profile selections and instruction routing |
-| ./test.sh | Runs repository checks, macOS unit tests, and website validation |
+| ./test.sh | Runs repository checks, CropPrint tests, Composure core tests, and website validation |
 | ./test.sh repository | Checks profile, knowledge, index helpers, and command contracts |
 | ./test.sh cropprint | Runs the existing macOS unit-test command |
+| ./test.sh composure | Runs shared ComposureCore package tests with coverage |
 | ./test.sh web | Builds and validates the static website |
 | ./build.sh | Tests CropPrint, packages macOS, builds mobile targets, and builds the website |
 | ./build.sh web | Builds and validates only the website |
+| ./src/composure/build.sh all | Tests ComposureCore and compiles unsigned Mac, mobile simulator, and mobile device targets |
 | ./package.sh macos | Creates src/cropprint/build/CropPrint-unsigned.zip |
 | ./run.sh web | Starts the existing local website preview |
 | ./smoke.sh web | Checks generated website files and local links |

@@ -118,13 +118,14 @@ Keep Source state: planned explicit for absent paths. Do not enable future compo
 ### tool
 
 - [x] Enabled
-- Source paths: scripts, configure.sh, build.sh, clean.sh, test.sh, run.sh, package.sh, test, smoke.sh, deploy.sh, .github/workflows/build.yml
+- Source paths: scripts, configure.sh, build.sh, clean.sh, test.sh, run.sh, package.sh, test, smoke.sh, deploy.sh, .github/workflows/build.yml, src/composure/build.sh, src/composure/clean.sh
 - Targets: tools
 - Languages: Python, Shell
 - Platforms: macOS
 - SaaS client: no
 - SDK component: none
 - Deployment: local repository scripts
+- Source state: existing
 
 ### workspace-extension
 
@@ -147,6 +148,19 @@ Keep Source state: planned explicit for absent paths. Do not enable future compo
 - SaaS client: no
 - SDK component: none
 - Deployment: `<unpacked test extension, browser store packages, or Safari app distribution>`
+
+
+### composure-native
+
+- [x] Enabled
+- Source paths: src/composure/Apps, src/composure/Packages, src/composure/Composure.xcodeproj
+- Source state: existing
+- Targets: apps
+- Languages: Swift
+- Platforms: macOS, iOS, iPadOS
+- SaaS client: no
+- SDK component: none
+- Deployment: native application
 
 ## Agent roles
 

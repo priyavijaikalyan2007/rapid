@@ -1,5 +1,12 @@
 [
   {
+    "name": "CoachSessionState",
+    "table": null,
+    "file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/CoachSessionState.swift",
+    "description": "Sendable lifecycle states and fixed typed failures. No meeting content or persistent session record.",
+    "related": ["ComposureSessionLifecycle"]
+  },
+  {
     "name": "PrintSettings",
     "table": null,
     "file": "src/cropprint/CropPrint/Models/PrintSettings.swift",

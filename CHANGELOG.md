@@ -30,6 +30,8 @@ Created: 2026
 
 ### Added
 
+- Added the Composure Mac and iPhone/iPad foundation, shared lifecycle and safe-logging tests, and component build commands.
+- Recorded the Composure review and confirmed privacy, platform, timing, and remote-capture requirements.
 - Added source-audit inventory and evidence, 79 native regression tests in total, and 23 website tests in total.
 - Added component shell boundary and source-style checks to the root repository test suite.
 - Added checked-in editor defaults and JavaScript lint rules, with convention checks in the build workflow.

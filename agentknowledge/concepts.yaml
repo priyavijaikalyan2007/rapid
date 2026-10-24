@@ -99,9 +99,21 @@
   },
   {
     "name": "Composure",
-    "definition": "Planned private conversation coach with no implemented application target.",
-    "anchor_file": "src/composure/implementation-specification.md",
-    "related": []
+    "definition": "Private conversation coach with executable Mac and iPhone/iPad foundations. Preparation and live coaching remain planned.",
+    "anchor_file": "src/composure/README.md",
+    "related": ["ComposureSessionLifecycle", "ComposureDiagnostics"]
+  },
+  {
+    "name": "ComposureSessionLifecycle",
+    "definition": "Pure session transition policy that requires readiness, ordered startup, and cleanup before reuse. It does not own capture resources.",
+    "anchor_file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/SessionLifecycle.swift",
+    "related": ["Composure", "ComposureDiagnostics"]
+  },
+  {
+    "name": "ComposureDiagnostics",
+    "definition": "Content-safe logging facade limited to approved event identifiers and bounded numeric counts, with a native unified-log sink.",
+    "anchor_file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/DiagnosticLogger.swift",
+    "related": ["Composure"]
   },
   {
     "name": "RepositoryConfiguration",

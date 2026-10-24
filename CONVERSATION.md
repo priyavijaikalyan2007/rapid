@@ -164,3 +164,52 @@ No website deployment, push, or new native application release occurred.
 
 The website helper now requires an explicit deployment mode, matching the existing root guard.
 A command-boundary test failed before that fix. The full repository suite then passed 12 Python and 27 Bats checks.
+
+## 24 October 2026: Review Composure and begin implementation
+
+### User request
+
+> Ok. This repository contains apps of diffrent kinds and a showcase website for them. I want to work on a new app named Composure. The product specification, implementation specification and implementation plan are all found in the folder src/composure. Read them, let me know if everything looks good, ask me for any clarifications and then let's implement it.
+
+### Clarifications and owner decisions
+
+The owner selected Mac, iPhone, and iPad support on OS version 26 or later.
+The owner selected stopping remote setup when separate microphone capture is unavailable.
+
+> I have a M1 iPad Pro (12.9"), a Macbook Pro M5, a Mac Mini m4 and a Mac Studio M4 as well as iPhone Mini 12 and a iPhone 17 Pro to test on.
+
+> Oh, I also have an iPad Air 3rd gen.
+
+> I don't know what versions of the OS-es they are on. I also have a iPhone 14 Pro.
+
+The owner accidentally pasted output from a different repository, Knobby.
+The owner clarified that work should continue on Composure. No Knobby or production database action occurred.
+The owner then corrected the intended approval:
+
+> Sorry. The above output got mixed up. Let me fix again. I meant this: "The design is sound, but I recommend four additions: bounded model inputs, prompt-injection tests, precise audio timing, and explicit background behavior. I will also test dual-stream capture early because remote coaching depends on it. I can begin the project foundation while you confirm the test devices." -- I agree with these recommendations.
+
+### Response summary
+
+Read all three Composure documents and the repository's configured instructions and current knowledge records.
+The product scope and architecture are coherent. The review identified model bounds, untrusted inputs,
+audio timing, lifecycle privacy, unknown-speaker limits, and early dual-stream validation as implementation controls.
+Updated the normative specification and implementation plan with the owner's confirmed decisions.
+Recorded the review and first-slice interfaces in specs/composure-foundation.plan.md.
+
+Enabled the native Composure component through configure.sh preview and apply commands before creating application source.
+Created Mac and universal iPhone/iPad targets, native navigation, and a local Swift 6 package.
+Added tested session transitions, fixed diagnostic events, bounded numeric metadata, and native unified logging.
+Added component build and cleanup commands and included Composure in root tests and source-style checks.
+The current shell clearly states that preparation and live coaching are unavailable. It cannot listen or run a model.
+
+New shell tests failed before implementation. Swift tests failed against an empty core module after an initial sandbox failure.
+The core then passed 15 tests. Production line coverage measured 82.69 percent.
+Mac, iOS simulator, and physical-device mobile compilation passed. Metadata confirms OS version 26 and both mobile families.
+The Mac application launched and its Live Coach destination displayed correctly.
+The complete root test command passed repository checks, CropPrint tests, Composure tests, and website validation.
+UI automation suffered long tool delays, so remaining verification used command-based checks.
+
+The full Phase 0 gate remains open for physical iPhone/iPad launch and signed sandbox checks.
+The owner listed test devices, but their OS versions and Apple Intelligence settings remain unknown.
+The next feature slice is privacy onboarding and the Coaching Profile, followed by Prepare.
+No upload, deployment, App Store submission, or Git push occurred.

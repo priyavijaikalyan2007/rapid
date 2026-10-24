@@ -18,7 +18,7 @@ Record observed designs separately from accepted decisions. Do not infer origina
 
 ## Product scope
 
-CropPrint is implemented. Composure is planned and currently contains documents only.
+CropPrint is implemented. Composure contains a native foundation and tests, while coaching features remain planned.
 Keep existing source paths. Do not create or move application structure during an instruction update.
 Use native platform themes, colors, components, and interaction guidance for native applications.
 Use on-device processing and AI. Optional licensed resource downloads do not authorize uploads of user content.
@@ -26,7 +26,8 @@ The website's existing external theme and website-only analytics remain separate
 
 ## Operations
 
-Use ./test.sh for repository checks, CropPrint unit tests, and website validation.
+Use ./test.sh for repository checks, CropPrint tests, Composure core tests, and website validation.
+Use ./src/composure/build.sh all after shared Composure changes to compile both application targets.
 Use ./test.sh repository when the task only changes repository tooling or knowledge files.
 Use Python 3.10 or later and Bats 1.12 or later for repository checks.
 The configurator's generic readiness output does not inspect completion. Read SETUP.md for verified setup status.

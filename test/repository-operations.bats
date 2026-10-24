@@ -11,7 +11,7 @@ setup()
 {
     repository_root="$(cd "$BATS_TEST_DIRNAME/.." && pwd)"
     fixture="$BATS_TEST_TMPDIR/repository with spaces"
-    mkdir -p "$fixture/src/cropprint/scripts" "$fixture/src/web" "$fixture/bin"
+    mkdir -p "$fixture/src/cropprint/scripts" "$fixture/src/web" "$fixture/src/composure" "$fixture/bin"
     export CALL_LOG="$fixture/calls"
     export BATS_BIN="$fixture/bin/bats"
     export PATH="$fixture/bin:$PATH"
@@ -21,7 +21,7 @@ setup()
         fi
     done
     for target in configure.sh src/cropprint/build.sh src/cropprint/scripts/package-unsigned.sh \
-        src/web/build.sh src/web/preview.sh src/web/deploy.sh bin/python3 bin/bats; do
+        src/web/build.sh src/web/preview.sh src/web/deploy.sh src/composure/build.sh bin/python3 bin/bats; do
         cat > "$fixture/$target" <<'STUB'
 #!/usr/bin/env bash
 printf '%s' "${0##*/}" >> "$CALL_LOG"
@@ -39,12 +39,18 @@ STUB
     [[ "$(cat "$CALL_LOG")" == $'configure.sh <--check>\nbuild.sh <test>' ]]
 }
 
-@test "default tests validate repository contracts and both components" {
+@test "default tests validate repository contracts and all components" {
     run bash "$fixture/test.sh"
     [[ "$status" -eq 0 ]]
-    [[ "$(cat "$CALL_LOG")" == *$'build.sh <test>\nbuild.sh <test>' ]]
+    [[ "$(cat "$CALL_LOG")" == *$'build.sh <test>\nbuild.sh <test>\nbuild.sh <test>' ]]
     [[ "$(cat "$CALL_LOG")" == *'python3 <-m> <unittest>'* ]]
     [[ "$(cat "$CALL_LOG")" == *'bats <'* ]]
+}
+
+@test "Composure tests route to the owning component" {
+    run bash "$fixture/test.sh" composure
+    [[ "$status" -eq 0 ]]
+    [[ "$(cat "$CALL_LOG")" == $'configure.sh <--check>\nbuild.sh <test>' ]]
 }
 
 @test "unknown test mode cannot run a component" {

@@ -40,6 +40,20 @@ For every milestone:
 6. document SDK/API discrepancies;
 7. avoid adding dependencies unless there is a demonstrated need.
 
+The shared workflow requires failing tests before implementation, followed by passing tests and regression checks.
+The owner confirmed the additional controls below on 24 October 2026:
+
+- Support Mac, iPhone, and iPad on operating system version 26 or later.
+- Stop remote setup if separate microphone capture is unavailable.
+- Bound model inputs, outputs, requests, rolling text, and streaming queues.
+- Test prompt injection and validate model output independently.
+- Preserve precise audio timing and partial-result identity.
+- Stop and clear live content on mobile backgrounding and relevant macOS lifecycle events.
+- Verify two analyzers and shared microphone capture early, before extensive remote implementation.
+
+The first executable foundation slice is defined in [the repository plan](../../specs/composure-foundation.plan.md).
+That slice introduces domain contracts as their behavior is implemented. It does not claim the full Phase 0 gate.
+
 Do not introduce:
 
 - backend services;
@@ -94,6 +108,8 @@ Initial targets:
 
 - macOS 26+;
 - iOS 26+.
+
+The mobile target MUST support both iPhone and iPad.
 
 Enable Swift 6 strict concurrency checking.
 
@@ -414,6 +430,13 @@ A user can make the device “meeting ready” before entering a sensitive conve
 ---
 
 # Phase 4 — Shared In-Person Audio Capture
+
+## Early remote feasibility check
+
+Before extensive live-capture implementation, run a small developer-only experiment on the deployment baseline.
+Verify simultaneous meeting and microphone streams, two SpeechAnalyzer instances, and continued meeting-app microphone access.
+Use transient buffers only. Check analyzer resource limits, device routing, audio clock alignment, and clean cancellation.
+Record observed results and unresolved hardware combinations before proceeding with the remote pipeline.
 
 ## Goal
 

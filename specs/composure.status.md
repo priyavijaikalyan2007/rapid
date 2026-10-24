@@ -10,18 +10,18 @@ Created: 2026
 
 # Composure status
 
-Reviewed on 23 October 2026.
+Updated on 24 October 2026.
 
-Composure is planned. Its directory contains three specification and planning documents.
-No Xcode project, Swift package, application source, or test target exists there.
-The profile includes these documents as documentation, not an implemented native application.
+Composure has an executable native foundation under src/composure.
+The Mac and universal iPhone/iPad targets use a local Swift package with strict Swift 6 concurrency.
+The profile now enables Composure as a native component, alongside the existing documentation scope.
+The application shows native navigation and explicit feature placeholders.
+Onboarding, the Coaching Profile, Prepare, audio capture, speech recognition, and semantic coaching remain unimplemented.
 
 The [normative specification](../src/composure/implementation-specification.md) is the implementation contract.
 The [product specification](../src/composure/product-specification.md) explains the product and design.
 The [implementation plan](../src/composure/implementation-plan.md) defines milestones and acceptance gates.
 
-Before implementation, confirm supported devices and operating systems against actual Apple APIs.
-Enable a native component with explicit planned source paths through configure.sh before creating its application structure.
 Preserve the specification's on-device processing, explicit listening controls, and transient session-data requirements.
 
 ## Source audit on 24 October 2026
@@ -29,3 +29,50 @@ Preserve the specification's on-device processing, explicit listening controls, 
 The source audit reviewed all three planning documents on 24 October 2026.
 The changes add notices, clarify wording, reflow prose, and format illustrative Swift examples.
 The normative product requirements remain planned. No Composure app was implemented or tested.
+
+## Specification review and owner decisions
+
+The [foundation plan and review](composure-foundation.plan.md) records findings and the file-level implementation plan.
+The owner confirmed Mac, iPhone, and iPad support on operating system version 26 or later.
+Remote setup must stop if separate microphone capture is unavailable.
+The owner accepted bounded model inputs, prompt-injection tests, precise audio timing, explicit background behavior,
+and early dual-stream feasibility testing. The normative specification and implementation plan now include these requirements.
+
+The owner listed an M5 MacBook Pro, M4 Mac mini, M4 Mac Studio, M1 iPad Pro 12.9-inch,
+iPad Air 3, iPhone 12 mini, iPhone 14 Pro, and iPhone 17 Pro for testing.
+Their OS versions and Apple Intelligence settings remain unverified, except for the development Mac's macOS 26.6.2.
+CoreDevice reports a paired, available iPhone 17 Pro and an unavailable physical iPad.
+The inventory does not prove an application launch or feature compatibility on either device.
+
+## Foundation verification
+
+- The new shell routing tests failed before the command implementations existed.
+- The root routing and source-style tests failed before Composure was included.
+- SwiftPM initially failed at the sandbox boundary. That failure did not count as a failing behavior test.
+- An authorized run against an empty core module then failed because the tested domain types were absent.
+- The implemented core passed 15 Swift Testing tests, including a four-case cancellation test.
+- Core production line coverage measured 43 of 52 lines, or 82.69 percent.
+- The full Composure build passed for macOS, iOS simulator, and physical iOS device compilation.
+- Generated Mac and mobile metadata declare minimum OS version 26. The mobile device family is [1, 2].
+- The Mac application launched, displayed its native sidebar, and changed to the Live Coach status screen.
+- Visual inspection confirmed readable native layout and the explicit statement that Composure is not listening.
+- The complete root test command passed 12 Python checks, 34 Bats checks, CropPrint tests,
+  15 Composure tests, 32 website tests, and six-page website validation.
+- The source-style checker passed for both native applications and the component shell scripts.
+
+The development toolchain is Xcode 27.1. Deployment targets remain version 26.
+The current foundation contains no capture, speech, model, database, or network implementation.
+The logging interface accepts only approved event identifiers and bounded numeric counts.
+The applications emit only the fixed launch event to native unified logging.
+
+## Remaining gates and next slice
+
+Phase 0 is not complete. Physical iPhone and iPad launch checks, signed sandbox checks,
+and the later pipeline domain contracts remain open.
+Unsigned compilation does not verify those checks. UI automation also showed severe tool delays during this session.
+No archive, upload, App Store submission, website deployment, or Git push occurred.
+
+Use the [device launch procedure](../src/composure/README.md#device-launch-check) to verify the mobile shells.
+Record device models, OS versions, and launch results before marking the Phase 0 device gate complete.
+The next feature slice implements privacy onboarding, the Coaching Profile, and non-sensitive preference persistence.
+Prepare follows, with deterministic fallback and explicit model readiness.

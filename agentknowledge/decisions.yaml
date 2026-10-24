@@ -106,6 +106,29 @@
     ]
   },
   {
+    "id": "ADR-011",
+    "title": "Build Composure with native shells and a local Swift 6 core",
+    "date": "2026-10-24",
+    "status": "Accepted",
+    "context": "The owner requested implementation after reviewing the specifications. Preserve src/composure, support Mac, iPhone, and iPad on OS version 26 or later, and introduce domain contracts with tested behavior. The executable foundation does not complete the physical-device gate or implement coaching. Use an enum transition policy and a fixed-event logging facade without external dependencies.",
+    "files": [
+      "src/composure/Composure.xcodeproj/project.pbxproj",
+      "src/composure/Packages/ComposureCore/Package.swift",
+      "specs/composure-foundation.plan.md"
+    ]
+  },
+  {
+    "id": "ADR-012",
+    "title": "Make Composure lifecycle and model boundaries explicit",
+    "date": "2026-10-24",
+    "status": "Accepted",
+    "context": "The owner accepted bounded model inputs, prompt-injection tests, precise audio timing, explicit background behavior, and early dual-stream feasibility testing. The owner also required remote setup to stop when separate microphone capture fails. These are accepted implementation requirements, not verified live-pipeline behavior.",
+    "files": [
+      "src/composure/implementation-specification.md",
+      "src/composure/implementation-plan.md"
+    ]
+  },
+  {
     "id": "ADR-010",
     "title": "Make source conventions repeatable before product builds",
     "date": "2026-10-24",

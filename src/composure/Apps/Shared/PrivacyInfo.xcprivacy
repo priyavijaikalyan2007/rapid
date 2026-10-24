@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-FileCopyrightText: 2026 Outcrop Inc -->
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!-- Repository: rapid; File GUID: 5cd3a748-16c8-4951-8e67-2ab2a5a50fef; Created: 2026 -->
+<!-- AGENT: Declares this foundation build's lack of tracking, collection, and required-reason APIs. -->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>NSPrivacyTracking</key>
+    <false/>
+    <key>NSPrivacyCollectedDataTypes</key>
+    <array/>
+    <key>NSPrivacyAccessedAPITypes</key>
+    <array/>
+</dict>
+</plist>

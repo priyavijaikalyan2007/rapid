@@ -25,7 +25,7 @@ For rationale and expanded design guidance, see [product-specification.md](produ
 ## 1. Product
 
 **Name:** Composure\
-**Platforms:** macOS, iOS\
+**Platforms:** macOS 26+, iOS 26+, iPadOS 26+\
 **Implementation:** Native Swift / SwiftUI\
 **Backend:** None\
 **Account/login:** None\
@@ -78,6 +78,15 @@ Stop or the capture source terminates.
 The macOS remote-meeting implementation MUST NOT analyze, OCR, save, or otherwise process screen pixels for
 product functionality.
 
+### PRIV-008 — Background and indicator lifecycle
+
+On iPhone and iPad, entering the background MUST stop capture, cancel analysis, and clear live session content.
+The app MUST obscure sensitive content before the system creates an app-switcher snapshot.
+The app MUST NOT restore preparation or live content through scene restoration.
+
+On macOS, sleep, source loss, or closing the last capture indicator MUST stop the session.
+Recovery MUST require an explicit Start action. Ordinary focus changes between meeting windows MUST NOT stop coaching.
+
 ### NET-001 — No backend
 
 V1 MUST NOT contain an application backend, remote API, remote logging service, analytics SDK, or third-party
@@ -94,6 +103,22 @@ Semantic coaching MUST use an on-device model. The initial implementation MUST u
 
 If the semantic model is unavailable, the app MUST degrade to deterministic/template behavior. It MUST NOT
 silently route to cloud AI.
+
+### MODEL-003 — Bounded model work
+
+Model requests MUST enforce centralized limits for input bytes, context tokens, output size, execution time,
+and concurrent work. Rolling context MUST also limit event count and aggregate text size.
+Streaming queues MUST be bounded and define how overflow stops or discards obsolete work safely.
+
+A model session MUST NOT accumulate an entire meeting through repeated requests.
+Each analysis MUST use bounded context and MUST release its model-session references after completion or cancellation.
+
+### MODEL-004 — Untrusted content and output
+
+Preparation text, meeting objectives, transcript text, and generated conversation state are untrusted input.
+They MUST NOT enter privileged model instructions or change the app's fixed coaching and privacy rules.
+Structured model output MUST pass independent validation before it can become a cue.
+The synthetic regression suite MUST include direct and indirect prompt-injection attempts.
 
 ### PROD-001 — No meeting-history product
 
@@ -141,6 +166,11 @@ MUST capture:
 
 The sources SHOULD remain logically separate so the app can identify `USER` versus `OTHER` speech without
 speaker recognition.
+
+Both streams MUST be available before remote coaching starts. If separate microphone capture fails, setup
+MUST stop and explain the limitation. V1 MUST NOT silently offer meeting-audio-only coaching.
+
+The product owner confirmed this behavior and iPad support on 24 October 2026.
 
 Provider integrations are forbidden in V1.
 
@@ -270,6 +300,13 @@ And at least:
 - Bluetooth headset;
 - USB microphone;
 - external display audio.
+
+### AUDIO-007 — Audio timing and revisions
+
+Speech events MUST preserve their audio start and end times on a common monotonic session clock.
+Remote overlap detection MUST use audio timing rather than transcription callback arrival times.
+Partial revisions MUST replace earlier revisions for the same speech range.
+Stopped sessions MUST reject late capture, transcription, and model results, including after a new session starts.
 
 ---
 
