@@ -235,3 +235,35 @@ Its unknown-option error prevented application tests from running.
 Pinned the official SwiftFormat 0.64.1 asset and verified its published SHA-256 digest before extraction.
 Changed the build host to macOS 26 so Composure's version 26 package tests can run.
 Recorded the tool requirements in CONTRIBUTING.md and kept remote results separate from passed local checks.
+
+## 24 October 2026: Correct Composure's active Mac build
+
+### User reports and hardware decision
+
+> ok; note that xcodebuild failed with the ComposureCore dependency not found.
+
+The owner supplied the ApplicationDiagnostics.swift line 11 unresolved-module diagnostic and the full failing compiler invocation.
+That invocation compiled the Composure Mac target for x86_64 but found only an arm64 ComposureCore module.
+The diagnostic stated that the package module was built for an incompatible target.
+
+> I don't think we would want to support intel Macs ever. Apple Silicon macs have been the standard for more than 5 years now.
+
+The owner confirmed that Composure should support Apple silicon Macs only.
+
+### Diagnosis and correction
+
+Package resolution and a fresh generic Mac build passed. The existing GitHub Build run also passed.
+An active arm64 Mac destination reproduced the owner's exact compiler error.
+The app's Debug configuration built both Mac architectures, while Swift packages built only the active arm64 architecture.
+Earlier verification covered generic builds and missed that difference.
+
+Set the Mac target to arm64 in Debug and Release. Set Debug to use the active architecture, matching package behavior.
+Added the active Mac destination to component checks and kept a generic arm64 check.
+Generic builds now apply matching architecture settings across the app and package graph.
+A shell contract test failed before the missing active-destination coverage was added.
+The same previously failing build directory passed after the configuration change, without clearing its contents.
+Updated the product requirements and recorded the Apple silicon hardware decision.
+Fresh active Debug and generic Release builds passed without architecture overrides.
+The Debug and Release Mac executables both contain only arm64 code.
+The full component build, full repository tests, and source-style checks passed.
+The repository suite now includes 35 Bats checks. The core suite still contains 15 tests.

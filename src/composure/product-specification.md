@@ -21,6 +21,7 @@ FLOW: Authored source -> component validation -> local result.
 **Primary language:** Swift\
 **UI:** SwiftUI\
 **Minimum target:** macOS 26+, iOS 26+\
+**Mac hardware:** Apple silicon only (`arm64`)\
 **Primary AI:** Apple Foundation Models, on-device `SystemLanguageModel`\
 **Speech:** Apple Speech framework (`SpeechAnalyzer`, `SpeechTranscriber`)\
 **Remote meeting capture on macOS:** ScreenCaptureKit\

@@ -14,6 +14,7 @@ Updated on 24 October 2026.
 
 Composure has an executable native foundation under src/composure.
 The Mac and universal iPhone/iPad targets use a local Swift package with strict Swift 6 concurrency.
+Composure supports Apple silicon Macs only. Its Debug and Release Mac applications use arm64.
 The profile now enables Composure as a native component, alongside the existing documentation scope.
 The application shows native navigation and explicit feature placeholders.
 Onboarding, the Coaching Profile, Prepare, audio capture, speech recognition, and semantic coaching remain unimplemented.
@@ -85,3 +86,31 @@ That version rejected the checked-in wrap-closure-bodies option before applicati
 The workflow now downloads the official 0.64.1 release and verifies the release asset's SHA-256 digest.
 The workflow also selects macOS 26 because the Composure package tests require a version 26 host.
 These workflow changes do not alter application behavior. Their remote result remains separate from local build evidence.
+
+## Active Mac build correction on 24 October 2026
+
+The owner reported that ApplicationDiagnostics.swift could not import ComposureCore.
+The full compiler log showed an x86_64 app compile trying to import an arm64-only package module.
+The earlier generic builds and hosted Build run passed because they did not exercise the active Mac destination.
+An active arm64 destination reproduced the exact failure locally with exit code 65.
+
+The owner confirmed Apple silicon-only Mac support during this investigation.
+Both Mac configurations now specify ARCHS=arm64.
+Debug uses ONLY_ACTIVE_ARCH=YES so app and package selection match Xcode's My Mac destination.
+The component builder checks active and generic arm64 Mac destinations and applies matching generic build settings.
+The product and implementation specifications now record the hardware scope.
+
+Verification passed:
+
+- The new shell coverage test failed before the active Mac check was added, then passed after implementation.
+- The previously failing destination passed using the same build directory, without deleting its contents.
+- A fresh active Debug build passed without architecture overrides.
+- A fresh generic Release build passed without architecture overrides.
+- Debug and Release executables each contain only arm64 code, as reported by lipo.
+- The component's full build passed, including 15 core tests and both mobile variants.
+- The full repository test command passed 12 Python checks, 35 Bats checks, CropPrint tests,
+  15 Composure tests, 32 website tests, and six-page website validation.
+- Source-style checks and project property-list validation passed.
+
+Interactive Xcode launch and signed mobile checks remain separate gates.
+Reopen an existing Xcode project if it retains the previous architecture settings, then run Composure Mac on My Mac.

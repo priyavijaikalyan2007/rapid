@@ -14,6 +14,7 @@ Created: 2026
 
 ### Fixed
 
+- Aligned Composure Debug app and package architectures for Xcode's My Mac destination and added that build check.
 - Pinned the CI formatter to the verified SwiftFormat 0.64.1 release and selected a macOS 26 host for Composure tests.
 - Bounded photo decoding, catalog metadata, resource downloads, crop geometry, and raster allocation before expensive native work.
 - Preserved existing files through exclusive export publication and safe preview-media staging.
@@ -24,6 +25,7 @@ Created: 2026
 
 ### Changed
 
+- Limited Composure Mac application builds to Apple silicon in both Debug and Release configurations.
 - Marked CropPrint as available and added its App Store download action to the home and product pages.
 - Split native types into named files and applied source layout, useful comments, navigation markers, and license notices.
 - Preserved binary media and strict data formats under scoped REUSE annotations.

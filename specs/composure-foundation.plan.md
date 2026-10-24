@@ -127,3 +127,35 @@ Update the normative specification with the owner's confirmed platform and remot
 
 The next slice implements onboarding, the Coaching Profile, and Prepare.
 Physical-device launch checks remain required before declaring the Phase 0 gate complete.
+
+## Follow-up: Match package and application architectures
+
+The owner reported an unresolved ComposureCore import in ApplicationDiagnostics.swift.
+The detailed log showed an x86_64 application compile using an arm64-only package module.
+Fresh generic Mac builds passed, but the active arm64 Mac destination reproduced that exact failure.
+The application omitted ONLY_ACTIVE_ARCH in Debug. Swift packages use the active architecture for this destination.
+
+No pattern required - simple function/class suffices. No runtime interface or application layer changes are needed.
+Set the project's Debug configuration to ONLY_ACTIVE_ARCH=YES and make Release's active-architecture setting explicit.
+The owner then confirmed that Composure must support Apple silicon Macs only.
+Set ARCHS=arm64 for both Mac configurations. Release builds must also contain only arm64 code.
+Add active-destination and generic arm64 Mac checks to the component builder.
+Use ONLY_ACTIVE_ARCH=NO for generic builds so package and app architectures remain aligned.
+
+Change these files:
+
+- src/composure/Composure.xcodeproj/project.pbxproj: align Debug architecture selection and require arm64 for Mac targets.
+- src/composure/build.sh: build the active and generic Mac destinations with arm64 package and application code.
+- test/composure-scripts.bats: require both Mac build paths and verify generic architecture overrides.
+- src/composure/README.md: explain the two Mac checks and the retry procedure.
+- src/composure/product-specification.md, implementation-specification.md, and implementation-plan.md: record Apple silicon scope.
+- PROJECT.md and agentknowledge/decisions.yaml: record the authoritative hardware choice.
+- specs/composure.status.md: record the reproduced failure and corrected build results.
+- CONVERSATION.md and CHANGELOG.md: record the report, correction, and verification.
+- agentknowledge/history.jsonl: append the outcome.
+
+First reproduce the active-destination compiler error and the missing command coverage in failing checks.
+Then change the Debug setting and rerun the same failing destination without removing its build directory.
+Verify a second fresh active build, arm64 Release build, and mobile variants.
+Inspect the Mac application binary to confirm that it contains only arm64 code.
+Run the core suite, full repository checks, and source-style checks before committing and pushing.

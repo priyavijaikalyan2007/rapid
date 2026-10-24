@@ -106,12 +106,15 @@ Targets:
 
 Initial targets:
 
-- macOS 26+;
+- macOS 26+ on Apple silicon only;
 - iOS 26+.
 
 The mobile target MUST support both iPhone and iPad.
 
 Enable Swift 6 strict concurrency checking.
+Set the Mac target to arm64 in both Debug and Release configurations.
+Align Debug active-architecture behavior between the application and its Swift package dependencies.
+Verify both an active Mac run destination and a generic Mac build.
 
 ### P0-003 — Base application shell
 

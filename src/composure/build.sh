@@ -41,16 +41,25 @@ test_core()
 # Signing and distribution remain separate from these development builds.
 build_platform()
 {
+    local scheme="$1" destination="$2"
+    shift 2
     xcodebuild build -quiet -project "$component_root/Composure.xcodeproj" \
-        -scheme "$1" -configuration Debug -destination "$2" \
-        -derivedDataPath "$component_root/build/DerivedData" CODE_SIGNING_ALLOWED=NO
+        -scheme "$scheme" -configuration Debug -destination "$destination" \
+        -derivedDataPath "$component_root/build/DerivedData" CODE_SIGNING_ALLOWED=NO "$@"
+}
+
+# Exercise the Xcode Run destination as well as a generic build, with matching package architectures.
+build_macos()
+{
+    build_platform 'Composure Mac' 'platform=macOS,arch=arm64' ARCHS=arm64
+    build_platform 'Composure Mac' 'generic/platform=macOS' ARCHS=arm64 ONLY_ACTIVE_ARCH=NO
 }
 
 # Both mobile families share one target. Compile simulator and physical-device variants.
 build_mobile()
 {
-    build_platform 'Composure Mobile' 'generic/platform=iOS Simulator'
-    build_platform 'Composure Mobile' 'generic/platform=iOS'
+    build_platform 'Composure Mobile' 'generic/platform=iOS Simulator' ONLY_ACTIVE_ARCH=NO
+    build_platform 'Composure Mobile' 'generic/platform=iOS' ONLY_ACTIVE_ARCH=NO
 }
 
 main()
@@ -68,11 +77,11 @@ main()
     case "$mode" in
         all)
             test_core
-            build_platform 'Composure Mac' 'generic/platform=macOS'
+            build_macos
             build_mobile
             ;;
         test) test_core ;;
-        macos) build_platform 'Composure Mac' 'generic/platform=macOS' ;;
+        macos) build_macos ;;
         ios) build_mobile ;;
     esac
     printf '%s\n' "Composure $mode checks passed."

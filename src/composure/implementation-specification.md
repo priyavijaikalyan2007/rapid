@@ -26,6 +26,7 @@ For rationale and expanded design guidance, see [product-specification.md](produ
 
 **Name:** Composure\
 **Platforms:** macOS 26+, iOS 26+, iPadOS 26+\
+**Mac hardware:** Apple silicon only (`arm64`)\
 **Implementation:** Native Swift / SwiftUI\
 **Backend:** None\
 **Account/login:** None\
@@ -223,6 +224,14 @@ Do not add a database in V1.
 ### TECH-009
 
 Use `UserDefaults` / `@AppStorage` only for non-sensitive persistent preferences.
+
+### TECH-010 — Mac architecture
+
+Composure MUST support Apple silicon Macs only. Both Debug and Release Mac application builds MUST use `arm64`.
+Intel Mac support and universal Mac application binaries are out of scope.
+Application and package architectures MUST match for active-device and generic build destinations.
+
+The product owner confirmed this hardware scope on 24 October 2026.
 
 ---
 

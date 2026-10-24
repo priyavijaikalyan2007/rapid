@@ -22,7 +22,8 @@ Read the [foundation review](../../specs/composure-foundation.plan.md) and
 
 ## Local development
 
-Use a full Xcode installation on macOS. The targets require macOS 26 or iOS/iPadOS 26 or later.
+Use a full Xcode installation on an Apple silicon Mac.
+The targets require macOS 26 or iOS/iPadOS 26 or later. Composure's Mac application supports arm64 only.
 The shared package uses Swift 6 and contains no external dependencies.
 The build script selects /Applications/Xcode.app/Contents/Developer when DEVELOPER_DIR is unset.
 All generated outputs remain under this component's ignored build directory.
@@ -39,7 +40,7 @@ Run only shared-core tests:
 ./test.sh composure
 ```
 
-Compile the Mac target:
+Compile the Mac target for the active Apple silicon destination and a generic arm64 destination:
 
 ```sh
 ./src/composure/build.sh macos
@@ -60,7 +61,12 @@ Remove generated component output:
 The shared package tests lifecycle transitions and a logging facade that accepts fixed event identifiers and bounded counts.
 The applications use system unified logging for the fixed application-launch event only.
 The Mac target enables App Sandbox without network or capture entitlements.
+Both Debug and Release Mac configurations build arm64 applications.
 Unsigned builds do not verify signed sandbox behavior or installation on physical mobile devices.
+
+Debug builds use the active architecture, matching Swift package behavior for Xcode's My Mac destination.
+Generic command-line builds set matching app and package architectures explicitly.
+If an open Xcode project retains the old architecture settings, reopen the project before building again.
 
 ## Device launch check
 

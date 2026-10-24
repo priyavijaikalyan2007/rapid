@@ -50,6 +50,7 @@ Native application processing and privacy constraints do not describe website an
 
 Composure contains an executable foundation under src/composure.
 Its Mac and universal iPhone/iPad targets use a local ComposureCore Swift package and require OS version 26 or later.
+Composure supports Apple silicon Macs only. Both Debug and Release Mac applications use arm64.
 The foundation provides native navigation, a pure session transition policy, and content-safe local logging.
 Profiles, Prepare, capture, speech, and model coaching remain planned in its normative implementation specification.
 

@@ -129,6 +129,18 @@
     ]
   },
   {
+    "id": "ADR-013",
+    "title": "Support Apple silicon Macs only in Composure",
+    "date": "2026-10-24",
+    "status": "Accepted",
+    "context": "The owner explicitly excluded Intel Macs from Composure. Both Mac configurations use arm64. Debug app builds also use the active architecture to match Swift packages for Xcode's My Mac destination. Component checks exercise active and generic arm64 destinations. The previous generic-only checks missed an x86_64 app compile against an arm64-only package module.",
+    "files": [
+      "src/composure/Composure.xcodeproj/project.pbxproj",
+      "src/composure/build.sh",
+      "src/composure/implementation-specification.md"
+    ]
+  },
+  {
     "id": "ADR-010",
     "title": "Make source conventions repeatable before product builds",
     "date": "2026-10-24",

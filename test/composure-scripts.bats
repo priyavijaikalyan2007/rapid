@@ -60,3 +60,21 @@ setup()
     [[ "$status" -eq 1 ]]
     [[ -f "$fixture/source/retained" ]]
 }
+
+@test "Composure macOS checks use Apple silicon destinations" {
+    mkdir -p "$fixture/bin"
+    cat > "$fixture/bin/xcodebuild" <<'STUB'
+#!/usr/bin/env bash
+printf '%s\n' "$*" >> "$COMPOSURE_BUILD_LOG"
+STUB
+    chmod +x "$fixture/bin/xcodebuild"
+    export COMPOSURE_BUILD_LOG="$fixture/build-calls"
+
+    run env PATH="$fixture/bin:$PATH" bash "$fixture/build.sh" macos
+
+    [[ "$status" -eq 0 ]]
+    [[ "$(wc -l < "$COMPOSURE_BUILD_LOG" | tr -d ' ')" -eq 2 ]]
+    run cat "$COMPOSURE_BUILD_LOG"
+    [[ "$output" == *'-destination platform=macOS,arch=arm64'*'ARCHS=arm64'* ]]
+    [[ "$output" == *'-destination generic/platform=macOS'*'ARCHS=arm64'*'ONLY_ACTIVE_ARCH=NO'* ]]
+}
