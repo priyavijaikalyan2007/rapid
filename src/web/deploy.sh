@@ -15,22 +15,22 @@
 set -euo pipefail
 
 if [[ $# -eq 1 && ("$1" == --help || "$1" == -h) ]]; then
-    printf '%s\n' "Usage: $0 [mode]"
+    printf '%s\n' "Usage: $0 [--dry-run|deploy]"
     exit 0
 fi
 if (($# > 1)); then
-    printf '%s\n' "Usage: $0 [mode]" >&2
+    printf '%s\n' "Usage: $0 [--dry-run|deploy]" >&2
     exit 2
 fi
 
 web_root="$(cd "$(dirname "$0")" && pwd)"
-mode="${1:-deploy}"
+mode="${1:-}"
 export WRANGLER_LOG_PATH="$web_root/.wrangler/logs/wrangler.log"
 export WRANGLER_SEND_ERROR_REPORTS=false
 export WRANGLER_SEND_METRICS=false
 
 if [[ "$mode" != "deploy" && "$mode" != "--dry-run" ]]; then
-    echo "Usage: $0 [--dry-run]" >&2
+    echo "Usage: $0 [--dry-run|deploy]" >&2
     exit 2
 fi
 

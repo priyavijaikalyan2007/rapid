@@ -70,3 +70,33 @@ test("two application pages cannot overwrite the same output", () =>
     value.apps.push(structuredClone(value.apps[0]));
     assert.throws(() => validateConfig(value));
 });
+
+for (const address of [
+    "javascript:alert(1)",
+    "http://apps.apple.com/us/app/cropprint/id6808373041",
+    "https://user:secret@apps.apple.com/us/app/cropprint/id6808373041",
+    "https://apps.apple.com.example.com/us/app/cropprint/id6808373041",
+    "https://apps.apple.com/us/app/cropprint/",
+])
+{
+    test(`App Store addresses reject ${address}`, () =>
+    {
+        const value = structuredClone(baseline);
+        value.apps[0].appStoreUrl = address;
+        assert.throws(() => validateConfig(value));
+    });
+}
+
+test("an App Store address must be text", () =>
+{
+    const value = structuredClone(baseline);
+    value.apps[0].appStoreUrl = ["https://apps.apple.com/us/app/cropprint/id6808373041"];
+    assert.throws(() => validateConfig(value));
+});
+
+test("a canonical Apple app listing is accepted", () =>
+{
+    const value = structuredClone(baseline);
+    value.apps[0].appStoreUrl = "https://apps.apple.com/us/app/cropprint/id6808373041";
+    assert.doesNotThrow(() => validateConfig(value));
+});

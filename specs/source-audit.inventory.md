@@ -14,7 +14,7 @@ Created: 2026
 Baseline: commit 4996852 on 23 October 2026. Audit completed on 24 October 2026.
 
 The audit covers all 169 original tracked files and 85 added source files.
-The resulting source set contains 248 files. Renamed and split originals remain recorded below.
+At audit completion, the source set contained 248 files. Renamed and split originals remain recorded below.
 Ignored build output, local tool downloads, and installed dependencies are outside this authored-source inventory.
 
 See [the audit report](source-audit.report.md) for evidence, coverage scope, and validation limits.
@@ -282,3 +282,13 @@ Each added source file participates in the owning format, compile, or regression
 | `src/web/eslint.config.mjs` | Checked-in website JavaScript conventions. |
 | `src/cropprint/Shared/ImportedPhoto.swift` | Bounded file-based system photo transfer. |
 | `src/cropprint/CropPrintTests/ImportedPhotoTests.swift` | Sparse oversized-file rejection and valid-byte preservation tests. |
+
+## Post-audit website additions
+
+The source audit completed in c6799c5. The later website release update added these files under the same conventions.
+The source set then contained 250 files. The website release plan records its validation.
+
+| File | Review outcome |
+| --- | --- |
+| `src/web/scripts/html.mjs` | Shared escaping preserves the existing build behavior and protects release-link attributes. Tests and lint passed. |
+| `src/web/test/html.test.mjs` | Checks markup delimiters, quotes, and download query separators. Tests and lint passed. |

@@ -10,7 +10,7 @@ Created: 2026
 
 # Source compliance audit
 
-The audit reviewed every original tracked file under src/ and every source file added during the work.
+The audit reviewed every original tracked file under src/ and every source file added for the audit.
 The baseline was commit 4996852. Work began on 23 October 2026 and completed on 24 October 2026.
 The final [inventory](source-audit.inventory.md) records each file's disposition.
 The [plan](source-audit.plan.md) records the scope and verification gates.
@@ -148,3 +148,9 @@ This warning applies to the developer media tool, not the shipping app targets.
 
 The audit establishes reviewed source and measured checks. It does not prove the absence of every defect.
 Use the component testing guides before a release, especially after future changes to native permissions or platform SDKs.
+
+## Later website release update
+
+Commit c6799c5 completed this source audit before the separate website publication update.
+The later [website release plan](website-release.plan.md) records its source changes and 32 passing website tests.
+The native audit measurements above remain the results for the completed source-audit build.

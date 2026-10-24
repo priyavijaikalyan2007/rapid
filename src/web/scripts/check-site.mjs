@@ -16,6 +16,12 @@
 
 import { readFile, readdir, stat } from "node:fs/promises";
 import path from "node:path";
+import { escapeHtml, escapeAttribute } from "./html.mjs";
+import { validateConfig } from "./site-config.mjs";
+
+/** Use the same validated application metadata as the template builder. */
+const applicationConfig = JSON.parse(await readFile(new URL("../site.config.json", import.meta.url), "utf8"));
+validateConfig(applicationConfig);
 
 const outputRoot = path.resolve(process.argv[2] || "dist");
 const htmlFiles = await findFiles(outputRoot, ".html");
@@ -97,6 +103,7 @@ for (const htmlPath of htmlFiles)
 }
 
 await validatePublicFiles();
+await validatePublishedApplications();
 
 if (failures.length > 0)
 {
@@ -245,4 +252,21 @@ async function readRequiredFile(relativePath)
         failures.push(`${relativePath} was not generated.`);
         return "";
     });
+}
+
+/** Require both discovery and product pages to publish the configured download and availability. */
+async function validatePublishedApplications()
+{
+    const home = await readRequiredFile("index.html");
+    for (const app of applicationConfig.apps.filter((entry) => entry.appStoreUrl))
+    {
+        const page = `${app.pagePath}index.html`;
+        const product = await readRequiredFile(page);
+        const link = `href="${escapeAttribute(app.appStoreUrl)}"`;
+        const status = escapeHtml(app.status);
+        check(home.includes(link), "index.html", `does not link to the ${app.name} App Store listing`);
+        check(product.includes(link), page, "does not link to its configured App Store listing");
+        check(home.includes(status), "index.html", `does not show the ${app.name} availability`);
+        check(product.includes(status), page, "does not show its configured availability");
+    }
 }

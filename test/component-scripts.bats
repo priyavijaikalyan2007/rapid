@@ -107,3 +107,9 @@ PLIST
     run bash -c 'source "$1"; validate_archive_identity "$2" current 1.0.0 1' _ "$fixture/src/cropprint/scripts/script-support.sh" "$archive"
     [[ "$status" -eq 0 ]]
 }
+
+@test "component website deployment requires an explicit mode before starting any tool" {
+    run env PATH="$component_test_path" bash "$fixture/src/web/deploy.sh"
+    [[ "$status" -eq 2 ]]
+    [[ ! -e "$CALL_LOG" ]]
+}

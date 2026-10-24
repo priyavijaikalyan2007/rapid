@@ -38,6 +38,10 @@ Its Xcode targets support macOS 14 or later and iOS or iPadOS 17 or later.
 The source version is in src/cropprint/VERSION.
 The macOS scheme is CropPrint. The mobile scheme is CropPrint Mobile.
 
+The owner confirmed that CropPrint is published on 24 October 2026.
+The App Store listing is https://apps.apple.com/us/app/cropprint/id6808373041.
+The listing identifies iPhone and iPad compatibility. Source changes from the audit require their own future app release.
+
 The public website is a separate static component under src/web.
 Its source uses JavaScript, HTML, and CSS. Its build uses Node.js standard-library modules.
 Cloudflare Workers Static Assets serves the generated dist directory.

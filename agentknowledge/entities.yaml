@@ -108,5 +108,16 @@
       "ImageInputBoundary",
       "PhotoDocuments"
     ]
+  },
+  {
+    "name": "WebsiteApplication",
+    "table": null,
+    "file": "src/web/site.config.json",
+    "description": "Validated application catalog metadata, published availability, source link, icon paths, and optional canonical App Store address.",
+    "related": [
+      "OutcropWebsite",
+      "WebsiteConfiguration",
+      "WebsiteBuild"
+    ]
   }
 ]

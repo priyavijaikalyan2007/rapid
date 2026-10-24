@@ -163,7 +163,7 @@ Check the upload without changing Cloudflare:
 Deploy the website:
 
 ```sh
-./deploy.sh
+./deploy.sh deploy
 ```
 
 The Wrangler configuration defines both production hostnames:
@@ -205,3 +205,12 @@ The [source audit report](../../specs/source-audit.report.md) records the comple
 Run `npm ci --ignore-scripts` before `npm run lint` to install the locked development tools.
 The Undici override pins the security patch used by Wrangler's local tooling.
 Recheck that override against upstream requirements when updating Wrangler.
+
+## Published applications
+
+CropPrint is available on the [App Store](https://apps.apple.com/us/app/cropprint/id6808373041) for iPhone and iPad.
+The application entry in site.config.json owns its status and appStoreUrl.
+The home-page card and product page use those values. The generated-site checker requires both locations to match.
+App Store addresses must use HTTPS on apps.apple.com and identify an application.
+
+The component deploy command requires an explicit mode, matching the root command. An empty invocation cannot publish.

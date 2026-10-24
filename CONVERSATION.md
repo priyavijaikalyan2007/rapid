@@ -143,3 +143,24 @@ The completed inventory records 169 original files and 85 added source files, wi
 The source-style checker and website lint passed. The workflow YAML parsed and includes the new convention gate.
 The development dependency installation reported zero vulnerabilities after the patched Undici override.
 The source-audit changes are ready for a local commit before the separate website publication update.
+
+## 24 October 2026: Published CropPrint website update
+
+### User request
+
+> When you are done, note that the CropPrint app has been published. SO I want to update the website to reflect the new status, along with the link to the Apple iPhone app store which is "https://apps.apple.com/us/app/cropprint/id6808373041".
+
+The user clarified that the original source audit must finish first.
+The audit completed and was committed as c6799c5 before this website update began.
+
+### Response summary
+
+Updated the application configuration to show App Store availability and the supplied canonical address.
+The home-page card and CropPrint product page now show download actions and the same configured status.
+The Apple listing identifies CropPrint and lists iPhone and iPad compatibility.
+Added strict Apple listing validation, shared HTML escaping, and generated-site checks for release links and status.
+All 32 website tests, six-page validation, JavaScript lint, and the missing-link negative fixture passed.
+No website deployment, push, or new native application release occurred.
+
+The website helper now requires an explicit deployment mode, matching the existing root guard.
+A command-boundary test failed before that fix. The full repository suite then passed 12 Python and 27 Bats checks.

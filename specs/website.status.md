@@ -32,3 +32,19 @@ These source changes are local. The deployed website still needs an explicitly r
 The source audit completed on 24 October 2026. Website configuration and browser-state tests passed all 23 cases.
 The generated site passed all six HTML-page checks. The updated development-tool lockfile reported zero audit vulnerabilities.
 No deployment or production-rendering verification occurred. See the [audit report](source-audit.report.md).
+
+## Published CropPrint listing on 24 October 2026
+
+The source audit completed and was committed as c6799c5 before the release-status update.
+The owner confirmed publication and supplied the App Store address.
+The Apple listing identifies CropPrint and lists iPhone and iPad compatibility.
+The home-page card and product page now show availability and the App Store download action.
+The configuration is the single source for the status and address.
+
+All 32 website tests, the six-page generated-site check, and JavaScript lint passed.
+A negative generated-site fixture confirmed that a missing product download link fails validation.
+These website changes remain local until an authorized push and deployment.
+The update did not build or publish a new native application release.
+
+The component deployment script now requires deploy or --dry-run explicitly. The npm deploy command passes deploy explicitly.
+The repository suite passed 12 Python tests and 27 Bats tests after this guard change.

@@ -21,6 +21,7 @@ import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 
 import { validateConfig } from "./site-config.mjs";
+import { escapeHtml, escapeAttribute } from "./html.mjs";
 
 const runFile = promisify(execFile);
 
@@ -78,12 +79,28 @@ async function copyTemplates(sourceDirectory, targetDirectory, values)
         if (isTemplateFile(entry.name))
         {
             const template = await readFile(sourcePath, "utf8");
-            await writeFile(targetPath, replaceTokens(template, values), "utf8");
+            await writeFile(targetPath, replaceTokens(template, valuesForTemplate(sourcePath, values)), "utf8");
             continue;
         }
 
         await cp(sourcePath, targetPath);
     }
+}
+
+/** Add only the matching application metadata to its product page template. */
+function valuesForTemplate(sourcePath, values)
+{
+    const app = config.apps.find((entry) =>
+        path.resolve(sourceRoot, entry.pagePath, "index.html") === sourcePath);
+    if (!app)
+    {
+        return values;
+    }
+    return {
+        ...values,
+        appStatus: escapeHtml(app.status),
+        ...(app.appStoreUrl ? { appStoreUrl: escapeAttribute(app.appStoreUrl) } : {}),
+    };
 }
 
 /** Resolves image symlinks and confines copied assets to the repository and output roots. */
@@ -113,6 +130,9 @@ function createAppCards(apps)
     return apps
         .map((app) =>
         {
+            const storeLink = createAppStoreLink(app);
+            const detailStyle = app.appStoreUrl ? "btn-outline-primary" : "btn-primary";
+            const statusStyle = app.appStoreUrl ? "text-bg-success" : "text-bg-secondary";
             const sourceLink = app.sourceUrl
                 ? `<a class="btn btn-outline-primary btn-sm" href="${escapeAttribute(app.sourceUrl)}" rel="noopener noreferrer">Source code</a>`
                 : "";
@@ -125,19 +145,31 @@ function createAppCards(apps)
             <div>
               <p class="eyebrow">${escapeHtml(app.platforms)}</p>
               <h3 class="card-title h4">${escapeHtml(app.name)}</h3>
-              <span class="badge text-bg-secondary">${escapeHtml(app.status)}</span>
+              <span class="badge ${statusStyle}">${escapeHtml(app.status)}</span>
             </div>
           </div>
           <p class="card-text">${escapeHtml(app.description)}</p>
         </div>
         <div class="card-footer app-card-actions">
-          <a class="btn btn-primary btn-sm" href="/${escapeAttribute(app.pagePath)}">Learn more</a>
+          ${storeLink}
+          <a class="btn ${detailStyle} btn-sm" href="/${escapeAttribute(app.pagePath)}">Learn more</a>
           <a class="btn btn-outline-primary btn-sm" href="/support/#${slugify(app.name)}">Get support</a>
           ${sourceLink}
         </div>
       </article>`;
         })
         .join("\n");
+}
+
+/** Build the explicit Apple download action only when an application has a validated listing. */
+function createAppStoreLink(app)
+{
+    if (!app.appStoreUrl)
+    {
+        return "";
+    }
+    return `<a class="btn btn-primary btn-sm" href="${escapeAttribute(app.appStoreUrl)}"
+      rel="noopener noreferrer">Download on the App Store</a>`;
 }
 
 /** Loads the configured website analytics property and its local privacy settings. */
@@ -327,23 +359,6 @@ function formatDate(dateText)
         year: "numeric",
         timeZone: "UTC",
     }).format(date);
-}
-
-/** Escapes markup delimiters before authored configuration enters HTML. */
-function escapeHtml(value)
-{
-    return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#39;");
-}
-
-/** Escapes quoted attribute values using the same HTML entity policy. */
-function escapeAttribute(value)
-{
-    return escapeHtml(value);
 }
 
 /** Produces stable local support anchors from application names. */

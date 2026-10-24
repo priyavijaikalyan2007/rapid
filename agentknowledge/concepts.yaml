@@ -91,7 +91,7 @@
   },
   {
     "name": "WebsiteBuild",
-    "definition": "Builds templates and app icons into ignored dist output and checks local links.",
+    "definition": "Builds escaped templates and app icons into ignored dist output and validates local links, availability, and published App Store actions.",
     "anchor_file": "src/web/scripts/build-site.mjs",
     "related": [
       "OutcropWebsite"

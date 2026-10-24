@@ -8,6 +8,15 @@
 // RELATES: build-site.mjs
 // FLOW: Configuration object -> validation -> template build.
 
+/** Bounds all configured text before it enters generated markup or a request address. */
+const MAXIMUM_TEXT_LENGTH = 2_000;
+
+/** Bounds generated application cards and per-page metadata. */
+const MAXIMUM_APPLICATIONS = 100;
+
+/** The trusted host for published Apple application download actions. */
+const APP_STORE_HOST = "apps.apple.com";
+
 /** Required text fields in the authored website configuration. */
 const REQUIRED_FIELDS = [
     "organizationName",
@@ -55,7 +64,7 @@ function requireStrings(value, fields, label)
     }
     for (const field of fields)
     {
-        if (typeof value[field] !== "string" || value[field].trim() === "" || value[field].length > 2000)
+        if (typeof value[field] !== "string" || value[field].trim() === "" || value[field].length > MAXIMUM_TEXT_LENGTH)
         {
             throw new Error(`The ${label} requires a nonempty ${field} of at most 2,000 characters.`);
         }
@@ -65,6 +74,10 @@ function requireStrings(value, fields, label)
 /** Allow secure web links without embedded credentials or executable schemes. */
 export function validateHttpsAddress(value, label)
 {
+    if (typeof value !== "string" || value.length > MAXIMUM_TEXT_LENGTH)
+    {
+        throw new Error(`The ${label} must be an HTTPS address of at most 2,000 characters.`);
+    }
     let address;
     try
     {
@@ -78,6 +91,7 @@ export function validateHttpsAddress(value, label)
     {
         throw new Error(`The ${label} must use HTTPS without embedded credentials.`);
     }
+    return address;
 }
 
 /** Require a real calendar date rather than JavaScript's automatic date normalization. */
@@ -97,9 +111,9 @@ function validateLegalDate(value)
 /** Bound the catalog and reject duplicate page or icon destinations. */
 function validateApplications(apps)
 {
-    if (!Array.isArray(apps) || apps.length === 0 || apps.length > 100)
+    if (!Array.isArray(apps) || apps.length === 0 || apps.length > MAXIMUM_APPLICATIONS)
     {
-        throw new Error("Configure between 1 and 100 application entries.");
+        throw new Error(`Configure between 1 and ${MAXIMUM_APPLICATIONS} application entries.`);
     }
     const pages = new Set();
     const icons = new Set();
@@ -125,6 +139,10 @@ function validateApplication(app)
     {
         throw new Error("Each application pagePath must end with a slash.");
     }
+    if (app.appStoreUrl !== undefined)
+    {
+        validateAppStoreAddress(app.appStoreUrl);
+    }
     if (app.sourceUrl)
     {
         validateHttpsAddress(app.sourceUrl, "application sourceUrl");
@@ -144,5 +162,16 @@ function validateOutputPath(value, label)
     )
     {
         throw new Error(`The ${label} must be a relative output path without traversal segments.`);
+    }
+}
+
+/** Accept only a canonical Apple application listing for the published download action. */
+function validateAppStoreAddress(value)
+{
+    const address = validateHttpsAddress(value, "application appStoreUrl");
+    if (address.hostname !== APP_STORE_HOST || address.port ||
+        !address.pathname.includes("/app/") || !/\/id\d+\/?$/.test(address.pathname))
+    {
+        throw new Error(`The application appStoreUrl must identify an app on https://${APP_STORE_HOST}.`);
     }
 }

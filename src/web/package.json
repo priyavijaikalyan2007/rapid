@@ -7,7 +7,7 @@
     "build": "./build.sh",
     "check": "node scripts/check-site.mjs dist",
     "dev": "./preview.sh",
-    "deploy": "./deploy.sh",
+    "deploy": "./deploy.sh deploy",
     "deploy:dry-run": "./deploy.sh --dry-run",
     "lint": "eslint ."
   },

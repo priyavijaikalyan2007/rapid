@@ -19,9 +19,11 @@ Created: 2026
 - Propagated edit cancellation and aligned exported decoration colors with native sRGB previews.
 - Added recovery actions to expected errors and validated exact archive provenance before upload.
 - Rejected unsafe website addresses and output paths and updated vulnerable development-tool dependencies.
+- Required an explicit deployment mode in the component website helper, matching the root command.
 
 ### Changed
 
+- Marked CropPrint as available and added its App Store download action to the home and product pages.
 - Split native types into named files and applied source layout, useful comments, navigation markers, and license notices.
 - Preserved binary media and strict data formats under scoped REUSE annotations.
 - Reviewed source documentation and updated knowledge anchors and component status records.
