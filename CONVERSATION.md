@@ -213,3 +213,19 @@ The full Phase 0 gate remains open for physical iPhone/iPad launch and signed sa
 The owner listed test devices, but their OS versions and Apple Intelligence settings remain unknown.
 The next feature slice is privacy onboarding and the Coaching Profile, followed by Prepare.
 No upload, deployment, App Store submission, or Git push occurred.
+
+## 24 October 2026: Push checkpoints and explain foundation testing
+
+### User request
+
+> commit and push as you go so that work is not lost. then, what should I build and test at this time?
+
+### Response summary
+
+The owner authorized commits and pushes as verified work proceeds in this repository.
+Recorded this instruction in ADDITIONAL.md to replace the shared workflow's default against pushing.
+Pushed the existing main-branch commits, including Composure foundation commit 1974880, to origin/main.
+Expanded the Composure README with the current build command, physical-device launch checks, and expected placeholder behavior.
+This stage requires shell checks on one Mac, one iPhone, and one iPad with OS version 26 or later.
+Apple Intelligence, audio, preparation, and profile persistence are not part of this foundation test.
+No new application behavior was changed.

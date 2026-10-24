@@ -74,3 +74,29 @@ Unsigned builds do not verify signed sandbox behavior or installation on physica
 Expect feature-status screens and no microphone or speech permission prompts.
 Record the device model, OS version, and launch result in the status record.
 No build command uploads or publishes the application.
+
+## What to test now
+
+This stage tests installation, launch, navigation, and native layout. Apple Intelligence is not required for this shell.
+Start with one Mac, the iPhone 17 Pro, and the M1 iPad Pro if each runs OS version 26 or later.
+Other supported devices can follow. Record older OS versions without changing deployment targets or updating devices automatically.
+
+1. Run ./src/composure/build.sh all from the repository root.
+   Expect 15 shared-core tests to pass and all three unsigned platform builds to succeed.
+2. Run the Composure Mac scheme on one Mac through Xcode.
+   Expect Home, Prepare, Live Coach, and Settings in the sidebar.
+3. Run the Composure Mobile scheme on a physical iPhone through Xcode.
+   Expect Prepare, Live Coach, and Settings tabs.
+4. Run the Composure Mobile scheme on a physical iPad through Xcode.
+   Expect the same destinations in a layout that fits the available window.
+5. Open each destination on every test device.
+   Expect feature-status screens. Live Coach must say that Composure is not listening.
+6. Rotate each mobile device.
+   Expect readable text and accessible navigation in portrait and landscape.
+7. Resize the Mac and iPad windows where supported.
+   Expect the native layout to remain usable.
+8. Relaunch each application.
+   Expect no crash and no microphone or speech permission prompt.
+
+Report the device model, OS version, launch result, layout issues, and any permission prompt or crash.
+Preparation, profile persistence, audio capture, speech recognition, and coaching quality are later test stages.

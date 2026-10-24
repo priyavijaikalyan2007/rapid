@@ -26,6 +26,10 @@ The website's existing external theme and website-only analytics remain separate
 
 ## Operations
 
+Commit and push verified changes in small logical steps as work proceeds.
+The owner authorized ongoing pushes for this repository on 24 October 2026.
+This instruction replaces the shared workflow's default to commit without pushing.
+
 Use ./test.sh for repository checks, CropPrint tests, Composure core tests, and website validation.
 Use ./src/composure/build.sh all after shared Composure changes to compile both application targets.
 Use ./test.sh repository when the task only changes repository tooling or knowledge files.
