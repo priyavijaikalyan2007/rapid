@@ -101,7 +101,13 @@
     "name": "Composure",
     "definition": "Private conversation coach with executable Mac and iPhone/iPad foundations. Preparation and live coaching remain planned.",
     "anchor_file": "src/composure/README.md",
-    "related": ["ComposureSessionLifecycle", "ComposureDiagnostics"]
+    "related": ["ComposureSessionLifecycle", "ComposureDiagnostics", "ComposurePreferences"]
+  },
+  {
+    "name": "ComposurePreferences",
+    "definition": "Typed coaching choices and onboarding state in a bounded, versioned app-only preference record. Drafts survive navigation, and failed reads block normal writes.",
+    "anchor_file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/PreferencesCoordinator.swift",
+    "related": ["Composure", "ComposureDiagnostics"]
   },
   {
     "name": "ComposureSessionLifecycle",

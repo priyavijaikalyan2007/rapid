@@ -33,6 +33,7 @@ Created: 2026
 
 ### Added
 
+- Added bounded Composure profile models, versioned app-only preferences, and save/recovery tests.
 - Added the Composure Mac and iPhone/iPad foundation, shared lifecycle and safe-logging tests, and component build commands.
 - Recorded the Composure review and confirmed privacy, platform, timing, and remote-capture requirements.
 - Added source-audit inventory and evidence, 79 native regression tests in total, and 23 website tests in total.

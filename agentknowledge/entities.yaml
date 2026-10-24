@@ -1,5 +1,19 @@
 [
   {
+    "name": "CoachingProfile",
+    "table": null,
+    "file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/CoachingProfile.swift",
+    "description": "Eight bounded user-selected behavior weights, executive restraint, and cue preferences. No scores or inferred participant traits.",
+    "related": ["ComposurePreferences"]
+  },
+  {
+    "name": "AppPreferences",
+    "table": null,
+    "file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/AppPreferences.swift",
+    "description": "The only typed persistence payload: coaching profile, default session style, supported language, and onboarding completion.",
+    "related": ["ComposurePreferences"]
+  },
+  {
     "name": "CoachSessionState",
     "table": null,
     "file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/CoachSessionState.swift",

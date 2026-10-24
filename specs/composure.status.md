@@ -17,7 +17,8 @@ The Mac and universal iPhone/iPad targets use a local Swift package with strict 
 Composure supports Apple silicon Macs only. Its Debug and Release Mac applications use arm64.
 The profile now enables Composure as a native component, alongside the existing documentation scope.
 The application shows native navigation and explicit feature placeholders.
-Onboarding, the Coaching Profile, Prepare, audio capture, speech recognition, and semantic coaching remain unimplemented.
+The shared core now includes typed Coaching Profile preferences and a bounded UserDefaults adapter.
+Native onboarding and profile screens are in progress. Prepare, capture, speech, and semantic coaching remain unimplemented.
 
 The [normative specification](../src/composure/implementation-specification.md) is the implementation contract.
 The [product specification](../src/composure/product-specification.md) explains the product and design.
@@ -114,3 +115,19 @@ Verification passed:
 
 Interactive Xcode launch and signed mobile checks remain separate gates.
 Reopen an existing Xcode project if it retains the previous architecture settings, then run Composure Mac on My Mac.
+
+## Profile core checkpoint
+
+The owner confirmed that the corrected Mac shell works and looks good.
+The [profile plan](composure-profile.plan.md) defines the next native feature slice.
+The core now provides bounded behavioral preferences, typed persistence, and a main-actor draft/save coordinator.
+Only a versioned AppPreferences record can enter the adapter. The record has no conversation text fields.
+Stored input is bounded to 16 KiB. Corrupt and unsupported records remain unchanged until explicit reset.
+The privacy manifest declares app-only UserDefaults access through CA92.1.
+
+Tests failed before the new contracts existed, then passed after implementation.
+The package passed 42 tests across five suites. Production line coverage measured 223 of 248 lines, or 89.92 percent.
+The profile has full line coverage. Storage and coordination each exceed 96 percent line coverage.
+All component builds passed for active and generic arm64 Mac destinations, the mobile simulator, and physical mobile compilation.
+The native apps still show the shell at this checkpoint. Their next change connects onboarding and settings to this core.
+Physical iPhone/iPad launch checks remain open.

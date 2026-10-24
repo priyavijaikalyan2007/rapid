@@ -14,4 +14,8 @@ public enum DiagnosticEvent: String, Sendable
     case applicationLaunched = "application.launched"
     case sessionStarted = "session.started"
     case sessionStopped = "session.stopped"
+    case preferencesLoaded = "preferences.loaded"
+    case preferencesSaved = "preferences.saved"
+    case preferencesReset = "preferences.reset"
+    case preferencesUnavailable = "preferences.unavailable"
 }

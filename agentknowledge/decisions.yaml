@@ -141,6 +141,19 @@
     ]
   },
   {
+    "id": "ADR-014",
+    "title": "Persist only typed Composure preferences in an app-owned record",
+    "date": "2026-10-24",
+    "status": "Accepted",
+    "context": "The approved specification permits Coaching Profile and UI preferences in UserDefaults. Use one versioned record capped at 16 KiB, fixed enum choices, no conversation fields, and a main-actor adapter. Preserve unreadable and unsupported records until explicit reset. Keep drafts separate from accepted preferences so failed saves do not discard choices or falsely complete onboarding. UserDefaults disk writes remain asynchronous and OS backups can include preferences.",
+    "files": [
+      "src/composure/Packages/ComposureCore/Sources/ComposureCore/AppPreferences.swift",
+      "src/composure/Packages/ComposureCore/Sources/ComposureCore/UserDefaultsPreferencesStore.swift",
+      "src/composure/Packages/ComposureCore/Sources/ComposureCore/PreferencesCoordinator.swift",
+      "src/composure/Apps/Shared/PrivacyInfo.xcprivacy"
+    ]
+  },
+  {
     "id": "ADR-010",
     "title": "Make source conventions repeatable before product builds",
     "date": "2026-10-24",

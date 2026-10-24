@@ -267,3 +267,22 @@ Fresh active Debug and generic Release builds passed without architecture overri
 The Debug and Release Mac executables both contain only arm64 code.
 The full component build, full repository tests, and source-style checks passed.
 The repository suite now includes 35 Bats checks. The core suite still contains 15 tests.
+
+## 24 October 2026: Confirm the shell and implement profile onboarding
+
+### User confirmation
+
+> yep, the shell works. looks good.
+
+### Core checkpoint
+
+Recorded the successful interactive Mac shell check and continued the agreed implementation plan.
+Physical iPhone and iPad launch checks remain open.
+Defined the next slice in specs/composure-profile.plan.md before writing implementation.
+Added failing tests for focus choices, typed preference storage, onboarding completion, reset scope, and save failures.
+Implemented the bounded profile, versioned app-only UserDefaults adapter, and shared main-actor preference coordinator.
+Corrupt or future records cannot be silently overwritten. Failed saves retain the draft and accepted state separately.
+Only fixed events enter diagnostics. The typed storage contract contains no meeting text fields.
+Added the CA92.1 app-only UserDefaults declaration to the privacy manifest.
+The core passed 42 tests with 89.92 percent production line coverage, and all native component builds passed.
+Native onboarding and settings integration follows this verified core checkpoint.
