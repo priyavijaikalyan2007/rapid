@@ -8,12 +8,14 @@
 // RELATES: MacRootView, ApplicationDiagnostics
 // FLOW: Application launch -> local launch event -> native window.
 
+import ComposureCore
 import SwiftUI
 
 /// Creates the macOS shell. Later capture must require a separate explicit Start action.
 @main
 struct ComposureMacApp: App
 {
+    @State private var preferences = AppPreferencesComposition.makeCoordinator()
     init()
     {
         ApplicationDiagnostics.makeLogger().record(.applicationLaunched)
@@ -23,13 +25,19 @@ struct ComposureMacApp: App
     {
         WindowGroup
         {
-            MacRootView()
-                .frame(minWidth: 640, minHeight: 420)
+            PreferencesRootView(coordinator: preferences)
+            {
+                MacRootView(coordinator: preferences)
+            }
+            .frame(minWidth: 640, minHeight: 520)
         }
         Settings
         {
-            FeaturePlaceholder(section: .settings)
-                .frame(width: 480, height: 320)
+            PreferencesRootView(coordinator: preferences)
+            {
+                CoachingSettingsView(coordinator: preferences)
+            }
+            .frame(width: 640, height: 650)
         }
     }
 }

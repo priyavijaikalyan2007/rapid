@@ -10,15 +10,16 @@ Created: 2026
 
 # Composure status
 
-Updated on 24 October 2026.
+Updated on 25 October 2026.
 
 Composure has an executable native foundation under src/composure.
 The Mac and universal iPhone/iPad targets use a local Swift package with strict Swift 6 concurrency.
 Composure supports Apple silicon Macs only. Its Debug and Release Mac applications use arm64.
 The profile now enables Composure as a native component, alongside the existing documentation scope.
-The application shows native navigation and explicit feature placeholders.
-The shared core now includes typed Coaching Profile preferences and a bounded UserDefaults adapter.
-Native onboarding and profile screens are in progress. Prepare, capture, speech, and semantic coaching remain unimplemented.
+The application provides four privacy onboarding steps, editable Coaching Profile settings, and native navigation.
+The shared core includes typed preferences and a bounded UserDefaults adapter.
+Settings provides explicit Save, Discard, and confirmed profile reset actions.
+Prepare, capture, speech, and semantic coaching remain unimplemented.
 
 The [normative specification](../src/composure/implementation-specification.md) is the implementation contract.
 The [product specification](../src/composure/product-specification.md) explains the product and design.
@@ -30,7 +31,7 @@ Preserve the specification's on-device processing, explicit listening controls, 
 
 The source audit reviewed all three planning documents on 24 October 2026.
 The changes add notices, clarify wording, reflow prose, and format illustrative Swift examples.
-The normative product requirements remain planned. No Composure app was implemented or tested.
+At that source-audit checkpoint, no Composure app was implemented or tested.
 
 ## Specification review and owner decisions
 
@@ -65,19 +66,21 @@ The inventory does not prove an application launch or feature compatibility on e
 The development toolchain is Xcode 27.1. Deployment targets remain version 26.
 The current foundation contains no capture, speech, model, database, or network implementation.
 The logging interface accepts only approved event identifiers and bounded numeric counts.
-The applications emit only the fixed launch event to native unified logging.
+The initial foundation emitted only the fixed launch event to native unified logging.
+Preference integration adds fixed lifecycle events without profile values or meeting content.
 
 ## Remaining gates and next slice
 
 Phase 0 is not complete. Physical iPhone and iPad launch checks, signed sandbox checks,
 and the later pipeline domain contracts remain open.
 Unsigned compilation does not verify those checks. UI automation also showed severe tool delays during this session.
-No archive, upload, App Store submission, website deployment, or Git push occurred.
+No archive, upload, App Store submission, or website deployment occurred.
+Verified development checkpoints now reach origin/main under the owner's ongoing authorization.
 
 Use the [device launch procedure](../src/composure/README.md#device-launch-check) to verify the mobile shells.
 Record device models, OS versions, and launch results before marking the Phase 0 device gate complete.
-The next feature slice implements privacy onboarding, the Coaching Profile, and non-sensitive preference persistence.
-Prepare follows, with deterministic fallback and explicit model readiness.
+Privacy onboarding, the Coaching Profile, and non-sensitive preference persistence now have native implementations.
+Prepare is the next feature slice, with deterministic fallback and explicit model readiness.
 
 ## GitHub checkpoint on 24 October 2026
 
@@ -131,3 +134,35 @@ The profile has full line coverage. Storage and coordination each exceed 96 perc
 All component builds passed for active and generic arm64 Mac destinations, the mobile simulator, and physical mobile compilation.
 The native apps still show the shell at this checkpoint. Their next change connects onboarding and settings to this core.
 Physical iPhone/iPad launch checks remain open.
+
+## Native profile integration on 25 October 2026
+
+Connected four onboarding steps and native Settings to the typed preference core.
+Back navigation retains the profile draft. Finish saves the profile and completion flag together.
+Settings exposes all eight focus weights, executive restraint, cue preferences, and the default conversation style.
+English remains the only coaching language. Audio and model readiness are explicitly unchecked.
+Save and Discard are explicit. Native reset alerts offer Cancel and preserve unrelated app preferences.
+Unsaved session-default changes remain pending when the profile is reset.
+The Mac main window and Settings window share one preference coordinator.
+
+Verification passed:
+
+- The native onboarding test failed against the shell before UI implementation.
+- A reset-scope regression failed before the coordinator correction, then passed.
+- The core passed 44 tests across five suites, with 231 of 257 production lines covered, or 89.88 percent.
+- Profile line coverage is 100 percent. Coordination and storage each exceed 95 percent.
+- The mobile UI journey passed on iPhone 17 Pro and iPad Pro 13-inch M5 simulators running OS version 26.5.
+- The journey checked Back, Finish, restoration, Save, Discard, reset cancellation, and reset persistence after relaunch.
+- The reset test exposed a missing explicit Cancel action. Native alerts now provide that action on both devices.
+- Exported test screenshots showed readable native Settings on both simulator sizes.
+- Active and generic arm64 Mac builds, mobile simulator builds, and physical mobile compilation passed.
+- The complete repository test command passed, including repository, CropPrint, Composure, and website validation.
+- Source-style checks, project and privacy property-list checks, and the configured profile check passed.
+
+The initial switch test tapped an accessibility wrapper rather than its nested native control.
+The corrected test verifies the selected value before Finish and after relaunch.
+Debug UI tests use a separate preference domain and cannot reset ordinary application preferences.
+
+Physical mobile installation, Mac profile interaction, VoiceOver, larger text, rotation, and signed sandbox checks remain open.
+The [current test guide](../src/composure/README.md#what-to-test-now) covers those checks.
+The native profile slice is implemented. The next feature slice is Prepare and on-device model readiness.

@@ -10,6 +10,17 @@ Created: 2026
 
 # Changelog
 
+## 25 October 2026
+
+### Added
+
+- Added Composure privacy onboarding and native profile settings with explicit Save, Discard, and confirmed reset actions.
+- Added native iPhone/iPad UI tests for onboarding navigation and preference restoration after relaunch.
+
+### Fixed
+
+- Prevented Composure profile reset from saving unrelated draft preferences.
+
 ## 24 October 2026
 
 ### Fixed

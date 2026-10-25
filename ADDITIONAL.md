@@ -18,7 +18,8 @@ Record observed designs separately from accepted decisions. Do not infer origina
 
 ## Product scope
 
-CropPrint is implemented. Composure contains a native foundation and tests, while coaching features remain planned.
+CropPrint is implemented. Composure provides privacy onboarding, saved profile settings, and a tested native foundation.
+Composure preparation and live coaching remain planned.
 Keep existing source paths. Do not create or move application structure during an instruction update.
 Use native platform themes, colors, components, and interaction guidance for native applications.
 Use on-device processing and AI. Optional licensed resource downloads do not authorize uploads of user content.

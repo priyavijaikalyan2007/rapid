@@ -26,7 +26,7 @@ public enum PreferencesError: String, Error, Sendable, LocalizedError
         case .unsupportedVersion:
             return "These preferences require a newer app version. Update Composure, or reset saved preferences."
         case .saveFailed:
-            return "Preferences could not be saved. Your choices remain here. Try Save again."
+            return "Preferences could not be saved. Your choices remain here. Try saving again."
         }
     }
 }

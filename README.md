@@ -8,7 +8,7 @@ Code and documentation contributions are limited to maintainers.
 
 Read [PROJECT.md](PROJECT.md) for project facts and prerequisites.
 Read [SETUP.md](SETUP.md) for setup completion and [specs/README.md](specs/README.md) for current component status.
-Composure has a native foundation under [src/composure](src/composure/README.md).
+Composure provides privacy onboarding and saved profile settings under [src/composure](src/composure/README.md).
 Its Mac, iPhone, and iPad shells build, while preparation and coaching features remain planned.
 
 ## Repository validation and navigation

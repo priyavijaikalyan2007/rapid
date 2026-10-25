@@ -29,6 +29,7 @@ Use a typed, versioned preference record under one app-owned UserDefaults key.
 Bound stored input to 16 KiB before decoding. Reject invalid values, corrupt data, and unsupported schema versions.
 Preserve unreadable records until the user explicitly resets saved preferences.
 Reset only the owned key. A profile reset preserves onboarding completion and unrelated app preferences.
+Resetting the profile must not save unrelated draft edits. Those edits remain pending until explicit Save.
 No persistence API accepts conversation text or arbitrary Codable values.
 
 Keep a draft in the app coordinator so navigation does not discard unsaved choices.
@@ -89,16 +90,19 @@ Create these files under Apps/Shared:
 - OnboardingStep.swift
 - OnboardingView.swift
 - ProfileFields.swift
+- FocusImportance+Label.swift
 - CoachingSettingsView.swift
 - PreferencesRecoveryView.swift
 - PreferenceSaveStatusView.swift
 
 Update both app entry points, both native root views, AppSection.swift, PrivacyInfo.xcprivacy, and project.pbxproj.
-Add a native UI test target and test file for the onboarding and relaunch journey if the local test environment supports it.
+Add Tests/UI/OnboardingUITests.swift and a native mobile UI test target for the onboarding and relaunch journey.
+Update the shared Composure Mobile scheme to run that test target.
 Keep source membership explicit in both app targets.
 
 Update the component README, PROJECT.md, ADDITIONAL.md, CHANGELOG.md, CONVERSATION.md,
 specs/composure.status.md, and the agentknowledge concepts, entities, decisions, and append-only history.
+Update the root README and include native UI tests in PROJECT_PROFILE.md through the configurator.
 
 ## Verification and checkpoints
 

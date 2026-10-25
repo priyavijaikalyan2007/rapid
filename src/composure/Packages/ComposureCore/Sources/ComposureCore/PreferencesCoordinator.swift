@@ -67,10 +67,16 @@ public final class PreferencesCoordinator
         {
             return false
         }
+        return commit(draft)
+    }
+
+    /// Publishes only the selected record. Other unsaved draft fields remain untouched.
+    private func commit(_ preferences: AppPreferences) -> Bool
+    {
         do
         {
-            try store.save(draft)
-            state = .ready(draft)
+            try store.save(preferences)
+            state = .ready(preferences)
             saveError = nil
             logger.record(.preferencesSaved)
             return true
@@ -94,8 +100,14 @@ public final class PreferencesCoordinator
     /// Preserves onboarding completion, language, and default session style.
     public func resetProfile()
     {
-        draft.profile = CoachingProfile()
-        saveDraft()
+        guard case .ready(var accepted) = state
+        else
+        {
+            return
+        }
+        accepted.profile = CoachingProfile()
+        draft.profile = accepted.profile
+        _ = commit(accepted)
     }
 
     /// Discards only unsaved edits after an explicit user action.

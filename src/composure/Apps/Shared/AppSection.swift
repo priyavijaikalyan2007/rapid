@@ -45,7 +45,7 @@ enum AppSection: String, CaseIterable, Identifiable
         case .live:
             return "Live coaching is not available in this build. Composure is not listening."
         case .settings:
-            return "Coaching preferences and on-device readiness checks are not available in this build."
+            return "Manage your coaching choices and app preferences."
         }
     }
 }

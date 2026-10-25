@@ -154,6 +154,19 @@
     ]
   },
   {
+    "id": "ADR-015",
+    "title": "Share preference drafts across native Composure views",
+    "date": "2026-10-25",
+    "status": "Accepted",
+    "context": "Use one main-actor preference coordinator per application so navigation and Mac windows share retained drafts and explicit saves. Keep native rendering in SwiftUI and typed persistence in the core. Debug UI tests select an isolated preference domain and may reset only that domain. Reset alerts provide an explicit Cancel action on both mobile families.",
+    "files": [
+      "src/composure/Apps/Shared/AppPreferencesComposition.swift",
+      "src/composure/Apps/Shared/PreferencesRootView.swift",
+      "src/composure/Apps/Shared/CoachingSettingsView.swift",
+      "src/composure/Tests/UI/OnboardingUITests.swift"
+    ]
+  },
+  {
     "id": "ADR-010",
     "title": "Make source conventions repeatable before product builds",
     "date": "2026-10-24",

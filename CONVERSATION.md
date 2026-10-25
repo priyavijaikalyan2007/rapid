@@ -286,3 +286,32 @@ Only fixed events enter diagnostics. The typed storage contract contains no meet
 Added the CA92.1 app-only UserDefaults declaration to the privacy manifest.
 The core passed 42 tests with 89.92 percent production line coverage, and all native component builds passed.
 Native onboarding and settings integration follows this verified core checkpoint.
+
+## 25 October 2026: Integrate Composure privacy onboarding and profile settings
+
+### Response summary
+
+Continued implementation after the owner's Mac shell confirmation.
+Connected four privacy and profile steps to the typed preference coordinator.
+Added native Settings with eight focus weights, executive restraint, cue choices, session style, and English-only language status.
+Save, Discard, load recovery, and confirmed reset are explicit. App windows share one coordinator.
+Only typed preferences persist. The application still cannot capture audio or invoke a model.
+
+The native onboarding test failed against the shell before UI implementation.
+A coordinator regression test exposed that profile reset saved unrelated draft settings.
+The correction resets only the accepted profile and retains unrelated edits as unsaved choices.
+The core now passes 44 tests with 89.88 percent production line coverage.
+
+The UI test initially tapped the switch's accessibility wrapper instead of its nested native control.
+The corrected test verifies the switch before Finish and after relaunch.
+The expanded journey exposed a missing Cancel button in the reset prompt.
+Native alerts now offer explicit Cancel and reset actions.
+The complete journey passed on iPhone 17 Pro and iPad Pro 13-inch M5 simulators running OS version 26.5.
+It covers onboarding navigation, restoration, Save, Discard, reset cancellation, and reset persistence after relaunch.
+Exported screenshots confirmed readable native Settings on both simulator sizes.
+Debug UI tests use an isolated preference domain, separate from ordinary app preferences.
+
+All Composure platform builds, the complete repository suite, source-style checks, and property-list checks passed.
+Added the native UI-test source path through configurator preview and apply commands. The profile check passed.
+Updated the current test guide and knowledge records. Physical device and accessibility checks remain open.
+Prepare and model readiness are next. Live coaching remains unimplemented.

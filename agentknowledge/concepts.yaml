@@ -99,15 +99,21 @@
   },
   {
     "name": "Composure",
-    "definition": "Private conversation coach with executable Mac and iPhone/iPad foundations. Preparation and live coaching remain planned.",
+    "definition": "Private conversation coach with native privacy onboarding and saved profile settings on Mac, iPhone, and iPad. Preparation and live coaching remain planned.",
     "anchor_file": "src/composure/README.md",
-    "related": ["ComposureSessionLifecycle", "ComposureDiagnostics", "ComposurePreferences"]
+    "related": ["ComposureSessionLifecycle", "ComposureDiagnostics", "ComposurePreferences", "ComposureOnboarding"]
+  },
+  {
+    "name": "ComposureOnboarding",
+    "definition": "Four privacy and profile steps before ordinary navigation. Finish saves completion and choices together. Recovery preserves unreadable records until explicit reset.",
+    "anchor_file": "src/composure/Apps/Shared/PreferencesRootView.swift",
+    "related": ["Composure", "ComposurePreferences"]
   },
   {
     "name": "ComposurePreferences",
     "definition": "Typed coaching choices and onboarding state in a bounded, versioned app-only preference record. Drafts survive navigation, and failed reads block normal writes.",
     "anchor_file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/PreferencesCoordinator.swift",
-    "related": ["Composure", "ComposureDiagnostics"]
+    "related": ["Composure", "ComposureDiagnostics", "ComposureOnboarding"]
   },
   {
     "name": "ComposureSessionLifecycle",

@@ -8,11 +8,13 @@
 // RELATES: AppSection, FeaturePlaceholder
 // FLOW: Sidebar selection -> detail view.
 
+import ComposureCore
 import SwiftUI
 
 /// Uses the system sidebar, keyboard navigation, and semantic appearance.
 struct MacRootView: View
 {
+    let coordinator: PreferencesCoordinator
     @State private var selection: AppSection? = .home
 
     var body: some View
@@ -28,7 +30,14 @@ struct MacRootView: View
         }
         detail:
         {
-            FeaturePlaceholder(section: selection ?? .home)
+            if selection == .settings
+            {
+                CoachingSettingsView(coordinator: coordinator)
+            }
+            else
+            {
+                FeaturePlaceholder(section: selection ?? .home)
+            }
         }
     }
 }

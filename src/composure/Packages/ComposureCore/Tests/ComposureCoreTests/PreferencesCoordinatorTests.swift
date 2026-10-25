@@ -143,6 +143,27 @@ struct PreferencesCoordinatorTests
         #expect(coordinator.draft == AppPreferences())
     }
 
+    @Test func profileResetDoesNotCommitUnrelatedDraft()
+    {
+        let store = TestStore()
+        let coordinator = makeCoordinator(store)
+        coordinator.draft.defaultSessionStyle = .highStakes
+
+        coordinator.resetProfile()
+
+        #expect(store.record?.defaultSessionStyle == .normal)
+    }
+
+    @Test func profileResetRetainsUnrelatedDraft()
+    {
+        let coordinator = makeCoordinator(TestStore())
+        coordinator.draft.defaultSessionStyle = .highStakes
+
+        coordinator.resetProfile()
+
+        #expect(coordinator.draft.defaultSessionStyle == .highStakes)
+    }
+
     /// Uses the production coordinator with a content-free diagnostic sink.
     private func makeCoordinator(_ store: TestStore) -> PreferencesCoordinator
     {

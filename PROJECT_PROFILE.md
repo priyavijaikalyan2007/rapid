@@ -153,7 +153,7 @@ Keep Source state: planned explicit for absent paths. Do not enable future compo
 ### composure-native
 
 - [x] Enabled
-- Source paths: src/composure/Apps, src/composure/Packages, src/composure/Composure.xcodeproj
+- Source paths: src/composure/Apps, src/composure/Packages, src/composure/Tests, src/composure/Composure.xcodeproj
 - Source state: existing
 - Targets: apps
 - Languages: Swift

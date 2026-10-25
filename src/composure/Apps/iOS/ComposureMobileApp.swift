@@ -8,12 +8,14 @@
 // RELATES: MobileRootView, ApplicationDiagnostics
 // FLOW: Application launch -> local launch event -> native mobile navigation.
 
+import ComposureCore
 import SwiftUI
 
 /// Supports iPhone and iPad through the same mobile application target.
 @main
 struct ComposureMobileApp: App
 {
+    @State private var preferences = AppPreferencesComposition.makeCoordinator()
     init()
     {
         ApplicationDiagnostics.makeLogger().record(.applicationLaunched)
@@ -23,7 +25,10 @@ struct ComposureMobileApp: App
     {
         WindowGroup
         {
-            MobileRootView()
+            PreferencesRootView(coordinator: preferences)
+            {
+                MobileRootView(coordinator: preferences)
+            }
         }
     }
 }

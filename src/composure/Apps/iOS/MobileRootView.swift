@@ -8,11 +8,13 @@
 // RELATES: FeaturePlaceholder, AppSection
 // FLOW: Tab selection -> navigation stack -> feature status.
 
+import ComposureCore
 import SwiftUI
 
 /// Keeps system tab behavior and Dynamic Type without custom navigation controls.
 struct MobileRootView: View
 {
+    let coordinator: PreferencesCoordinator
     var body: some View
     {
         TabView
@@ -28,7 +30,14 @@ struct MobileRootView: View
     {
         NavigationStack
         {
-            FeaturePlaceholder(section: section)
+            if section == .settings
+            {
+                CoachingSettingsView(coordinator: coordinator)
+            }
+            else
+            {
+                FeaturePlaceholder(section: section)
+            }
         }
         .tabItem
         {
