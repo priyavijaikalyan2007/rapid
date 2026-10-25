@@ -1,5 +1,23 @@
 [
   {
+    "name": "MeetingPreparationInput",
+    "table": null,
+    "file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/MeetingPreparationInput.swift",
+    "description": "Validated transient topic, optional outcome and concern, and high-stakes choice. No persistence conformance.",
+    "related": [
+      "ComposurePreparation"
+    ]
+  },
+  {
+    "name": "MeetingPreparation",
+    "table": null,
+    "file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/MeetingPreparation.swift",
+    "description": "Five independently validated plain-text preparation sections. Memory-only and bounded by list and byte limits.",
+    "related": [
+      "ComposurePreparation"
+    ]
+  },
+  {
     "name": "CoachingProfile",
     "table": null,
     "file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/CoachingProfile.swift",

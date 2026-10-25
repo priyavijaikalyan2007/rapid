@@ -14,6 +14,7 @@ Created: 2026
 
 ### Added
 
+- Added bounded, memory-only Composure preparation contracts, profile guidance, and a separate on-device model adapter.
 - Added Composure privacy onboarding and native profile settings with explicit Save, Discard, and confirmed reset actions.
 - Added native iPhone/iPad UI tests for onboarding navigation and preference restoration after relaunch.
 

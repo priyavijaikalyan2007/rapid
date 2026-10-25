@@ -18,4 +18,7 @@ public enum DiagnosticEvent: String, Sendable
     case preferencesSaved = "preferences.saved"
     case preferencesReset = "preferences.reset"
     case preferencesUnavailable = "preferences.unavailable"
+    case preparationStarted = "preparation.started"
+    case preparationCompleted = "preparation.completed"
+    case preparationCanceled = "preparation.canceled"
 }

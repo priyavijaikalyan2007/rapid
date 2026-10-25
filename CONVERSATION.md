@@ -331,3 +331,21 @@ It uses the saved Coaching Profile to produce brief preparation guidance.
 Use Apple Foundation Models when available and deterministic profile-based guidance when unavailable.
 Keep preparation input and output in memory. Do not request audio permissions.
 Verify readiness states, bounded output, profile relevance, unavailable-model behavior, and clearing across relaunch.
+
+## 25 October 2026: Implement Prepare mode
+
+### User request
+
+> ok go ahead.
+
+### Core checkpoint
+
+Defined the Prepare plan, public contracts, file scope, security boundaries, and limits before implementation.
+New contract tests failed because the preparation types were absent, after an initial sandbox failure.
+Implemented validated transient inputs and output, deterministic profile guidance, readiness states, and a single-work service.
+The service enforces a cooperative deadline, labeled fallback, and cancellation. The coordinator suppresses obsolete results.
+Added a separate local Apple model target with fresh sessions, fixed instructions, encoded user context, and context budgeting.
+Native adapter tests failed before implementation, then passed. Direct, quoted, encoded, and multilingual injection fixtures retain user-role provenance.
+The core passed 69 tests across nine suites. The adapter passed eight tests, including five injection cases.
+Twenty synthetic profile-guidance scenarios passed. All existing application builds and the full repository suite passed.
+Native Prepare screens and actual model-quality evaluation remain for the integration checkpoint.

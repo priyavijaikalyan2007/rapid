@@ -168,3 +168,18 @@ The confirmation did not identify a device or OS version.
 Physical mobile installation details, VoiceOver, larger text, rotation, and signed sandbox checks remain open.
 The [current test guide](../src/composure/README.md#what-to-test-now) covers those checks.
 The native profile slice is implemented. The next feature slice is Prepare and on-device model readiness.
+
+## Prepare core checkpoint on 25 October 2026
+
+The owner authorized Prepare implementation. The [Prepare plan](composure-prepare.plan.md) defines its contracts and limits.
+The shared core now validates transient topic, outcome, and concern fields and all five output sections.
+It provides profile-based fallback, model readiness states, bounded concurrency, a cooperative deadline, and cancellation.
+The coordinator invalidates old guidance after edits or clearing. No preparation type enters the preferences adapter.
+A separate ComposureModels target integrates only the on-device Apple model through fresh sessions.
+It separates fixed instructions from JSON-encoded user context, budgets the full request, and independently validates output.
+Native app screens remain unchanged at this checkpoint.
+
+New core and adapter contract tests failed before implementation, then passed.
+The core passed 69 tests across nine suites. The adapter passed eight tests, including five adversarial prompt cases.
+Twenty synthetic fallback scenarios passed. Existing native platform builds and the full repository suite passed.
+Model-quality evaluation and native Prepare journeys remain open for the integration checkpoint.

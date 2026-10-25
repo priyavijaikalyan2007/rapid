@@ -196,5 +196,24 @@
       "WebsiteBuild",
       "RepositoryConfiguration"
     ]
+  },
+  {
+    "name": "ComposurePreparation",
+    "definition": "Memory-only bounded preparation, deterministic profile guidance, cancellation, and labeled fallback selection. Native Prepare screens are not connected at the core checkpoint.",
+    "anchor_file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/PreparationService.swift",
+    "related": [
+      "Composure",
+      "ComposurePreferences",
+      "ComposureOnDeviceModel"
+    ]
+  },
+  {
+    "name": "ComposureOnDeviceModel",
+    "definition": "Fresh on-device Apple Foundation Models sessions with fixed instructions, JSON-encoded untrusted context, complete token budgeting, and independent output validation.",
+    "anchor_file": "src/composure/Packages/ComposureCore/Sources/ComposureModels/AppleFoundationCoachingModel.swift",
+    "related": [
+      "ComposurePreparation",
+      "ComposureDiagnostics"
+    ]
   }
 ]

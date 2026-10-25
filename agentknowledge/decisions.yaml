@@ -180,5 +180,17 @@
       "src/web/package.json",
       ".github/workflows/build.yml"
     ]
+  },
+  {
+    "id": "ADR-016",
+    "title": "Bound transient preparation behind a local model adapter",
+    "date": "2026-10-25",
+    "status": "Accepted",
+    "context": "The owner authorized Prepare mode. Keep domain rules in ComposureCore and Apple APIs in a separate local ComposureModels target. Validate typed inputs and output independently. Use one work slot, a fresh session, separate instructions and JSON user content, 768 output tokens, complete context budgeting, and a 20-second cooperative cancellation deadline. Older SDK/runtime combinations use conservative byte budgeting. Failures select clearly labeled deterministic profile guidance without cloud fallback. Cancellation never publishes a result. No meeting text enters preferences or diagnostics.",
+    "files": [
+      "specs/composure-prepare.plan.md",
+      "src/composure/Packages/ComposureCore/Sources/ComposureCore/PreparationService.swift",
+      "src/composure/Packages/ComposureCore/Sources/ComposureModels/AppleFoundationCoachingModel.swift"
+    ]
   }
 ]
