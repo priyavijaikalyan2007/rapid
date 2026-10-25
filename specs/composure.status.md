@@ -163,6 +163,8 @@ The initial switch test tapped an accessibility wrapper rather than its nested n
 The corrected test verifies the selected value before Finish and after relaunch.
 Debug UI tests use a separate preference domain and cannot reset ordinary application preferences.
 
-Physical mobile installation, Mac profile interaction, VoiceOver, larger text, rotation, and signed sandbox checks remain open.
+The owner reported on 25 October 2026 that setup and profile work.
+The confirmation did not identify a device or OS version.
+Physical mobile installation details, VoiceOver, larger text, rotation, and signed sandbox checks remain open.
 The [current test guide](../src/composure/README.md#what-to-test-now) covers those checks.
 The native profile slice is implemented. The next feature slice is Prepare and on-device model readiness.

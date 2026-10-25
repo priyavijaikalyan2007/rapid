@@ -315,3 +315,19 @@ All Composure platform builds, the complete repository suite, source-style check
 Added the native UI-test source path through configurator preview and apply commands. The profile check passed.
 Updated the current test guide and knowledge records. Physical device and accessibility checks remain open.
 Prepare and model readiness are next. Live coaching remains unimplemented.
+
+## 25 October 2026: Confirm profile behavior and identify the next feature
+
+### User request
+
+> Yep, setup and profile seems to work. What's next?
+
+### Response summary
+
+Recorded the owner's successful setup and profile check. The confirmation did not identify a device or OS version.
+The next planned feature is Phase 2: Prepare mode and on-device model readiness.
+Prepare accepts a conversation topic, optional outcome and difficulty, and a high-stakes choice.
+It uses the saved Coaching Profile to produce brief preparation guidance.
+Use Apple Foundation Models when available and deterministic profile-based guidance when unavailable.
+Keep preparation input and output in memory. Do not request audio permissions.
+Verify readiness states, bounded output, profile relevance, unavailable-model behavior, and clearing across relaunch.
