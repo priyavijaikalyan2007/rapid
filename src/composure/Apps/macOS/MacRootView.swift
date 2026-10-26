@@ -15,7 +15,16 @@ import SwiftUI
 struct MacRootView: View
 {
     let coordinator: PreferencesCoordinator
+    let preparationService: PreparationService
+    @State private var preparation: PreparationCoordinator
     @State private var selection: AppSection? = .home
+
+    init(coordinator: PreferencesCoordinator, preparationService: PreparationService)
+    {
+        self.coordinator = coordinator
+        self.preparationService = preparationService
+        _preparation = State(initialValue: PreparationComposition.makeCoordinator(service: preparationService))
+    }
 
     var body: some View
     {
@@ -32,7 +41,11 @@ struct MacRootView: View
         {
             if selection == .settings
             {
-                CoachingSettingsView(coordinator: coordinator)
+                CoachingSettingsView(coordinator: coordinator, preparationService: preparationService)
+            }
+            else if selection == .prepare
+            {
+                PrepareView(coordinator: preparation, preferences: coordinator, service: preparationService)
             }
             else
             {

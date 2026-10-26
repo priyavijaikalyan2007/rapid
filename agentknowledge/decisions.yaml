@@ -192,5 +192,18 @@
       "src/composure/Packages/ComposureCore/Sources/ComposureCore/PreparationService.swift",
       "src/composure/Packages/ComposureCore/Sources/ComposureModels/AppleFoundationCoachingModel.swift"
     ]
+  },
+  {
+    "id": "ADR-017",
+    "title": "Constrain Prepare generation to reviewed coaching choices",
+    "date": "2026-10-25",
+    "status": "Accepted",
+    "context": "Actual synthetic model evaluations exposed raw profile names and attack text in free-form output. Keep Watch For tied to the user's selected profile priorities. Generate the other four sections as closed enum choices and map them to reviewed phrases. Validate the final domain object independently and render plain text. This prevents arbitrary generated strings, inferred traits, business plans, or tool instructions from becoming preparation content. Injection may still steer selection among reviewed choices, so guidance suitability remains a review gate. Five actual injection regressions and 20 synthetic context scenarios passed after the change.",
+    "files": [
+      "src/composure/Packages/ComposureCore/Sources/ComposureModels/GeneratedPreparation.swift",
+      "src/composure/Packages/ComposureCore/Sources/ComposureModels/PreparationObjective.swift",
+      "src/composure/Packages/ComposureCore/Sources/ComposureModels/PreparationPrompt.swift",
+      "src/composure/Packages/ComposureCore/Tests/ComposureModelsTests/PreparationEvaluationTests.swift"
+    ]
   }
 ]

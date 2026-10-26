@@ -10,16 +10,16 @@ Created: 2026
 
 # Composure status
 
-Updated on 25 October 2026.
+Updated on 26 October 2026.
 
 Composure has an executable native foundation under src/composure.
 The Mac and universal iPhone/iPad targets use a local Swift package with strict Swift 6 concurrency.
 Composure supports Apple silicon Macs only. Its Debug and Release Mac applications use arm64.
 The profile now enables Composure as a native component, alongside the existing documentation scope.
-The application provides four privacy onboarding steps, editable Coaching Profile settings, and native navigation.
+The application provides privacy onboarding, editable Coaching Profile settings, native Prepare mode, and navigation.
 The shared core includes typed preferences and a bounded UserDefaults adapter.
 Settings provides explicit Save, Discard, and confirmed profile reset actions.
-Prepare, capture, speech, and semantic coaching remain unimplemented.
+Live capture, speech, and live semantic coaching remain unimplemented.
 
 The [normative specification](../src/composure/implementation-specification.md) is the implementation contract.
 The [product specification](../src/composure/product-specification.md) explains the product and design.
@@ -169,6 +169,8 @@ Physical mobile installation details, VoiceOver, larger text, rotation, and sign
 The [current test guide](../src/composure/README.md#what-to-test-now) covers those checks.
 The native profile slice is implemented. The next feature slice is Prepare and on-device model readiness.
 
+That slice is now implemented, as recorded in the Prepare integration checkpoint below.
+
 ## Prepare core checkpoint on 25 October 2026
 
 The owner authorized Prepare implementation. The [Prepare plan](composure-prepare.plan.md) defines its contracts and limits.
@@ -183,3 +185,35 @@ New core and adapter contract tests failed before implementation, then passed.
 The core passed 69 tests across nine suites. The adapter passed eight tests, including five adversarial prompt cases.
 Twenty synthetic fallback scenarios passed. Existing native platform builds and the full repository suite passed.
 Model-quality evaluation and native Prepare journeys remain open for the integration checkpoint.
+
+## Prepare integration on 25 October 2026
+
+Native Prepare is available on Mac, iPhone, and iPad. Input and output stay in memory.
+The form accepts a topic, optional outcome and concern, and a high-stakes choice.
+It provides explicit generation, Cancel, Edit, and Clear actions and renders all five preparation sections.
+The saved profile supplies Watch For. Unsaved Settings edits do not affect preparation.
+One app-level service bounds work across windows. The mobile scene clears preparation and covers the window before background snapshots.
+
+Actual model evaluations exposed internal profile names and attack text in the first free-form output design.
+The corrected boundary uses only selected profile actions in the prompt and closed model-choice enums for contextual sections.
+Reviewed phrases supply the rendered text. Unknown model choices fail decoding before display.
+Prompt injection can still steer a choice among reviewed phrases, but cannot add arbitrary output or execute actions.
+Some context choices remain generic. Physical-device suitability testing remains open.
+
+Verification passed:
+
+- The package passed 69 domain tests and 11 adapter tests.
+- Two opt-in live tests passed 20 synthetic conversations and five injection attempts on the actual development Mac model.
+- The development Mac reported model availability on macOS 26.6.2. The adapter has no upload or cloud fallback path.
+- The older conservative budgeting path accepts a brief request at 2,058 bytes.
+- Onboarding and Prepare journeys passed on iPhone 17 Pro and iPad Pro 13-inch M5 simulators running OS version 26.5.
+- Prepare tests cover labeled fallback, Clear, background clearing, and empty input after relaunch.
+- Exported simulator screenshots showed readable native result layouts.
+- Active and generic Apple silicon Mac builds, mobile simulator builds, and physical mobile compilation passed.
+- The full repository test command and source-style checks passed.
+- Core checkpoint f849393 passed hosted Build and all code-analysis checks.
+
+Use the [Prepare checks](../src/composure/README.md#prepare-checks) for device testing.
+Physical iPhone/iPad model inference, Mac UI quality, app-switcher cover inspection, VoiceOver, larger text,
+rotation, and signed sandbox verification remain open. Simulator tests force model unavailability.
+Speech-asset readiness is the next implementation phase. Live capture remains unimplemented.

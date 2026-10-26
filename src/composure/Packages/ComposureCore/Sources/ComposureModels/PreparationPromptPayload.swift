@@ -17,5 +17,6 @@ struct PreparationPromptPayload: Encodable
     let outcome: String
     let concern: String
     let highStakes: Bool
-    let profile: CoachingProfile
+    let focusPriorities: [String]
+    let executiveRestraint: Bool
 }

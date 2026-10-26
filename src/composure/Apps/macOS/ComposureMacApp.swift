@@ -16,6 +16,7 @@ import SwiftUI
 struct ComposureMacApp: App
 {
     @State private var preferences = AppPreferencesComposition.makeCoordinator()
+    @State private var preparationService = PreparationComposition.makeService()
     init()
     {
         ApplicationDiagnostics.makeLogger().record(.applicationLaunched)
@@ -27,7 +28,7 @@ struct ComposureMacApp: App
         {
             PreferencesRootView(coordinator: preferences)
             {
-                MacRootView(coordinator: preferences)
+                MacRootView(coordinator: preferences, preparationService: preparationService)
             }
             .frame(minWidth: 640, minHeight: 520)
         }
@@ -35,7 +36,7 @@ struct ComposureMacApp: App
         {
             PreferencesRootView(coordinator: preferences)
             {
-                CoachingSettingsView(coordinator: preferences)
+                CoachingSettingsView(coordinator: preferences, preparationService: preparationService)
             }
             .frame(width: 640, height: 650)
         }

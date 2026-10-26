@@ -15,11 +15,14 @@ Created: 2026
 ### Added
 
 - Added bounded, memory-only Composure preparation contracts, profile guidance, and a separate on-device model adapter.
+- Added native Composure Prepare screens, model readiness, reviewed model-selected guidance, and explicit Clear and Cancel actions.
+- Added mobile preparation shielding and lifecycle tests for background clearing and empty preparation after relaunch.
 - Added Composure privacy onboarding and native profile settings with explicit Save, Discard, and confirmed reset actions.
 - Added native iPhone/iPad UI tests for onboarding navigation and preference restoration after relaunch.
 
 ### Fixed
 
+- Constrained Composure preparation output after live injection tests exposed attack text in free-form model responses.
 - Prevented Composure profile reset from saving unrelated draft preferences.
 
 ## 24 October 2026

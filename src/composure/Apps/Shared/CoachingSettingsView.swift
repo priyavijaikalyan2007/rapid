@@ -15,6 +15,7 @@ import SwiftUI
 struct CoachingSettingsView: View
 {
     @Bindable var coordinator: PreferencesCoordinator
+    let preparationService: PreparationService
     @State private var confirmsReset = false
 
     var body: some View
@@ -90,7 +91,8 @@ struct CoachingSettingsView: View
             LabeledContent("Cloud AI", value: "Not used")
             LabeledContent("Meeting history", value: "Not stored")
             LabeledContent("Audio capture", value: "Not available yet")
-            LabeledContent("Speech and model readiness", value: "Not checked")
+            LabeledContent("Speech readiness", value: "Not checked")
+            ModelReadinessView(service: preparationService)
             Text(
                 """
                 Only coaching choices and app preferences are saved. Your device's backups can include these \

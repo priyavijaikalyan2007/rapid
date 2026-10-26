@@ -349,3 +349,36 @@ Native adapter tests failed before implementation, then passed. Direct, quoted, 
 The core passed 69 tests across nine suites. The adapter passed eight tests, including five injection cases.
 Twenty synthetic profile-guidance scenarios passed. All existing application builds and the full repository suite passed.
 Native Prepare screens and actual model-quality evaluation remain for the integration checkpoint.
+
+### Native Prepare integration checkpoint
+
+Connected Prepare on Mac, iPhone, and iPad. Saved profile choices control Watch For.
+One app-level service bounds generation across windows. Each window retains its own transient editable input.
+The native UI provides readiness, bounded text fields, all five result sections, Edit, Clear, and Cancel.
+Mobile scene deactivation ends editing, installs an opaque native window cover, and clears preparation.
+The scene also hides its accessibility content while inactive. Relaunch restores no preparation content.
+Autocorrection and system Writing Tools are disabled for preparation fields.
+
+Actual model readiness was available on the development Mac running macOS 26.6.2.
+Twenty synthetic free-form evaluations exposed internal profile names and unrelated habits.
+A regression failed before restricting prompt context to selected human-readable profile actions.
+Five live injection cases then exposed attack text in free-form output.
+Replaced free-form generation with reviewed enum choices for four contextual sections.
+Watch For remains fixed to the saved profile priorities. Unknown model choices cannot decode.
+The model can still choose unsuitable reviewed guidance. It cannot introduce arbitrary text or perform actions.
+
+The revised live evaluations passed 20 synthetic conversations and five direct, indirect, encoded, and multilingual injection attempts.
+Reviewed output remained concise behavioral guidance without diagnostic or business-planning content.
+Context choices varied across feedback, disagreement, boundaries, and conversation focus. Some suggestions remain generic.
+A compatibility test confirmed that a brief request fits the older conservative budget at 2,058 bytes.
+The package now contains 69 domain tests and 11 adapter tests, plus two opt-in live evaluations.
+
+Native onboarding and Prepare journeys passed on iPhone 17 Pro and iPad Pro 13-inch M5 simulators running OS version 26.5.
+The Prepare journey checks profile guidance, Clear, background clearing, and empty input after relaunch.
+An initial lifecycle assertion encountered duplicate transient accessibility snapshots. The test now selects the native editor's first match.
+Exported screenshots confirmed readable native result layouts on both simulator sizes.
+All platform builds, complete repository tests, and source-style checks passed.
+The pushed core checkpoint also passed hosted Build and code analysis.
+Physical-device model behavior, app-switcher cover inspection, VoiceOver, larger text, and signed sandbox behavior remain manual checks.
+
+Final UI-test helper and repository-record checks completed on 26 October 2026.

@@ -68,7 +68,8 @@ public actor AppleFoundationCoachingModel: CoachingModel
         let options = GenerationOptions(temperature: 0, maximumResponseTokens: PreparationLimits.outputTokens)
         let response = try await session.respond(to: prompt, generating: GeneratedPreparation.self, options: options)
         try Task.checkCancellation()
-        return try response.content.validated()
+        return try response.content
+            .validated(watchFor: FallbackPreparation.make(input: input, profile: profile).watchFor)
     }
 
     /// Error descriptions can contain prompts. Only enum categories cross the adapter boundary.

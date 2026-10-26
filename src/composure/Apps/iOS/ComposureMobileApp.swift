@@ -16,6 +16,7 @@ import SwiftUI
 struct ComposureMobileApp: App
 {
     @State private var preferences = AppPreferencesComposition.makeCoordinator()
+    @State private var preparationService = PreparationComposition.makeService()
     init()
     {
         ApplicationDiagnostics.makeLogger().record(.applicationLaunched)
@@ -27,7 +28,7 @@ struct ComposureMobileApp: App
         {
             PreferencesRootView(coordinator: preferences)
             {
-                MobileRootView(coordinator: preferences)
+                MobileRootView(coordinator: preferences, preparationService: preparationService)
             }
         }
     }

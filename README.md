@@ -8,8 +8,8 @@ Code and documentation contributions are limited to maintainers.
 
 Read [PROJECT.md](PROJECT.md) for project facts and prerequisites.
 Read [SETUP.md](SETUP.md) for setup completion and [specs/README.md](specs/README.md) for current component status.
-Composure provides privacy onboarding and saved profile settings under [src/composure](src/composure/README.md).
-Its Mac, iPhone, and iPad shells build, while preparation and coaching features remain planned.
+Composure provides privacy onboarding, saved profile settings, and Prepare mode under [src/composure](src/composure/README.md).
+Its Mac, iPhone, and iPad applications build. Live coaching remains planned.
 
 ## Repository validation and navigation
 

@@ -15,6 +15,17 @@ import SwiftUI
 struct MobileRootView: View
 {
     let coordinator: PreferencesCoordinator
+    let preparationService: PreparationService
+    @State private var preparation: PreparationCoordinator
+    @Environment(\.scenePhase) private var scenePhase
+
+    init(coordinator: PreferencesCoordinator, preparationService: PreparationService)
+    {
+        self.coordinator = coordinator
+        self.preparationService = preparationService
+        _preparation = State(initialValue: PreparationComposition.makeCoordinator(service: preparationService))
+    }
+
     var body: some View
     {
         TabView
@@ -22,6 +33,19 @@ struct MobileRootView: View
             featureTab(.prepare)
             featureTab(.live)
             featureTab(.settings)
+        }
+        .opacity(scenePhase == .active ? 1 : 0)
+        .accessibilityHidden(scenePhase != .active)
+        .background(PreparationPrivacyShield
+        {
+            preparation.clear()
+        })
+        .onChange(of: scenePhase)
+        {
+            if scenePhase != .active
+            {
+                preparation.clear()
+            }
         }
     }
 
@@ -32,7 +56,11 @@ struct MobileRootView: View
         {
             if section == .settings
             {
-                CoachingSettingsView(coordinator: coordinator)
+                CoachingSettingsView(coordinator: coordinator, preparationService: preparationService)
+            }
+            else if section == .prepare
+            {
+                PrepareView(coordinator: preparation, preferences: coordinator, service: preparationService)
             }
             else
             {

@@ -158,5 +158,15 @@
       "WebsiteConfiguration",
       "WebsiteBuild"
     ]
+  },
+  {
+    "name": "GeneratedPreparation",
+    "table": null,
+    "file": "src/composure/Packages/ComposureCore/Sources/ComposureModels/GeneratedPreparation.swift",
+    "description": "Four sections of constrained model enum choices, mapped to reviewed phrases and combined with stated profile priorities. Arbitrary generated strings cannot reach the result.",
+    "related": [
+      "ComposureOnDeviceModel",
+      "ComposurePreparation"
+    ]
   }
 ]

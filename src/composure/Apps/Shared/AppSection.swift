@@ -39,9 +39,9 @@ enum AppSection: String, CaseIterable, Identifiable
         switch self
         {
         case .home:
-            return "Private coaching for deliberate conversations. Preparation and live coaching are not available yet."
+            return "Prepare for a conversation using your coaching profile. Live coaching is not available yet."
         case .prepare:
-            return "Conversation preparation is not available in this build."
+            return "Prepare concise communication guidance for your next conversation."
         case .live:
             return "Live coaching is not available in this build. Composure is not listening."
         case .settings:

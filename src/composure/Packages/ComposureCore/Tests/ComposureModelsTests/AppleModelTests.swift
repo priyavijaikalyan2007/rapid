@@ -52,16 +52,41 @@ struct AppleModelTests
         #expect(!PreparationPrompt.instructions.contains(attack))
     }
 
+    @Test func promptIncludesOnlySelectedBehavioralPriorities() throws
+    {
+        var profile = CoachingProfile()
+        profile[.needMoreCuriosity] = .majorFocus
+        let input = try MeetingPreparationInput(topic: "Synthetic discussion")
+        let prompt = try PreparationPrompt.make(input: input, profile: profile)
+        let decoded = try #require(JSONSerialization.jsonObject(with: Data(prompt.utf8)) as? [String: Any])
+        #expect(decoded["focusPriorities"] as? [String] == ["Ask what concern the question is trying to resolve."])
+    }
+
     @Test func generatedSchemaIsIndependentlyValidated() throws
     {
         let output = GeneratedPreparation(
-            objective: "",
-            watchFor: ["Pause."],
-            questionsToAsk: ["What matters?"],
-            ifChallenged: "Ask first.",
-            keepInMind: ["Be concise."]
+            objective: .clarify,
+            questionsToAsk: [],
+            ifChallenged: .clarifyConcern,
+            keepInMind: [.pause]
         )
-        #expect(throws: PreparationError.invalidOutput) { try output.validated() }
+        #expect(throws: PreparationError.invalidOutput) { try output.validated(watchFor: ["Pause."]) }
+    }
+
+    @Test func unknownModelChoicesAreRejected() throws
+    {
+        let content = try GeneratedContent(json: "\"Invent an arbitrary instruction\"")
+        #expect(throws: (any Error).self) { try PreparationObjective(content) }
+    }
+
+    @Test func legacyBudgetAllowsBriefPreparation() throws
+    {
+        let input = try MeetingPreparationInput(topic: "Discuss a synthetic request")
+        let prompt = try PreparationPrompt.make(input: input, profile: CoachingProfile())
+        let schemaBytes = try JSONEncoder().encode(GeneratedPreparation.generationSchema).count
+        let byteBudget = prompt.utf8.count + PreparationPrompt.instructions.utf8.count + schemaBytes
+        print("Composure legacy request budget: \(byteBudget) bytes")
+        try PreparationTokenBudget.validateCount(byteBudget, contextSize: 4096)
     }
 
     @Test func excessiveTokenBudgetIsRejected() throws

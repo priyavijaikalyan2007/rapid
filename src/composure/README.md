@@ -11,9 +11,10 @@ Created: 2026
 # Composure
 
 Composure is a private conversation coach in development for Mac, iPhone, and iPad.
-The current application provides privacy onboarding, a Coaching Profile, and saved settings through native controls.
-Preparation, audio capture, speech recognition, and semantic coaching are not implemented yet.
-This build does not request microphone permissions, listen, or run model inference.
+The application provides privacy onboarding, saved profile settings, and private conversation preparation through native controls.
+Prepare uses an on-device model to select reviewed guidance when available, with labeled profile-based guidance otherwise.
+Preparation input and results remain in memory. Audio capture, speech recognition, and live coaching are not implemented yet.
+This build does not request microphone permissions or listen.
 
 Read the [normative specification](implementation-specification.md) for requirements.
 Read the [implementation plan](implementation-plan.md) for the full release sequence.
@@ -34,7 +35,7 @@ Run core tests and compile all application variants from the repository root:
 ./src/composure/build.sh all
 ```
 
-Run only shared-core tests:
+Run core and native model-adapter tests:
 
 ```sh
 ./test.sh composure
@@ -58,7 +59,8 @@ Remove generated component output:
 ./src/composure/clean.sh
 ```
 
-The shared package tests lifecycle transitions, typed preferences, recovery, and content-safe diagnostics.
+The shared package tests lifecycle transitions, typed preferences, preparation, recovery, and content-safe diagnostics.
+Its separate ComposureModels target isolates Apple Foundation Models from the pure core.
 The applications log fixed lifecycle events without profile values or meeting content.
 One versioned UserDefaults record stores only coaching choices and app preferences.
 Corrupt or unsupported records require explicit recovery. Operating-system backups can include saved preferences.
@@ -80,19 +82,21 @@ If an open Xcode project retains the old architecture settings, reopen the proje
 6. Complete the four setup steps.
 7. Check each navigation destination.
 
-Expect privacy onboarding, editable Settings, and feature-status screens for Prepare and Live Coach.
+Expect privacy onboarding, editable Settings, the Prepare form, and a Live Coach feature-status screen.
 Expect no microphone or speech permission prompts.
 Record the device model, OS version, and launch result in the status record.
 No build command uploads or publishes the application.
 
 ## What to test now
 
-This stage tests onboarding, saved preferences, navigation, and native layout. Apple Intelligence is not required yet.
+This stage tests onboarding, saved preferences, preparation, and native layout.
+Prepare works without Apple Intelligence through profile-based guidance.
 Start with one Mac, the iPhone 17 Pro, and the M1 iPad Pro if each runs OS version 26 or later.
 Other supported devices can follow. Record older OS versions without changing deployment targets or updating devices automatically.
 
 1. Run ./src/composure/build.sh all from the repository root.
-   Expect 44 shared-core tests to pass and all unsigned platform builds to succeed.
+   Expect 69 core tests and 11 adapter tests to pass, plus all unsigned platform builds.
+   Two opt-in live-model evaluations are skipped by default.
 2. Run the Composure Mac scheme on one Mac through Xcode.
    Expect onboarding on the first launch, then Home, Prepare, Live Coach, and Settings in the sidebar.
 3. Run the Composure Mobile scheme on a physical iPhone through Xcode.
@@ -111,8 +115,8 @@ Other supported devices can follow. Record older OS versions without changing de
    Expect no change to the profile.
 10. Confirm Reset coaching profile.
     Expect default profile values, preserved session defaults, and no repeat of onboarding.
-11. Open Prepare and Live Coach.
-    Expect feature-status screens. Live Coach must say that Composure is not listening.
+11. Open Live Coach.
+    Expect its feature-status screen to say that Composure is not listening.
 12. Rotate each mobile device.
    Expect readable text and accessible navigation in portrait and landscape.
 13. Resize the Mac and iPad windows where supported.
@@ -121,11 +125,48 @@ Other supported devices can follow. Record older OS versions without changing de
     Expect labeled controls, readable choices, and accessible Save, Back, and Continue actions.
 
 Report the device model, OS version, launch result, layout issues, and any permission prompt or crash.
-Preparation, audio capture, speech recognition, and coaching quality are later test stages.
+Audio capture, speech recognition, and live coaching quality are later test stages.
+
+## Prepare checks
+
+1. Open Prepare on the Mac, iPhone, or iPad.
+   Expect a truthful model-readiness message and an empty conversation form.
+2. Enter a synthetic topic, such as “Give constructive feedback.”
+3. Select Prepare conversation.
+   Expect Objective, Watch For, Questions to Ask, If Challenged, and Keep in Mind.
+4. Check the preparation source.
+   Expect On-device preparation when the model runs, or Profile guidance with a reason when it does not.
+5. Select Edit inputs.
+   Expect the previous input to remain available.
+6. Select Clear.
+   Expect the input and results to disappear.
+7. Change an important focus in Settings and select Save.
+8. Prepare another synthetic conversation.
+   Expect Watch For to reflect the saved profile. Unsaved Settings edits must not change preparation.
+9. Start model preparation and select Cancel when the action is available.
+   Expect generation to stop without a late result. A previous request may need time to finish cancellation.
+10. On iPhone or iPad, switch apps during preparation.
+    Expect a privacy cover in the app switcher and cleared preparation after you return.
+11. Quit and relaunch the application.
+    Expect saved profile settings and empty preparation fields.
+
+The model selects reviewed communication phrases. It cannot add arbitrary text to preparation results.
+Selection can still be unsuitable. Check whether the guidance fits your conversation.
+On older systems, conservative context budgeting can select profile guidance for longer input.
+Memory-only storage does not guarantee that Swift or the operating system erases every memory copy.
+
+Run the opt-in live-model evaluations using synthetic data only:
+
+```sh
+COMPOSURE_EVALUATE_MODEL=1 ./test.sh composure
+```
+
+The evaluations check readiness before generating. If the model is unavailable, they cannot verify model quality.
 
 ## Native UI tests
 
 Select Composure Mobile and an installed iPhone or iPad simulator in Xcode, then run Product > Test.
 The UI test uses an isolated Debug preference domain and synthetic choices.
-It checks onboarding navigation, profile changes, and restoration after relaunch.
+It checks onboarding, profile restoration, Prepare, Clear, background clearing, and empty preparation after relaunch.
+The Prepare journey forces model unavailability and verifies the profile-guidance path.
 The root test command runs core tests. Simulator UI tests require this separate Xcode action.

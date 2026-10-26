@@ -19,6 +19,9 @@ Use the saved profile, rather than unsaved Settings edits, when preparing a conv
 Accept a required topic, optional outcome and concern, and a high-stakes choice.
 Limit topic input to 2,048 UTF-8 bytes, each optional field to 1,024 bytes, and aggregate input to 4,096 bytes.
 Return Objective, Watch For, Questions to Ask, If Challenged, and Keep in Mind.
+Watch For uses reviewed actions for the user's stated profile priorities.
+The model selects the other sections from reviewed enum choices. It cannot introduce arbitrary output text.
+Guided lists contain one or two choices. Independent domain validation allows at most three items.
 Allow one to three items in each list, at most 280 bytes per item, and at most 4,096 bytes overall.
 Render generated content as plain text without interpreting links or Markdown.
 
@@ -74,6 +77,9 @@ AppleFoundationCoachingModel.swift, AppleModelReadiness.swift, GeneratedPreparat
 PreparationPrompt.swift, PreparationTokenBudget.swift.
 Add PreparationPromptPayload.swift for typed encoding of the transient user prompt.
 Create AppleModelTests.swift in Tests/ComposureModelsTests and update Package.swift for the local target and tests.
+Add PreparationEvaluationTests.swift for opt-in live synthetic evaluations.
+Add PreparationObjective.swift, PreparationQuestion.swift, PreparationChallengeResponse.swift,
+and PreparationReminder.swift to define the reviewed model output vocabulary.
 
 Create Apps/Shared/PreparationComposition.swift, PrepareView.swift, PreparationFields.swift,
 PreparationResultView.swift, and ModelReadinessView.swift.
@@ -96,6 +102,8 @@ No tools, retrieval, agents, executable output, network providers, training, or 
 These boundaries remove tool agency, vector access, and training-poisoning paths from this slice.
 Use Apple-managed model assets only. Validate structured output, bound work, and give concise behavioral advice.
 Model output can still be unsuitable. Evaluate at least 20 synthetic scenarios before claiming model quality.
+Live injection tests exposed attack text in free-form output. Constrained enum choices now limit that failure's effect.
+Injection may still steer selection among reviewed choices. The model cannot add text, execute actions, or access tools.
 Swift strings and system frameworks cannot guarantee erasure from operating-system memory, swap, or diagnostics.
 Do not claim physical zeroization or change host-wide settings.
 
@@ -109,3 +117,10 @@ Build active and generic Apple silicon Mac targets and both mobile variants.
 Run native Prepare journeys on iPhone and iPad simulators, including Clear and empty state after relaunch.
 Check privacy shielding and background clearing. Record physical-device and VoiceOver checks separately.
 Run source checks and the complete repository suite. Commit and push verified core and integration checkpoints.
+
+## Native API references
+
+Use the installed SDK interfaces to verify availability and compile against the OS 26 deployment baseline.
+Apple documents [guided generation](https://developer.apple.com/documentation/foundationmodels/generating-swift-data-structures-with-guided-generation)
+and [context management](https://developer.apple.com/documentation/foundationmodels/managing-the-context-window).
+Exact token counters require OS version 26.4 and a supporting SDK. The older path uses conservative byte budgeting.

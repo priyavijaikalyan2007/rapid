@@ -51,9 +51,12 @@ Native application processing and privacy constraints do not describe website an
 Composure contains an executable foundation under src/composure.
 Its Mac and universal iPhone/iPad targets use a local ComposureCore Swift package and require OS version 26 or later.
 Composure supports Apple silicon Macs only. Both Debug and Release Mac applications use arm64.
-The application provides privacy onboarding, saved Coaching Profile settings, native navigation, and content-safe local logging.
+The application provides privacy onboarding, saved Coaching Profile settings, Prepare mode, and content-safe local logging.
 Its shared core includes a pure session transition policy and typed, bounded preference storage.
-Prepare, capture, speech, and model coaching remain planned in its normative implementation specification.
+ComposureModels isolates Apple's on-device model, which selects reviewed preparation phrases from bounded user context.
+Apple manages the model assets. Evaluation used macOS 26.6.2 and Xcode 27.1 without a pinned model-version identifier.
+Preparation input, results, and sessions remain in memory. Model unavailability selects labeled profile-based guidance.
+Capture, speech, and live coaching remain planned in its normative implementation specification.
 
 ## Development prerequisites
 

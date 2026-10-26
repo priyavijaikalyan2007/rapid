@@ -4,7 +4,7 @@
 // File GUID: d4b440af-6759-457b-be8c-4072292f3602
 // Created: 2026
 // COMPONENT: On-device preparation adapter
-// PURPOSE: Request five structured sections and validate them through the core contract.
+// PURPOSE: Generate contextual sections and combine them with the user's stated profile priorities.
 // RELATES: CoachingModel, PreparationService
 // FLOW: Bounded user prompt -> fresh on-device session -> independently validated preparation.
 
@@ -15,25 +15,23 @@ import FoundationModels
 @Generable
 struct GeneratedPreparation
 {
-    @Guide(description: "Brief communication objective")
-    var objective: String
-    @Guide(description: "Behavioral habits to watch", .count(1 ... 3))
-    var watchFor: [String]
-    @Guide(description: "Short curious questions", .count(1 ... 3))
-    var questionsToAsk: [String]
-    @Guide(description: "How to respond calmly to a challenge")
-    var ifChallenged: String
-    @Guide(description: "Brief communication reminders", .count(1 ... 3))
-    var keepInMind: [String]
+    @Guide(description: "A brief communication objective tailored to the topic and desired outcome")
+    var objective: PreparationObjective
+    @Guide(description: "Short questions the user can ask about facts, concerns, or priorities", .count(1 ... 2))
+    var questionsToAsk: [PreparationQuestion]
+    @Guide(description: "One short phrase the user can say when challenged, such as: I want to understand your concern")
+    var ifChallenged: PreparationChallengeResponse
+    @Guide(description: "Brief reminders about the user's stated communication priorities", .count(1 ... 2))
+    var keepInMind: [PreparationReminder]
 
-    func validated() throws -> MeetingPreparation
+    func validated(watchFor: [String]) throws -> MeetingPreparation
     {
         try MeetingPreparation(
-            objective: objective,
+            objective: objective.phrase,
             watchFor: watchFor,
-            questionsToAsk: questionsToAsk,
-            ifChallenged: ifChallenged,
-            keepInMind: keepInMind
+            questionsToAsk: questionsToAsk.map(\.phrase),
+            ifChallenged: ifChallenged.phrase,
+            keepInMind: keepInMind.map(\.phrase)
         )
     }
 }
