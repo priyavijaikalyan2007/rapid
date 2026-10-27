@@ -15,10 +15,13 @@ import FoundationModels
 /// Include instructions and schema in the context budget, not just the user's text.
 enum PreparationTokenBudget
 {
-    static func validate(prompt: String, model: SystemLanguageModel) async throws
+    static func validate(
+        prompt: String,
+        model: SystemLanguageModel,
+        instructions: String = PreparationPrompt.instructions,
+        schema: GenerationSchema = GeneratedPreparation.generationSchema
+    ) async throws
     {
-        let instructions = PreparationPrompt.instructions
-        let schema = GeneratedPreparation.generationSchema
         #if compiler(>=6.3)
         if #available(macOS 26.4, iOS 26.4, *)
         {

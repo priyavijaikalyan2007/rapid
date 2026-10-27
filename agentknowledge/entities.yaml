@@ -163,7 +163,7 @@
     "name": "GeneratedPreparation",
     "table": null,
     "file": "src/composure/Packages/ComposureCore/Sources/ComposureModels/GeneratedPreparation.swift",
-    "description": "Four sections of constrained model enum choices, mapped to reviewed phrases and combined with stated profile priorities. Arbitrary generated strings cannot reach the result.",
+    "description": "Five bounded generated coaching sections, including the feedback-giver variant. Validation removes literal repeats and applies targeted outcome-caution wording. Text remains untrusted and memory-only.",
     "related": [
       "ComposureOnDeviceModel",
       "ComposurePreparation"

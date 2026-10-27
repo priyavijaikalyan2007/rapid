@@ -10,7 +10,7 @@ Created: 2026
 
 # Composure status
 
-Updated on 26 October 2026.
+Updated on 27 October 2026.
 
 Composure has an executable native foundation under src/composure.
 The Mac and universal iPhone/iPad targets use a local Swift package with strict Swift 6 concurrency.
@@ -217,3 +217,48 @@ Use the [Prepare checks](../src/composure/README.md#prepare-checks) for device t
 Physical iPhone/iPad model inference, Mac UI quality, app-switcher cover inspection, VoiceOver, larger text,
 rotation, and signed sandbox verification remain open. Simulator tests force model unavailability.
 Speech-asset readiness is the next implementation phase. Live capture remains unimplemented.
+
+## Prepare relevance correction on 27 October 2026
+
+The owner found that two promotion scenarios received very similar, generic preparation.
+The scenarios reverse the user's role: receiving a decision and delivering one to a direct report.
+An audit found the same question pair in 17 of the previous 20 synthetic model results.
+The finite phrase catalog passed structural checks but failed the product's usefulness goal.
+The [relevance plan](composure-prepare-quality.plan.md) supersedes that output design.
+
+Prepare now generates bounded language rather than choosing each section from a fixed catalog.
+A first local session classifies descriptive context. A second session generates the preparation.
+Narrow English rules preserve explicitly stated relationships when classification disagrees.
+Feedback-giver fields name the speaker and listener and give understanding and support questions separate purposes.
+Only selected profile priorities enter the prompt. An unselected profile adds no generic pause instruction.
+The original byte, token, time, and concurrency limits remain in place across the complete request.
+Preparation remains memory-only, on device, without model tools or a cloud path.
+
+Requests for unsupported certainty add an explicit limit on promises.
+A narrow wording policy replaces assurance language in affected generated sections.
+This policy can replace benign wording and does not verify all claims.
+Literal duplicates within each list are removed after the complete original output passes validation.
+Instruction-override screening combines descriptive model flags and conservative protocol patterns.
+This screening can reject benign quotes or miss attacks. Capabilities remain restricted outside the model.
+
+The evaluation now includes fictional adaptations of the role pair and a repeated-question gate.
+Earlier candidates passed lexical assertions while still reversing speakers or implying a promotion promise.
+Those candidates were rejected during human review.
+A short unstructured prompt on the same local model also produced generic advice and unsupported assumptions.
+No comparison with a cloud model was performed.
+
+Usefulness remains a separate acceptance decision.
+The model can still produce broad suggestions or assume facts that the user did not supply.
+Review both role scenarios on a physical device before continuing to the live-coaching model pipeline.
+Native Prepare UI and lifecycle code did not change in this correction.
+The owner's unrelated local Xcode project and signing edits remain outside this change.
+
+The package passed 69 core tests and 22 adapter tests.
+All three opt-in evaluations passed on the available local model.
+The 20 synthetic topics produced 20 distinct question pairs.
+Both role classifications were correct. The reviewed employee and manager questions and scripts used the intended voice.
+The pair passed with separate context fields and with all context in one topic paragraph.
+The manager result retained the six-month horizon and an explicit limit on promises.
+Some reminders remained broad or awkward. These results establish a correction, not general coaching quality or factual accuracy.
+All active and generic Apple silicon Mac, simulator, and physical mobile compilation checks passed.
+The full repository suite and native source-style checks passed.

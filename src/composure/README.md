@@ -12,7 +12,7 @@ Created: 2026
 
 Composure is a private conversation coach in development for Mac, iPhone, and iPad.
 The application provides privacy onboarding, saved profile settings, and private conversation preparation through native controls.
-Prepare uses an on-device model to select reviewed guidance when available, with labeled profile-based guidance otherwise.
+Prepare uses an on-device model for situation-specific coaching, with labeled profile-based guidance when generation is unavailable.
 Preparation input and results remain in memory. Audio capture, speech recognition, and live coaching are not implemented yet.
 This build does not request microphone permissions or listen.
 
@@ -95,8 +95,8 @@ Start with one Mac, the iPhone 17 Pro, and the M1 iPad Pro if each runs OS versi
 Other supported devices can follow. Record older OS versions without changing deployment targets or updating devices automatically.
 
 1. Run ./src/composure/build.sh all from the repository root.
-   Expect 69 core tests and 11 adapter tests to pass, plus all unsigned platform builds.
-   Two opt-in live-model evaluations are skipped by default.
+   Expect core and model-adapter tests to pass, plus all unsigned platform builds.
+   Opt-in live-model evaluations are skipped by default.
 2. Run the Composure Mac scheme on one Mac through Xcode.
    Expect onboarding on the first launch, then Home, Prepare, Live Coach, and Settings in the sidebar.
 3. Run the Composure Mobile scheme on a physical iPhone through Xcode.
@@ -142,7 +142,7 @@ Audio capture, speech recognition, and live coaching quality are later test stag
    Expect the input and results to disappear.
 7. Change an important focus in Settings and select Save.
 8. Prepare another synthetic conversation.
-   Expect Watch For to reflect the saved profile. Unsaved Settings edits must not change preparation.
+   Expect preparation to consider the saved profile. Unsaved Settings edits must not change preparation.
 9. Start model preparation and select Cancel when the action is available.
    Expect generation to stop without a late result. A previous request may need time to finish cancellation.
 10. On iPhone or iPad, switch apps during preparation.
@@ -150,8 +150,13 @@ Audio capture, speech recognition, and live coaching quality are later test stag
 11. Quit and relaunch the application.
     Expect saved profile settings and empty preparation fields.
 
-The model selects reviewed communication phrases. It cannot add arbitrary text to preparation results.
-Selection can still be unsuitable. Check whether the guidance fits your conversation.
+The model generates bounded language for the supplied situation and role. Fixed phrases are used for fallback.
+Generated advice can still be unsuitable or contain unsupported assumptions. Check whether the guidance fits your conversation.
+For promotion conversations, check whether questions and scripts use the correct role and avoid unjustified promises.
+Compare receiving a promotion decision with explaining one to a direct report.
+The recipient should receive help seeking feedback and managing their own response.
+The manager should receive help explaining expectations, checking understanding, and discussing support without promising a future decision.
+The app screens for embedded instruction overrides. This screening does not guarantee complete resistance to prompt injection.
 On older systems, conservative context budgeting can select profile guidance for longer input.
 Memory-only storage does not guarantee that Swift or the operating system erases every memory copy.
 
@@ -162,6 +167,8 @@ COMPOSURE_EVALUATE_MODEL=1 ./test.sh composure
 ```
 
 The evaluations check readiness before generating. If the model is unavailable, they cannot verify model quality.
+They cover 20 synthetic topics, a paired role regression, and five injection fixtures.
+The question-diversity check catches repeated pairs. Human review must still assess whether each suggestion is useful and uses the correct voice.
 
 ## Native UI tests
 

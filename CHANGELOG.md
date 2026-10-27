@@ -10,6 +10,14 @@ Created: 2026
 
 # Changelog
 
+## 27 October 2026
+
+### Fixed
+
+- Replaced Composure's finite Prepare phrase bank with bounded, role-aware generation after the owner reported repetitive advice.
+- Preserved explicit manager and recipient roles, added outcome-uncertainty guidance, and removed literal duplicate suggestions.
+- Added paired role regressions and separated relevance checks from functional and injection checks.
+
 ## 25 October 2026
 
 ### Added

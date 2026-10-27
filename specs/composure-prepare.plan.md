@@ -10,6 +10,9 @@ Created: 2026
 
 # Composure Prepare
 
+The [quality correction](composure-prepare-quality.plan.md) supersedes this plan's finite output catalog.
+The original bounds and privacy requirements remain. Current generation uses bounded role-aware language.
+
 The owner authorized Phase 2 on 25 October 2026 after confirming setup and profile behavior.
 Keep all preparation input, output, and model sessions in memory. Never add them to preferences or diagnostics.
 Use the saved profile, rather than unsaved Settings edits, when preparing a conversation.

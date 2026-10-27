@@ -62,14 +62,73 @@ public actor AppleFoundationCoachingModel: CoachingModel
     {
         let model = SystemLanguageModel.default
         let prompt = try PreparationPrompt.make(input: input, profile: profile)
-        try await PreparationTokenBudget.validate(prompt: prompt, model: model)
+        let context = try await classify(input: input, prompt: prompt, model: model)
+        guard !context.containsInstructionOverride
+        else
+        {
+            throw PreparationError.refused
+        }
+        let instructions = PreparationPrompt.instructions + "\n" + context.guidance
+        if context.perspective == .givingFeedback
+        {
+            let content = try await respond(
+                GeneratedFeedbackPreparation.self,
+                prompt: prompt,
+                instructions: instructions
+            )
+            return try content.validated(requiresOutcomeCaution: context.requestsUnsupportedCertainty)
+        }
+        let content = try await respond(GeneratedPreparation.self, prompt: prompt, instructions: instructions)
+        return try content.validated(
+            requiresOutcomeCaution: context.requestsUnsupportedCertainty,
+            perspective: context.perspective
+        )
+    }
+
+    private func respond<Content: Generable>(
+        _ type: Content.Type,
+        prompt: String,
+        instructions: String
+    ) async throws -> Content
+    {
+        let model = SystemLanguageModel.default
+        try await PreparationTokenBudget.validate(
+            prompt: prompt,
+            model: model,
+            instructions: instructions,
+            schema: Content.generationSchema
+        )
         try Task.checkCancellation()
-        let session = LanguageModelSession(model: model, instructions: PreparationPrompt.instructions)
+        let session = LanguageModelSession(model: model, instructions: instructions)
         let options = GenerationOptions(temperature: 0, maximumResponseTokens: PreparationLimits.outputTokens)
-        let response = try await session.respond(to: prompt, generating: GeneratedPreparation.self, options: options)
+        let response = try await session.respond(to: prompt, generating: type, options: options)
         try Task.checkCancellation()
-        return try response.content
-            .validated(watchFor: FallbackPreparation.make(input: input, profile: profile).watchFor)
+        return response.content
+    }
+
+    /// A fixed role-specific prompt is selected from descriptive data. No model output grants permissions.
+    func classify(
+        input: MeetingPreparationInput,
+        prompt: String,
+        model: SystemLanguageModel
+    ) async throws -> PreparationContext
+    {
+        let instructions = PreparationPerspective.classificationInstructions
+        try await PreparationTokenBudget.validate(
+            prompt: prompt,
+            model: model,
+            instructions: instructions,
+            schema: PreparationContext.generationSchema
+        )
+        try Task.checkCancellation()
+        let session = LanguageModelSession(model: model, instructions: instructions)
+        let response = try await session.respond(
+            to: prompt,
+            generating: PreparationContext.self,
+            options: GenerationOptions(temperature: 0, maximumResponseTokens: 96)
+        )
+        try Task.checkCancellation()
+        return PreparationContextRules.apply(input, to: response.content)
     }
 
     /// Error descriptions can contain prompts. Only enum categories cross the adapter boundary.

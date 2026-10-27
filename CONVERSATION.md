@@ -382,3 +382,51 @@ The pushed core checkpoint also passed hosted Build and code analysis.
 Physical-device model behavior, app-switcher cover inspection, VoiceOver, larger text, and signed sandbox behavior remain manual checks.
 
 Final UI-test helper and repository-record checks completed on 26 October 2026.
+
+## 27 October 2026: Correct generic Composure preparation
+
+### User request
+
+> Yeah. It works. When running through Prepare with a couple of real world scenarios, I foudn that the answers were very generic and repetitive. That doesn't sound as good as what a regular AI might just give for me?
+
+The owner then supplied two role-reversed promotion examples in response to a request for de-identified scenarios.
+One person receives an unsuccessful decision and wants help staying composed.
+The other person delivers a decision and wants clear expectations for the next six months, with an unjustified expectation of certainty.
+The test fixtures use fictional adaptations rather than retaining the personal meeting text.
+The owner also supplied the repository writing and coding instructions for this task.
+
+### Response summary
+
+Found that the closed catalog returned the same question pair in 17 of 20 earlier evaluation cases.
+The earlier review checked structure and constrained output but did not establish usefulness.
+Defined specs/composure-prepare-quality.plan.md and restored independently bounded generated text.
+Removed the unused objective, question, challenge-response, and reminder catalogs.
+The public core contracts, native UI, lifecycle clearing, and persistence boundaries remain unchanged.
+
+Added a descriptive context pass and fixed role instructions before generation.
+Narrow English rules preserve explicitly stated manager and recipient relationships.
+The feedback-giver schema names the speaker and listener and separates understanding from support questions.
+Removed unselected default profile advice from the prompt.
+Added independent duplicate removal and an explicit outcome limit when unsupported certainty is requested.
+A conservative assurance-wording policy replaces affected phrases. It is not a general factual verifier.
+
+Model experiments exposed role reversals and unsupported promotion promises despite passing lexical checks.
+Rejected those candidates during output review and retained the evidence under ignored synthetic evaluation logs.
+The short unstructured baseline also produced generic advice and unsupported details on the same local model.
+This comparison does not establish parity with a larger cloud model.
+
+Retained on-device execution, memory-only content, fixed capability limits, and the existing total request deadline.
+Instruction-override screening combines model flags and narrow protocol patterns.
+This screening can miss attacks or reject benign quotes. It grants no tools, network access, or persistence.
+Added regression tests for bounded novel text, output shape, selected priorities, roles, uncertainty, duplicates, and protocol quotes.
+The live evaluation uses 20 synthetic topics, five injection fixtures, and the paired role scenarios.
+Question diversity and lexical assertions supplement human review. They do not prove semantic quality.
+
+The package passed 69 core tests and 22 adapter tests, plus all three opt-in live evaluations.
+The 20 synthetic topics produced 20 distinct question pairs.
+The final role pair retained the six-month horizon and a limit on promotion promises.
+The reviewed questions and scripts used the correct voice. Some reminders remained broad or awkward.
+The paired regression also passed when all context appeared in the topic field, matching the owner's input style.
+All native build variants passed. The model still needs usefulness review on the owner's devices before live coaching proceeds.
+Preserved the owner's unrelated local Xcode formatting and signing changes without staging them.
+The full repository suite, source-style checks, and patch-whitespace checks passed.

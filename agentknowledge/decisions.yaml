@@ -197,13 +197,28 @@
     "id": "ADR-017",
     "title": "Constrain Prepare generation to reviewed coaching choices",
     "date": "2026-10-25",
-    "status": "Accepted",
-    "context": "Actual synthetic model evaluations exposed raw profile names and attack text in free-form output. Keep Watch For tied to the user's selected profile priorities. Generate the other four sections as closed enum choices and map them to reviewed phrases. Validate the final domain object independently and render plain text. This prevents arbitrary generated strings, inferred traits, business plans, or tool instructions from becoming preparation content. Injection may still steer selection among reviewed choices, so guidance suitability remains a review gate. Five actual injection regressions and 20 synthetic context scenarios passed after the change.",
+    "status": "Superseded",
+    "context": "Actual synthetic model evaluations exposed raw profile names and attack text in free-form output. Keep Watch For tied to the user's selected profile priorities. Generate the other four sections as closed enum choices and map them to reviewed phrases. Validate the final domain object independently and render plain text. This prevents arbitrary generated strings, inferred traits, business plans, or tool instructions from becoming preparation content. Injection may still steer selection among reviewed choices, so guidance suitability remains a review gate. Five actual injection regressions and 20 synthetic context scenarios passed after the change. Superseded after owner feedback and paired tests showed insufficient relevance and role specificity. The retired phrase files remain available in commit 7c9a12e.",
     "files": [
       "src/composure/Packages/ComposureCore/Sources/ComposureModels/GeneratedPreparation.swift",
-      "src/composure/Packages/ComposureCore/Sources/ComposureModels/PreparationObjective.swift",
       "src/composure/Packages/ComposureCore/Sources/ComposureModels/PreparationPrompt.swift",
       "src/composure/Packages/ComposureCore/Tests/ComposureModelsTests/PreparationEvaluationTests.swift"
+    ],
+    "superseded_by": "ADR-018"
+  },
+  {
+    "id": "ADR-018",
+    "title": "Generate bounded role-aware preparation and test usefulness separately",
+    "date": "2026-10-27",
+    "status": "Accepted",
+    "context": "The owner found Prepare generic in two role-reversed scenarios. The previous evaluation returned one question pair in 17 of 20 cases. Replace the finite output catalog with bounded text generation. Classify descriptive context first, preserve explicit user relationships through narrow English rules, and select fixed role-specific instructions. Use a targeted assurance-wording policy when certainty is requested; it is not a general factual verifier. Retain byte/token/time limits, memory-only state, no model tools or cloud path, and plain-text rendering. Screening combines conservative protocol patterns with model flags and does not guarantee semantic injection resistance. Keep labeled templates as fallback. The role pair and quality review are required in addition to functional and safety checks.",
+    "files": [
+      "specs/composure-prepare-quality.plan.md",
+      "src/composure/Packages/ComposureCore/Sources/ComposureModels/PreparationContext.swift",
+      "src/composure/Packages/ComposureCore/Sources/ComposureModels/PreparationContextRules.swift",
+      "src/composure/Packages/ComposureCore/Sources/ComposureModels/PreparationAssurancePolicy.swift",
+      "src/composure/Packages/ComposureCore/Sources/ComposureModels/GeneratedFeedbackPreparation.swift",
+      "src/composure/Packages/ComposureCore/Tests/ComposureModelsTests/PreparationQualityScenarios.swift"
     ]
   }
 ]
