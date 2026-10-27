@@ -262,3 +262,16 @@ The manager result retained the six-month horizon and an explicit limit on promi
 Some reminders remained broad or awkward. These results establish a correction, not general coaching quality or factual accuracy.
 All active and generic Apple silicon Mac, simulator, and physical mobile compilation checks passed.
 The full repository suite and native source-style checks passed.
+
+## Owner acceptance on 27 October 2026
+
+The owner reviewed the Prepare correction and responded, “Looks ok.”
+This accepts the current Prepare behavior for the next development checkpoint.
+The confirmation did not identify a device, OS version, or preparation source.
+Physical mobile inference, accessibility, and signed sandbox checks remain open.
+
+The next planned slice is speech-asset readiness.
+It will check English locale support, show speech-asset status, and offer explicit setup before a live session.
+The unified readiness view will also report model availability and capture permission states.
+The early Mac feasibility check must verify separate microphone and meeting-audio streams before extensive remote implementation.
+No speech or capture implementation forms part of this acceptance record.

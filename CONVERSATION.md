@@ -430,3 +430,18 @@ The paired regression also passed when all context appeared in the topic field, 
 All native build variants passed. The model still needs usefulness review on the owner's devices before live coaching proceeds.
 Preserved the owner's unrelated local Xcode formatting and signing changes without staging them.
 The full repository suite, source-style checks, and patch-whitespace checks passed.
+
+## 27 October 2026: Accept the Prepare correction
+
+### User request
+
+> Looks ok.
+
+### Response summary
+
+Recorded the owner's acceptance of the corrected Prepare behavior for the next development checkpoint.
+The confirmation did not identify a device, OS version, or preparation source.
+Physical mobile inference, accessibility, and signed sandbox checks remain open.
+Speech-asset readiness is the next planned slice, followed by the early Mac dual-stream capture feasibility check.
+This checkpoint changes records only. It adds no speech or capture behavior.
+Preserved the owner's unrelated local Xcode project and signing edits.
