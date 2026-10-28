@@ -10,6 +10,14 @@ Created: 2026
 
 # Changelog
 
+## 28 October 2026
+
+### Added
+
+- Added passive Composure device-readiness checks and explicit speech-asset setup in native Settings.
+- Added shared setup progress, controlled errors, retry, and recovery when Apple completes a download later.
+- Added isolated phone and iPad setup journeys without real downloads or capture permissions.
+
 ## 27 October 2026
 
 ### Fixed

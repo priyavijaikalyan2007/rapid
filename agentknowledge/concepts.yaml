@@ -215,5 +215,15 @@
       "ComposurePreparation",
       "ComposureDiagnostics"
     ]
+  },
+  {
+    "name": "ComposureReadiness",
+    "definition": "Passive speech, model, and capture-permission status with explicitly requested Apple-managed speech setup, shared progress, and recovery. No live audio is started.",
+    "anchor_file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/ReadinessCoordinator.swift",
+    "related": [
+      "Composure",
+      "ComposureOnDeviceModel",
+      "ComposurePreferences"
+    ]
   }
 ]

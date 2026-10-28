@@ -11,6 +11,10 @@
 /// Closed event vocabulary. Add cases only when a specific diagnostic need exists.
 public enum DiagnosticEvent: String, Sendable
 {
+    case readinessChecked = "readiness.checked"
+    case speechSetupStarted = "speech.setup.started"
+    case speechSetupCompleted = "speech.setup.completed"
+    case speechSetupFailed = "speech.setup.failed"
     case applicationLaunched = "application.launched"
     case sessionStarted = "session.started"
     case sessionStopped = "session.stopped"

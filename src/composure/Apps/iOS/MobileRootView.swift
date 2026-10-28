@@ -16,13 +16,15 @@ struct MobileRootView: View
 {
     let coordinator: PreferencesCoordinator
     let preparationService: PreparationService
+    let readiness: ReadinessCoordinator
     @State private var preparation: PreparationCoordinator
     @Environment(\.scenePhase) private var scenePhase
 
-    init(coordinator: PreferencesCoordinator, preparationService: PreparationService)
+    init(coordinator: PreferencesCoordinator, preparationService: PreparationService, readiness: ReadinessCoordinator)
     {
         self.coordinator = coordinator
         self.preparationService = preparationService
+        self.readiness = readiness
         _preparation = State(initialValue: PreparationComposition.makeCoordinator(service: preparationService))
     }
 
@@ -56,7 +58,7 @@ struct MobileRootView: View
         {
             if section == .settings
             {
-                CoachingSettingsView(coordinator: coordinator, preparationService: preparationService)
+                CoachingSettingsView(coordinator: coordinator, readiness: readiness)
             }
             else if section == .prepare
             {

@@ -16,13 +16,15 @@ struct MacRootView: View
 {
     let coordinator: PreferencesCoordinator
     let preparationService: PreparationService
+    let readiness: ReadinessCoordinator
     @State private var preparation: PreparationCoordinator
     @State private var selection: AppSection? = .home
 
-    init(coordinator: PreferencesCoordinator, preparationService: PreparationService)
+    init(coordinator: PreferencesCoordinator, preparationService: PreparationService, readiness: ReadinessCoordinator)
     {
         self.coordinator = coordinator
         self.preparationService = preparationService
+        self.readiness = readiness
         _preparation = State(initialValue: PreparationComposition.makeCoordinator(service: preparationService))
     }
 
@@ -41,7 +43,7 @@ struct MacRootView: View
         {
             if selection == .settings
             {
-                CoachingSettingsView(coordinator: coordinator, preparationService: preparationService)
+                CoachingSettingsView(coordinator: coordinator, readiness: readiness)
             }
             else if selection == .prepare
             {

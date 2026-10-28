@@ -12,6 +12,7 @@ Created: 2026
 
 Composure is a private conversation coach in development for Mac, iPhone, and iPad.
 The application provides privacy onboarding, saved profile settings, and private conversation preparation through native controls.
+Settings also checks device prerequisites and offers explicit speech-asset setup.
 Prepare uses an on-device model for situation-specific coaching, with labeled profile-based guidance when generation is unavailable.
 Preparation input and results remain in memory. Audio capture, speech recognition, and live coaching are not implemented yet.
 This build does not request microphone permissions or listen.
@@ -169,6 +170,34 @@ COMPOSURE_EVALUATE_MODEL=1 ./test.sh composure
 The evaluations check readiness before generating. If the model is unavailable, they cannot verify model quality.
 They cover 20 synthetic topics, a paired role regression, and five injection fixtures.
 The question-diversity check catches repeated pairs. Human review must still assess whether each suggestion is useful and uses the correct voice.
+
+## Speech readiness checks
+
+1. Open Settings and scroll to Privacy and on-device status.
+2. Select Check device readiness.
+   Expect speech-asset status, the resolved English locale, model availability, and current capture permission states.
+   Expect no capture permission prompt or audio capture.
+3. If speech needs setup, select Set up speech.
+   Expect Apple-managed asset installation and progress when available.
+4. If setup fails, check the connection and available storage before trying again.
+   Apple may continue or resume its download later. Refresh the status before retrying.
+5. Wait for Speech model to show Ready.
+   Ready means the configured speech assets are installed. Live coaching remains unimplemented.
+6. Relaunch the app and refresh the status.
+   Expect the system's current asset state rather than a saved success flag.
+
+The app prefers a supported English locale matching the device and otherwise selects a supported English fallback.
+Apple shares and manages these speech assets across applications. Composure does not store or upload meeting content during setup.
+A Mac screen-capture preflight that returns false appears as Not granted. It does not prove that permission was denied.
+Capture permissions will be requested only through an explicit capture start action.
+
+Inspect actual speech status without reserving or downloading assets:
+
+```sh
+COMPOSURE_EVALUATE_SPEECH=1 ./test.sh composure
+```
+
+The simulator setup journey uses an isolated provider. It does not verify real asset downloads or offline transcription.
 
 ## Native UI tests
 

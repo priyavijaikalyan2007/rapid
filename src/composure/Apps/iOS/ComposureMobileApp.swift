@@ -17,6 +17,7 @@ struct ComposureMobileApp: App
 {
     @State private var preferences = AppPreferencesComposition.makeCoordinator()
     @State private var preparationService = PreparationComposition.makeService()
+    @State private var readiness = ReadinessComposition.makeCoordinator()
     init()
     {
         ApplicationDiagnostics.makeLogger().record(.applicationLaunched)
@@ -28,7 +29,7 @@ struct ComposureMobileApp: App
         {
             PreferencesRootView(coordinator: preferences)
             {
-                MobileRootView(coordinator: preferences, preparationService: preparationService)
+                MobileRootView(coordinator: preferences, preparationService: preparationService, readiness: readiness)
             }
         }
     }

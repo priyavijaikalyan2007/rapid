@@ -17,6 +17,7 @@ struct ComposureMacApp: App
 {
     @State private var preferences = AppPreferencesComposition.makeCoordinator()
     @State private var preparationService = PreparationComposition.makeService()
+    @State private var readiness = ReadinessComposition.makeCoordinator()
     init()
     {
         ApplicationDiagnostics.makeLogger().record(.applicationLaunched)
@@ -28,7 +29,7 @@ struct ComposureMacApp: App
         {
             PreferencesRootView(coordinator: preferences)
             {
-                MacRootView(coordinator: preferences, preparationService: preparationService)
+                MacRootView(coordinator: preferences, preparationService: preparationService, readiness: readiness)
             }
             .frame(minWidth: 640, minHeight: 520)
         }
@@ -36,7 +37,7 @@ struct ComposureMacApp: App
         {
             PreferencesRootView(coordinator: preferences)
             {
-                CoachingSettingsView(coordinator: preferences, preparationService: preparationService)
+                CoachingSettingsView(coordinator: preferences, readiness: readiness)
             }
             .frame(width: 640, height: 650)
         }

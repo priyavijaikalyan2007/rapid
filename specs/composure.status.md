@@ -10,7 +10,7 @@ Created: 2026
 
 # Composure status
 
-Updated on 27 October 2026.
+Updated on 28 October 2026.
 
 Composure has an executable native foundation under src/composure.
 The Mac and universal iPhone/iPad targets use a local Swift package with strict Swift 6 concurrency.
@@ -275,3 +275,34 @@ It will check English locale support, show speech-asset status, and offer explic
 The unified readiness view will also report model availability and capture permission states.
 The early Mac feasibility check must verify separate microphone and meeting-audio streams before extensive remote implementation.
 No speech or capture implementation forms part of this acceptance record.
+
+## Speech readiness on 28 October 2026
+
+The owner authorized speech readiness and the early Mac capture check with “Makes sense. Go.”
+The [readiness plan](composure-readiness.plan.md) defines both slices.
+This checkpoint implements speech readiness. The capture experiment follows as a separate change.
+
+Native Settings now reports English speech assets, the resolved locale, model availability, and current capture permission states.
+Passive refresh does not reserve assets, download models, request capture permissions, or start audio.
+Set up speech explicitly requests Apple-managed assets and displays progress when the system provides it.
+The application rechecks actual installed status after setup. A successful request alone cannot mark speech ready.
+Setup state is shared across app windows. Duplicate actions, late progress, cancellation, and controlled failures have explicit handling.
+Refresh clears an old failure if Apple later finishes the download.
+Apple manages shared assets and may resume downloads after an initial failure.
+
+New contracts and native mappings failed before implementation, then passed.
+The core passed 77 tests. The adapter adds five native readiness mapping tests to the existing 22 unit tests.
+An opt-in native check reported needsSetup for en_US on this Mac without changing asset reservations.
+No actual speech-asset download or offline transcription was tested at this checkpoint.
+
+The native setup journey passed on iPhone 17 Pro and iPad Pro 13-inch M5 simulators running OS 26.5.
+The journey checks passive status, an explicit setup failure, and a successful retry through an isolated Debug provider.
+All three onboarding, Prepare, and readiness journeys passed on both simulator sizes.
+Exported screenshots showed readable status and native controls on both devices.
+An initial project edit put references in the wrong phase. Corrected membership checks cover both project versions.
+An earlier test build reported old test statements. Fresh test artifacts executed the current assertions and passed.
+
+All active and generic Apple silicon Mac, simulator, and physical mobile compilation checks passed.
+The full repository suite and source-style checks passed.
+Only new source references will enter the project commit. The owner's formatting, development team, and signing edits remain local.
+Live audio, two-analyzer feasibility, actual microphone sharing, and offline speech operation remain separate gates.

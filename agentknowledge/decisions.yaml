@@ -220,5 +220,18 @@
       "src/composure/Packages/ComposureCore/Sources/ComposureModels/GeneratedFeedbackPreparation.swift",
       "src/composure/Packages/ComposureCore/Tests/ComposureModelsTests/PreparationQualityScenarios.swift"
     ]
+  },
+  {
+    "id": "ADR-019",
+    "title": "Separate passive readiness from explicit system speech setup",
+    "date": "2026-10-28",
+    "status": "Accepted",
+    "context": "The owner authorized speech readiness and an early Mac capture check. Inspect SpeechTranscriber locale support and AssetInventory status without reserving assets, requesting permissions, or starting audio. Only an explicit setup action obtains and runs an installation request. Recheck actual installed status after setup, preserve unknown permission states, and serialize setup across windows. Apple owns shared assets and can resume a failed download later. Controlled errors, bounded progress, and no meeting persistence remain application boundaries. Actual installation and offline transcription require separate verification.",
+    "files": [
+      "specs/composure-readiness.plan.md",
+      "src/composure/Packages/ComposureCore/Sources/ComposureCore/ReadinessCoordinator.swift",
+      "src/composure/Packages/ComposureCore/Sources/ComposureModels/AppleReadinessService.swift",
+      "src/composure/Apps/Shared/OnDeviceReadinessView.swift"
+    ]
   }
 ]

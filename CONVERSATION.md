@@ -445,3 +445,35 @@ Physical mobile inference, accessibility, and signed sandbox checks remain open.
 Speech-asset readiness is the next planned slice, followed by the early Mac dual-stream capture feasibility check.
 This checkpoint changes records only. It adds no speech or capture behavior.
 Preserved the owner's unrelated local Xcode project and signing edits.
+
+## 28 October 2026: Implement speech readiness before the early capture check
+
+### User request
+
+> Makes sense. Go.
+
+### Readiness checkpoint
+
+Defined the speech-readiness plan and interfaces before implementation.
+New core and native contract tests failed before implementation, then passed.
+Added passive status for speech assets, English locale support, model availability, and capture permission states.
+Added explicitly requested Apple asset installation, shared progress, controlled failures, retry, and later-download recovery.
+No readiness action starts audio, generates a transcript, or stores meeting content.
+The system owns speech assets and can resume downloads later. The UI explains this behavior.
+
+Connected native Settings through an app-wide coordinator on Mac, iPhone, and iPad.
+The core passed 77 tests. Five native readiness mapping tests supplement the existing 22 adapter unit tests.
+A passive native check reported en_US assets needing setup without changing reservations.
+Actual asset installation and offline speech operation remain unverified.
+
+The first project-reference edit matched a commented reference and assigned sources to a resource phase.
+Restored the preserved owner project, corrected the insertion, and verified source and resource membership in both project versions.
+The initial UI runner discovered no tests and did not count as validation.
+Later UI checks exposed accessibility and setup-action issues. Corrected the status element, button styles, and error placement.
+An earlier build then reported old test statements. A fresh test build executed current assertions and passed.
+All three native onboarding, Prepare, and readiness journeys passed on both phone and iPad simulators running OS 26.5.
+Exported screenshots showed readable native status layouts on both devices.
+
+All native platform builds, the full repository suite, and source-style checks passed.
+Preserved owner project formatting, team, and signing choices while preparing only the required source-reference changes for commit.
+The early Mac dual-stream and two-analyzer capture experiment is the next part of the authorized work.

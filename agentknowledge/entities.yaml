@@ -168,5 +168,14 @@
       "ComposureOnDeviceModel",
       "ComposurePreparation"
     ]
+  },
+  {
+    "name": "DeviceReadiness",
+    "table": null,
+    "file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/DeviceReadiness.swift",
+    "description": "Immutable transient speech-asset, model, microphone, and meeting-audio permission states plus the resolved English locale. No capture content or persistence conformance.",
+    "related": [
+      "ComposureReadiness"
+    ]
   }
 ]
