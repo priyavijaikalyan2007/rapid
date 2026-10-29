@@ -531,3 +531,24 @@ Added a direct readiness refresh action and clear Chrome application-selection g
 Updated the screen and test guide to describe the expected counters and absence of coaching feedback.
 The capture backend, permissions, data limits, and privacy boundaries remain unchanged.
 All native builds, full repository checks, source style, and patch-whitespace validation passed after the screen correction.
+
+
+## Composure live coaching authorization on 29 October 2026
+
+### User request
+
+> ok what's next?
+
+Recommended a usable Mac session with temporary time-aligned speech context, a floating cue panel, and
+on-device semantic coaching based on recent speech, the saved profile, and an optional objective.
+Speaker-dependent cues require separate verification because built-in speakers can leak meeting speech into the microphone.
+
+> got it. let's do it.
+
+### First implementation checkpoint
+
+Added the file-level live implementation plan and the testable core contracts. The core bounds speech to
+120 seconds, 128 events, and 32 KiB. It replaces overlapping partials, preserves finalized speech, validates
+short cues, and controls expiry, frequency, and repetition. Session tests cover explicit Start, duplicate Start,
+Stop, late callbacks, native Stop failure, model cancellation, and quiet model failures.
+The native integration remains in progress at this checkpoint.

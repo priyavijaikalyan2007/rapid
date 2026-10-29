@@ -247,5 +247,18 @@
       "src/composure/Apps/macOS/MacCaptureCheckView.swift",
       "src/composure/Apps/macOS/ComposureDebug.entitlements"
     ]
+  },
+  {
+    "id": "ADR-021",
+    "title": "Keep live coaching sparse, bounded, and independent of unverified speaker attribution",
+    "date": "2026-10-29",
+    "status": "Accepted",
+    "context": "The owner authorized the first useful Mac live coaching session. Keep recent speech in a bounded rolling buffer with no transcript UI or persistence. Separate native capture and semantic generation through testable contracts. Validate each generated instruction independently and reject stale evidence. Use one cue, expiry, cooldown, repeat suppression, and profile frequency limits. Stop clears content immediately and blocks restart until native cleanup is confirmed. Built-in-speaker capture does not establish clean user/other separation. Keep speaker-dependent detectors disabled until route evidence supports them.",
+    "files": [
+      "specs/composure-live.plan.md",
+      "src/composure/Packages/ComposureCore/Sources/ComposureCore/LiveSessionCoordinator.swift",
+      "src/composure/Packages/ComposureCore/Sources/ComposureCore/ConversationBuffer.swift",
+      "src/composure/Packages/ComposureCore/Sources/ComposureCore/CueArbiter.swift"
+    ]
   }
 ]

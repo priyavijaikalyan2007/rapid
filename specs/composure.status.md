@@ -348,3 +348,12 @@ It does not establish recognition accuracy, echo separation, clock-alignment acc
 Offline operation, long sessions, route transitions, mobile capture, and the production transcription/coaching pipeline remain open.
 No further test action is needed from the owner for this checkpoint.
 The usability correction passed all native builds, the full repository suite, source-style checks, and patch-whitespace checks.
+
+
+## Live coaching core checkpoint on 29 October 2026
+
+The owner authorized the [Mac live coaching plan](composure-live.plan.md).
+Core contracts now implement bounded transient speech context, sparse validated cue arbitration,
+and an explicit session coordinator. They do not start native capture without an injected source and explicit Start.
+The package passed 110 core tests and 37 active native tests plus four opt-in declarations.
+Native capture/model integration and the floating panel remain in progress.

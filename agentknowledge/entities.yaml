@@ -186,5 +186,14 @@
     "related": [
       "ComposureCaptureCheck"
     ]
+  },
+  {
+    "name": "TranscriptEvent",
+    "table": null,
+    "file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/TranscriptEvent.swift",
+    "description": "Bounded memory-only partial or final speech text with source, unknown speaker attribution, identity, and shared monotonic audio start/end times. No persistence conformance.",
+    "related": [
+      "ComposureLiveCoaching"
+    ]
   }
 ]

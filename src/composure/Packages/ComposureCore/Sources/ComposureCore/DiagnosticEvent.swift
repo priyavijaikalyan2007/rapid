@@ -21,6 +21,8 @@ public enum DiagnosticEvent: String, Sendable
     case applicationLaunched = "application.launched"
     case sessionStarted = "session.started"
     case sessionStopped = "session.stopped"
+    case liveCueDisplayed = "live.cue.displayed"
+    case liveModelFailed = "live.model.failed"
     case preferencesLoaded = "preferences.loaded"
     case preferencesSaved = "preferences.saved"
     case preferencesReset = "preferences.reset"

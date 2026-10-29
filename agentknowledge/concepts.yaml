@@ -234,5 +234,15 @@
       "ComposureReadiness",
       "ComposureDiagnostics"
     ]
+  },
+  {
+    "name": "ComposureLiveCoaching",
+    "definition": "Explicit transient session orchestration, bounded speech context, validated sparse cues, and cancellation-safe cleanup behind native capture and model contracts.",
+    "anchor_file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/LiveSessionCoordinator.swift",
+    "related": [
+      "ComposureReadiness",
+      "ComposureOnDeviceModel",
+      "ComposurePreferences"
+    ]
   }
 ]
