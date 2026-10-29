@@ -205,15 +205,18 @@ The simulator setup journey uses an isolated provider. It does not verify real a
 
 Use the Composure Mac scheme in Debug configuration. The experiment appears under Live Coach.
 It checks separate microphone and selected-app audio, two speech analyzers, common-clock timestamps, and bounded processing.
-It does not provide live coaching or save audio or recognition text.
+Coaching feedback is not implemented in this screen. The expected result is changing buffer and recognition-event counts, followed by Stop.
+The check does not save audio or recognition text.
 
-1. Open Settings and set up speech until Speech model shows Ready.
+1. Open Live Coach and use the inline Speech setup controls until Speech model shows Ready.
+   Use Check speech readiness to refresh after a system download completes. Settings provides the same setup controls.
 2. Start an empty test call in your meeting app.
 3. Confirm that the meeting app receives your microphone before the check starts.
 4. Open Live Coach in Composure.
 5. Select Start audio check.
 6. Allow microphone access if macOS asks.
-7. Select only the test meeting app in Apple's sharing picker.
+7. Select the test meeting app in Apple's sharing picker.
+   For Google Meet in Chrome, select Google Chrome. The picker selects the application rather than an individual tab.
 8. Speak harmless test phrases while the meeting app plays test speech.
    Expect two prepared analyzers, increasing buffer counts for both streams, and recognition events when speech is recognized.
 9. Confirm that the meeting app still receives your microphone.

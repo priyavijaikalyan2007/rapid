@@ -503,3 +503,31 @@ The built Debug app has microphone usage text. Release does not and retains the 
 No real microphone or meeting audio was captured during this work.
 Actual asset setup, shared-microphone compatibility, live two-analyzer behavior, route timing, and offline speech remain physical-device gates.
 Added concrete developer test steps. Preserved the owner's local project formatting, team, and signing choices.
+
+## 29 October 2026: Unblock Start and record the first live feasibility result
+
+### User requests
+
+> Nope step 3 is not enabled. How am I supposed to do that? I am testing with Google meet in Chrome browser.
+
+The owner identified speech assets needing setup or still downloading.
+Explained the speech-asset prerequisite and the Settings setup and refresh actions.
+
+> That seems to have worked but I didn't get any feedback per se. Audio check started, I saw buffers changing then it stopped I think after 20s. Is there something I should do?
+
+The owner confirmed that both recognition-event counters increased and Meet still received the microphone.
+The owner used this MacBook Pro's built-in microphone and speakers.
+A current host query returned macOS 26.6.2. Exact chip and Chrome versions were not obtained.
+
+### Response summary
+
+Explained that the current screen checks capture and speech recognition, and does not yet generate coaching feedback.
+The reported result passes the basic early feasibility check for this Chrome/Meet and built-in-audio configuration.
+It does not verify accuracy, echo separation, exact clock alignment, other routes, or long sessions.
+No further owner action is needed for this checkpoint. Production transcription and coaching cues remain future work.
+
+Moved Start/Stop above the counters and added inline speech setup when assets are not ready.
+Added a direct readiness refresh action and clear Chrome application-selection guidance.
+Updated the screen and test guide to describe the expected counters and absence of coaching feedback.
+The capture backend, permissions, data limits, and privacy boundaries remain unchanged.
+All native builds, full repository checks, source style, and patch-whitespace validation passed after the screen correction.

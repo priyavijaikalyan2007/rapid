@@ -12,6 +12,11 @@ Created: 2026
 
 ## 29 October 2026
 
+### Fixed
+
+- Added speech setup and refresh directly beside the Mac audio-check controls when speech assets block Start.
+- Clarified that the development check reports capture and recognition counts without coaching feedback, including Chrome selection guidance.
+
 ### Added
 
 - Added an explicit Debug Mac audio check for separate microphone and selected-app streams through two speech analyzers.

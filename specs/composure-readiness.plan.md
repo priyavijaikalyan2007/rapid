@@ -123,3 +123,17 @@ Native tests cover bounded PCM conversion, continuous resampled timing, passive 
 The package passed 84 core tests and 37 native unit tests. Four model/speech evaluations remain opt-in.
 No real capture, actual microphone sharing, two-analyzer processing of live speech, or offline speech operation was run.
 The developer procedure in the component README defines the remaining physical-device check.
+
+## Usability correction and owner observation
+
+The owner reported a disabled Start action caused by speech assets still needing setup or downloading.
+Add the existing readiness component inline, expose a direct refresh, and put Start/Stop before the counters.
+Clarify that the screen reports audio and recognition events without coaching feedback.
+This rendering change modifies MacCaptureCheckView.swift, the component README, and the repository records.
+No new pattern or public interface is required. The existing setup coordinator and capture guards remain authoritative.
+Validate the native builds and repository/source checks. Reuse the tested setup component without adding tests that mirror UI composition.
+
+The owner subsequently confirmed that both recognition-event counters increased and Chrome/Meet retained microphone access.
+The test used the MacBook Pro's built-in microphone and speakers. The host reports macOS 26.6.2.
+The basic early feasibility gate is satisfied for this one configuration based on the owner's report.
+Accuracy, echo separation, precise alignment, other routes, mobile capture, and long sessions remain unverified.

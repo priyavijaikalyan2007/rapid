@@ -330,3 +330,21 @@ These checks use synthetic PCM, fixed errors, and passive lifecycle operations. 
 Actual asset installation, live two-analyzer behavior, microphone sharing, clock alignment, route compatibility, and offline speech remain unverified.
 Use the component README's development audio-check procedure with an empty test call.
 The early feasibility gate remains open until those observations are recorded.
+
+## First reported Chrome and Meet check on 29 October 2026
+
+The owner initially found Start disabled while speech assets needed setup or were downloading.
+The capture screen now offers speech setup and a refresh action without requiring navigation to Settings.
+The screen and test guide also state that this experiment produces counters, not coaching feedback.
+The picker selects Google Chrome as an application when testing Google Meet.
+
+After setup, the owner reported changing buffers and a stop after about 20 seconds.
+The owner then confirmed that both recognition-event counters increased and Meet continued receiving the microphone.
+The reported route was the MacBook Pro's built-in microphone and speakers.
+A current host query reported macOS 26.6.2. The exact chip, Chrome version, and final counter values were not recorded.
+
+This user report satisfies the basic early capture and shared-microphone feasibility check for this one configuration.
+It does not establish recognition accuracy, echo separation, clock-alignment accuracy, signed sandbox behavior, or other app/route compatibility.
+Offline operation, long sessions, route transitions, mobile capture, and the production transcription/coaching pipeline remain open.
+No further test action is needed from the owner for this checkpoint.
+The usability correction passed all native builds, the full repository suite, source-style checks, and patch-whitespace checks.
