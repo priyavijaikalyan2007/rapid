@@ -85,3 +85,41 @@ All native builds, repository regressions, and source checks passed. Actual inst
 
 References: [Apple asset management](https://developer.apple.com/documentation/speech/assetinventory),
 [installation behavior](https://developer.apple.com/documentation/speech/assetinstallationrequest/downloadandinstall()).
+
+## Early Mac experiment implementation
+
+Provide a Debug-only Live Coach audio check in the existing Mac app.
+Start must be explicit, speech assets must already be installed, and the user must select one app through the system sharing picker.
+Capture microphone and selected-app audio as separate ScreenCaptureKit output types.
+Use a fixed microphone device, stop on route changes, and require both streams before showing successful sample delivery.
+Prepare two SpeechAnalyzer instances with separate time-indexed progressive transcribers and bounded input streams of eight buffers each.
+Copy bounded PCM buffers, convert to a compatible format, and preserve timestamps on the stream's common host clock.
+Drain recognition results without reading, displaying, logging, or retaining transcript text.
+Stop after 20 seconds, on explicit Stop, when the view closes, or on relevant workspace lifecycle events.
+If capture cannot stop cleanly, keep the Stop action and report the failure instead of presenting an idle state.
+No recording output, audio file, transcript storage, or cloud model belongs to the experiment.
+
+Add CaptureCheckChannel.swift, CaptureCheckFailure.swift, CaptureCheckMetrics.swift, and CaptureCheckState.swift under the pure core.
+Add CaptureCheckMetricsTests.swift under its tests.
+Add MacCaptureCheck.swift, CaptureCheckPicker.swift, CaptureCheckAudioSink.swift,
+CaptureCheckSpeechChannel.swift, and CaptureCheckAudioConverter.swift under ComposureModels, guarded for Debug macOS.
+Add CaptureCheckErrorMapping.swift and its unit tests to preserve microphone failures and explicit stop confirmations.
+Add CaptureCheckAudioConverterTests.swift and passive MacCaptureCheckTests.swift under native adapter tests.
+Add Apps/macOS/MacCaptureCheckView.swift and ComposureDebug.entitlements. Update MacRootView.swift.
+Add the required Mac source references, Debug microphone usage text, and Debug-only audio-input entitlement in the project.
+Keep Release capture behavior and entitlements unchanged. Preserve owner project changes through the same selective staging procedure.
+
+Core metrics contracts record a channel's bounded buffer count and timing and reject invalid, decreasing, or excessive input.
+Metrics report missing microphone or meeting streams at setup deadlines. They never imply that a meeting app still receives microphone audio.
+The developer must verify microphone sharing, routing, and stream alignment during a synthetic test call.
+Document the exact device, OS, app, route, result, and unresolved cases. Do not treat compilation or synthetic tests as hardware proof.
+
+## Experiment implementation results
+
+The Debug Mac check and all native variants compile. A separate Release Mac build also passed.
+The built Debug app has microphone usage text. The Release app has none and retains the original entitlement file without audio input.
+Core tests cover missing streams, invalid or decreasing timing, and buffer quotas.
+Native tests cover bounded PCM conversion, continuous resampled timing, passive initialization, cancellation-safe cleanup, and error meanings.
+The package passed 84 core tests and 37 native unit tests. Four model/speech evaluations remain opt-in.
+No real capture, actual microphone sharing, two-analyzer processing of live speech, or offline speech operation was run.
+The developer procedure in the component README defines the remaining physical-device check.

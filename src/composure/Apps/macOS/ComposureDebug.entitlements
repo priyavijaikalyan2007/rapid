@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-FileCopyrightText: 2026 Outcrop Inc -->
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!-- Repository: rapid; File GUID: 34a59f90-42f4-4aa9-b7fd-40b27ac03f4d; Created: 2026 -->
+<!-- AGENT: Debug-only sandbox access for the explicit microphone feasibility check. -->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>com.apple.security.app-sandbox</key>
+    <true/>
+    <key>com.apple.security.device.audio-input</key>
+    <true/>
+</dict>
+</plist>

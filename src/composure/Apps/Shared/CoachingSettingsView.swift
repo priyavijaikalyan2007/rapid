@@ -90,7 +90,11 @@ struct CoachingSettingsView: View
         {
             LabeledContent("Cloud AI", value: "Not used")
             LabeledContent("Meeting history", value: "Not stored")
+            #if os(macOS) && DEBUG
+            LabeledContent("Audio capture", value: "Development check only")
+            #else
             LabeledContent("Audio capture", value: "Not available yet")
+            #endif
             LabeledContent("Meeting recording", value: "Disabled by design")
             LabeledContent("Transcript storage", value: "Disabled by design")
             OnDeviceReadinessView(coordinator: readiness)

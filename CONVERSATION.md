@@ -477,3 +477,29 @@ Exported screenshots showed readable native status layouts on both devices.
 All native platform builds, the full repository suite, and source-style checks passed.
 Preserved owner project formatting, team, and signing choices while preparing only the required source-reference changes for commit.
 The early Mac dual-stream and two-analyzer capture experiment is the next part of the authorized work.
+
+## 29 October 2026: Provide the early Mac audio experiment
+
+### User status request
+
+> are you working or stopped? seem slike you are stuck?
+
+### Response and implementation summary
+
+Confirmed that work continued, identified the pushed readiness checkpoint cbb024a, and acknowledged excessive time on UI test setup.
+The capture backend then compiled and passed synthetic audio and passive lifecycle tests.
+Completed the Debug-only Mac Start/Stop screen and the final cleanup and Release-boundary checks.
+
+The experiment uses a single-app sharing picker, a fixed microphone device, separate audio outputs, and two on-device analyzers.
+Both input queues are bounded to eight buffers. PCM copying, conversion, timing, and missing-stream deadlines have explicit limits.
+Recognition text is discarded. Only numeric sample and recognition-event counts appear.
+The controller stops on route/source changes, relevant lifecycle notifications, and pipeline failures.
+Automatic Stop cannot cancel its own native cleanup. Unconfirmed Stop remains a visible failure with retry or quit guidance.
+Native microphone-start errors retain their meaning instead of becoming generic success or meeting-audio-only operation.
+
+Core contracts, converter timing, cleanup, and error mappings failed before their implementations, then passed.
+The package passed 84 core tests and 37 native unit tests. All native Debug builds and a separate Release Mac build passed.
+The built Debug app has microphone usage text. Release does not and retains the original entitlement file without audio input.
+No real microphone or meeting audio was captured during this work.
+Actual asset setup, shared-microphone compatibility, live two-analyzer behavior, route timing, and offline speech remain physical-device gates.
+Added concrete developer test steps. Preserved the owner's local project formatting, team, and signing choices.

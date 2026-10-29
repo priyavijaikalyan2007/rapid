@@ -14,8 +14,9 @@ Composure is a private conversation coach in development for Mac, iPhone, and iP
 The application provides privacy onboarding, saved profile settings, and private conversation preparation through native controls.
 Settings also checks device prerequisites and offers explicit speech-asset setup.
 Prepare uses an on-device model for situation-specific coaching, with labeled profile-based guidance when generation is unavailable.
-Preparation input and results remain in memory. Audio capture, speech recognition, and live coaching are not implemented yet.
-This build does not request microphone permissions or listen.
+Preparation input and results remain in memory. Live coaching is not implemented yet.
+Debug Mac builds include an explicit, short audio feasibility check. Mobile and Release Mac builds do not capture audio at this checkpoint.
+Opening the app, checking readiness, and setting up speech do not request microphone access or start listening.
 
 Read the [normative specification](implementation-specification.md) for requirements.
 Read the [implementation plan](implementation-plan.md) for the full release sequence.
@@ -65,7 +66,8 @@ Its separate ComposureModels target isolates Apple Foundation Models from the pu
 The applications log fixed lifecycle events without profile values or meeting content.
 One versioned UserDefaults record stores only coaching choices and app preferences.
 Corrupt or unsupported records require explicit recovery. Operating-system backups can include saved preferences.
-The Mac target enables App Sandbox without network or capture entitlements.
+The Release Mac target enables App Sandbox without network or capture entitlements.
+Debug Mac builds allow microphone input for the explicit development audio check.
 Both Debug and Release Mac configurations build arm64 applications.
 Unsigned builds do not verify signed sandbox behavior or installation on physical mobile devices.
 
@@ -198,6 +200,38 @@ COMPOSURE_EVALUATE_SPEECH=1 ./test.sh composure
 ```
 
 The simulator setup journey uses an isolated provider. It does not verify real asset downloads or offline transcription.
+
+## Development Mac audio check
+
+Use the Composure Mac scheme in Debug configuration. The experiment appears under Live Coach.
+It checks separate microphone and selected-app audio, two speech analyzers, common-clock timestamps, and bounded processing.
+It does not provide live coaching or save audio or recognition text.
+
+1. Open Settings and set up speech until Speech model shows Ready.
+2. Start an empty test call in your meeting app.
+3. Confirm that the meeting app receives your microphone before the check starts.
+4. Open Live Coach in Composure.
+5. Select Start audio check.
+6. Allow microphone access if macOS asks.
+7. Select only the test meeting app in Apple's sharing picker.
+8. Speak harmless test phrases while the meeting app plays test speech.
+   Expect two prepared analyzers, increasing buffer counts for both streams, and recognition events when speech is recognized.
+9. Confirm that the meeting app still receives your microphone.
+   Buffer counts alone do not verify microphone sharing or audio quality.
+10. Select Stop.
+    Expect capture and analyzer work to end. The check also requests Stop automatically after 20 seconds.
+11. Repeat the test after changing the audio route.
+    Expect a route change during a check to stop it and require an explicit restart.
+
+A missing separate microphone stream stops setup. Meeting-audio-only coaching is not offered.
+The input queues hold at most eight buffers each. Oversized data, dropped input, or timing discontinuities stop the check.
+If Stop cannot confirm success, retry Stop or quit Composure to release capture. The app does not present an idle state in that case.
+Closing the check view, system sleep, screen sleep, and user-session deactivation request cleanup.
+Release builds exclude this experiment and retain their original capture entitlements.
+
+Report the Mac model, OS version, meeting app, audio route, both buffer and recognition-event counts, microphone sharing, and Stop result.
+Built-in audio, wired devices, AirPods, Bluetooth, USB, and display audio need separate observed checks.
+Current automated tests use synthetic PCM and passive lifecycle checks. Actual capture compatibility and offline speech remain unverified.
 
 ## Native UI tests
 

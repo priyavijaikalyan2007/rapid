@@ -233,5 +233,19 @@
       "src/composure/Packages/ComposureCore/Sources/ComposureModels/AppleReadinessService.swift",
       "src/composure/Apps/Shared/OnDeviceReadinessView.swift"
     ]
+  },
+  {
+    "id": "ADR-020",
+    "title": "Keep the early remote audio experiment explicit and Debug-only",
+    "date": "2026-10-29",
+    "status": "Accepted",
+    "context": "The owner authorized speech readiness and the early Mac feasibility check. Use one app-owned Debug controller, a native single-application picker, separate ScreenCaptureKit audio and microphone outputs, and two SpeechAnalyzer instances. Do not change the system audio route. Bound both input streams to eight buffers, validate PCM sizes and timestamps, discard recognition text, and request Stop after 20 seconds. Stop on missing microphone, missing meeting audio, route or source changes, lifecycle events, and pipeline failures. Cleanup runs outside caller cancellation and an unconfirmed stop cannot become idle. Release builds have neither the experiment nor its microphone entitlement/usage text. Compilation and synthetic tests do not establish actual capture compatibility, microphone sharing, or offline operation.",
+    "files": [
+      "specs/composure-readiness.plan.md",
+      "src/composure/Packages/ComposureCore/Sources/ComposureModels/MacCaptureCheck.swift",
+      "src/composure/Packages/ComposureCore/Sources/ComposureModels/CaptureCheckAudioSink.swift",
+      "src/composure/Apps/macOS/MacCaptureCheckView.swift",
+      "src/composure/Apps/macOS/ComposureDebug.entitlements"
+    ]
   }
 ]

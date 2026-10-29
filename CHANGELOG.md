@@ -10,6 +10,14 @@ Created: 2026
 
 # Changelog
 
+## 29 October 2026
+
+### Added
+
+- Added an explicit Debug Mac audio check for separate microphone and selected-app streams through two speech analyzers.
+- Added bounded PCM conversion, common-clock timing, missing-stream deadlines, and cancellation-safe cleanup.
+- Kept microphone usage text and audio-input access limited to Debug builds. Release capture behavior remains unchanged.
+
 ## 28 October 2026
 
 ### Added

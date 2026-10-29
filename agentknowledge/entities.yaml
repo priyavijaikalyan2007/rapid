@@ -177,5 +177,14 @@
     "related": [
       "ComposureReadiness"
     ]
+  },
+  {
+    "name": "CaptureCheckMetrics",
+    "table": null,
+    "file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/CaptureCheckMetrics.swift",
+    "description": "Bounded transient counters and timing metadata for two distinct audio channels. No audio buffers, transcript strings, identities, or persistence conformance.",
+    "related": [
+      "ComposureCaptureCheck"
+    ]
   }
 ]

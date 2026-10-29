@@ -225,5 +225,14 @@
       "ComposureOnDeviceModel",
       "ComposurePreferences"
     ]
+  },
+  {
+    "name": "ComposureCaptureCheck",
+    "definition": "Debug-only Mac experiment with explicit native app selection, separate bounded audio streams, two on-device analyzers, numeric-only output, and confirmed cleanup. Actual microphone sharing requires a test call.",
+    "anchor_file": "src/composure/Packages/ComposureCore/Sources/ComposureModels/MacCaptureCheck.swift",
+    "related": [
+      "ComposureReadiness",
+      "ComposureDiagnostics"
+    ]
   }
 ]

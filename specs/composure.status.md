@@ -10,7 +10,7 @@ Created: 2026
 
 # Composure status
 
-Updated on 28 October 2026.
+Updated on 29 October 2026.
 
 Composure has an executable native foundation under src/composure.
 The Mac and universal iPhone/iPad targets use a local Swift package with strict Swift 6 concurrency.
@@ -306,3 +306,27 @@ All active and generic Apple silicon Mac, simulator, and physical mobile compila
 The full repository suite and source-style checks passed.
 Only new source references will enter the project commit. The owner's formatting, development team, and signing edits remain local.
 Live audio, two-analyzer feasibility, actual microphone sharing, and offline speech operation remain separate gates.
+
+## Debug Mac capture experiment on 29 October 2026
+
+Speech readiness was committed and pushed as cbb024a before this experiment.
+Debug Mac Live Coach now provides explicit Start and Stop controls for a short development audio check.
+It requires installed speech assets, microphone permission, and an app chosen through the system sharing picker.
+Two separate ScreenCaptureKit outputs feed two SpeechAnalyzer instances through eight-buffer input queues.
+The check validates PCM bounds and common-clock timing and discards recognition text while displaying numeric counts.
+Missing streams, format or route changes, source changes, dropped input, or invalid timing stop the check.
+There is no meeting-audio-only fallback.
+
+The check requests Stop after 20 seconds and on view closure or relevant workspace lifecycle notifications.
+Cleanup runs in an uncanceled task even if automatic Stop cancels its own timer.
+Failed Stop remains visible and retryable. The controller does not claim an idle state without confirmation.
+Debug has a separate audio-input entitlement and microphone usage text.
+A separate Release build passed without that usage text or audio-input entitlement.
+No mobile capture behavior changed.
+
+New tests failed before implementation. The package passed 84 core tests and 37 native unit tests.
+All Debug platform variants and the separate Release Mac build passed.
+These checks use synthetic PCM, fixed errors, and passive lifecycle operations. No real audio capture ran.
+Actual asset installation, live two-analyzer behavior, microphone sharing, clock alignment, route compatibility, and offline speech remain unverified.
+Use the component README's development audio-check procedure with an empty test call.
+The early feasibility gate remains open until those observations are recorded.

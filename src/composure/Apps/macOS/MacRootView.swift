@@ -49,6 +49,14 @@ struct MacRootView: View
             {
                 PrepareView(coordinator: preparation, preferences: coordinator, service: preparationService)
             }
+            else if selection == .live
+            {
+                #if DEBUG
+                MacCaptureCheckView(readiness: readiness)
+                #else
+                FeaturePlaceholder(section: .live)
+                #endif
+            }
             else
             {
                 FeaturePlaceholder(section: selection ?? .home)
