@@ -22,6 +22,11 @@ public final class LiveSessionCoordinator
     public private(set) var error: LiveSessionError?
     public private(set) var modelFailureCount = 0
     public private(set) var isCoachingAvailable = true
+    public var activeSessionID: UUID?
+    {
+        sessionID
+    }
+
     public var retainedEventCount: Int
     {
         buffer.events.count
@@ -41,6 +46,7 @@ public final class LiveSessionCoordinator
     @ObservationIgnored private let model: any LiveCoachingModel
     @ObservationIgnored private let clock: @MainActor @Sendable () -> Double
     @ObservationIgnored private let automaticallyTicks: Bool
+    @ObservationIgnored private let timeout: Duration
     @ObservationIgnored private let logger: DiagnosticLogger
     @ObservationIgnored private var buffer = ConversationBuffer()
     @ObservationIgnored private var arbiter = CueArbiter(profile: CoachingProfile())
@@ -59,13 +65,15 @@ public final class LiveSessionCoordinator
         clock: @escaping @MainActor @Sendable () -> Double = {
             ProcessInfo.processInfo.systemUptime
         },
-        automaticallyTicks: Bool = true, logger: DiagnosticLogger = DiagnosticLogger { _, _ in }
+        automaticallyTicks: Bool = true, timeout: Duration = .seconds(6),
+        logger: DiagnosticLogger = DiagnosticLogger { _, _ in }
     )
     {
         self.source = source
         self.model = model
         self.clock = clock
         self.automaticallyTicks = automaticallyTicks
+        self.timeout = timeout > .zero && timeout <= .seconds(6) ? timeout : .seconds(6)
         self.logger = logger
     }
 
@@ -140,7 +148,8 @@ public final class LiveSessionCoordinator
                 return
             }
             startup = nil
-            await end(error: error as? LiveSessionError ?? .captureFailed, expectedID: id)
+            let failure = error is CancellationError ? nil : (error as? LiveSessionError ?? .captureFailed)
+            await end(error: failure, expectedID: id)
         }
     }
 
@@ -252,6 +261,7 @@ public final class LiveSessionCoordinator
     private func request(_ input: LiveCoachingInput) async throws -> CueProposal?
     {
         let model = model
+        let timeout = timeout
         return try await withThrowingTaskGroup(of: CueProposal?.self)
         { group in
             defer { group.cancelAll() }
@@ -261,7 +271,7 @@ public final class LiveSessionCoordinator
             }
             group.addTask
             {
-                try await Task.sleep(for: .seconds(6))
+                try await Task.sleep(for: timeout)
                 throw LiveSessionError.modelUnavailable
             }
             guard let result = try await group.next()
@@ -307,7 +317,7 @@ public final class LiveSessionCoordinator
         await pending.1?.value
         await arbiter.clear()
         error = captureStopped ? failure : .stopUnconfirmed
-        state = error == nil ? .idle : .failed
+        state = captureStopped ? (error == nil ? .idle : .failed) : .stopUnconfirmed
         logger.record(.sessionStopped)
     }
 

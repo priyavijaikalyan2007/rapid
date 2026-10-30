@@ -8,7 +8,7 @@
 // RELATES: MacCaptureCheck, CaptureCheckMetrics
 // FLOW: Explicit capture start -> bounded separate audio -> two analyzers -> metadata or controlled stop.
 
-#if os(macOS) && DEBUG
+#if os(macOS)
 import AVFoundation
 import ComposureCore
 import CoreMedia
@@ -145,7 +145,7 @@ final class CaptureCheckAudioSink: NSObject, SCStreamOutput, SCStreamDelegate, @
         {
             return
         }
-        let source = try copyPCM(sample)
+        let source = try Self.copyPCM(sample)
         let converter = channel == .microphone ? microphoneConverter : meetingConverter
         guard let input = try converter.convert(source, at: relative)
         else
@@ -173,7 +173,8 @@ final class CaptureCheckAudioSink: NSObject, SCStreamOutput, SCStreamDelegate, @
         }
     }
 
-    private func copyPCM(_ sample: CMSampleBuffer) throws -> AVAudioPCMBuffer
+    /// Shared bounded PCM copying for the development check and production live source.
+    static func copyPCM(_ sample: CMSampleBuffer) throws -> AVAudioPCMBuffer
     {
         let frames = CMSampleBufferGetNumSamples(sample)
         guard frames > 0,

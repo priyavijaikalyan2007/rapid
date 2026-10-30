@@ -19,7 +19,8 @@ Record observed designs separately from accepted decisions. Do not infer origina
 ## Product scope
 
 CropPrint is implemented. Composure provides privacy onboarding, saved profile settings, memory-only Prepare mode, and speech-asset setup.
-Composure live coaching remains planned. A Debug-only Mac audio check supports early capture feasibility testing.
+Composure now provides explicit Mac remote live coaching with temporary speech context and a floating cue panel.
+Mobile live capture and verified speaker-dependent detectors remain planned. A separate Debug Mac audio check remains available.
 Keep Prepare output bounded, scenario-specific, and independently validated.
 Use fixed preparation phrases for labeled fallback. Preserve on-device processing and the absence of model tools.
 Keep existing source paths. Do not create or move application structure during an instruction update.

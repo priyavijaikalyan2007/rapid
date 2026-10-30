@@ -16,6 +16,7 @@ final class TestLiveTranscriptionSource: LiveTranscriptionSource
     var startCount = 0
     var stopCount = 0
     var confirmsStop = true
+    var cancelsSelection = false
     var startFailure: LiveSessionError?
     var receive: (@MainActor @Sendable (TranscriptEvent) -> Void)?
     var reportFailure: (@MainActor @Sendable (LiveSessionError) -> Void)?
@@ -29,6 +30,10 @@ final class TestLiveTranscriptionSource: LiveTranscriptionSource
         startCount += 1
         self.receive = receive
         reportFailure = failure
+        if cancelsSelection
+        {
+            throw CancellationError()
+        }
         if let startFailure
         {
             throw startFailure

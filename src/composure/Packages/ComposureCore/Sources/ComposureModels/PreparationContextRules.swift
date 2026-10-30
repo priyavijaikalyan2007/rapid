@@ -48,7 +48,7 @@ enum PreparationContextRules
     }
 
     /// Conservative signals supplement model classification. They do not prove general injection resistance.
-    private static func hasProtocolOverride(_ text: String) -> Bool
+    static func hasProtocolOverride(_ text: String) -> Bool
     {
         matches(#"<(system|developer)>"#, in: text) ||
             matches(#""role"\s*:\s*"(system|developer)""#, in: text) ||

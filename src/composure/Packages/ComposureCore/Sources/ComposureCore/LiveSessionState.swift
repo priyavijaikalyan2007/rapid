@@ -16,4 +16,5 @@ public enum LiveSessionState: String, Sendable
     case listening = "Listening"
     case stopping = "Stopping"
     case failed = "Stopped"
+    case stopUnconfirmed = "Stop not confirmed"
 }

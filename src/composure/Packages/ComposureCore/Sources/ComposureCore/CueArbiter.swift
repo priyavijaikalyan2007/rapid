@@ -46,6 +46,7 @@ public actor CueArbiter
         let cue = CoachCue(
             id: UUID(),
             kind: proposal.kind,
+            priority: .normal,
             instruction: proposal.instruction,
             createdAt: now,
             expiresAt: now + CuePolicy.displaySeconds

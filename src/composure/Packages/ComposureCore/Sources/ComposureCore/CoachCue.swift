@@ -15,6 +15,7 @@ public struct CoachCue: Identifiable, Sendable, Equatable
 {
     public let id: UUID
     public let kind: CueKind
+    public let priority: CuePriority
     public let instruction: String
     public let createdAt: Double
     public let expiresAt: Double

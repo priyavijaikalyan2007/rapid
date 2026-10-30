@@ -8,7 +8,7 @@
 // RELATES: ReadinessCoordinator, ReadinessProvider
 // FLOW: Native prerequisite observation -> typed readiness -> explicit setup and refresh.
 
-/// Reports individual prerequisites without claiming that the unfinished live pipeline is ready.
+/// Reports individual prerequisites without claiming that a particular audio route is compatible.
 public struct DeviceReadiness: Sendable, Equatable
 {
     public let speech: SpeechAssetState

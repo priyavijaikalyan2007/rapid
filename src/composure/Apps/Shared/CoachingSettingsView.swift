@@ -90,8 +90,8 @@ struct CoachingSettingsView: View
         {
             LabeledContent("Cloud AI", value: "Not used")
             LabeledContent("Meeting history", value: "Not stored")
-            #if os(macOS) && DEBUG
-            LabeledContent("Audio capture", value: "Development check only")
+            #if os(macOS)
+            LabeledContent("Audio capture", value: "Explicit Start in Live Coach")
             #else
             LabeledContent("Audio capture", value: "Not available yet")
             #endif

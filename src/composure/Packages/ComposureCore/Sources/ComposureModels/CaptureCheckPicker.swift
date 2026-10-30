@@ -8,7 +8,7 @@
 // RELATES: MacCaptureCheck, CaptureCheckMetrics
 // FLOW: Explicit capture start -> bounded separate audio -> two analyzers -> metadata or controlled stop.
 
-#if os(macOS) && DEBUG
+#if os(macOS)
 import ScreenCaptureKit
 
 /// Bridges unspecified native callback queues to the main actor without changing the selected filter.

@@ -195,5 +195,44 @@
     "related": [
       "ComposureLiveCoaching"
     ]
+  },
+  {
+    "name": "CoachCue",
+    "table": null,
+    "file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/CoachCue.swift",
+    "description": "One memory-only validated cue with closed type, plain instruction, identity, creation time, and expiry. No queue, history, or persistence conformance.",
+    "related": [
+      "ComposureLiveCoaching",
+      "ComposureLiveSemantics"
+    ]
+  },
+  {
+    "name": "LiveCoachingInput",
+    "table": null,
+    "file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/LiveCoachingInput.swift",
+    "description": "Bounded recent finalized speech, a temporary objective, explicit style, and a saved profile for one fresh on-device opportunity. No persistence conformance.",
+    "related": [
+      "ComposureLiveCoaching",
+      "ComposureLiveSemantics"
+    ]
+  },
+  {
+    "name": "CueProposal",
+    "table": null,
+    "file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/CueProposal.swift",
+    "description": "Independently validated closed cue type, bounded plain instruction, confidence, and supplied evidence identity before timing arbitration. It grants no model tools or urgent priority.",
+    "related": [
+      "ComposureLiveCoaching",
+      "ComposureLiveSemantics"
+    ]
+  },
+  {
+    "name": "GeneratedLiveSituation",
+    "table": null,
+    "file": "src/composure/Packages/ComposureCore/Sources/ComposureModels/GeneratedLiveSituation.swift",
+    "description": "Transient guided situation classification, zero-based evidence index, and confidence before personalized instruction generation. It makes no participant identity or diagnostic claim.",
+    "related": [
+      "ComposureLiveSemantics"
+    ]
   }
 ]

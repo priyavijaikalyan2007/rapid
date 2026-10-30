@@ -17,14 +17,21 @@ struct MacRootView: View
     let coordinator: PreferencesCoordinator
     let preparationService: PreparationService
     let readiness: ReadinessCoordinator
+    let live: LiveSessionCoordinator
     @State private var preparation: PreparationCoordinator
     @State private var selection: AppSection? = .home
 
-    init(coordinator: PreferencesCoordinator, preparationService: PreparationService, readiness: ReadinessCoordinator)
+    init(
+        coordinator: PreferencesCoordinator,
+        preparationService: PreparationService,
+        readiness: ReadinessCoordinator,
+        live: LiveSessionCoordinator
+    )
     {
         self.coordinator = coordinator
         self.preparationService = preparationService
         self.readiness = readiness
+        self.live = live
         _preparation = State(initialValue: PreparationComposition.makeCoordinator(service: preparationService))
     }
 
@@ -52,9 +59,16 @@ struct MacRootView: View
             else if selection == .live
             {
                 #if DEBUG
-                MacCaptureCheckView(readiness: readiness)
+                if ProcessInfo.processInfo.arguments.contains("--development-audio-check")
+                {
+                    MacCaptureCheckView(readiness: readiness)
+                }
+                else
+                {
+                    MacLiveCoachView(session: live, preferences: coordinator, readiness: readiness)
+                }
                 #else
-                FeaturePlaceholder(section: .live)
+                MacLiveCoachView(session: live, preferences: coordinator, readiness: readiness)
                 #endif
             }
             else

@@ -15,7 +15,7 @@ import FoundationModels
 /// Owns no persistent transcript. The framework session is local to each bounded request.
 public actor AppleFoundationCoachingModel: CoachingModel
 {
-    private var isBusy = false
+    var isBusy = false
     public init()
     {
     }

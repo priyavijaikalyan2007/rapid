@@ -4,20 +4,21 @@
 // File GUID: 3786022e-f9bb-4eaa-93f7-83343ae6db93
 // Created: 2026
 // COMPONENT: macOS application entry point
-// PURPOSE: Launch the native Composure foundation without capture or model work.
+// PURPOSE: Own native preferences, readiness, and one explicitly started live coach.
 // RELATES: MacRootView, ApplicationDiagnostics
-// FLOW: Application launch -> local launch event -> native window.
+// FLOW: Application launch -> native controls -> explicit transient coaching session.
 
 import ComposureCore
 import SwiftUI
 
-/// Creates the macOS shell. Later capture must require a separate explicit Start action.
+/// Opening a window is passive. Capture requires a separate explicit Start action.
 @main
 struct ComposureMacApp: App
 {
     @State private var preferences = AppPreferencesComposition.makeCoordinator()
-    @State private var preparationService = PreparationComposition.makeService()
+    @State private var services = MacLiveCoachComposition()
     @State private var readiness = ReadinessComposition.makeCoordinator()
+    @NSApplicationDelegateAdaptor(ComposureMacDelegate.self) private var appDelegate
     init()
     {
         ApplicationDiagnostics.makeLogger().record(.applicationLaunched)
@@ -29,9 +30,18 @@ struct ComposureMacApp: App
         {
             PreferencesRootView(coordinator: preferences)
             {
-                MacRootView(coordinator: preferences, preparationService: preparationService, readiness: readiness)
+                MacRootView(
+                    coordinator: preferences,
+                    preparationService: services.preparation,
+                    readiness: readiness,
+                    live: services.session
+                )
             }
             .frame(minWidth: 640, minHeight: 520)
+            .onAppear
+            {
+                appDelegate.session = services.session
+            }
         }
         Settings
         {

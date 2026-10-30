@@ -20,10 +20,14 @@ enum ReadinessComposition
     {
         #if DEBUG
         let arguments = ProcessInfo.processInfo.arguments
-        if arguments.contains("--ui-test-preferences") && arguments.contains("--ui-test-readiness")
+        if arguments.contains("--ui-test-preferences") &&
+            (arguments.contains("--ui-test-readiness") || arguments.contains("--ui-test-live"))
         {
-            return ReadinessCoordinator(provider: UITestReadinessProvider(failsFirstSetup: arguments
-                    .contains("--ui-test-setup-failure")))
+            return ReadinessCoordinator(provider: UITestReadinessProvider(
+                failsFirstSetup: arguments
+                    .contains("--ui-test-setup-failure"),
+                readyForLive: arguments.contains("--ui-test-live")
+            ))
         }
         #endif
         return ReadinessCoordinator(provider: AppleReadinessService(), logger: ApplicationDiagnostics.makeLogger())

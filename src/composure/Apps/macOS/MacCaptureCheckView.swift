@@ -29,7 +29,7 @@ struct MacCaptureCheckView: View
             {
                 Text(
                     """
-                    Coaching feedback is not implemented yet. This test reports audio delivery and speech-recognition \
+                    This developer check provides no coaching feedback. It reports audio delivery and speech-recognition \
                     event counts. It briefly captures separate microphone and meeting-app audio without saving it.
                     """
                 )

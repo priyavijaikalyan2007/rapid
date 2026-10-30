@@ -15,6 +15,50 @@ import Testing
 @MainActor
 struct LiveSessionCoordinatorTests
 {
+    @Test func deadlineCancelsModelWorkAndKeepsCaptureAvailable() async throws
+    {
+        let source = TestLiveTranscriptionSource()
+        let model = TestLiveCoachingModel(delay: .seconds(30))
+        let coordinator = LiveSessionCoordinator(
+            source: source,
+            model: model,
+            clock: {
+                100
+            },
+            automaticallyTicks: false,
+            timeout: .milliseconds(1)
+        )
+        coordinator.start(localeIdentifier: "en-US", profile: CoachingProfile(), style: .normal)
+        await settle
+        {
+            coordinator.state == .listening
+        }
+        source.receive?(try speech(final: true))
+        await coordinator.tick()
+        await settle
+        {
+            coordinator.modelFailureCount == 1
+        }
+        #expect(await model.cancellations == 1)
+        #expect(coordinator.state == .listening)
+        #expect(coordinator.cue == nil)
+        await coordinator.stop()
+    }
+
+    @Test func canceledPickerReturnsToIdleWithoutAnError() async
+    {
+        let source = TestLiveTranscriptionSource()
+        source.cancelsSelection = true
+        let coordinator = make(source: source)
+        coordinator.start(localeIdentifier: "en-US", profile: CoachingProfile(), style: .normal)
+        await settle
+        {
+            coordinator.state == .idle || coordinator.state == .failed
+        }
+        #expect(coordinator.state == .idle)
+        #expect(coordinator.error == nil)
+    }
+
     @Test func initializationIsPassive() async
     {
         let source = TestLiveTranscriptionSource()
@@ -113,6 +157,7 @@ struct LiveSessionCoordinatorTests
         await coordinator.stop()
         #expect(!coordinator.canStart)
         #expect(coordinator.error == .stopUnconfirmed)
+        #expect(coordinator.state == .stopUnconfirmed)
         source.confirmsStop = true
         await coordinator.stop()
         #expect(coordinator.canStart)

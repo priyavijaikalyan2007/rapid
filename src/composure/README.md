@@ -14,8 +14,9 @@ Composure is a private conversation coach in development for Mac, iPhone, and iP
 The application provides privacy onboarding, saved profile settings, and private conversation preparation through native controls.
 Settings also checks device prerequisites and offers explicit speech-asset setup.
 Prepare uses an on-device model for situation-specific coaching, with labeled profile-based guidance when generation is unavailable.
-Preparation input and results remain in memory. Live coaching is not implemented yet.
-Debug Mac builds include an explicit, short audio feasibility check. Mobile and Release Mac builds do not capture audio at this checkpoint.
+Preparation input and results remain in memory. Mac Live Coach now supports explicitly started remote sessions and occasional on-device cues.
+Mac Debug and Release builds capture separate microphone and selected-application audio after Start. Mobile live capture remains planned.
+A separate Debug audio check remains available for development.
 Opening the app, checking readiness, and setting up speech do not request microphone access or start listening.
 
 Read the [normative specification](implementation-specification.md) for requirements.
@@ -66,8 +67,8 @@ Its separate ComposureModels target isolates Apple Foundation Models from the pu
 The applications log fixed lifecycle events without profile values or meeting content.
 One versioned UserDefaults record stores only coaching choices and app preferences.
 Corrupt or unsupported records require explicit recovery. Operating-system backups can include saved preferences.
-The Release Mac target enables App Sandbox without network or capture entitlements.
-Debug Mac builds allow microphone input for the explicit development audio check.
+Both Mac configurations enable App Sandbox and microphone input. They have no network entitlement.
+Microphone use requires explicit Start. Both configurations include a microphone usage description.
 Both Debug and Release Mac configurations build arm64 applications.
 Unsigned builds do not verify signed sandbox behavior or installation on physical mobile devices.
 
@@ -85,14 +86,15 @@ If an open Xcode project retains the old architecture settings, reopen the proje
 6. Complete the four setup steps.
 7. Check each navigation destination.
 
-Expect privacy onboarding, editable Settings, the Prepare form, and a Live Coach feature-status screen.
+Expect privacy onboarding, editable Settings, Prepare, and Mac Live Coach controls. Mobile Live Coach remains a feature-status screen.
 Expect no microphone or speech permission prompts.
 Record the device model, OS version, and launch result in the status record.
 No build command uploads or publishes the application.
 
 ## What to test now
 
-This stage tests onboarding, saved preferences, preparation, and native layout.
+Use the [Mac live coaching procedure](#mac-live-coaching-check) for the new milestone.
+The following foundation checks cover onboarding, saved preferences, preparation, and native layout.
 Prepare works without Apple Intelligence through profile-based guidance.
 Start with one Mac, the iPhone 17 Pro, and the M1 iPad Pro if each runs OS version 26 or later.
 Other supported devices can follow. Record older OS versions without changing deployment targets or updating devices automatically.
@@ -119,7 +121,7 @@ Other supported devices can follow. Record older OS versions without changing de
 10. Confirm Reset coaching profile.
     Expect default profile values, preserved session defaults, and no repeat of onboarding.
 11. Open Live Coach.
-    Expect its feature-status screen to say that Composure is not listening.
+    Expect the Mac session to show Not listening before Start. Mobile shows its feature-status screen.
 12. Rotate each mobile device.
    Expect readable text and accessible navigation in portrait and landscape.
 13. Resize the Mac and iPad windows where supported.
@@ -128,7 +130,7 @@ Other supported devices can follow. Record older OS versions without changing de
     Expect labeled controls, readable choices, and accessible Save, Back, and Continue actions.
 
 Report the device model, OS version, launch result, layout issues, and any permission prompt or crash.
-Audio capture, speech recognition, and live coaching quality are later test stages.
+Mac audio capture, speech recognition, and cue quality use the separate live procedure below.
 
 ## Prepare checks
 
@@ -184,7 +186,7 @@ The question-diversity check catches repeated pairs. Human review must still ass
 4. If setup fails, check the connection and available storage before trying again.
    Apple may continue or resume its download later. Refresh the status before retrying.
 5. Wait for Speech model to show Ready.
-   Ready means the configured speech assets are installed. Live coaching remains unimplemented.
+   Ready means the configured speech assets are installed. Start also requires an available on-device coaching model.
 6. Relaunch the app and refresh the status.
    Expect the system's current asset state rather than a saved success flag.
 
@@ -201,11 +203,76 @@ COMPOSURE_EVALUATE_SPEECH=1 ./test.sh composure
 
 The simulator setup journey uses an isolated provider. It does not verify real asset downloads or offline transcription.
 
+## Mac live coaching check
+
+Use an invented conversation in a test call. The current hardware evidence covers one MacBook Pro,
+Chrome/Meet, and built-in audio through the earlier development check. The new full coaching session
+requires an owner test on that setup. Headphones can reduce echo.
+
+1. Run the Composure Mac scheme in Xcode.
+2. Open Live Coach.
+3. Check that English speech assets and the on-device model are ready.
+4. Enter an optional meeting objective.
+5. Select the conversation style.
+6. Start a test call in Google Meet through Chrome.
+7. Select Start coaching in Composure.
+8. If macOS requests microphone access, allow access for this test.
+9. Select Google Chrome in Apple's sharing picker.
+   The selection covers the application, including its other tabs. Composure consumes no screen output.
+10. Discuss an invented promotion outcome.
+    Allow pauses for speech finalization. Expect occasional short cues in a floating panel.
+    The panel provides Stop while Chrome is active. Ordinary discussion can remain silent.
+11. Select Stop in the panel.
+    Expect the panel, objective, speech context, and current cue to clear. Expect Start to become available again.
+12. Confirm that Meet receives your microphone during and after coaching.
+13. Start another session.
+    Expect an empty objective and no cue carried over from the previous session.
+14. Navigate away from the Live Coach view that started the session.
+    Expect the session to stop. Switching to Chrome keeps the Mac session active.
+15. Change the default audio route during a test session.
+    Expect a controlled stop and an explicit new Start before capture resumes.
+
+Test receiving a promotion denial with an objective such as "Understand the evidence missing from my promotion case."
+Test explaining a decision with "Agree on concrete development criteria without promising a promotion decision."
+Check whether each cue fits the moment. A relevant cue matters more than a high cue count.
+Report unsuitable cues, missed useful moments, unexpected interruptions, capture failures, and Stop failures.
+
+The default policy permits at most four cues in ten minutes, with a 20-second cooldown and 90-second
+same-type suppression. The profile adjusts frequency. Each cue lasts eight seconds. There is no queue or transcript UI.
+The temporary context holds at most 120 seconds, 128 results, and 32 KiB of speech text.
+Each model opportunity uses a smaller finalized subset and a fresh tool-free on-device session.
+Invalid, late, low-confidence, or refused output remains silent. A failed model check does not stop audio capture.
+
+Speaker identity remains unknown on unverified routes. Interruption, rapid-response, speaking-duration,
+and direct-answer cues remain disabled in this first Mac slice. The app does not infer participant emotions or traits.
+Stop, navigation, sleep, screen sleep/lock, system session deactivation, route changes, and source failures clear context.
+An unconfirmed native Stop keeps Stop available and blocks restart. Quit Composure if retry cannot release capture.
+
+Automated Mac UI tests use synthetic speech and an isolated preference domain. They do not capture a microphone.
+The UI runner requires local signing. Ad-hoc signing is sufficient for these development tests:
+
+```sh
+DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcodebuild test \
+    -project src/composure/Composure.xcodeproj -scheme 'Composure Mac' \
+    -destination 'platform=macOS,arch=arm64' CODE_SIGN_IDENTITY=- DEVELOPMENT_TEAM= CODE_SIGN_STYLE=Manual
+```
+
+Run the optional real-model evaluation with invented content only:
+
+```sh
+COMPOSURE_EVALUATE_LIVE=1 ./test.sh composure
+```
+
+This evaluation requires an available model. It checks two promotion situations, four ordinary remarks,
+and three instruction-override fixtures. These checks do not establish broad coaching quality or general injection resistance.
+Real audio routes, long physical sessions, offline operation, and post-Stop content searches remain acceptance gates.
+
 ## Development Mac audio check
 
-Use the Composure Mac scheme in Debug configuration. The experiment appears under Live Coach.
+Use the Composure Mac scheme in Debug configuration with the launch argument `--development-audio-check`.
+This separate experiment replaces the regular Live Coach screen for that launch.
 It checks separate microphone and selected-app audio, two speech analyzers, common-clock timestamps, and bounded processing.
-Coaching feedback is not implemented in this screen. The expected result is changing buffer and recognition-event counts, followed by Stop.
+This development screen does not generate coaching feedback. The expected result is changing buffer and recognition-event counts, followed by Stop.
 The check does not save audio or recognition text.
 
 1. Open Live Coach and use the inline Speech setup controls until Speech model shows Ready.

@@ -8,7 +8,7 @@
 // RELATES: MacCaptureCheck, CaptureCheckFailure
 // FLOW: Framework error category -> fixed user-facing failure or explicit stop confirmation.
 
-#if os(macOS) && DEBUG
+#if os(macOS)
 import ComposureCore
 import Foundation
 import ScreenCaptureKit

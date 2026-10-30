@@ -20,12 +20,25 @@ public enum LiveSessionError: String, Error, LocalizedError, Sendable
     case captureFailed
     case stopUnconfirmed
     case modelUnavailable
+    case microphoneDenied
+    case microphoneUnavailable
+    case meetingAudioUnavailable
+    case routeChanged
+    case sourceChanged
 
     public var errorDescription: String?
     {
         switch self
         {
         case .invalidSpeech: return "Speech timing or text could not be processed. Stop and start a new session."
+        case .microphoneDenied: return "Microphone access is unavailable. Allow Composure in System Settings, then start again."
+        case .microphoneUnavailable: return """
+            The separate microphone stream is unavailable. Check the microphone, then retry. Both audio streams are \
+            required.
+            """
+        case .meetingAudioUnavailable: return "Meeting audio is unavailable. Confirm that the selected application plays speech, then start again."
+        case .routeChanged: return "The audio route or system session changed. Confirm your audio setup before starting again."
+        case .sourceChanged: return "The selected application changed. Select the application again before starting."
         case .modelUnavailable: return "On-device coaching is unavailable. Check Apple Intelligence and model readiness, then retry."
         case .invalidCue: return "A coaching suggestion did not pass validation."
         case .objectiveTooLong: return "Use at most 512 bytes for the meeting objective."

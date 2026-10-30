@@ -16,17 +16,23 @@ actor UITestReadinessProvider: ReadinessProvider
 {
     private var speech: SpeechAssetState = .needsSetup
     private var failsFirstSetup: Bool
+    private let readyForLive: Bool
 
-    init(failsFirstSetup: Bool)
+    init(failsFirstSetup: Bool, readyForLive: Bool = false)
     {
         self.failsFirstSetup = failsFirstSetup
+        self.readyForLive = readyForLive
+        if readyForLive
+        {
+            speech = .ready
+        }
     }
 
     func snapshot() -> DeviceReadiness
     {
         DeviceReadiness(
             speech: speech,
-            model: .appleIntelligenceNotEnabled,
+            model: readyForLive ? .available : .appleIntelligenceNotEnabled,
             microphone: .notRequested,
             meetingAudio: .notApplicable,
             speechLocaleIdentifier: "en-US"

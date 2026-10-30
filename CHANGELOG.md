@@ -10,6 +10,19 @@ Created: 2026
 
 # Changelog
 
+## 30 October 2026
+
+### Added
+
+- Added explicit Mac live coaching with selected-application and microphone audio, temporary speech context, and a floating native cue panel.
+- Added sparse on-device situation classification, profile-based wording, bounded model work, and independent cue validation.
+- Added Mac UI journeys for explicit Start, Stop, navigation cleanup, and synthetic cue display.
+
+### Fixed
+
+- Kept canceled source selection quiet and blocked restart when native audio Stop remains unconfirmed.
+- Treated low-confidence output as silence and separated situation classification from profile priorities to reduce repeated generic cues.
+
 ## 29 October 2026
 
 ### Fixed

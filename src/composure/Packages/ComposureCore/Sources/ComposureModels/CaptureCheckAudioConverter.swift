@@ -3,18 +3,18 @@
 // Repository: rapid
 // File GUID: 1ac03a20-b7a2-4834-bf47-43c61cfd913f
 // Created: 2026
-// COMPONENT: Debug Mac capture experiment
+// COMPONENT: Shared Mac capture conversion
 // PURPOSE: Check separate transient audio streams with bounded processing and no recording output.
 // RELATES: MacCaptureCheck, CaptureCheckMetrics
 // FLOW: Explicit capture start -> bounded separate audio -> two analyzers -> metadata or controlled stop.
 
-#if os(macOS) && DEBUG
+#if os(macOS)
 import AVFoundation
 import ComposureCore
 import CoreMedia
 import Speech
 
-/// Confined to the sink's serial sample queue. Format changes require a new explicit check.
+/// Confined to a sink's serial sample queue. Format changes require a new explicit session.
 final class CaptureCheckAudioConverter
 {
     static let maximumFrames: AVAudioFrameCount = 8192

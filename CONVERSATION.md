@@ -552,3 +552,25 @@ Added the file-level live implementation plan and the testable core contracts. T
 short cues, and controls expiry, frequency, and repetition. Session tests cover explicit Start, duplicate Start,
 Stop, late callbacks, native Stop failure, model cancellation, and quiet model failures.
 The native integration remains in progress at this checkpoint.
+
+
+## Composure Mac live coaching implementation on 30 October 2026
+
+### Response summary
+
+Completed the authorized first usable Mac live coaching slice. Explicit Start opens the native application
+picker and captures microphone and meeting audio separately. Temporary finalized speech feeds sparse
+on-device semantic coaching. A non-activating floating panel shows one bounded cue and provides Stop.
+Saved profile focus, frequency, and verbosity guide coaching. The optional objective clears after Stop.
+
+The core checkpoint was committed and pushed as 20aee61. Native model and capture boundary tests, Mac
+UI journeys, Debug builds for all destinations, Mac Release compilation, and controlled real-model
+evaluation passed. UI fixtures use invented speech and isolated preferences without microphone capture.
+The model evaluation exposed generic curiosity-driven suggestions, low-confidence handling, and override
+fixtures. Situation classification before personalization and independent validation corrected those cases.
+
+Speaker attribution remains unknown on the unverified route. Direct-answer, speaking-duration, interruption,
+and rapid-response cues remain disabled. A full real Meet call is the next owner test.
+The implementation does not save audio, transcript text, objectives, prompts, or meeting history.
+The agent did not run new real-microphone capture. No publication or deployment occurred.
+The owner's Xcode formatting, object-version, and signing settings remain outside agent commits.

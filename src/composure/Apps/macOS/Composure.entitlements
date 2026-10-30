@@ -2,11 +2,13 @@
 <!-- SPDX-FileCopyrightText: 2026 Outcrop Inc -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!-- Repository: rapid; File GUID: ef3e1ec5-c9f6-4377-a00d-5ce2988965a6; Created: 2026 -->
-<!-- AGENT: Enables App Sandbox without network, capture, or broad file access. -->
+<!-- AGENT: Enables App Sandbox and microphone capture after explicit Start, without network or broad file access. -->
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
     <key>com.apple.security.app-sandbox</key>
+    <true/>
+    <key>com.apple.security.device.audio-input</key>
     <true/>
 </dict>
 </plist>

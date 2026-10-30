@@ -244,5 +244,25 @@
       "ComposureOnDeviceModel",
       "ComposurePreferences"
     ]
+  },
+  {
+    "name": "ComposureRemoteCapture",
+    "definition": "Explicit Mac application selection and separate microphone/audio streams with two analyzers, bounded input queues, common-clock event mapping, route/lifecycle stops, and confirmed cleanup. No screen consumer or persistence.",
+    "anchor_file": "src/composure/Packages/ComposureCore/Sources/ComposureModels/MacMeetingAudioSource.swift",
+    "related": [
+      "ComposureLiveCoaching",
+      "ComposureReadiness",
+      "ComposureCaptureCheck"
+    ]
+  },
+  {
+    "name": "ComposureLiveSemantics",
+    "definition": "One shared on-device model slot classifies recent finalized speech before generating a short personalized instruction. Closed action vocabulary, objective/profile bounds, override screening, independent validation, and sparse arbitration keep output transient.",
+    "anchor_file": "src/composure/Packages/ComposureCore/Sources/ComposureModels/AppleFoundationCoachingModel+Live.swift",
+    "related": [
+      "ComposureLiveCoaching",
+      "ComposureOnDeviceModel",
+      "ComposurePreferences"
+    ]
   }
 ]

@@ -10,7 +10,7 @@ Created: 2026
 
 # Composure status
 
-Updated on 29 October 2026.
+Updated on 30 October 2026.
 
 Composure has an executable native foundation under src/composure.
 The Mac and universal iPhone/iPad targets use a local Swift package with strict Swift 6 concurrency.
@@ -19,7 +19,8 @@ The profile now enables Composure as a native component, alongside the existing 
 The application provides privacy onboarding, editable Coaching Profile settings, native Prepare mode, and navigation.
 The shared core includes typed preferences and a bounded UserDefaults adapter.
 Settings provides explicit Save, Discard, and confirmed profile reset actions.
-Live capture, speech, and live semantic coaching remain unimplemented.
+Mac Live Coach now supports explicitly started remote capture, temporary transcription, sparse semantic cues, and a floating native panel.
+Mobile live capture and speaker-dependent detectors remain unimplemented.
 
 The [normative specification](../src/composure/implementation-specification.md) is the implementation contract.
 The [product specification](../src/composure/product-specification.md) explains the product and design.
@@ -69,7 +70,7 @@ The logging interface accepts only approved event identifiers and bounded numeri
 The initial foundation emitted only the fixed launch event to native unified logging.
 Preference integration adds fixed lifecycle events without profile values or meeting content.
 
-## Remaining gates and next slice
+## Foundation gates at the initial checkpoint
 
 Phase 0 is not complete. Physical iPhone and iPad launch checks, signed sandbox checks,
 and the later pipeline domain contracts remain open.
@@ -357,3 +358,43 @@ Core contracts now implement bounded transient speech context, sparse validated 
 and an explicit session coordinator. They do not start native capture without an injected source and explicit Start.
 The package passed 110 core tests and 37 active native tests plus four opt-in declarations.
 Native capture/model integration and the floating panel remain in progress.
+
+
+## Usable Mac live coaching on 30 October 2026
+
+The [live plan](composure-live.plan.md) now has a native integration. The Mac Live Coach screen provides
+explicit Start/Stop, an optional temporary objective, session style, readiness, and one floating cue panel.
+Mac Debug and Release builds capture separate microphone and selected-application audio through two analyzers.
+Both configurations have microphone usage metadata and a sandbox audio-input entitlement. They have no network entitlement.
+Mobile live capture remains planned. The earlier Debug experiment remains available through a launch argument.
+
+The core holds at most 120 seconds, 128 events, and 32 KiB of speech text. It replaces partial revisions,
+orders audio times on a common clock, and periodically prunes context. Generation uses recent finalized
+speech, the saved profile, style, and objective. One shared model work slot serves Prepare and Live Coach.
+Two fresh bounded model passes classify the situation and generate one short instruction.
+The cooperative total deadline is six seconds. Late, invalid, low-confidence, and unavailable output cannot display a cue.
+Cues expire after eight seconds. Normal frequency allows at most four in ten minutes with a 20-second cooldown
+and 90-second same-type suppression. No historical queue or transcript display is added.
+
+Stop immediately clears app-owned context, objective, and displayed cue. Cleanup cancels model work and
+native analyzers. An unconfirmed native Stop remains visible, allows retry, and blocks restart.
+Mac sessions continue while another application is active. Navigation from the owning view, sleep/lock,
+system-session changes, audio-route changes, and capture failures stop the session.
+Speaker identity remains unknown. Speaker-dependent detectors and direct-answer cues remain disabled.
+
+Verification includes native model/core regression tests, all-platform Debug compilation, Mac Release
+compilation and usage metadata, two ad-hoc-signed Mac UI journeys, and visual inspection.
+The focus check confirmed that a cue appears while Finder remains active. UI tests use synthetic speech and isolated preferences.
+A synthetic audio-health test covers 4,000 seconds without a cumulative buffer quota. This is not a physical hour-long capture test.
+The real on-device model passed two promotion cases, four ordinary remarks, and three override fixtures.
+The narrow override signals and small evaluation set do not prove general injection resistance or broad coaching quality.
+
+The owner should now run the [Mac live coaching check](../src/composure/README.md#mac-live-coaching-check) in Meet.
+The earlier Chrome/Meet result establishes only the development capture check on one built-in route.
+The new full production session, signed owner sandbox, real speech latency, speaker separation, offline use,
+long physical sessions, other applications/routes, and persistent-content searches still need acceptance evidence.
+
+The final regression run passed 112 core tests and reported 57 native test declarations, including five
+opt-in evaluations skipped by default. The explicit live-model evaluation passed separately.
+The full repository check and source-style check passed. Mac semantic cues carry normal priority.
+High-priority detector replacement remains a later gate with speaker-specific detectors.

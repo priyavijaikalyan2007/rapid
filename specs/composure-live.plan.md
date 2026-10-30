@@ -28,7 +28,7 @@ Core additions under `Packages/ComposureCore/Sources/ComposureCore`:
   audio start/end times, partial/final state, identity, and bounded text.
 - `ConversationBuffer.swift`: replace partial revisions, preserve final results, sort by audio time,
   prune after 120 seconds, and enforce count and byte limits.
-- `CueKind.swift`, `CueProposal.swift`, `CoachCue.swift`, `CuePolicy.swift`, and `CueArbiter.swift`:
+- `CueKind.swift`, `CuePriority.swift`, `CueProposal.swift`, `CoachCue.swift`, `CuePolicy.swift`, and `CueArbiter.swift`:
   validate instructions, accept recent evidence, show one cue, expire cues, and suppress repetition.
 - `LiveCoachingInput.swift` and `LiveCoachingModel.swift`: bounded recent finalized context, objective,
   explicit style, and saved profile. `evaluate(_:) async throws -> CueProposal?` returns no action normally.
@@ -40,10 +40,13 @@ Core additions under `Packages/ComposureCore/Sources/ComposureCore`:
 Native additions under `Sources/ComposureModels`:
 
 - `MacMeetingAudioSource.swift`, `MeetingSpeechChannel.swift`, `MeetingAudioSink.swift`, and
-  `MeetingAudioHealth.swift`: picker-selected application audio, separate microphone input, two analyzers,
+  `MeetingAudioHealth.swift`, `MeetingSpeechTiming.swift`, and `MeetingCaptureLifecycle.swift`: picker-selected application audio, separate microphone input, two analyzers,
   bounded audio streams, shared host-clock mapping, and fixed failures.
-- `GeneratedLiveCue.swift`, `LiveCoachingPrompt.swift`, and `AppleFoundationCoachingModel+Live.swift`:
-  fresh tool-free guided generation, independent validation, prompt-injection boundaries, and bounded context.
+- `GeneratedLiveCue.swift`, `LiveCueAction.swift`, `LiveSituation.swift`, `GeneratedLiveSituation.swift`,
+  `GeneratedLiveInstruction.swift`, `LiveCoachingPrompt.swift`, and `AppleFoundationCoachingModel+Live.swift`:
+  classify the situation before generating personalized wording. Use fresh tool-free guided generation,
+  independent validation, prompt-injection boundaries, and bounded context. Reuse the existing narrow
+  `PreparationContextRules.hasProtocolOverride` signals. These signals do not prove general injection resistance.
 - Reuse the tested converter, picker, and native-error adapters from the development check on Mac Release
   builds too. These helpers remain private to the native module. Keep the Debug experiment's time limit.
 
@@ -52,8 +55,11 @@ App additions under `Apps/macOS`:
 - `MacLiveCoachView.swift`: visible readiness, transient optional objective, session style, explicit Start/Stop,
   clear active/error states, and inline cue display. No transcript view or session history.
 - `MacLiveCoachComposition.swift`: one app-owned source and coordinator across windows, shared model slot.
-- `MacCuePanel.swift` and `MacCuePanelView.swift`: non-activating native floating panel with Stop always available.
-- Update `MacRootView.swift`, `ComposureMacApp.swift`, and shared readiness/settings copy as needed.
+- `MacCuePanel.swift`, `NonActivatingCuePanel.swift`, and `MacCuePanelView.swift`: non-activating native floating panel with Stop always available.
+- `ComposureMacDelegate.swift`: finish normal session cleanup before application termination.
+- `UITestLiveSource.swift` and `UITestLiveModel.swift`: synthetic Debug-only fixtures.
+- Update `MacRootView.swift`, `ComposureMacApp.swift`, `ReadinessComposition.swift`,
+  `UITestReadinessProvider.swift`, `CoachingSettingsView.swift`, and developer-check copy.
 - Update `Composure.entitlements` and Mac Release project metadata for explicit microphone use.
   Mobile capture remains a later milestone. Native model/core contracts compile for all supported platforms.
 
@@ -64,8 +70,10 @@ Tests under the matching package test directories:
 - `LiveSessionCoordinatorTests.swift`, `TestLiveTranscriptionSource.swift`, and `TestLiveCoachingModel.swift`:
   passive initialization, explicit lifecycle, duplicate Start, stopped/failed cleanup, late events/results,
   model cancellation, quiet failures, and unconfirmed native Stop.
-- `LiveCoachingModelTests.swift`: bounded prompt/schema, independent output validation, and injection fixtures.
-- `MeetingAudioHealthTests.swift` and `MeetingSpeechTimingTests.swift`: native timing and bounded health state.
+- `LiveCoachingModelTests.swift` and `LiveCoachingEvaluationTests.swift`: bounded prompt/schema, independent output validation, and injection fixtures.
+- `MeetingAudioHealthTests.swift`, `MacMeetingAudioSourceTests.swift`, and `MeetingSpeechTimingTests.swift`: native timing and bounded health state.
+
+Add `Tests/MacUI/LiveCoachUITests.swift`, a Mac UI-test target in `project.pbxproj`, and its shared Mac scheme TestAction.
 
 Update `README.md`, `PROJECT.md`, `ADDITIONAL.md`, `CHANGELOG.md`, `CONVERSATION.md`,
 `specs/composure.status.md`, and the relevant graph concepts/entities/decision/history records.
@@ -101,3 +109,36 @@ real meeting content. Add controlled on-device promotion and injection evaluatio
 The owner tests the signed Mac app in Meet. Verify relevant cues and deliberate silence, focus retention,
 Stop, repeated Start/Stop, and no remaining microphone indicator. Physical route, long-session, offline,
 and persistent-content searches remain explicit acceptance evidence, not claims based on compilation.
+
+
+## Implementation evidence on 30 October 2026
+
+The first verified core checkpoint reached origin/main as 20aee61. Native integration now builds for
+Mac Debug and Release and both mobile compilation destinations. Mac live capture is available in Debug
+and Release. The separate development check remains Debug-only through `--development-audio-check`.
+
+The original one-pass live schema overused the profile's curiosity priority. Controlled evaluation exposed
+a generic manager cue and unsuitable cues for instruction-override content. The revised pipeline classifies
+the speech before personalization, screens narrow known override signals, then generates a bounded imperative.
+Low-confidence decisions remain silent. Speaker identity remains unknown. Direct-answer cues join
+interruption, response timing, and speaking duration as disabled until attribution has supporting evidence.
+
+The public model adapter passed both promotion fixtures, four ordinary remarks, and three override fixtures
+on the development Mac. Observed positive generations took about one to two seconds. These are synthetic
+model measurements, not end-to-end speech latency or broad quality evidence.
+
+Two ad-hoc-signed Mac UI journeys passed. They verify explicit Start, a synthetic cue, Stop clearing the
+objective and panel, navigation cleanup, and cue display while Finder keeps focus. The initial unsigned UI
+runner failed before bootstrapping. Ad-hoc signing resolved that infrastructure problem.
+Visual inspection confirmed readable native controls and one short floating cue.
+
+The new production source was not used for a real microphone call by the agent. Actual Meet quality,
+route separation, long physical sessions, offline transcription, and post-Stop content searches remain owner gates.
+No application archive, upload, store submission, website deployment, or message to another person occurred.
+
+Final checks passed the full repository suite, 112 core tests, and the native package suite with 57 declarations
+and five opt-in skips. The explicit live-model evaluation passed separately. Semantic cues use normal priority.
+High-priority detector replacement remains outside this initial role-neutral slice.
+
+The panel starts near the top center of the active screen and can be moved by dragging its background.
+The owner's object version and signing settings remain outside the isolated project commit draft.

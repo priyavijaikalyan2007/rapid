@@ -57,8 +57,11 @@ ComposureModels isolates Apple's on-device model, which generates bounded, role-
 Apple manages the model assets. Evaluation used macOS 26.6.2 and Xcode 27.1 without a pinned model-version identifier.
 Preparation input, results, and sessions remain in memory. Model unavailability selects labeled profile-based guidance.
 Settings checks speech assets, model availability, and capture permission states without starting audio.
-Explicit speech setup uses Apple-managed on-device assets. Debug Mac builds include an explicit dual-stream audio and two-analyzer feasibility check.
-Release and mobile builds still have no live capture. Production transcription and coaching remain planned.
+Explicit speech setup uses Apple-managed on-device assets. Mac Debug and Release builds support explicitly started remote coaching.
+Separate microphone and selected-application audio feed two on-device speech analyzers and bounded temporary context.
+A shared model work slot supports Prepare and sparse live cues. A non-activating native panel provides one cue and Stop.
+Speaker attribution remains unknown until route testing supports it. Mobile live capture and speaker-dependent detectors remain planned.
+A separate Debug dual-stream feasibility check remains available through a launch argument.
 
 ## Development prerequisites
 
