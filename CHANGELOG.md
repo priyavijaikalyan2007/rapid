@@ -20,6 +20,8 @@ Created: 2026
 
 ### Fixed
 
+- Made the Mac meeting objective field visibly editable before Start and explained why setup stays locked during coaching.
+- Strengthened Mac UI coverage to verify objective text before Start and editing again after Stop.
 - Kept canceled source selection quiet and blocked restart when native audio Stop remains unconfirmed.
 - Treated low-confidence output as silence and separated situation classification from profile priorities to reduce repeated generic cues.
 

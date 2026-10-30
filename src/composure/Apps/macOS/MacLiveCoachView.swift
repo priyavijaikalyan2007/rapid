@@ -82,11 +82,7 @@ struct MacLiveCoachView: View
     {
         Section
         {
-            TextField("Meeting objective (optional)", text: $session.objective)
-                .accessibilityIdentifier("live.objective")
-                .autocorrectionDisabled()
-                .writingToolsBehavior(.disabled)
-                .help("State your aim in at most 512 UTF-8 bytes. The objective is cleared when the session ends.")
+            objectiveField
             Picker("Conversation style", selection: $style)
             {
                 ForEach(SessionStyle.allCases, id: \.self)
@@ -112,9 +108,27 @@ struct MacLiveCoachView: View
             Text("This meeting")
         }
         footer: {
-            Text("Saved Coaching Profile choices guide the cues. The objective is used only during this session.")
+            Text(session.canStart ?
+                "Set an optional objective before you start. Stop clears it." :
+                "Coaching continues through pauses. Select Stop before changing the objective or conversation style.")
         }
         .disabled(!session.canStart)
+    }
+
+    private var objectiveField: some View
+    {
+        VStack(alignment: .leading, spacing: 6)
+        {
+            Text("Meeting objective (optional)").font(.subheadline)
+            TextField("", text: $session.objective, prompt: Text("For example, agree on clear next steps"))
+                .textFieldStyle(.roundedBorder)
+                .labelsHidden()
+                .accessibilityLabel("Meeting objective (optional)")
+                .accessibilityIdentifier("live.objective")
+                .autocorrectionDisabled()
+                .writingToolsBehavior(.disabled)
+                .help("State your aim in at most 512 UTF-8 bytes. The objective is cleared when the session ends.")
+        }
     }
 
     private var controls: some View

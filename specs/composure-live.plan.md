@@ -142,3 +142,25 @@ High-priority detector replacement remains outside this initial role-neutral sli
 
 The panel starts near the top center of the active screen and can be moved by dragging its background.
 The owner's object version and signing settings remain outside the isolated project commit draft.
+
+## Objective editability follow-up on 30 October 2026
+
+The owner reported one cue during about 20 to 30 seconds of speaking and an objective field that could not be edited.
+The current view disables the entire setup section while a session is active. The earlier UI test typed an
+objective but checked only that Stop cleared the field. It did not verify that typing changed the value.
+
+First strengthen `Tests/MacUI/LiveCoachUITests.swift` to assert the exact text before Start and after Stop.
+Check `Apps/macOS/MacLiveCoachView.swift` for field affordance, focus, and disabled-state explanations.
+Keep capture and model processing in their existing services. No GoF pattern is required for this view correction.
+Preserve the fixed objective during an active session unless the owner requests live editing.
+Update the README, status, conversation, changelog, and history with the actual observation and verified correction.
+
+The owner clarified that the field was certainly uneditable after the conversation, but was unsure about
+before Start. The strengthened baseline UI test passed without a source change. It confirmed exact text
+entry before Start and after Stop. The active-session lock is intentional. The view now uses a separate
+label and native bordered field, plus an active-session explanation that pauses do not end coaching.
+The test also checks the active lock. Capture, model inputs, storage, and objective limits are unchanged.
+
+Verification passed both synthetic Mac UI journeys, both Mac build destinations, the full repository suite,
+source-style checks, and patch-whitespace checks. Visual inspection confirmed a readable bordered input
+and entered text. No microphone capture was started by the agent during this follow-up.

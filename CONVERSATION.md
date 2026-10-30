@@ -574,3 +574,31 @@ and rapid-response cues remain disabled. A full real Meet call is the next owner
 The implementation does not save audio, transcript text, objectives, prompts, or meeting history.
 The agent did not run new real-microphone capture. No publication or deployment occurred.
 The owner's Xcode formatting, object-version, and signing settings remain outside agent commits.
+
+
+## Composure objective editability on 30 October 2026
+
+### User report
+
+> It seemed to work ok. I got one cue in about 20-30s conversation where I was just talking. The "Meeting Objective" field couldn't be edited.
+
+When asked whether editing failed before Start or only while active, the owner selected:
+
+> Both, or unsure
+
+The owner then clarified:
+
+> I wasn't sure; it wasn't editable after I had the conversation for sure.
+
+### Response summary
+
+Recorded the first owner-reported live cue without inferring its usefulness. The active session intentionally
+locks objective and style. Pauses do not end the session. A strengthened native UI baseline verified actual
+text entry before Start and after Stop before any implementation change.
+Made the field visibly editable with a separate label and native border. Added nearby guidance that the
+owner must select Stop before changing setup. The native UI test now checks text values, the active lock,
+and editing after Stop. Capture and model behavior remain unchanged.
+
+Both Mac UI journeys, both Mac build destinations, the full repository suite, source-style checks, and
+patch-whitespace checks passed. The app-only screenshot confirmed readable text entry and a visible
+field border. The owner's existing Xcode project settings remain outside the commit.

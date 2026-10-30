@@ -398,3 +398,22 @@ The final regression run passed 112 core tests and reported 57 native test decla
 opt-in evaluations skipped by default. The explicit live-model evaluation passed separately.
 The full repository check and source-style check passed. Mac semantic cues carry normal priority.
 High-priority detector replacement remains a later gate with speaker-specific detectors.
+
+
+## Owner live-cue report and objective clarity on 30 October 2026
+
+The owner reported one cue during about 20 to 30 seconds of speaking. This is the first owner-reported
+full coaching cue after b5f7277. The cue's content, relevance, and exact hardware setup were not restated.
+This report confirms cue delivery in that session without establishing broader quality or route compatibility.
+
+The owner also reported that Meeting objective could not be edited, certainly after the conversation.
+They were unsure whether the field was editable before Start. Live sessions continue through pauses
+and intentionally lock objective and style until Stop is confirmed.
+A strengthened native UI baseline passed before a source change. It verifies actual objective text before
+Start and fresh text entry after Stop, closing a gap in the earlier test that checked only clearing.
+The view now uses a clear native bordered field and explains the active-session lock beside the setup controls.
+No capture, model, persistence, objective-limit, or session-policy change was needed.
+
+Verification passed both synthetic Mac UI journeys, both Mac build destinations, the full repository suite,
+source-style checks, and patch-whitespace checks. Visual inspection confirmed a readable bordered input
+and entered text. No microphone capture was started by the agent during this follow-up.

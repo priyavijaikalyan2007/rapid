@@ -21,11 +21,15 @@ final class LiveCoachUITests: XCTestCase
         XCTAssertTrue(start.waitForExistence(timeout: 5), app.debugDescription)
         XCTAssertFalse(app.windows["Composure coach"].exists)
         let objective = app.textFields["live.objective"]
+        XCTAssertTrue(objective.isEnabled)
         objective.click()
         objective.typeText("Clarify the promotion criteria")
+        XCTAssertEqual(objective.value as? String, "Clarify the promotion criteria")
+        attach(app.windows.firstMatch, name: "Objective ready before Start")
         start.click()
         let panel = app.windows["Composure coach"]
         XCTAssertTrue(panel.waitForExistence(timeout: 8), app.debugDescription)
+        XCTAssertFalse(objective.isEnabled)
         XCUIApplication(bundleIdentifier: "com.apple.finder").activate()
         XCTAssertTrue(panel.staticTexts["ASK FIRST"].waitForExistence(timeout: 8), app.debugDescription)
         XCTAssertEqual(app.state, .runningBackground)
@@ -35,6 +39,10 @@ final class LiveCoachUITests: XCTestCase
         XCTAssertEqual(XCTWaiter.wait(for: [gone], timeout: 5), .completed)
         XCTAssertEqual(objective.value as? String, "")
         XCTAssertTrue(start.isEnabled)
+        XCTAssertTrue(objective.isEnabled)
+        objective.click()
+        objective.typeText("Agree on next steps")
+        XCTAssertEqual(objective.value as? String, "Agree on next steps")
         app.terminate()
     }
 

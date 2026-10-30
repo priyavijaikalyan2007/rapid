@@ -232,6 +232,10 @@ requires an owner test on that setup. Headphones can reduce echo.
 15. Change the default audio route during a test session.
     Expect a controlled stop and an explicit new Start before capture resumes.
 
+The objective and conversation style are editable before Start and after confirmed Stop.
+Both controls remain locked while the session is active, stopping, or awaiting Stop confirmation.
+Pauses in speech do not end a session. Select Stop before changing the objective or style.
+
 Test receiving a promotion denial with an objective such as "Understand the evidence missing from my promotion case."
 Test explaining a decision with "Agree on concrete development criteria without promising a promotion decision."
 Check whether each cue fits the moment. A relevant cue matters more than a high cue count.
