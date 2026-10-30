@@ -13,6 +13,13 @@ import Testing
 
 struct ConversationBufferTests
 {
+    @Test func insertionReportsAcceptedAndIgnoredResults() throws
+    {
+        var buffer = ConversationBuffer()
+        #expect(buffer.insert(try event("A final sentence.", start: 1, end: 3), now: 4))
+        #expect(!buffer.insert(try event("A stale partial.", start: 1, end: 3, final: false), now: 4))
+    }
+
     @Test func partialRevisionAndFinalKeepOneIdentity() throws
     {
         var buffer = ConversationBuffer()

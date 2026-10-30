@@ -14,6 +14,84 @@ import Testing
 
 struct CueArbiterTests
 {
+    @Test func differentUsefulAdviceCanReuseAHeadlineAfterCooldown() async throws
+    {
+        let arbiter = CueArbiter(profile: CoachingProfile())
+        let first = try CueProposal(
+            kind: .clarify,
+            instruction: "Ask which leadership examples support the feedback.",
+            confidence: 0.9,
+            evidenceID: UUID()
+        )
+        let second = try CueProposal(
+            kind: .clarify,
+            instruction: "Ask who owns the next review and its date.",
+            confidence: 0.9,
+            evidenceID: UUID()
+        )
+        _ = await arbiter.consider(first, evidenceEnd: 10, now: 10)
+        #expect(await arbiter.consider(second, evidenceEnd: 40, now: 40) != nil)
+    }
+
+    @Test func paraphrasedAdviceRemainsSuppressed() async throws
+    {
+        let arbiter = CueArbiter(profile: CoachingProfile())
+        let first = try CueProposal(
+            kind: .clarify,
+            instruction: "Ask which leadership examples support the feedback.",
+            confidence: 0.9,
+            evidenceID: UUID()
+        )
+        let second = try CueProposal(
+            kind: .clarify,
+            instruction: "Ask for leadership examples that support this feedback.",
+            confidence: 0.9,
+            evidenceID: UUID()
+        )
+        _ = await arbiter.consider(first, evidenceEnd: 10, now: 10)
+        let decision = await arbiter.decide(second, evidenceEnd: 40, now: 40)
+        #expect(decision.suppressionReason == .duplicate)
+    }
+
+    @Test func behavioralPauseCanReplaceANormalCue() async throws
+    {
+        let arbiter = CueArbiter(profile: CoachingProfile())
+        _ = await arbiter.consider(try proposal(), evidenceEnd: 10, now: 10)
+        let pause = try CueProposal(
+            kind: .pause,
+            instruction: "Pause before your next reply.",
+            confidence: 0.9,
+            evidenceID: UUID()
+        )
+        let cue = await arbiter.consider(pause, evidenceEnd: 12, now: 12)
+        #expect(cue?.kind == .pause)
+        #expect(cue?.priority == .high)
+    }
+
+    @Test func silenceHasAContentFreeSuppressionReason() async throws
+    {
+        let arbiter = CueArbiter(profile: CoachingProfile())
+        _ = await arbiter.consider(try proposal(), evidenceEnd: 10, now: 10)
+        let decision = await arbiter.decide(try proposal(.clarify), evidenceEnd: 22, now: 22)
+        #expect(decision.suppressionReason == .cooldown)
+    }
+
+    @Test func cueLabelsAloneAreNotInstructions() throws
+    {
+        for text in ["CLARIFY", "DontGuess", "FOCUS THE DECISION."]
+        {
+            #expect(throws: LiveSessionError.invalidCue)
+            {
+                try CueProposal(
+                    kind: text.contains("DECISION") ? .decisionFocus : .clarify,
+                    instruction: text,
+                    confidence: 0.9,
+                    evidenceID: UUID()
+                )
+            }
+        }
+    }
+
     @Test func cueExpiresAfterEightSeconds() async throws
     {
         let arbiter = CueArbiter(profile: CoachingProfile())

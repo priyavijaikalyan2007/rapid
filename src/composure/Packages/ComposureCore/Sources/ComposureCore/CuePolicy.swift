@@ -14,6 +14,7 @@ public struct CuePolicy: Sendable
     public static let displaySeconds = 8.0
     public static let repeatSeconds = 90.0
     public static let maximumEvidenceAge = 12.0
+    public static let highPriorityCooldownSeconds = 8.0
     public let cooldownSeconds: Double
     public let maximumInTenMinutes: Int
 

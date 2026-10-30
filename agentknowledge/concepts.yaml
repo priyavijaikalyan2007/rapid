@@ -264,5 +264,14 @@
       "ComposureOnDeviceModel",
       "ComposurePreferences"
     ]
+  },
+  {
+    "name": "ComposureLiveDiagnostics",
+    "definition": "Transient saturating counters and closed operational outcomes distinguish speech input, no-cue decisions, model failures, displayed cues, and suppression. Counts contain no conversation strings and clear on Stop.",
+    "anchor_file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/LiveSessionDiagnostics.swift",
+    "related": [
+      "ComposureLiveCoaching",
+      "ComposureLiveSemantics"
+    ]
   }
 ]

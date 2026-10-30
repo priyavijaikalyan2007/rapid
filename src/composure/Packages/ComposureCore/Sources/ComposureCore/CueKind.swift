@@ -16,6 +16,8 @@ public enum CueKind: String, CaseIterable, Sendable
     case clarify
     case dontGuess
     case decisionFocus
+    case pause
+    case rephrase
 
     public var headline: String
     {
@@ -26,6 +28,8 @@ public enum CueKind: String, CaseIterable, Sendable
         case .clarify: return "CLARIFY"
         case .dontGuess: return "DO NOT GUESS"
         case .decisionFocus: return "FOCUS THE DECISION"
+        case .pause: return "PAUSE"
+        case .rephrase: return "REPHRASE"
         }
     }
 }

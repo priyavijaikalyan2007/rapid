@@ -234,5 +234,34 @@
     "related": [
       "ComposureLiveSemantics"
     ]
+  },
+  {
+    "name": "CueDecision",
+    "table": null,
+    "file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/CueDecision.swift",
+    "description": "One validated displayed cue or a closed content-free suppression reason, returned atomically by the cue arbiter. No persistence or historical UI queue.",
+    "related": [
+      "ComposureLiveCoaching",
+      "ComposureLiveDiagnostics"
+    ]
+  },
+  {
+    "name": "RecentCueContext",
+    "table": null,
+    "file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/RecentCueContext.swift",
+    "description": "At most four validated recent actions and instructions accompany a fresh bounded live request. Advice text expires after 120 seconds and clears on Stop. Numeric frequency timestamps can remain for ten minutes within the session.",
+    "related": [
+      "ComposureLiveCoaching",
+      "ComposureLiveSemantics"
+    ]
+  },
+  {
+    "name": "LiveSessionDiagnostics",
+    "table": null,
+    "file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/LiveSessionDiagnostics.swift",
+    "description": "Content-free saturating counts for result delivery, accepted finalized speech, model opportunities, silence, failures, suppressions, and displayed cues. Closed outcomes and no serialization.",
+    "related": [
+      "ComposureLiveDiagnostics"
+    ]
   }
 ]

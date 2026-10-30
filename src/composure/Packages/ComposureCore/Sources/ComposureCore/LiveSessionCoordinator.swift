@@ -22,6 +22,7 @@ public final class LiveSessionCoordinator
     public private(set) var error: LiveSessionError?
     public private(set) var modelFailureCount = 0
     public private(set) var isCoachingAvailable = true
+    public private(set) var diagnostics = LiveSessionDiagnostics()
     public var activeSessionID: UUID?
     {
         sessionID
@@ -100,6 +101,7 @@ public final class LiveSessionCoordinator
         arbiter = CueArbiter(profile: profile)
         error = nil
         modelFailureCount = 0
+        diagnostics.begin()
         isCoachingAvailable = true
         lastOpportunity = -Double.infinity
         lastEvidenceEnd = -Double.infinity
@@ -160,7 +162,8 @@ public final class LiveSessionCoordinator
         {
             return
         }
-        buffer.insert(event, now: clock())
+        let accepted = buffer.insert(event, now: clock())
+        diagnostics.recordSpeech(isFinal: event.isFinal, accepted: accepted)
     }
 
     /// Also permits deterministic tests to advance expiry and pruning without a real timer.
@@ -180,13 +183,20 @@ public final class LiveSessionCoordinator
             return
         }
         cue = current
+        let recent = await arbiter.recentContext(at: now)
+        guard sessionID == id
+        else
+        {
+            return
+        }
         guard generation == nil, now - lastOpportunity >= 3,
               let input = try? LiveCoachingInput(
                   events: buffer.events,
                   objective: objective,
                   profile: profile,
                   style: style,
-                  now: now
+                  now: now,
+                  recentCues: recent
               ),
               let latest = input.events.max(by: {
                   $0.endSeconds < $1.endSeconds
@@ -199,6 +209,7 @@ public final class LiveSessionCoordinator
         }
         lastOpportunity = now
         lastEvidenceEnd = latest.endSeconds
+        diagnostics.recordCheck()
         let arbiter = arbiter
         generation = Task
         {
@@ -225,24 +236,33 @@ public final class LiveSessionCoordinator
                 return
             }
             isCoachingAvailable = true
-            guard let proposal,
-                  let evidence = input.events.first(where: {
-                      $0.id == proposal.evidenceID
-                  })
+            guard let proposal
             else
             {
+                diagnostics.recordNoCue()
                 return
             }
-            let accepted = await arbiter.consider(proposal, evidenceEnd: evidence.endSeconds, now: clock())
+            guard let evidence = input.currentEvent, evidence.id == proposal.evidenceID
+            else
+            {
+                diagnostics.recordSuppression(.invalidEvidence)
+                return
+            }
+            let decision = await arbiter.decide(proposal, evidenceEnd: evidence.endSeconds, now: clock())
             guard sessionID == id
             else
             {
                 return
             }
-            if let accepted
+            if let accepted = decision.cue
             {
                 cue = accepted
+                diagnostics.recordShown()
                 logger.record(.liveCueDisplayed)
+            }
+            else if let reason = decision.suppressionReason
+            {
+                diagnostics.recordSuppression(reason)
             }
         }
         catch
@@ -253,6 +273,7 @@ public final class LiveSessionCoordinator
                 return
             }
             modelFailureCount = min(modelFailureCount + 1, 10_000)
+            diagnostics.recordFailure()
             isCoachingAvailable = false
             logger.record(.liveModelFailed)
         }
@@ -305,6 +326,8 @@ public final class LiveSessionCoordinator
         cue = nil
         objective = ""
         buffer.clear()
+        diagnostics = LiveSessionDiagnostics()
+        modelFailureCount = 0
         let pending = cancelWork()
         source.cancelStart()
         await pending.0?.value

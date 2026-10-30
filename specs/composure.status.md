@@ -445,3 +445,13 @@ The [quality correction plan](composure-live-quality.plan.md) freezes broad deve
 verification fixtures before prompt changes. The verification set contains no promotion example.
 Current evidence selection, coarse duplicate suppression, harsh-wording coverage, and content-free
 observability are under investigation. No measured cause is attributed to the owner's actual session.
+
+
+### Quality baseline and core corrections
+
+The frozen 12-case development set passed nine action-selection checks before changes. Human inspection
+also found promotion wording in unrelated criticism and a label-only "DontGuess" instruction.
+The separate eight-case verification set remains unused.
+Core regressions now cover distinct advice with the same headline, paraphrase suppression, high-priority
+behavioral replacement, current evidence, bounded recent advice, numeric diagnostics, and cleanup.
+The native model/prompt correction is still in progress. The core changes do not establish useful live behavior by themselves.

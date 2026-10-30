@@ -15,6 +15,38 @@ import Testing
 
 struct LiveCoachingModelTests
 {
+    @Test func olderSuppliedContextCannotBecomeCurrentEvidence() throws
+    {
+        let old = try TranscriptEvent(
+            channel: .meeting,
+            startSeconds: 74,
+            endSeconds: 75,
+            text: "An earlier unanswered question.",
+            isFinal: true
+        )
+        let current = try TranscriptEvent(
+            channel: .microphone,
+            startSeconds: 97,
+            endSeconds: 99,
+            text: "A new issue needs attention.",
+            isFinal: true
+        )
+        let input = try LiveCoachingInput(
+            events: [old, current],
+            objective: "",
+            profile: CoachingProfile(),
+            style: .normal,
+            now: 100
+        )
+        let generated = GeneratedLiveCue(
+            action: .askFirst,
+            confidence: 0.9,
+            evidenceIndex: 0,
+            instruction: "Ask who owns the next review."
+        )
+        #expect(throws: LiveSessionError.invalidCue) { try generated.validated(for: input) }
+    }
+
     @Test func promptCarriesTheSavedVerbosityChoice() throws
     {
         let prompt = try LiveCoachingPrompt.make(input())

@@ -17,9 +17,32 @@ public struct LiveCoachingInput: Sendable
     public let objective: String
     public let profile: CoachingProfile
     public let style: SessionStyle
+    public let recentCues: [RecentCueContext]
+    public var currentEventIndex: Int?
+    {
+        guard let current = events.max(by: {
+            $0.endSeconds < $1.endSeconds
+        }) else
+        {
+            return nil
+        }
+        return events.firstIndex
+        {
+            $0.id == current.id
+        }
+    }
+
+    public var currentEvent: TranscriptEvent?
+    {
+        currentEventIndex.map
+        {
+            events[$0]
+        }
+    }
 
     public init(
-        events: [TranscriptEvent], objective: String, profile: CoachingProfile, style: SessionStyle, now: Double
+        events: [TranscriptEvent], objective: String, profile: CoachingProfile, style: SessionStyle, now: Double,
+        recentCues: [RecentCueContext] = []
     ) throws
     {
         guard objective.utf8.count <= 512,
@@ -53,6 +76,7 @@ public struct LiveCoachingInput: Sendable
         self.objective = objective.trimmingCharacters(in: .whitespaces)
         self.profile = profile
         self.style = style
+        self.recentCues = Array(recentCues.suffix(4))
     }
 
     private static func isMeaningful(_ text: String) -> Bool

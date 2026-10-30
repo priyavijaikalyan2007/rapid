@@ -15,15 +15,26 @@ actor TestLiveCoachingModel: LiveCoachingModel
 {
     var evaluations = 0
     var cancellations = 0
+    var lastInput: LiveCoachingInput?
     let delay: Duration
     let status: ModelReadiness
     let fails: Bool
+    let returnsNoCue: Bool
+    let usesUnknownEvidence: Bool
 
-    init(delay: Duration = .zero, status: ModelReadiness = .available, fails: Bool = false)
+    init(
+        delay: Duration = .zero,
+        status: ModelReadiness = .available,
+        fails: Bool = false,
+        returnsNoCue: Bool = false,
+        usesUnknownEvidence: Bool = false
+    )
     {
         self.delay = delay
         self.status = status
         self.fails = fails
+        self.returnsNoCue = returnsNoCue
+        self.usesUnknownEvidence = usesUnknownEvidence
     }
 
     func readiness() -> ModelReadiness
@@ -34,6 +45,7 @@ actor TestLiveCoachingModel: LiveCoachingModel
     func evaluate(_ input: LiveCoachingInput) async throws -> CueProposal?
     {
         evaluations += 1
+        lastInput = input
         do
         {
             try await Task.sleep(for: delay)
@@ -41,7 +53,7 @@ actor TestLiveCoachingModel: LiveCoachingModel
             {
                 throw LiveSessionError.invalidCue
             }
-            guard let evidence = input.events.last
+            guard !returnsNoCue, let evidence = input.events.last
             else
             {
                 return nil
@@ -50,7 +62,7 @@ actor TestLiveCoachingModel: LiveCoachingModel
                 kind: .askFirst,
                 instruction: "Ask which promotion criteria remain unmet.",
                 confidence: 0.9,
-                evidenceID: evidence.id
+                evidenceID: usesUnknownEvidence ? UUID() : evidence.id
             )
         }
         catch

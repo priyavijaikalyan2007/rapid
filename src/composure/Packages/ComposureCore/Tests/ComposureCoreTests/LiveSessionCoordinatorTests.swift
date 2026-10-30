@@ -15,6 +15,111 @@ import Testing
 @MainActor
 struct LiveSessionCoordinatorTests
 {
+    @Test func pipelineCountersClearOnStop() async throws
+    {
+        let source = TestLiveTranscriptionSource()
+        let coordinator = make(source: source)
+        coordinator.start(localeIdentifier: "en-US", profile: CoachingProfile(), style: .normal)
+        await settle
+        {
+            coordinator.state == .listening
+        }
+        source.receive?(try speech(final: false))
+        source.receive?(try speech(final: true))
+        await coordinator.tick()
+        await settle
+        {
+            coordinator.cue != nil
+        }
+        #expect(coordinator.diagnostics.results == 2)
+        #expect(coordinator.diagnostics.acceptedFinalResults == 1)
+        #expect(coordinator.diagnostics.checks == 1)
+        #expect(coordinator.diagnostics.shown == 1)
+        await coordinator.stop()
+        #expect(coordinator.diagnostics == LiveSessionDiagnostics())
+    }
+
+    @Test func noCueDecisionIsDifferentFromFailedProcessing() async throws
+    {
+        let source = TestLiveTranscriptionSource()
+        let coordinator = make(source: source, model: TestLiveCoachingModel(returnsNoCue: true))
+        coordinator.start(localeIdentifier: "en-US", profile: CoachingProfile(), style: .normal)
+        await settle
+        {
+            coordinator.state == .listening
+        }
+        source.receive?(try speech(final: true))
+        await coordinator.tick()
+        await settle
+        {
+            coordinator.diagnostics.noCue == 1
+        }
+        #expect(coordinator.diagnostics.failures == 0)
+        #expect(coordinator.diagnostics.outcome == .noAction)
+        await coordinator.stop()
+    }
+
+    @Test func unsupportedEvidenceIsVisibleAsAContentFreeRejection() async throws
+    {
+        let source = TestLiveTranscriptionSource()
+        let coordinator = make(source: source, model: TestLiveCoachingModel(usesUnknownEvidence: true))
+        coordinator.start(localeIdentifier: "en-US", profile: CoachingProfile(), style: .normal)
+        await settle
+        {
+            coordinator.state == .listening
+        }
+        source.receive?(try speech(final: true))
+        await coordinator.tick()
+        await settle
+        {
+            coordinator.diagnostics.withheld == 1
+        }
+        #expect(coordinator.cue == nil)
+        #expect(coordinator.diagnostics.outcome == .withheld(.invalidEvidence))
+        await coordinator.stop()
+    }
+
+    @Test func nextOpportunityReceivesBoundedRecentAdvice() async throws
+    {
+        let source = TestLiveTranscriptionSource()
+        let model = TestLiveCoachingModel()
+        let clock = TestLiveClock()
+        let coordinator = LiveSessionCoordinator(
+            source: source,
+            model: model,
+            clock: {
+                clock.now
+            },
+            automaticallyTicks: false
+        )
+        coordinator.start(localeIdentifier: "en-US", profile: CoachingProfile(), style: .normal)
+        await settle
+        {
+            coordinator.state == .listening
+        }
+        source.receive?(try speech(final: true))
+        await coordinator.tick()
+        await settle
+        {
+            coordinator.diagnostics.shown == 1
+        }
+        clock.now = 140
+        source.receive?(try TranscriptEvent(
+            channel: .meeting,
+            startSeconds: 137,
+            endSeconds: 139,
+            text: "Who owns the follow-up review and date?",
+            isFinal: true
+        ))
+        await coordinator.tick()
+        await settle
+        {
+            coordinator.diagnostics.withheld == 1
+        }
+        #expect(await model.lastInput?.recentCues.count == 1)
+        await coordinator.stop()
+    }
+
     @Test func deadlineCancelsModelWorkAndKeepsCaptureAvailable() async throws
     {
         let source = TestLiveTranscriptionSource()

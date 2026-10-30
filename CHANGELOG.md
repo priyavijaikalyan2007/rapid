@@ -20,6 +20,9 @@ Created: 2026
 
 ### Fixed
 
+- Bound live suggestions to current speech and reject label-only instructions.
+- Allow distinct advice sharing a headline while preserving repeat controls and profile frequency caps.
+- Add bounded live decision counters and fixed behavioral priority for pause and rephrase actions.
 - Made the Mac meeting objective field visibly editable before Start and explained why setup stays locked during coaching.
 - Strengthened Mac UI coverage to verify objective text before Start and editing again after Stop.
 - Kept canceled source selection quiet and blocked restart when native audio Stop remains unconfirmed.

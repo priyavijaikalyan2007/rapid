@@ -274,5 +274,18 @@
       "src/composure/Apps/macOS/MacCuePanel.swift",
       "src/composure/Apps/macOS/Composure.entitlements"
     ]
+  },
+  {
+    "id": "ADR-023",
+    "title": "Anchor live advice to current speech and explain suppressed decisions",
+    "date": "2026-10-30",
+    "status": "Accepted",
+    "context": "The owner found one CLARIFY cue insufficient and raised promotion-only bias. A frozen cross-topic development baseline exposed missed criticism/rash-response cases, promotion wording leakage, and a label-only instruction. Bind validated evidence to current finalized speech. Retain at most four recent validated actions so a fresh request can avoid repeats. Use bounded lexical repeat matching instead of blocking all advice with one headline. Pause and rephrase actions have a fixed application-assigned high priority, eight-second high-priority cooldown, and the existing global profile caps. They respond to observable wording without identifying a speaker or inferring emotions. Keep advice text for at most 120 seconds and only numeric timestamps for the ten-minute frequency window. Content-free counters distinguish operational silence and clear on Stop. Broader and separate verification cases must assess the model correction.",
+    "files": [
+      "specs/composure-live-quality.plan.md",
+      "src/composure/Packages/ComposureCore/Sources/ComposureCore/LiveCoachingInput.swift",
+      "src/composure/Packages/ComposureCore/Sources/ComposureCore/CueArbiter.swift",
+      "src/composure/Packages/ComposureCore/Sources/ComposureCore/LiveSessionDiagnostics.swift"
+    ]
   }
 ]

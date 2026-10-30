@@ -17,13 +17,14 @@ public struct ConversationBuffer: Sendable
     }
 
     /// Replace overlapping partials on the same source. A late partial cannot alter finalized speech.
-    public mutating func insert(_ event: TranscriptEvent, now: Double)
+    @discardableResult
+    public mutating func insert(_ event: TranscriptEvent, now: Double) -> Bool
     {
         prune(now: now)
         guard now.isFinite, event.endSeconds > now - 120, event.endSeconds <= now + 0.5
         else
         {
-            return
+            return false
         }
         let revisions = events.filter
         {
@@ -33,7 +34,7 @@ public struct ConversationBuffer: Sendable
             $0.isFinal
         }) else
         {
-            return
+            return false
         }
         let revised = revisions.first.map
         {
@@ -49,6 +50,10 @@ public struct ConversationBuffer: Sendable
             $0.startSeconds < $1.startSeconds
         }
         enforceLimits()
+        return events.contains
+        {
+            $0.id == revised.id
+        }
     }
 
     public mutating func prune(now: Double)

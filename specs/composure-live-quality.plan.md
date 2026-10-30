@@ -98,3 +98,20 @@ Verification SHA-256: `40e1074290a0ac305a55963e468ea7fd3b83ed0e54ef6623160f1ea8a
 The verification set has no promotion scenario. It includes customer, architecture, compensation,
 household, volunteer, classroom, support, and technical-review conversations.
 This small authored set is a separate regression check, not a statistically representative or independent human benchmark.
+
+
+## Development baseline and core checkpoint
+
+Frozen fixture checkpoint 5b932c3 reached origin/main before prompt changes.
+The original model passed nine of 12 development action-selection checks. It missed personal criticism,
+a rash reply, and a vague design request. The project-criticism case produced a promotion-specific sentence.
+The negotiation case passed its action-kind check but produced only "DontGuess", which is not useful wording.
+The action-kind score therefore overstates baseline quality. No verification case was run.
+
+New core regressions failed before the required contracts existed, then passed with current-event anchoring,
+bounded recent-advice context, reasoned suppression, and transient numeric counters. Distinct advice can
+reuse a headline after the normal cooldown. Lexically similar repeated advice stays suppressed for 90 seconds.
+PAUSE and REPHRASE share fixed high priority, an eight-second high-priority cooldown, and all profile caps.
+The entire pause/rephrase action remains repeat-suppressed to prevent urgent paraphrase spam.
+Core regression checks passed 127 core tests and 60 native test declarations with opt-ins skipped.
+The model/prompt correction and Debug diagnostics view remain in progress at this checkpoint.

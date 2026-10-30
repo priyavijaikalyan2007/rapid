@@ -41,7 +41,8 @@ struct GeneratedLiveCue
         {
             return nil
         }
-        guard input.events.indices.contains(evidenceIndex), let kind = CueKind(rawValue: action.rawValue)
+        guard input.events.indices.contains(evidenceIndex), evidenceIndex == input.currentEventIndex,
+              let kind = CueKind(rawValue: action.rawValue)
         else
         {
             throw LiveSessionError.invalidCue

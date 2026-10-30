@@ -17,10 +17,17 @@ public struct CueProposal: Sendable
     public let instruction: String
     public let confidence: Double
     public let evidenceID: UUID
+    public var priority: CuePriority
+    {
+        kind == .pause || kind == .rephrase ? .high : .normal
+    }
 
     public init(kind: CueKind, instruction: String, confidence: Double, evidenceID: UUID) throws
     {
         let text = instruction.trimmingCharacters(in: .whitespaces)
+        let count = text.split(whereSeparator: {
+            $0.isWhitespace
+        }).count
         let prohibited = [
             "calm down",
             "relax",
@@ -35,7 +42,12 @@ public struct CueProposal: Sendable
             "://"
         ]
         guard confidence.isFinite, confidence >= 0.8, confidence <= 1,
-              !text.isEmpty, text.utf8.count <= 160,
+              !text.isEmpty, text.utf8.count <= 160, count >= 3,
+              text.lowercased().filter({
+                  $0.isLetter
+              }) != kind.headline.lowercased().filter({
+                  $0.isLetter
+              }),
               text.split(whereSeparator: {
                   $0.isWhitespace
               }).count <= 18,

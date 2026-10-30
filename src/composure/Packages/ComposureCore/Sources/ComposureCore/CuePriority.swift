@@ -4,12 +4,13 @@
 // File GUID: b47d9bf0-09c2-4c54-b39d-000000000130
 // Created: 2026
 // COMPONENT: Live cue contract
-// PURPOSE: Name the priority of semantic cues without allowing a model to request urgent replacement.
+// PURPOSE: Name the fixed application priority without accepting an arbitrary model urgency value.
 // RELATES: CoachCue, CueArbiter
-// FLOW: Validated semantic candidate -> normal-priority temporary cue.
+// FLOW: Validated action kind -> fixed application priority -> bounded arbitration.
 
-/// Semantic cues use normal priority. Speaker-dependent priority replacement belongs to a later verified slice.
+/// The app assigns high priority only to the closed pause and rephrase actions.
 public enum CuePriority: Int, Sendable
 {
     case normal = 0
+    case high = 1
 }
