@@ -421,8 +421,16 @@ and entered text. No microphone capture was started by the agent during this fol
 
 ## Next owner check
 
-Verify the objective-field update from 15134a5: edit before Start, confirm the active lock, select Stop,
-and enter a new objective after the field clears. This field check remains owner-pending.
+The owner confirmed that the objective-field check for 15134a5 works on 30 October 2026.
+Text entry before Start, the active lock, clearing after Stop, and editing again are now owner-confirmed.
 The next usefulness check is a short invented two-person conversation in Meet. Record the cue wording
 and whether its timing and advice helped. No target cue count is required.
 Speaker-dependent detectors still require separate audio-route and attribution evidence.
+
+
+## Objective workflow accepted on 30 October 2026
+
+The owner replied "Yeah that works" after the focused objective-field test procedure.
+Recorded the objective workflow as passed. No cue wording or timing assessment accompanied this response,
+so the two-person usefulness check and audio-route attribution gates remain open.
+No application code changed for this acceptance record.

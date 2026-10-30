@@ -619,3 +619,16 @@ Verify text entry before Start, the intentional active-session lock, clearing af
 after Stop. Then use a short invented two-person promotion conversation in Meet to assess whether the
 actual cue wording and timing help. A cue count alone establishes delivery, not usefulness.
 No additional application behavior changed in this response.
+
+
+## Composure objective check accepted on 30 October 2026
+
+### User response
+
+> Yeah that works.
+
+### Response summary
+
+Recorded the objective-field workflow as owner-confirmed. The next useful feedback is actual cue wording
+and timing from an invented two-person test conversation. Broader coaching quality and speaker separation
+remain unverified. No application code changed.
