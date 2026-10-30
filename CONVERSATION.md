@@ -632,3 +632,29 @@ No additional application behavior changed in this response.
 Recorded the objective-field workflow as owner-confirmed. The next useful feedback is actual cue wording
 and timing from an invented two-person test conversation. Broader coaching quality and speaker separation
 remain unverified. No application code changed.
+
+
+## Composure live usefulness correction on 30 October 2026
+
+### User report
+
+> Sorry, do you want me to try the promotion version again with another person?
+
+Confirmed that one invented promotion conversation with another person acting as manager would help assess cue usefulness.
+
+> I tried it. It only gave me one thing "CLARIFY". Rest of hte conversation it said nothing. SO I am not sure its going to be that helpful in its current state at all.
+
+When asked for an invented missed moment and audio route, the owner replied:
+
+> I used speakers in a quiet room. I made some harsh comments that might have seemed very emotional but didn't get any interruptions. Also, does using only one promotion conversation to tune the app cause a bias problem? will it be useful for anything else then?
+
+### Investigation and first checkpoint
+
+Acknowledged a failed usefulness checkpoint and the risk of overfitting the narrow promotion checks.
+Harsh language can justify a forward-looking pause or rephrase without diagnosing emotions.
+The existing code permits old evidence selection and blocks an entire cue kind for 90 seconds.
+Neither cause is measured in the owner's actual session because meeting content is not retained.
+Frozen invented fixtures now cover 12 development cases and eight separate verification cases before
+prompt changes. The verification set has no promotion scenario and must not guide the current tuning.
+Added a file-level correction plan. The owner will not be asked to repeat the same trial before the
+local broader and multi-turn checks establish a concrete improvement.

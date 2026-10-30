@@ -434,3 +434,14 @@ The owner replied "Yeah that works" after the focused objective-field test proce
 Recorded the objective workflow as passed. No cue wording or timing assessment accompanied this response,
 so the two-person usefulness check and audio-route attribution gates remain open.
 No application code changed for this acceptance record.
+
+
+## Live usefulness checkpoint failed on 30 October 2026
+
+The owner reported only one CLARIFY cue during the suggested promotion conversation, including harsh
+comments, through speakers in a quiet room. The owner did not find the current behavior useful.
+Do not treat the earlier delivery and field checks as coaching-quality acceptance.
+The [quality correction plan](composure-live-quality.plan.md) freezes broad development and separate
+verification fixtures before prompt changes. The verification set contains no promotion example.
+Current evidence selection, coarse duplicate suppression, harsh-wording coverage, and content-free
+observability are under investigation. No measured cause is attributed to the owner's actual session.
