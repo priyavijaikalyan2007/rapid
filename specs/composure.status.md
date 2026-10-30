@@ -417,3 +417,12 @@ No capture, model, persistence, objective-limit, or session-policy change was ne
 Verification passed both synthetic Mac UI journeys, both Mac build destinations, the full repository suite,
 source-style checks, and patch-whitespace checks. Visual inspection confirmed a readable bordered input
 and entered text. No microphone capture was started by the agent during this follow-up.
+
+
+## Next owner check
+
+Verify the objective-field update from 15134a5: edit before Start, confirm the active lock, select Stop,
+and enter a new objective after the field clears. This field check remains owner-pending.
+The next usefulness check is a short invented two-person conversation in Meet. Record the cue wording
+and whether its timing and advice helped. No target cue count is required.
+Speaker-dependent detectors still require separate audio-route and attribution evidence.

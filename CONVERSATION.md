@@ -602,3 +602,20 @@ and editing after Stop. Capture and model behavior remain unchanged.
 Both Mac UI journeys, both Mac build destinations, the full repository suite, source-style checks, and
 patch-whitespace checks passed. The app-only screenshot confirmed readable text entry and a visible
 field border. The owner's existing Xcode project settings remain outside the commit.
+
+
+## Next Composure owner checks on 30 October 2026
+
+### User request
+
+> ok what's next?
+
+> do I need to test anything?
+
+### Response summary
+
+Recommended a focused check of the latest Mac objective-field update before more implementation.
+Verify text entry before Start, the intentional active-session lock, clearing after Stop, and fresh editing
+after Stop. Then use a short invented two-person promotion conversation in Meet to assess whether the
+actual cue wording and timing help. A cue count alone establishes delivery, not usefulness.
+No additional application behavior changed in this response.
