@@ -475,12 +475,16 @@ Recommended initial arbitration values:
 ```text
 Normal display:             8 seconds
 Normal cooldown:           20 seconds
-Same-type suppression:     90 seconds
+Repeated-advice suppression: 90 seconds
 High-priority cooldown:     8 seconds
 Semantic cue target:        0–4 / 10 minutes
 ```
 
 These values MUST be centralized and tunable.
+
+The first Mac correction uses bounded lexical overlap to detect repeated advice. Distinct advice can reuse a headline.
+PAUSE and REPHRASE use fixed high priority and remain subject to the profile's frequency cap.
+These two actions retain whole-type repeat suppression to limit urgent paraphrases.
 
 ---
 

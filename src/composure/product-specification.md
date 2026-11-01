@@ -912,12 +912,16 @@ Initial tunable defaults:
 ```text
 Normal cue duration:       8 seconds
 Normal cue cooldown:      20 seconds
-Repeat-type suppression:  90 seconds
+Repeated-advice suppression: 90 seconds
 High-priority cooldown:    8 seconds
 Semantic cue target:       0–4 per 10 minutes
 ```
 
 These constants belong in one configuration structure and require tuning through evaluation.
+
+Distinct advice can reuse a headline after the normal cooldown. Repeated advice remains suppressed.
+The first Mac correction uses lexical overlap as a bounded approximation of semantic similarity.
+PAUSE and REPHRASE retain whole-type suppression and all frequency caps.
 
 ---
 

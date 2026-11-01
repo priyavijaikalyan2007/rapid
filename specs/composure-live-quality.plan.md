@@ -40,7 +40,7 @@ Core files under `Packages/ComposureCore/Sources/ComposureCore`:
   Accept a bounded recent-cue context through an optional defaulted parameter.
 - `RecentCueContext.swift`: validated recent action and wording for one fresh request, at most four cues.
 - `CueKind.swift`, `CuePriority.swift`, and `CueProposal.swift`: add forward-looking PAUSE and REPHRASE actions.
-  Only the fixed PAUSE policy can request high priority. The model does not choose arbitrary urgency.
+  PAUSE and REPHRASE receive fixed high priority. The model does not choose arbitrary urgency.
 - `CueDecision.swift`, `CueSuppressionReason.swift`, `CueRepeatKey.swift`, and `CueArbiter.swift`:
   return a cue or fixed rejection reason. Keep `consider` as a compatibility wrapper. Suppress repeated
   advice instead of every action with the same headline. Retain 90-second repeat suppression, normal
@@ -59,7 +59,7 @@ Native model files under `Sources/ComposureModels`:
   behavioral actions, bind evidence to the current event, and keep all existing byte/token/time/tool limits.
 - `GeneratedLiveCue.swift`: independently validate the final instruction and current evidence.
 
-UI file `Apps/macOS/MacLiveCoachView.swift` gains a Debug-only diagnostics disclosure. It contains numeric
+UI file `Apps/macOS/MacLiveCoachView.swift` gains a Debug-only diagnostics section. It contains numeric
 counts and fixed status text only. It has no audio, transcript, prompt, or generated-instruction history.
 Counts reset on Stop. Add no model API, preference key, or native resource management to the view.
 
@@ -69,8 +69,8 @@ Tests under the matching core/model test directories:
   `LiveCoachingModelTests.swift` for current evidence, new advice, priority, counters, cleanup, and bounded context.
 - Add `LiveQualityScenario.swift`, `LiveQualityDevelopmentScenarios.swift`, and
   `LiveQualityVerificationScenarios.swift` as frozen invented fixtures.
-- Add `LiveQualityEvaluationTests.swift` for independent fixture evaluation and a progressing conversation
-  through the real model and arbiter. Separate development and verification opt-in flags.
+- Add `LiveQualityEvaluationTests.swift` for independent fixture evaluation. Add `LiveConversationQualityTests.swift`
+  for a progressing conversation through the real model and arbiter. Use separate opt-in flags.
 - Extend `Tests/MacUI/LiveCoachUITests.swift` to verify content-free diagnostics and clearing without capture.
 
 Update `README.md`, `CHANGELOG.md`, `CONVERSATION.md`, `PROJECT.md`, `ADDITIONAL.md`,
@@ -115,3 +115,29 @@ PAUSE and REPHRASE share fixed high priority, an eight-second high-priority cool
 The entire pause/rephrase action remains repeat-suppressed to prevent urgent paraphrase spam.
 Core regression checks passed 127 core tests and 60 native test declarations with opt-ins skipped.
 The model/prompt correction and Debug diagnostics view remain in progress at this checkpoint.
+
+## Model experiments rejected on 1 November 2026
+
+The Debug diagnostics section passed three synthetic Mac UI journeys. A focused rerun captured the main
+window for visual review. The section shows numeric counts and a fixed outcome, then disappears on Stop.
+Short meaningful input tests first failed for "Ridiculous!", "You idiot.", and "Why?". They now pass while
+filler-only speech remains excluded. All-platform compilation and 129 core regressions passed.
+
+The original model showed only CLARIFY in the five-turn synthetic conversation. It reused old wording,
+failed current evidence checks on later opportunities, and missed the later decision cue.
+Tested prompt revisions included current-versus-previous fields, recent-advice context, explicit pause and
+rephrase categories, narrower situation sets, and literal-speech observation schemas. Some revisions passed
+all 12 development action checks but still failed unchanged multi-turn expectations. Other revisions reduced
+recall or produced false interventions during routine agreement. Development scores alone did not justify adoption.
+
+Rejected all native model/prompt experiments and restored the committed model adapter. No model weights
+changed. Keep the failing opt-in conversation benchmark as visible evidence of the unmet quality gate.
+The separate eight-case verification set remains unused because no candidate met the development gate.
+Its two frozen fixture hashes remain unchanged. Do not tune against this future verification set.
+
+The model pipeline remains unsuitable for a usefulness acceptance claim. This result describes the tested
+pipeline and examples. It does not prove that every Apple model implementation must fail.
+The next design decision is whether to evaluate a stronger downloaded on-device model or narrow V1 coaching.
+Both directions preserve the prohibition on uploads. A larger model adds storage, memory, licensing, and
+device-support work. No new model dependency or download was added during this investigation.
+Do not request another promotion trial until a candidate passes the broader and multi-turn gates.

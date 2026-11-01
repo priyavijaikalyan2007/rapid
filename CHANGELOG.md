@@ -10,6 +10,14 @@ Created: 2026
 
 # Changelog
 
+## 1 November 2026
+
+### Fixed
+
+- Preserved short meaningful speech while continuing to skip filler-only input.
+- Added content-free Debug diagnostics that clear on Stop.
+- Expanded live quality checks across conversation topics and added a progressing conversation regression.
+
 ## 30 October 2026
 
 ### Added

@@ -666,3 +666,17 @@ speech, accepted results, checks, no selected action, failures, suppression, and
 Stop clears the counters and removes the section. No content logging or history was added.
 The native UI runner passed three synthetic journeys, including displayed count and Stop cleanup.
 The full repository regression suite passed. Broader model quality correction remains in progress.
+
+### Model investigation outcome on 1 November 2026
+
+Reproduced one repeated CLARIFY action through the original model and real arbiter in a progressing invented
+conversation. Some prompt variants passed all development fixtures but failed multi-turn checks. Others
+missed useful actions or intervened during routine agreement. Rejected these changes and restored the
+committed model code. Kept the broad fixtures and failing opt-in conversation benchmark.
+Preserved the verified short-speech correction and content-free diagnostics. The separate verification set
+remains unused because no candidate passed the development gate. This does not establish broad accuracy
+or fairness. No model weights changed and no real meeting content was retained.
+
+Asked which direction to prioritize: a stronger downloadable on-device model, or Apple's built-in model
+with narrower V1 coaching. A downloaded model preserves locality but adds storage and memory costs.
+No new model dependency or download was introduced. Do not ask the owner to repeat the promotion trial yet.

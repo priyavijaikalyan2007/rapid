@@ -81,14 +81,18 @@ public struct LiveCoachingInput: Sendable
 
     private static func isMeaningful(_ text: String) -> Bool
     {
-        let filler: Set<String> = ["um", "uh", "hmm", "ah", "okay", "ok", "yes", "no"]
+        let filler: Set<String> = [
+            "um", "uh", "hmm", "ah", "okay", "ok", "yes", "no", "hello", "hi", "thanks",
+            "and", "but", "so", "the", "a", "an", "i", "you", "we", "they", "it", "is", "am",
+            "are", "to", "of", "for", "that", "this", "with"
+        ]
         let words = text.lowercased().split
         {
             !$0.isLetter && !$0.isNumber
         }
-        return words.filter
+        return words.contains
         {
             !filler.contains(String($0))
-        }.count >= 3
+        }
     }
 }

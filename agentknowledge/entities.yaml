@@ -263,5 +263,15 @@
     "related": [
       "ComposureLiveDiagnostics"
     ]
+  },
+  {
+    "name": "LiveConversationQualityTests",
+    "table": null,
+    "file": "src/composure/Packages/ComposureCore/Tests/ComposureModelsTests/LiveConversationQualityTests.swift",
+    "description": "Opt-in invented five-turn benchmark through the actual on-device model and cue arbiter. Checks current evidence, displayed action variety, deliberate silence, and bounded latency. The current committed adapter fails the usefulness gate.",
+    "related": [
+      "ComposureLiveQuality",
+      "ComposureLiveSemantics"
+    ]
   }
 ]

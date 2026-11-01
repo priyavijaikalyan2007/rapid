@@ -593,7 +593,7 @@ Rules:
 - one visible cue;
 - expiration;
 - cooldown;
-- same-type suppression;
+- repeated-advice suppression;
 - stale candidate rejection;
 - priority replacement;
 - no historical queue.
@@ -603,7 +603,7 @@ Initial configurable values:
 ```text
 normal duration:         8s
 normal cooldown:        20s
-same type suppression:  90s
+repeated advice suppression: 90s
 high-priority cooldown:  8s
 ```
 

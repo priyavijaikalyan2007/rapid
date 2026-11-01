@@ -241,11 +241,31 @@ Test explaining a decision with "Agree on concrete development criteria without 
 Check whether each cue fits the moment. A relevant cue matters more than a high cue count.
 Report unsuitable cues, missed useful moments, unexpected interruptions, capture failures, and Stop failures.
 
-The default policy permits at most four cues in ten minutes, with a 20-second cooldown and 90-second
-same-type suppression. The profile adjusts frequency. Each cue lasts eight seconds. There is no queue or transcript UI.
+The default policy permits at most four cues in ten minutes, with a 20-second normal cooldown.
+Similar repeated advice stays suppressed for 90 seconds. Distinct advice can reuse a headline after the cooldown.
+PAUSE and REPHRASE can replace a normal cue. They have an eight-second cooldown and remain subject to all frequency caps.
+The entire PAUSE or REPHRASE action stays repeat-suppressed for 90 seconds to limit repeated urgent suggestions.
+Each cue lasts eight seconds. There is no queue or transcript UI.
 The temporary context holds at most 120 seconds, 128 results, and 32 KiB of speech text.
 Each model opportunity uses a smaller finalized subset and a fresh tool-free on-device session.
 Invalid, late, low-confidence, or refused output remains silent. A failed model check does not stop audio capture.
+
+Debug builds show content-free coaching diagnostics during listening. Counts distinguish finalized speech,
+model checks, no selected action, failures, withheld cues, and displayed cues. Stop clears these counts.
+The current model's usefulness checkpoint remains open. Explicit harsh-wording and rash-reply routing still need
+a model implementation that passes broader checks. The app does not detect emotions.
+
+Run the broader invented live cases separately from Prepare evaluation:
+
+```sh
+COMPOSURE_EVALUATE_LIVE_QUALITY=development ./test.sh composure
+COMPOSURE_EVALUATE_LIVE_QUALITY=conversation ./test.sh composure
+COMPOSURE_EVALUATE_LIVE_QUALITY=verification ./test.sh composure
+```
+
+The development set contains 12 cases across work and everyday topics. The separate eight-case set has no promotion case.
+Freeze a candidate before running verification. Do not tune against verification results without replacing that set.
+These authored regression cases do not establish broad accuracy, real speech quality, or fairness across people and accents.
 
 Speaker identity remains unknown on unverified routes. Interruption, rapid-response, speaking-duration,
 and direct-answer cues remain disabled in this first Mac slice. The app does not infer participant emotions or traits.

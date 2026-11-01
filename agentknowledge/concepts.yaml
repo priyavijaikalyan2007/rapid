@@ -273,5 +273,14 @@
       "ComposureLiveCoaching",
       "ComposureLiveSemantics"
     ]
+  },
+  {
+    "name": "ComposureLiveQuality",
+    "definition": "Frozen invented development cases, a separate unused verification set, and a progressing conversation benchmark distinguish useful current actions, ordinary silence, stale evidence, and repeated advice. Passing development examples alone does not establish coaching usefulness.",
+    "anchor_file": "specs/composure-live-quality.plan.md",
+    "related": [
+      "ComposureLiveSemantics",
+      "ComposureLiveDiagnostics"
+    ]
   }
 ]

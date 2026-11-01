@@ -462,3 +462,14 @@ The active Debug screen now shows numeric processing and cue counts with a fixed
 Stop clears these counts and removes the section. No speech, prompt, or instruction history appears.
 Three synthetic Mac UI journeys and the full repository regression suite passed.
 These tests establish the diagnostic workflow, not live model quality or real-call accuracy.
+
+### Model quality gate remains unmet on 1 November 2026
+
+The original adapter displayed only CLARIFY in the synthetic multi-turn check. Prompt experiments sometimes
+passed all development cases, then failed the same conversation check. Other variants produced false cues
+on ordinary agreements. Rejected the model experiments and restored the committed adapter.
+The new opt-in conversation benchmark remains failing. Default code regressions passing do not override this quality failure.
+The separate eight-case verification set remains unused. No real meeting content was captured by the agent.
+
+The next choice is a stronger downloadable on-device model or a narrower V1 coaching scope.
+No new model engine, dependency, or download was added. Further owner promotion trials are not requested yet.

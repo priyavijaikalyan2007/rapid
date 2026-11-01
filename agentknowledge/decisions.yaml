@@ -287,5 +287,16 @@
       "src/composure/Packages/ComposureCore/Sources/ComposureCore/CueArbiter.swift",
       "src/composure/Packages/ComposureCore/Sources/ComposureCore/LiveSessionDiagnostics.swift"
     ]
+  },
+  {
+    "id": "ADR-024",
+    "title": "Reject model changes that pass examples but fail progressing conversations",
+    "date": "2026-11-01",
+    "status": "Accepted",
+    "context": "The owner questioned promotion-only bias after unhelpful coaching. Frozen cross-topic cases and a progressing conversation exposed stale wording and missed actions. Some prompt variants passed all development cases but failed multi-turn expectations. Rejected these model experiments and retained the committed adapter, verified diagnostics, and short-speech correction. Keep the separate verification set unused until a candidate passes the development gate. No model download, cloud provider, or subscription integration is accepted by this decision. Broader model quality and any engine change remain open.",
+    "files": [
+      "specs/composure-live-quality.plan.md",
+      "src/composure/Packages/ComposureCore/Tests/ComposureModelsTests/LiveConversationQualityTests.swift"
+    ]
   }
 ]

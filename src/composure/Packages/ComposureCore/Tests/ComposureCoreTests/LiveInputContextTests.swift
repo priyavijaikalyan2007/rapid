@@ -14,6 +14,45 @@ import Testing
 
 struct LiveInputContextTests
 {
+    @Test(arguments: ["Ridiculous!", "You idiot.", "Why?"])
+    func shortMeaningfulSpeechIsNotDiscarded(text: String) throws
+    {
+        let event = try TranscriptEvent(
+            channel: .microphone,
+            startSeconds: 97,
+            endSeconds: 99,
+            text: text,
+            isFinal: true
+        )
+        let input = try LiveCoachingInput(
+            events: [event],
+            objective: "",
+            profile: CoachingProfile(),
+            style: .normal,
+            now: 100
+        )
+        #expect(input.currentEvent?.id == event.id)
+    }
+
+    @Test func fillerOnlySpeechStillStaysOutOfModelInput() throws
+    {
+        let event = try TranscriptEvent(
+            channel: .microphone,
+            startSeconds: 97,
+            endSeconds: 99,
+            text: "um uh okay",
+            isFinal: true
+        )
+        let input = try LiveCoachingInput(
+            events: [event],
+            objective: "",
+            profile: CoachingProfile(),
+            style: .normal,
+            now: 100
+        )
+        #expect(input.events.isEmpty)
+    }
+
     @Test func currentEvidenceUsesLatestAudioEndRatherThanArrayPosition() throws
     {
         let long = try TranscriptEvent(
