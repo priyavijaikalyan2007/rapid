@@ -17,6 +17,7 @@ Created: 2026
 | CropPrint | [CropPrint status](cropprint.status.md) | [Application guide](../src/cropprint/README.md) and [publishing guide](../PUBLISHING.md) |
 | Public website | [Website status](website.status.md) | [Website guide](../src/web/README.md) |
 | Composure | [Composure status](composure.status.md) | [Normative specification](../src/composure/implementation-specification.md) |
+| Composure model options | [Quality investigation](composure-live-quality.plan.md) | [Proposed model strategy](composure-model-strategy.plan.md) |
 
 Keep existing source and specification locations. This index does not move application files.
 Record future verified results in the owning status file.

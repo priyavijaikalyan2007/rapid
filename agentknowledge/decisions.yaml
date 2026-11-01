@@ -298,5 +298,16 @@
       "specs/composure-live-quality.plan.md",
       "src/composure/Packages/ComposureCore/Tests/ComposureModelsTests/LiveConversationQualityTests.swift"
     ]
+  },
+  {
+    "id": "ADR-025",
+    "title": "Compare replaceable local models and explicit cloud API providers",
+    "date": "2026-11-01",
+    "status": "Proposed",
+    "context": "After the live quality gate failed, the owner requested Gemma and other local model recommendations plus optional remote models using existing subscriptions. Publisher research supports benchmarking Gemma 4 E4B, Qwen3.5-4B, and a larger Mac comparison before selecting a runtime. Anthropic directs third-party products to API authentication. Google AI Pro includes developer benefits but API projects and billing remain separate configuration. Proposed cloud processing requires an explicit privacy mode, bounded text requests, independent output controls, and a separate request budget. This proposal changes no production provider, download behavior, privacy promise, or supported-device claim.",
+    "files": [
+      "specs/composure-model-strategy.plan.md",
+      "specs/composure-live-quality.plan.md"
+    ]
   }
 ]

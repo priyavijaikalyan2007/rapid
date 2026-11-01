@@ -680,3 +680,31 @@ or fairness. No model weights changed and no real meeting content was retained.
 Asked which direction to prioritize: a stronger downloadable on-device model, or Apple's built-in model
 with narrower V1 coaching. A downloaded model preserves locality but adds storage and memory costs.
 No new model dependency or download was introduced. Do not ask the owner to repeat the promotion trial yet.
+
+## Composure model options on 1 November 2026
+
+### User question
+
+> What would be a good model to use on-device? Gemmma models from Google? Other open models specialized to this type of work? What if we provide users the option to use remote models as well? That is, if Claude Code is configured, use it; if the user has a Google AI subscription, use that?
+
+### Research and recommendation
+
+Checked current publisher documentation. Proposed Gemma 4 E4B and Qwen3.5-4B as the first local comparisons,
+with Qwen3.5-9B as a Mac candidate if memory permits. These are hypotheses to test, not measured winners.
+Recommended general instruction models before specialist tuning and a model-neutral replay benchmark.
+Optional cloud providers would use official APIs, explicit user configuration, and a revised privacy flow.
+Anthropic's rules direct third-party products to API authentication rather than consumer subscription credentials.
+Google AI Pro includes developer credit benefits, but Gemini API access still requires project and billing setup.
+Recorded the sourced proposal in specs/composure-model-strategy.plan.md. No provider integration or model download occurred.
+
+### Local benchmark authorized
+
+> If so, then perhaps using using better ondevice models is the better idea?
+
+Recommended prioritizing stronger on-device models and deferring cloud integration.
+
+> ok go for it then.
+
+The owner authorized a Mac-first comparison of Gemma 4 E4B and Qwen3.5-4B using invented conversations.
+Created a file-level benchmark plan. The current development host reports an M5 Pro and 64 GiB memory.
+Application integration remains subject to measured quality and latency. Cloud remains deferred.
