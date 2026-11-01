@@ -455,3 +455,10 @@ The separate eight-case verification set remains unused.
 Core regressions now cover distinct advice with the same headline, paraphrase suppression, high-priority
 behavioral replacement, current evidence, bounded recent advice, numeric diagnostics, and cleanup.
 The native model/prompt correction is still in progress. The core changes do not establish useful live behavior by themselves.
+
+### Debug diagnostics on 1 November 2026
+
+The active Debug screen now shows numeric processing and cue counts with a fixed operational outcome.
+Stop clears these counts and removes the section. No speech, prompt, or instruction history appears.
+Three synthetic Mac UI journeys and the full repository regression suite passed.
+These tests establish the diagnostic workflow, not live model quality or real-call accuracy.

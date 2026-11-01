@@ -13,10 +13,30 @@ import XCTest
 final class LiveCoachUITests: XCTestCase
 {
     @MainActor
+    func testDiagnosticsShowCountsAndDisappearAfterStop()
+    {
+        continueAfterFailure = false
+        let app = launch()
+        defer { app.terminate() }
+        app.buttons["live.start"].click()
+        let panel = app.windows["Composure coach"]
+        XCTAssertTrue(panel.waitForExistence(timeout: 8))
+        XCTAssertTrue(panel.staticTexts["ASK FIRST"].waitForExistence(timeout: 8))
+        let shown = app.descendants(matching: .any)["live.diagnostics.shown"].firstMatch
+        XCTAssertTrue(shown.waitForExistence(timeout: 3), app.debugDescription)
+        XCTAssertEqual(shown.value as? String, "Displayed cues: 1")
+        attach(app.windows["Live Coach"], name: "Content-free live diagnostics")
+        panel.buttons["live.panel.stop"].click()
+        let gone = XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == false"), object: shown)
+        XCTAssertEqual(XCTWaiter.wait(for: [gone], timeout: 5), .completed)
+    }
+
+    @MainActor
     func testExplicitStartShowsCueAndStopClearsSession()
     {
         continueAfterFailure = false
         let app = launch()
+        defer { app.terminate() }
         let start = app.buttons["live.start"]
         XCTAssertTrue(start.waitForExistence(timeout: 5), app.debugDescription)
         XCTAssertFalse(app.windows["Composure coach"].exists)
@@ -43,7 +63,6 @@ final class LiveCoachUITests: XCTestCase
         objective.click()
         objective.typeText("Agree on next steps")
         XCTAssertEqual(objective.value as? String, "Agree on next steps")
-        app.terminate()
     }
 
     @MainActor
@@ -51,6 +70,7 @@ final class LiveCoachUITests: XCTestCase
     {
         continueAfterFailure = false
         let app = launch()
+        defer { app.terminate() }
         let start = app.buttons["live.start"]
         XCTAssertTrue(start.waitForExistence(timeout: 5))
         start.click()
@@ -59,7 +79,6 @@ final class LiveCoachUITests: XCTestCase
         app.outlines.staticTexts["Prepare"].firstMatch.click()
         let gone = XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == false"), object: panel)
         XCTAssertEqual(XCTWaiter.wait(for: [gone], timeout: 5), .completed)
-        app.terminate()
     }
 
     @MainActor

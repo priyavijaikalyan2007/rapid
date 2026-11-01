@@ -658,3 +658,11 @@ Frozen invented fixtures now cover 12 development cases and eight separate verif
 prompt changes. The verification set has no promotion scenario and must not guide the current tuning.
 Added a file-level correction plan. The owner will not be asked to repeat the same trial before the
 local broader and multi-turn checks establish a concrete improvement.
+
+### Debug diagnostics checkpoint on 1 November 2026
+
+Added content-free numeric diagnostics to the active Mac Debug screen. The counts distinguish finalized
+speech, accepted results, checks, no selected action, failures, suppression, and displayed cues.
+Stop clears the counters and removes the section. No content logging or history was added.
+The native UI runner passed three synthetic journeys, including displayed count and Stop cleanup.
+The full repository regression suite passed. Broader model quality correction remains in progress.

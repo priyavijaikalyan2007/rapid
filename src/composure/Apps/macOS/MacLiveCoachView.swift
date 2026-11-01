@@ -36,6 +36,12 @@ struct MacLiveCoachView: View
                 )
                 Text("Cues appear only when an action could help. Ordinary discussion can remain silent.")
             }
+            #if DEBUG
+            if session.state == .listening
+            {
+                diagnostics
+            }
+            #endif
             setup
             controls
             if let cue = session.cue
@@ -186,4 +192,30 @@ struct MacLiveCoachView: View
         }
         return saved
     }
+
+    #if DEBUG
+    private var diagnostics: some View
+    {
+        Section("Coaching diagnostics")
+        {
+            diagnosticCount("Displayed cues", session.diagnostics.shown, "shown")
+            diagnosticCount("Speech results", session.diagnostics.results, "results")
+            diagnosticCount("Finalized results", session.diagnostics.finalResults, "finals")
+            diagnosticCount("Accepted final results", session.diagnostics.acceptedFinalResults, "accepted")
+            diagnosticCount("Coaching checks", session.diagnostics.checks, "checks")
+            diagnosticCount("No action selected", session.diagnostics.noCue, "noAction")
+            diagnosticCount("Failed checks", session.diagnostics.failures, "failures")
+            diagnosticCount("Withheld cues", session.diagnostics.withheld, "withheld")
+            Text(verbatim: session.diagnostics.outcome.explanation)
+            Text("Counts reset when you stop. No speech text or cue history appears here.")
+                .font(.caption).foregroundStyle(.secondary)
+        }
+    }
+
+    private func diagnosticCount(_ label: String, _ count: Int, _ identifier: String) -> some View
+    {
+        Text("\(label): \(count)")
+            .accessibilityIdentifier("live.diagnostics." + identifier)
+    }
+    #endif
 }
