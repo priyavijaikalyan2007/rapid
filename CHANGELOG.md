@@ -17,6 +17,11 @@ Created: 2026
 - Added an optional offline local-model benchmark with pinned artifacts, strict replies, shared invented fixtures, and Core cue replay.
 - Recorded Apple, Gemma, and Qwen comparisons. No candidate passed the adoption gate, so the application's model remains unchanged.
 
+### Changed
+
+- Limited Composure V1 to macOS and deferred mobile build and release gates while retaining existing source.
+- Set an M3/M4 MacBook Air with 16 GB unified memory as Composure's performance reference.
+
 ## 1 November 2026
 
 ### Fixed

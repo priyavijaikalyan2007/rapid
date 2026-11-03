@@ -78,3 +78,43 @@ STUB
     [[ "$output" == *'-destination platform=macOS,arch=arm64'*'ARCHS=arm64'* ]]
     [[ "$output" == *'-destination generic/platform=macOS'*'ARCHS=arm64'*'ONLY_ACTIVE_ARCH=NO'* ]]
 }
+
+# Isolate routing from Xcode and Swift so the all-mode contract needs no SDK or signing services.
+stub_build_tools()
+{
+    mkdir -p "$fixture/bin"
+    for command_name in xcrun xcodebuild; do
+        cat > "$fixture/bin/$command_name" <<'STUB'
+#!/usr/bin/env bash
+printf '%s\n' "${0##*/} $*" >> "$COMPOSURE_BUILD_LOG"
+STUB
+        chmod +x "$fixture/bin/$command_name"
+    done
+    export COMPOSURE_BUILD_LOG="$fixture/build-calls"
+}
+
+@test "Composure all checks test Core and build only Mac destinations" {
+    stub_build_tools
+
+    run env PATH="$fixture/bin:$PATH" bash "$fixture/build.sh" all
+
+    [[ "$status" -eq 0 ]]
+    [[ "$(wc -l < "$COMPOSURE_BUILD_LOG" | tr -d ' ')" -eq 3 ]]
+    run cat "$COMPOSURE_BUILD_LOG"
+    [[ "$output" == *'xcrun swift test'* ]]
+    [[ "$output" == *'-destination platform=macOS,arch=arm64'* ]]
+    [[ "$output" == *'-destination generic/platform=macOS'* ]]
+    [[ "$output" != *'Composure Mobile'* ]]
+    [[ "$output" != *'platform=iOS'* ]]
+}
+
+@test "Composure defers mobile builds before starting tools" {
+    stub_build_tools
+
+    run env PATH="$fixture/bin:$PATH" bash "$fixture/build.sh" ios
+
+    [[ "$status" -eq 2 ]]
+    [[ "$output" == *'Mobile builds are deferred.'* ]]
+    [[ ! -e "$COMPOSURE_BUILD_LOG" ]]
+    [[ ! -e "$fixture/build" ]]
+}

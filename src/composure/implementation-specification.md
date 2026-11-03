@@ -25,8 +25,9 @@ For rationale and expanded design guidance, see [product-specification.md](produ
 ## 1. Product
 
 **Name:** Composure\
-**Platforms:** macOS 26+, iOS 26+, iPadOS 26+\
+**V1 platform:** macOS 26+\
 **Mac hardware:** Apple silicon only (`arm64`)\
+**Performance reference:** M3/M4 MacBook Air with 16 GB unified memory\
 **Implementation:** Native Swift / SwiftUI\
 **Backend:** None\
 **Account/login:** None\
@@ -38,6 +39,10 @@ Composure is an on-device behavioral coach for high-stakes conversations. It giv
 such as `ASK FIRST`, `KEEP IT SHORT`, `LET THEM FINISH`, or `BRING IT BACK`.
 
 It is not a meeting notes product.
+
+The owner deferred iPhone and iPad on 3 November 2026. This supersedes the original mobile V1 scope.
+Existing mobile source and targets may remain as deferred scaffolding. They are not V1 build or release requirements.
+Use the M3 Air as the slower performance reference. Chip-specific minimum support remains subject to measured compatibility.
 
 ---
 
@@ -81,8 +86,6 @@ product functionality.
 
 ### PRIV-008 — Background and indicator lifecycle
 
-On iPhone and iPad, entering the background MUST stop capture, cancel analysis, and clear live session content.
-The app MUST obscure sensitive content before the system creates an app-switcher snapshot.
 The app MUST NOT restore preparation or live content through scene restoration.
 
 On macOS, sleep, source loss, or closing the last capture indicator MUST stop the session.
@@ -94,11 +97,14 @@ V1 MUST NOT contain an application backend, remote API, remote logging service, 
 cloud model.
 
 Apple-managed system model/speech asset downloads are allowed.
+Explicit downloads of licensed local model resources are allowed. This does not permit uploading conversation content.
 
 ### MODEL-001 — Local semantic model
 
 Semantic coaching MUST use an on-device model. The initial implementation MUST use Apple Foundation Models
 `SystemLanguageModel` when available.
+The current implementation satisfies this initial choice. A downloaded replacement may be adopted only after model quality,
+privacy, native compatibility, and reference-machine resource checks pass.
 
 ### MODEL-002 — No cloud fallback
 
@@ -121,6 +127,14 @@ They MUST NOT enter privileged model instructions or change the app's fixed coac
 Structured model output MUST pass independent validation before it can become a cue.
 The synthetic regression suite MUST include direct and indirect prompt-injection attempts.
 
+### MODEL-005 — Reference-machine resource acceptance
+
+The complete pipeline MUST be evaluated on an M3/M4 MacBook Air with 16 GB unified memory.
+The workload MUST include microphone and selected-app capture, both speech analyzers, inference, and a representative meeting app.
+Measure memory pressure, swap growth, sustained cue latency, responsiveness, and thermal behavior over a long session.
+Model-only MLX allocation and short runs on a 64 GiB development Mac do not establish this acceptance.
+Existing context limits, deadlines, concurrency limits, and privacy controls remain in force until a measured change justifies revision.
+
 ### PROD-001 — No meeting-history product
 
 V1 MUST NOT expose meeting history, transcripts, recordings, notes, summaries, participant analytics, or
@@ -132,7 +146,7 @@ action items.
 
 ### MODE-001 — Prepare
 
-MUST be available on macOS and iOS.
+MUST be available on macOS.
 
 Inputs:
 
@@ -171,15 +185,13 @@ speaker recognition.
 Both streams MUST be available before remote coaching starts. If separate microphone capture fails, setup
 MUST stop and explain the limitation. V1 MUST NOT silently offer meeting-audio-only coaching.
 
-The product owner confirmed this behavior and iPad support on 24 October 2026.
+The product owner confirmed the missing-microphone behavior on 24 October 2026.
 
 Provider integrations are forbidden in V1.
 
-### MODE-004 — iOS In-Person
+### MODE-004 — Mobile modes deferred
 
-MUST capture the iPhone microphone and provide live coaching while Composure is foregrounded.
-
-V1 does NOT need to support coaching a remote meeting running on the same iPhone.
+iPhone and iPad modes are OUT OF SCOPE for V1. Any future mobile scope requires a separate product and hardware decision.
 
 ### MODE-005 — Practice
 
@@ -207,7 +219,8 @@ Use `AssetInventory` to determine/install required Apple speech assets before li
 
 ### TECH-005
 
-Use Foundation Models `SystemLanguageModel` for semantic analysis.
+Use Foundation Models `SystemLanguageModel` for the initial semantic adapter.
+Keep the adapter replaceable. A downloaded local engine must satisfy MODEL-001 through MODEL-005 before adoption.
 
 ### TECH-006
 
@@ -257,7 +270,6 @@ Suggested repository shape:
 ```text
 Composure/
 ├── Apps/macOS/
-├── Apps/iOS/
 ├── Packages/ComposureCore/
 ├── Tests/
 └── Docs/
@@ -265,6 +277,7 @@ Composure/
 
 Shared behavioral logic MUST live in `ComposureCore`. Platform audio/windowing code SHOULD remain in platform
 targets.
+Existing `Apps/iOS/` scaffolding is retained outside the active V1 structure.
 
 ---
 
@@ -605,19 +618,9 @@ Default panel position SHOULD be near the top center but user-adjustable.
 
 ---
 
-## 17. iOS UI
+## 17. Mobile UI deferred
 
-V1 MUST include:
-
-- Prepare;
-- In-Person Coach;
-- Settings.
-
-Live coaching MUST work with the app foregrounded.
-
-V1 does not require background microphone capture.
-
-The app SHOULD disable idle screen locking during an active session.
+Mobile UI, lifecycle behavior, and device acceptance are outside V1.
 
 ---
 
@@ -744,7 +747,7 @@ Run the corpus when changing prompts and before adopting a new major OS/system-m
 A user can start remote coaching, select a meeting source, participate normally, receive occasional cues, stop
 coaching, and find no recording/transcript/history.
 
-### macOS/iOS In-Person
+### macOS In-Person
 
 A user can start microphone coaching, receive occasional semantic cues, stop, and leave no meeting-content
 persistence.

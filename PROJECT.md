@@ -24,7 +24,7 @@ Created: 2026
 | Initial scope | Applications for cropping images in predefined ways, providing emotional intelligence and quotient feedback in meetings and more. |
 | Constraints and exclusions | Should always use local foundational models for AI. Should always use on-device capabilities and APIs without requiring any proprietary external system. Open source or creative commons resources downloaded locally are allowed. Privacy and security are key. |
 | Build and test commands | Root build.sh delegates to component builds. Root test.sh validates the repository and selected components. See the command table below. |
-| Architecture | The CropPrint iOS, iPadOS and macOS application, the outcrop.us static website. |
+| Architecture | CropPrint for iOS, iPadOS, and macOS, Composure V1 for macOS, and the outcrop.us static website. |
 | Source locations | Recorded in the component profile linked below |
 
 Component selections are in [PROJECT_PROFILE.md](<PROJECT_PROFILE.md>).
@@ -49,7 +49,9 @@ The existing website uses an external theme and website-only Google Analytics.
 Native application processing and privacy constraints do not describe website analytics.
 
 Composure contains an executable foundation under src/composure.
-Its Mac and universal iPhone/iPad targets use a local ComposureCore Swift package and require OS version 26 or later.
+Its V1 target is macOS 26 or later, using a local ComposureCore Swift package.
+The performance reference is an M3/M4 MacBook Air with 16 GB unified memory, using the M3 as the slower baseline.
+Existing iPhone/iPad source and Xcode targets remain deferred scaffolding outside V1 build and acceptance gates.
 Composure supports Apple silicon Macs only. Both Debug and Release Mac applications use arm64.
 The application provides privacy onboarding, saved Coaching Profile settings, Prepare mode, speech-asset setup, and content-safe local logging.
 Its shared core includes a pure session transition policy and typed, bounded preference storage.
@@ -60,7 +62,7 @@ Settings checks speech assets, model availability, and capture permission states
 Explicit speech setup uses Apple-managed on-device assets. Mac Debug and Release builds support explicitly started remote coaching.
 Separate microphone and selected-application audio feed two on-device speech analyzers and bounded temporary context.
 A shared model work slot supports Prepare and sparse live cues. A non-activating native panel provides one cue and Stop.
-Speaker attribution remains unknown until route testing supports it. Mobile live capture and speaker-dependent detectors remain planned.
+Speaker attribution remains unknown until route testing supports it. Speaker-dependent detectors remain planned.
 A separate Debug dual-stream feasibility check remains available through a launch argument.
 An optional Python MLX benchmark compares downloaded models using invented text and Core cue replay.
 Its dependencies and weights remain separate from the application. No downloaded candidate passed the adoption gate on 3 November 2026.
@@ -88,7 +90,7 @@ Website preview and deployment require the dependencies from src/web/package-loc
 | ./test.sh web | Builds and validates the static website |
 | ./build.sh | Tests CropPrint, packages macOS, builds mobile targets, and builds the website |
 | ./build.sh web | Builds and validates only the website |
-| ./src/composure/build.sh all | Tests ComposureCore and compiles unsigned Mac, mobile simulator, and mobile device targets |
+| ./src/composure/build.sh all | Tests ComposureCore and compiles active and generic unsigned ARM64 Mac destinations |
 | ./package.sh macos | Creates src/cropprint/build/CropPrint-unsigned.zip |
 | ./run.sh web | Starts the existing local website preview |
 | ./smoke.sh web | Checks generated website files and local links |

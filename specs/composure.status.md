@@ -13,14 +13,16 @@ Created: 2026
 Updated on 3 November 2026.
 
 Composure has an executable native foundation under src/composure.
-The Mac and universal iPhone/iPad targets use a local Swift package with strict Swift 6 concurrency.
+The active Mac target uses a local Swift package with strict Swift 6 concurrency.
+The owner deferred iPhone and iPad on 3 November 2026. Existing mobile source and targets remain outside V1.
+The performance reference is an M3/M4 MacBook Air with 16 GB unified memory, using the M3 as the slower baseline.
 Composure supports Apple silicon Macs only. Its Debug and Release Mac applications use arm64.
 The profile now enables Composure as a native component, alongside the existing documentation scope.
 The application provides privacy onboarding, editable Coaching Profile settings, native Prepare mode, and navigation.
 The shared core includes typed preferences and a bounded UserDefaults adapter.
 Settings provides explicit Save, Discard, and confirmed profile reset actions.
 Mac Live Coach now supports explicitly started remote capture, temporary transcription, sparse semantic cues, and a floating native panel.
-Mobile live capture and speaker-dependent detectors remain unimplemented.
+Speaker-dependent detectors remain unimplemented. Mobile build and device gates no longer block V1.
 
 The [normative specification](../src/composure/implementation-specification.md) is the implementation contract.
 The [product specification](../src/composure/product-specification.md) explains the product and design.
@@ -489,3 +491,20 @@ The [results](composure-local-benchmark.results.md) own the measurements, failur
 
 No candidate is selected. The separate eight-case verification set remains unused.
 The next model change must pass action, wording, and delivery checks before native integration or another owner promotion trial.
+
+## Mac-only V1 scope on 3 November 2026
+
+The owner deferred mobile and set an M3/M4 MacBook Air with 16 GB unified memory as the performance target.
+The [Mac-only scope plan](composure-macos-v1.plan.md) supersedes the original multi-platform V1 gates.
+The active profile, specifications, application guide, and component builder now select macOS.
+The default component build tests Core and compiles active and generic ARM64 Mac destinations.
+The `ios` mode stops before tool discovery and explains that mobile builds are deferred.
+Mobile source and Xcode targets remain intact. The owner's existing Xcode project edit remains outside this change.
+
+Keep the next local quality prototype within the reference-machine budget.
+Qwen3.5-4B is an experimental baseline. A larger comparison needs both a quality benefit and combined-workload resource evidence.
+The 64 GiB M5 benchmark does not establish performance alongside Chrome/Meet, capture, and two speech analyzers on the reference Air.
+Context retention, inference deadlines, concurrency, and privacy limits remain unchanged.
+No new model or reference-machine acceptance result is claimed by this scope change.
+The full repository suite passed, including the two new shell regressions, 28 Python checks, and 37 Bats checks.
+The revised Mac-only `all` build, profile check, and source-style checks passed.

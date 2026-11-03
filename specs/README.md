@@ -17,6 +17,7 @@ Created: 2026
 | CropPrint | [CropPrint status](cropprint.status.md) | [Application guide](../src/cropprint/README.md) and [publishing guide](../PUBLISHING.md) |
 | Public website | [Website status](website.status.md) | [Website guide](../src/web/README.md) |
 | Composure | [Composure status](composure.status.md) | [Normative specification](../src/composure/implementation-specification.md) |
+| Composure V1 scope | [Mac-only scope and reference hardware](composure-macos-v1.plan.md) | [Product specification](../src/composure/product-specification.md) |
 | Composure model options | [Quality investigation](composure-live-quality.plan.md) | [Proposed model strategy](composure-model-strategy.plan.md) |
 | Composure local benchmark | [Measured results](composure-local-benchmark.results.md) | [Benchmark plan](composure-local-benchmark.plan.md) and [invented evidence](composure-local-benchmark.evidence.json) |
 

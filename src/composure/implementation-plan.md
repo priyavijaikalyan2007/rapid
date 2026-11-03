@@ -33,7 +33,7 @@ Read first:
 For every milestone:
 
 1. make the smallest coherent vertical slice;
-2. compile both platform targets whenever shared code changes;
+2. test Core and compile active and generic ARM64 Mac destinations whenever shared code changes;
 3. add tests before moving on;
 4. run relevant paths on physical devices;
 5. verify the privacy invariants;
@@ -43,12 +43,13 @@ For every milestone:
 The shared workflow requires failing tests before implementation, followed by passing tests and regression checks.
 The owner confirmed the additional controls below on 24 October 2026:
 
-- Support Mac, iPhone, and iPad on operating system version 26 or later.
+- Target macOS 26 or later on Apple silicon. The owner deferred iPhone and iPad on 3 November 2026.
+- Use an M3/M4 MacBook Air with 16 GB unified memory as the performance reference, using the M3 as the slower baseline.
 - Stop remote setup if separate microphone capture is unavailable.
 - Bound model inputs, outputs, requests, rolling text, and streaming queues.
 - Test prompt injection and validate model output independently.
 - Preserve precise audio timing and partial-result identity.
-- Stop and clear live content on mobile backgrounding and relevant macOS lifecycle events.
+- Stop and clear live content on the specified macOS lifecycle events.
 - Verify two analyzers and shared microphone capture early, before extensive remote implementation.
 
 The first executable foundation slice is defined in [the repository plan](../../specs/composure-foundation.plan.md).
@@ -75,7 +76,8 @@ choose the simplest supported implementation.
 
 ## Goal
 
-Create a clean multi-platform project with shared domain code and tests before implementing audio or AI.
+Maintain the macOS project with shared domain code and tests before implementing further audio or AI changes.
+Existing mobile source and targets remain deferred scaffolding. Historical mobile work does not create V1 acceptance gates.
 
 ## Tasks
 
@@ -88,7 +90,7 @@ Composure/
 ├── Composure.xcodeproj
 ├── Apps/
 │   ├── macOS/
-│   └── iOS/
+│   └── iOS/                    # retained scaffolding, outside V1
 ├── Packages/
 │   └── ComposureCore/
 ├── Tests/
@@ -98,7 +100,7 @@ Composure/
 Targets:
 
 - Composure macOS app;
-- Composure iOS app;
+- existing Composure mobile target retained outside the V1 build;
 - ComposureCore Swift package;
 - unit test target(s).
 
@@ -106,10 +108,11 @@ Targets:
 
 Initial targets:
 
-- macOS 26+ on Apple silicon only;
-- iOS 26+.
+- macOS 26+ on Apple silicon only.
 
-The mobile target MUST support both iPhone and iPad.
+The M3/M4 MacBook Air with 16 GB unified memory is the performance reference.
+Do not substitute the 64 GiB M5 development host for reference-machine acceptance.
+Do not add a new chip or memory block in application code without a separate support decision.
 
 Enable Swift 6 strict concurrency checking.
 Set the Mac target to arm64 in both Debug and Release configurations.
@@ -129,13 +132,7 @@ Live Coach
 Settings
 ```
 
-iOS:
-
-```text
-Prepare
-Live
-Settings
-```
+Mobile navigation remains deferred outside V1.
 
 ### P0-004 — Domain skeleton
 
@@ -370,7 +367,7 @@ Create at least 20 synthetic preparation scenarios and inspect:
 
 ## Exit Gate
 
-Prepare works on both macOS and iOS with Foundation Models available and unavailable.
+Prepare works on macOS with the current local model available and unavailable.
 
 ---
 
@@ -443,7 +440,7 @@ Record observed results and unresolved hardware combinations before proceeding w
 
 ## Goal
 
-Capture live microphone audio on macOS and iOS without writing audio to disk.
+Capture live microphone audio on macOS without writing audio to disk.
 
 ## Tasks
 
@@ -495,8 +492,7 @@ Do not silently select an unexpected device during an active session when the AP
 
 ## Exit Gate
 
-Both platforms can stream microphone buffers for at least 60 minutes without persistence or unbounded memory
-growth.
+The reference Mac can stream microphone buffers for at least 60 minutes without persistence or unbounded memory growth.
 
 ---
 
@@ -624,11 +620,9 @@ ASK FIRST
 Understand the concern before explaining.
 ```
 
-### P6-004 — iOS cue surface
+### P6-004 — Mobile cue surface deferred
 
-Foreground live coaching screen with large glanceable typography.
-
-Disable idle timer during the session.
+No mobile cue implementation or acceptance gate is required for V1.
 
 ### P6-005 — Cue language validator
 
@@ -650,7 +644,7 @@ Enforce:
 
 ## Exit Gate
 
-Synthetic cue candidates produce stable, unobtrusive UI behavior on both platforms.
+Synthetic cue candidates produce stable, unobtrusive UI behavior on macOS.
 
 ---
 
@@ -953,7 +947,7 @@ Do not persist real meeting content; the corpus is synthetic source-controlled t
 
 Run the corpus when:
 
-- adopting a new major macOS/iOS SDK;
+- adopting a new major macOS SDK;
 - Apple changes the Foundation Model version;
 - prompts change materially.
 
@@ -1121,14 +1115,9 @@ Implement:
 - compact listening state;
 - smooth but restrained cue transitions.
 
-### P13-003 — iOS polish
+### P13-003 — Mobile polish deferred
 
-Ensure:
-
-- one-handed Start/Stop;
-- large cue text;
-- clear listening state;
-- no accidental screen lock during session.
+No mobile UI or lifecycle acceptance gate is required for V1.
 
 ### P13-004 — No disruptive output
 
@@ -1271,8 +1260,8 @@ Each epic must have an explicit acceptance test and privacy impact review.
 
 V1 is complete only when all of the following are true:
 
-1. Prepare works on macOS and iOS.
-2. In-Person Live Coach works on macOS and iOS.
+1. Prepare works on macOS.
+2. In-Person Live Coach works on macOS.
 3. Remote Meeting Live Coach works on macOS for the documented compatibility matrix.
 4. Semantic coaching remains on-device.
 5. No cloud fallback exists.
@@ -1283,6 +1272,7 @@ V1 is complete only when all of the following are true:
 10. Cue behavior is rate-limited and quiet.
 11. The synthetic model regression suite passes.
 12. Accessibility and App Store review readiness are complete.
+13. The complete pipeline passes the 16 GB M3/M4 MacBook Air resource and sustained-performance checks alongside a meeting app.
 
 ---
 

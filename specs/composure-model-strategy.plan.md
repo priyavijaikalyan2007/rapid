@@ -10,10 +10,26 @@ Created: 2026
 
 # Composure model strategy
 
-Status: Local benchmark authorized on 1 November 2026. Cloud integration is deferred.
+Status: Initial local benchmark complete. V1 is Mac-only as of 3 November 2026. Cloud integration is deferred.
 The current application remains on-device-only.
 The [quality investigation](composure-live-quality.plan.md) did not produce an acceptable model revision.
-Default regression checks passing do not establish coaching usefulness. No new model download or provider integration occurred.
+Default regression checks passing do not establish coaching usefulness.
+Three models were downloaded into ignored local benchmark storage. No downloaded model entered the production application.
+See the [measured comparison](composure-local-benchmark.results.md) and [Mac-only scope](composure-macos-v1.plan.md).
+
+## V1 reference machine and next prototype
+
+Target an M3/M4 MacBook Air with 16 GB unified memory. Use the M3 as the slower performance reference.
+The M5 development Mac's 64 GiB memory does not justify a model that requires that capacity.
+Use Qwen3.5-4B as the next experimental baseline because the measured prototype has the smallest MLX allocation among these candidates.
+That comparison does not select it for production or establish target-machine performance.
+Qwen3.5-9B remains an optional comparison if the complete workload fits the reference machine and improves useful coaching.
+
+Reserve resources for macOS, a meeting app or browser, separate audio capture, and two speech analyzers.
+Measure memory pressure, swap growth, sustained latency, responsiveness, and thermals under that combined workload.
+Do not increase rolling context, model concurrency, or deadlines merely because mobile is deferred.
+Keep the next prototype focused on evidence-based issue detection, application-owned action selection, and separate cue wording.
+Preserve the untouched verification set until a candidate passes development and wording review.
 
 ## Local candidates
 
@@ -22,13 +38,13 @@ The recommendation is an evaluation order, not a claim that these models already
 
 | Candidate | Proposed role | Evidence |
 | --- | --- | --- |
-| Gemma 4 E4B | First candidate for Mac, then selected phones and tablets | Google targets E4B at mobile devices and laptops. The family has Apache 2.0 licensing. [Overview](https://ai.google.dev/gemma/docs/core), [model card](https://ai.google.dev/gemma/docs/core/model_card_4). |
+| Gemma 4 E4B | Measured Mac alternative | Google targets E4B at mobile devices and laptops. The family has Apache 2.0 licensing. [Overview](https://ai.google.dev/gemma/docs/core), [model card](https://ai.google.dev/gemma/docs/core/model_card_4). |
 | Qwen3.5-4B | Independent small-model comparison | An instruction-capable open model with Apache 2.0 licensing. [Publisher model card](https://huggingface.co/Qwen/Qwen3.5-4B). |
 | Qwen3.5-9B | Mac quality comparison if memory permits | A larger comparison from the same family. Test direct-response mode to control live latency. [Publisher model card](https://huggingface.co/Qwen/Qwen3.5-9B). |
 
 Measure peak memory during speech recognition and inference together. Parameter labels do not establish identical memory needs across model families.
 Google lists different memory estimates for generic four-bit and optimized mobile Gemma runtimes. Neither estimate proves fit in Composure.
-Keep smaller models, including Gemma 4 E2B, as candidates if device measurements require them.
+Consider smaller models only if reference-machine measurements require them. Mobile deployment is outside V1.
 
 Use MLX Swift for the initial Apple Silicon prototype. Its supported architectures include Gemma 4 and Qwen3.5.
 Its optional FoundationModels bridge requires the version 27 SDK and runtime. Direct MLX integration needs separate verification against our OS 26 floor.
@@ -69,8 +85,8 @@ Cloud Live Coach must pass latency and usefulness checks. Prepare and invented t
 
 1. Build a model-neutral replay harness around the existing Core input and output contracts.
 2. Compare Apple, Gemma 4 E4B, and Qwen3.5-4B on the development and progressing-conversation cases.
-3. Add Qwen3.5-9B on a Mac that has sufficient measured memory.
-4. Compare official Gemini and Claude APIs using invented inputs and explicitly configured API accounts.
+3. Compare Qwen3.5-9B only within the 16 GB Air reference-machine budget.
+4. Keep official Gemini and Claude API comparisons deferred while the owner prioritizes on-device V1.
 5. Measure useful actions, grounding, repetition, false cues, missed cues, timeouts, latency, memory, and request cost.
 6. Freeze a candidate before using the untouched verification set.
 7. Test speech recognition, speakers and headphones, end-to-end latency, and complete conversations after text quality passes.
@@ -78,4 +94,5 @@ Cloud Live Coach must pass latency and usefulness checks. Prepare and invented t
 The current small fixture sets are regression checks. Broader human review must cover roles, topics, accents, cultures, and communication styles.
 Model benchmarks do not establish emotion detection or verified speaker attribution. Those capabilities remain outside the accepted live slice.
 No production provider, model license bundle, privacy change, or new device promise is accepted by this proposal.
-Implement the [local benchmark plan](composure-local-benchmark.plan.md) before selecting a replacement.
+The [initial local benchmark](composure-local-benchmark.results.md) selected no replacement.
+Continue within the [Mac-only reference-machine scope](composure-macos-v1.plan.md) before selecting an engine.

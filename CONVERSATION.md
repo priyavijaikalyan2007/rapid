@@ -730,3 +730,27 @@ The separate verification set remains unused. No model is selected, and the prod
 The existing owner edit to Composure.xcodeproj/project.pbxproj remains outside this work.
 The full repository suite, benchmark boundary tests, all-platform unsigned Composure builds, and source-style checks passed.
 The opt-in model quality replays failed as recorded. Engineering checks do not satisfy the model adoption gate.
+
+## Mac-only V1 and reference hardware on 3 November 2026
+
+### User decisions
+
+> We can skip Mobile. I don't think that's going to be very useful at this point given we already need to run models, process speech, listen to other apps and so on. Maybe, we just target macOS for the first version. That shoudl be more feasible I would think adn could potentially chnage our limitations.
+
+> Yeah, but assume, at most a M3/M4 Macbook Air with 16GB RAM as the target machine.
+
+### Scope change
+
+Set V1 to macOS 26 or later on Apple silicon and deferred mobile requirements, builds, and acceptance gates.
+Retained existing mobile source and Xcode targets for possible later work.
+The performance reference is a 16 GB M3/M4 MacBook Air, using the M3 as the slower baseline.
+The M5 development Mac's 64 GiB memory cannot establish reference-machine performance.
+Keep context limits, deadlines, concurrency, and privacy controls until measurements justify a separate change.
+
+Added failing shell tests before changing build routing. The tests reproduced both mobile builds under `all`
+and the accepted `ios` command. The new builder tests Core and only active and generic ARM64 Mac destinations.
+The `ios` command now explains the deferral before starting tools. CropPrint keeps its mobile scope.
+Updated the profile, specifications, model direction, and manual checks. No new model was integrated or evaluated.
+The next quality prototype remains a bounded local model on the 16 GB target, with simultaneous meeting-app and speech workload checks.
+Verification passed the full repository suite, all 37 Bats checks, both unsigned Mac destinations, profile validation, and source-style checks.
+No reference-machine performance check or new model quality evaluation occurred during this scope change.

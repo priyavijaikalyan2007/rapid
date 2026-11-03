@@ -109,13 +109,14 @@
     "id": "ADR-011",
     "title": "Build Composure with native shells and a local Swift 6 core",
     "date": "2026-10-24",
-    "status": "Accepted",
+    "status": "Superseded",
     "context": "The owner requested implementation after reviewing the specifications. Preserve src/composure, support Mac, iPhone, and iPad on OS version 26 or later, and introduce domain contracts with tested behavior. The executable foundation does not complete the physical-device gate or implement coaching. Use an enum transition policy and a fixed-event logging facade without external dependencies.",
     "files": [
       "src/composure/Composure.xcodeproj/project.pbxproj",
       "src/composure/Packages/ComposureCore/Package.swift",
       "specs/composure-foundation.plan.md"
-    ]
+    ],
+    "superseded_by": "ADR-027"
   },
   {
     "id": "ADR-012",
@@ -320,6 +321,19 @@
       "specs/composure-local-benchmark.plan.md",
       "specs/composure-local-benchmark.results.md",
       "scripts/composure_model_benchmark.py"
+    ]
+  },
+  {
+    "id": "ADR-027",
+    "title": "Target macOS V1 within a 16 GB MacBook Air resource budget",
+    "date": "2026-11-03",
+    "status": "Accepted",
+    "context": "The owner deferred mobile V1 and specified at most an M3/M4 MacBook Air with 16 GB memory as the target. Supersede ADR-011 platform scope while retaining its native Swift 6 core and existing mobile scaffolding. Default Composure builds test Core and compile active and generic ARM64 Mac destinations. Explicit ios mode stops before tools. Do not alter CropPrint mobile scope or the owner Xcode project edit. Use the M3 as the slower reference and evaluate the complete capture, two-analyzer, model, and meeting-app workload on that hardware. M5 64 GiB model-only measurements do not establish acceptance. Keep bounded context, deadlines, concurrency, and privacy controls until separately measured changes justify revision. This is a performance reference rather than a new hardware block in application code.",
+    "files": [
+      "specs/composure-macos-v1.plan.md",
+      "src/composure/implementation-specification.md",
+      "src/composure/build.sh",
+      "PROJECT_PROFILE.md"
     ]
   }
 ]

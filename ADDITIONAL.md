@@ -20,7 +20,10 @@ Record observed designs separately from accepted decisions. Do not infer origina
 
 CropPrint is implemented. Composure provides privacy onboarding, saved profile settings, memory-only Prepare mode, and speech-asset setup.
 Composure now provides explicit Mac remote live coaching with temporary speech context and a floating cue panel.
-Mobile live capture and verified speaker-dependent detectors remain planned. A separate Debug Mac audio check remains available.
+Composure V1 targets macOS only. Existing mobile source and targets are deferred scaffolding.
+Use an M3/M4 MacBook Air with 16 GB unified memory as the performance reference, with the M3 as the slower baseline.
+Do not treat the 64 GiB M5 development host as reference-machine acceptance evidence.
+Verified speaker-dependent detectors remain planned. A separate Debug Mac audio check remains available.
 Keep Prepare output bounded, scenario-specific, and independently validated.
 Use fixed preparation phrases for labeled fallback. Preserve on-device processing and the absence of model tools.
 Keep existing source paths. Do not create or move application structure during an instruction update.
@@ -35,7 +38,8 @@ The owner authorized ongoing pushes for this repository on 24 October 2026.
 This instruction replaces the shared workflow's default to commit without pushing.
 
 Use ./test.sh for repository checks, CropPrint tests, Composure core tests, and website validation.
-Use ./src/composure/build.sh all after shared Composure changes to compile both application targets.
+Use ./src/composure/build.sh all after shared Composure changes to test Core and compile active and generic ARM64 Mac destinations.
+Composure mobile builds and device gates are outside V1. CropPrint retains its mobile build and release scope.
 Use ./test.sh repository when the task only changes repository tooling or knowledge files.
 Use Python 3.10 or later and Bats 1.12 or later for repository checks.
 The configurator's generic readiness output does not inspect completion. Read SETUP.md for verified setup status.

@@ -17,11 +17,12 @@ FLOW: Authored source -> component validation -> local result.
 
 **Status:** Implementation specification\
 **Product:** Composure\
-**Platforms:** macOS and iOS\
+**V1 platform:** macOS\
 **Primary language:** Swift\
 **UI:** SwiftUI\
-**Minimum target:** macOS 26+, iOS 26+\
+**Minimum target:** macOS 26+\
 **Mac hardware:** Apple silicon only (`arm64`)\
+**Performance reference:** M3/M4 MacBook Air with 16 GB unified memory\
 **Primary AI:** Apple Foundation Models, on-device `SystemLanguageModel`\
 **Speech:** Apple Speech framework (`SpeechAnalyzer`, `SpeechTranscriber`)\
 **Remote meeting capture on macOS:** ScreenCaptureKit\
@@ -30,6 +31,9 @@ FLOW: Authored source -> component validation -> local result.
 **Cloud AI:** None\
 **Meeting recording:** None\
 **Transcript persistence:** None
+
+The owner deferred mobile on 3 November 2026. Existing mobile scaffolding is outside V1 build and release acceptance.
+Use the M3 Air as the slower performance reference. A 64 GiB M5 developer machine does not establish target performance.
 
 > **Product promise:** Composure is a private, on-device behavioral coach for high-stakes conversations. It helps the user respond deliberately at the moments where a small cue can change the outcome.
 
@@ -63,7 +67,7 @@ The app should normally remain silent. A low cue rate is a feature, not a defect
 
 ### 2.1 Prepare
 
-Available on macOS and iOS.
+Available on macOS.
 
 The user describes an upcoming conversation and optionally provides:
 
@@ -115,12 +119,9 @@ Two modes:
 Remote mode is provider-independent. Composure must not integrate with Zoom, Teams, Google Meet, Webex, Slack
 Huddles, or any other meeting provider.
 
-### 2.3 Live Coach — iOS
+### 2.3 Mobile deferred
 
-V1 supports **In-Person** mode only.
-
-The iPhone can be placed on the table and used as a discreet behavioral cue display. Composure should not
-depend on capturing a Zoom/Teams/Webex call running on the same iPhone.
+iPhone and iPad are outside V1. Retain existing source for possible future work without mobile acceptance gates.
 
 ### 2.4 Practice
 
@@ -235,25 +236,24 @@ V1 must include:
 
 1. First-run privacy onboarding.
 2. Coaching Profile.
-3. Prepare mode on macOS and iOS.
+3. Prepare mode on macOS.
 4. macOS In-Person Live Coach.
 5. macOS Remote Meeting Live Coach.
-6. iOS In-Person Live Coach.
-7. Floating macOS cue panel.
-8. On-device speech recognition.
-9. On-device semantic coaching.
-10. Deterministic behavioral detectors.
-11. Cue arbitration and rate limiting.
-12. Explicit Start/Stop controls.
-13. Persistent listening indicator while capture is active.
-14. Privacy/readiness diagnostics.
-15. Graceful behavior when Apple Intelligence is unavailable.
+6. Floating macOS cue panel.
+7. On-device speech recognition.
+8. On-device semantic coaching.
+9. Deterministic behavioral detectors.
+10. Cue arbitration and rate limiting.
+11. Explicit Start/Stop controls.
+12. Persistent listening indicator while capture is active.
+13. Privacy/readiness diagnostics.
+14. Graceful behavior when the selected local model is unavailable.
 
 ---
 
 ## 6. Repository Structure
 
-Recommended layout:
+Recommended layout, including retained mobile scaffolding outside V1:
 
 ```text
 Composure/
@@ -288,8 +288,8 @@ Composure/
     └── APP_STORE.md
 ```
 
-Use a shared Swift package for domain logic. Platform-specific capture/window code should remain in the
-macOS/iOS targets.
+Use a shared Swift package for domain logic. Mac capture and window code should remain in the macOS target.
+The existing iOS folder is deferred scaffolding and does not select mobile as a V1 platform.
 
 ---
 
@@ -375,7 +375,7 @@ Concrete implementations should include:
 
 ## 9. Audio Architecture — In-Person
 
-Supported on macOS and iOS.
+Supported on macOS for V1.
 
 ```text
 Device microphone
@@ -1161,42 +1161,10 @@ User can change it.
 
 ---
 
-## 34. iOS UX
+## 34. Mobile UX deferred
 
-Primary iOS functions:
-
-- Prepare;
-- In-Person Coach;
-- Settings.
-
-Home:
-
-```text
-Composure
-
-[ Prepare for a Conversation ]
-
-[ Start In-Person Coach ]
-
-Settings
-```
-
-During coaching:
-
-```text
-COMPOSURE
-
-● Listening on this device
-
-ASK FIRST
-Understand what they need before giving your answer.
-
-[ Stop ]
-```
-
-Keep the app foregrounded in V1 and disable automatic screen locking during an active session.
-
-No V1 requirement for background microphone capture.
+Mobile UI, background behavior, and device testing are outside V1.
+Existing source may remain for a future scope decision.
 
 ---
 
@@ -1321,10 +1289,9 @@ Permission explanation:
 
 > macOS requires this permission so Composure can hear audio from the meeting application. Composure does not analyze or save your screen.
 
-### iOS
+### Mobile permissions deferred
 
-- microphone when In-Person Coach is first started;
-- speech-recognition permission if required by the deployed Speech API path.
+No mobile permission flow is required for V1.
 
 Never request contacts, calendar, location, photos, camera, or notifications in V1.
 
@@ -1521,7 +1488,13 @@ Engineering goals, not marketing guarantees:
 - bounded transcript/context memory;
 - semantic model not invoked continuously;
 - no unnecessary screen-frame processing;
-- acceptable thermals on supported MacBook and iPhone hardware.
+- acceptable sustained behavior on the M3/M4 MacBook Air reference machine with 16 GB unified memory.
+
+Measure the complete workload alongside a representative meeting application, including Chrome with Google Meet.
+Reserve resources for macOS, capture, two speech analyzers, the model, and the meeting application.
+Record memory pressure, swap growth, responsiveness, cue latency, and thermal behavior during long sessions.
+Model-only measurements on the M5 developer Mac do not establish these results.
+Mac-only scope does not automatically increase context retention, request deadlines, or concurrent inference work.
 
 ---
 
@@ -1530,7 +1503,7 @@ Engineering goals, not marketing guarantees:
 Support:
 
 - VoiceOver;
-- Dynamic Type on iOS;
+- system text sizing where supported on macOS;
 - keyboard navigation on macOS;
 - reduced motion;
 - high contrast;
@@ -1564,7 +1537,7 @@ Avoid:
 - aggressive warning colors;
 - distracting animation.
 
-Live coaching is visual by default. Do not play sounds. Haptics are off by default on iOS.
+Live coaching is visual by default. Do not play sounds.
 
 ---
 
@@ -1955,7 +1928,7 @@ ReadinessService
 ### Milestone 0 — Skeleton
 
 - macOS target;
-- iOS target;
+- retain existing mobile scaffolding outside V1;
 - shared `ComposureCore` package;
 - navigation;
 - test targets;
@@ -1978,7 +1951,7 @@ ReadinessService
 - transient transcript;
 - semantic analyzer;
 - cue arbiter;
-- macOS and iOS cue UI.
+- macOS cue UI.
 
 ### Milestone 3 — macOS Remote Meeting
 
@@ -2034,16 +2007,9 @@ The user can:
 7. stop Composure;
 8. find no recording, transcript, summary, or meeting history.
 
-### iPhone In-Person
+### Mobile acceptance deferred
 
-The user can:
-
-1. start In-Person Coach;
-2. place the phone nearby;
-3. participate normally;
-4. receive occasional semantic cues;
-5. stop the session;
-6. have no meeting content persist.
+No iPhone or iPad acceptance gate applies to V1.
 
 ### Prepare
 

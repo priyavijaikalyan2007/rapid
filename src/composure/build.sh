@@ -7,7 +7,7 @@
 # COMPONENT: Composure build entry point
 # PURPOSE: Run local core tests and unsigned native builds without publishing.
 # RELATES: Composure.xcodeproj, Packages/ComposureCore
-# FLOW: Validate mode -> select Xcode -> test or compile selected platforms.
+# FLOW: Validate mode -> select Xcode -> test Core or compile Apple silicon Mac destinations.
 
 set -euo pipefail
 
@@ -15,17 +15,21 @@ set -euo pipefail
 validate_arguments()
 {
     if [[ $# -gt 1 ]]; then
-        printf '%s\n' 'Usage: build.sh [all|test|macos|ios|web]' >&2
+        printf '%s\n' 'Usage: build.sh [all|test|macos|web]' >&2
         return 2
     fi
     case "${1:-all}" in
-        all | test | macos | ios | web) ;;
+        all | test | macos | web) ;;
+        ios)
+            printf '%s\n' 'Composure V1 targets macOS. Mobile builds are deferred.' >&2
+            return 2
+            ;;
         --help | -h)
-            printf '%s\n' 'Usage: build.sh [all|test|macos|ios|web]'
+            printf '%s\n' 'Usage: build.sh [all|test|macos|web]'
             exit 0
             ;;
         *)
-            printf '%s\n' 'Usage: build.sh [all|test|macos|ios|web]' >&2
+            printf '%s\n' 'Usage: build.sh [all|test|macos|web]' >&2
             return 2
             ;;
     esac
@@ -55,13 +59,6 @@ build_macos()
     build_platform 'Composure Mac' 'generic/platform=macOS' ARCHS=arm64 ONLY_ACTIVE_ARCH=NO
 }
 
-# Both mobile families share one target. Compile simulator and physical-device variants.
-build_mobile()
-{
-    build_platform 'Composure Mobile' 'generic/platform=iOS Simulator' ONLY_ACTIVE_ARCH=NO
-    build_platform 'Composure Mobile' 'generic/platform=iOS' ONLY_ACTIVE_ARCH=NO
-}
-
 main()
 {
     validate_arguments "$@"
@@ -78,11 +75,9 @@ main()
         all)
             test_core
             build_macos
-            build_mobile
             ;;
         test) test_core ;;
         macos) build_macos ;;
-        ios) build_mobile ;;
     esac
     printf '%s\n' "Composure $mode checks passed."
 }

@@ -157,7 +157,7 @@ Keep Source state: planned explicit for absent paths. Do not enable future compo
 - Source state: existing
 - Targets: apps
 - Languages: Swift
-- Platforms: macOS, iOS, iPadOS
+- Platforms: macOS
 - SaaS client: no
 - SDK component: none
 - Deployment: native application

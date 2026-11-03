@@ -9,7 +9,8 @@ Code and documentation contributions are limited to maintainers.
 Read [PROJECT.md](PROJECT.md) for project facts and prerequisites.
 Read [SETUP.md](SETUP.md) for setup completion and [specs/README.md](specs/README.md) for current component status.
 Composure provides privacy onboarding, saved profile settings, and Prepare mode under [src/composure](src/composure/README.md).
-Its Mac, iPhone, and iPad applications build. Live coaching remains planned.
+Composure V1 targets Apple silicon Macs on macOS 26 or later, with an M3/M4 MacBook Air and 16 GB memory as the performance reference.
+Mac remote live coaching is implemented but has not passed its quality gate. Mobile source remains deferred.
 
 ## Repository validation and navigation
 

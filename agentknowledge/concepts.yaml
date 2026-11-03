@@ -99,7 +99,7 @@
   },
   {
     "name": "Composure",
-    "definition": "Private conversation coach with native privacy onboarding and saved profile settings on Mac, iPhone, and iPad. Preparation and live coaching remain planned.",
+    "definition": "Private conversation coach targeting macOS V1 with native onboarding, saved preferences, Prepare, and explicit remote live capture. Model usefulness remains unaccepted. Existing mobile source is deferred.",
     "anchor_file": "src/composure/README.md",
     "related": ["ComposureSessionLifecycle", "ComposureDiagnostics", "ComposurePreferences", "ComposureOnboarding"]
   },
@@ -290,6 +290,16 @@
     "related": [
       "ComposureLiveQuality",
       "ComposureLiveSemantics"
+    ]
+  },
+  {
+    "name": "ComposureMacV1Scope",
+    "definition": "macOS-only V1 on Apple silicon. Deferred mobile source remains intact. Performance acceptance targets an M3/M4 MacBook Air with 16 GB unified memory alongside a meeting app, capture, two speech analyzers, and local inference.",
+    "anchor_file": "specs/composure-macos-v1.plan.md",
+    "related": [
+      "Composure",
+      "ComposureLocalModelBenchmark",
+      "ComposureRemoteCapture"
     ]
   }
 ]

@@ -10,12 +10,14 @@ Created: 2026
 
 # Composure
 
-Composure is a private conversation coach in development for Mac, iPhone, and iPad.
+Composure V1 is a private conversation coach in development for Apple silicon Macs.
+The performance reference is an M3/M4 MacBook Air with 16 GB unified memory, using the M3 as the slower baseline.
+Existing mobile source and Xcode targets remain deferred scaffolding outside V1.
 The application provides privacy onboarding, saved profile settings, and private conversation preparation through native controls.
 Settings also checks device prerequisites and offers explicit speech-asset setup.
 Prepare uses an on-device model for situation-specific coaching, with labeled profile-based guidance when generation is unavailable.
 Preparation input and results remain in memory. Mac Live Coach now supports explicitly started remote sessions and occasional on-device cues.
-Mac Debug and Release builds capture separate microphone and selected-application audio after Start. Mobile live capture remains planned.
+Mac Debug and Release builds capture separate microphone and selected-application audio after Start.
 A separate Debug audio check remains available for development.
 Opening the app, checking readiness, and setting up speech do not request microphone access or start listening.
 
@@ -27,12 +29,12 @@ Read the [foundation review](../../specs/composure-foundation.plan.md) and
 ## Local development
 
 Use a full Xcode installation on an Apple silicon Mac.
-The targets require macOS 26 or iOS/iPadOS 26 or later. Composure's Mac application supports arm64 only.
+V1 requires macOS 26 or later. Composure's Mac application supports arm64 only.
 The shared package uses Swift 6 and contains no external dependencies.
 The build script selects /Applications/Xcode.app/Contents/Developer when DEVELOPER_DIR is unset.
 All generated outputs remain under this component's ignored build directory.
 
-Run core tests and compile all application variants from the repository root:
+Run Core tests and compile both Mac destinations from the repository root:
 
 ```sh
 ./src/composure/build.sh all
@@ -50,11 +52,8 @@ Compile the Mac target for the active Apple silicon destination and a generic ar
 ./src/composure/build.sh macos
 ```
 
-Compile both simulator and physical-device mobile variants:
-
-```sh
-./src/composure/build.sh ios
-```
+Mobile builds are deferred. The `ios` mode stops before tool discovery and explains the V1 scope.
+The repository dispatcher and CI use this same Mac-only component builder. CropPrint keeps its mobile builds.
 
 Remove generated component output:
 
@@ -70,7 +69,7 @@ Corrupt or unsupported records require explicit recovery. Operating-system backu
 Both Mac configurations enable App Sandbox and microphone input. They have no network entitlement.
 Microphone use requires explicit Start. Both configurations include a microphone usage description.
 Both Debug and Release Mac configurations build arm64 applications.
-Unsigned builds do not verify signed sandbox behavior or installation on physical mobile devices.
+Unsigned builds do not verify signed sandbox behavior or release readiness.
 
 Debug builds use the active architecture, matching Swift package behavior for Xcode's My Mac destination.
 Generic command-line builds set matching app and package architectures explicitly.
@@ -79,14 +78,14 @@ If an open Xcode project retains the old architecture settings, reopen the proje
 ## Device launch check
 
 1. Open Composure.xcodeproj in Xcode.
-2. Select the Composure Mac or Composure Mobile scheme.
-3. Select your Mac, connected iPhone, or connected iPad.
-4. Select your development team if Xcode requires device signing.
+2. Select the Composure Mac scheme.
+3. Select your Mac.
+4. Select your development team if Xcode requires signing.
 5. Run the application.
 6. Complete the four setup steps.
 7. Check each navigation destination.
 
-Expect privacy onboarding, editable Settings, Prepare, and Mac Live Coach controls. Mobile Live Coach remains a feature-status screen.
+Expect privacy onboarding, editable Settings, Prepare, and Mac Live Coach controls.
 Expect no microphone or speech permission prompts.
 Record the device model, OS version, and launch result in the status record.
 No build command uploads or publishes the application.
@@ -96,37 +95,31 @@ No build command uploads or publishes the application.
 Use the [Mac live coaching procedure](#mac-live-coaching-check) for the new milestone.
 The following foundation checks cover onboarding, saved preferences, preparation, and native layout.
 Prepare works without Apple Intelligence through profile-based guidance.
-Start with one Mac, the iPhone 17 Pro, and the M1 iPad Pro if each runs OS version 26 or later.
-Other supported devices can follow. Record older OS versions without changing deployment targets or updating devices automatically.
+Use a Mac running macOS 26 or later. Record its model, memory, and OS version.
+Functional checks on the development Mac do not establish performance on the 16 GB Air reference machine.
 
 1. Run ./src/composure/build.sh all from the repository root.
-   Expect core and model-adapter tests to pass, plus all unsigned platform builds.
+   Expect Core and model-adapter tests to pass, plus both unsigned Mac destinations.
    Opt-in live-model evaluations are skipped by default.
 2. Run the Composure Mac scheme on one Mac through Xcode.
    Expect onboarding on the first launch, then Home, Prepare, Live Coach, and Settings in the sidebar.
-3. Run the Composure Mobile scheme on a physical iPhone through Xcode.
-   Expect onboarding on the first launch, then Prepare, Live Coach, and Settings tabs.
-4. Run the Composure Mobile scheme on a physical iPad through Xcode.
-   Expect the same destinations in a layout that fits the available window.
-5. Use Back and Continue during setup.
+3. Use Back and Continue during setup.
    Expect each disclosure to remain readable and profile choices to remain when you return to them.
-6. Change profile choices before you select Finish setup.
+4. Change profile choices before you select Finish setup.
    Expect setup to complete without an audio permission prompt.
-7. Change a profile choice in Settings.
+5. Change a profile choice in Settings.
    Expect an unsaved-change status until you select Save or Discard changes.
-8. Select Save.
+6. Select Save.
    Expect the saved status and your selected values after you quit and relaunch the app.
-9. Select Reset coaching profile and cancel the confirmation.
+7. Select Reset coaching profile and cancel the confirmation.
    Expect no change to the profile.
-10. Confirm Reset coaching profile.
-    Expect default profile values, preserved session defaults, and no repeat of onboarding.
-11. Open Live Coach.
-    Expect the Mac session to show Not listening before Start. Mobile shows its feature-status screen.
-12. Rotate each mobile device.
-   Expect readable text and accessible navigation in portrait and landscape.
-13. Resize the Mac and iPad windows where supported.
-   Expect the native layout to remain usable.
-14. Check larger text, VoiceOver, and Mac keyboard navigation.
+8. Confirm Reset coaching profile.
+   Expect default profile values, preserved session defaults, and no repeat of onboarding.
+9. Open Live Coach.
+   Expect the Mac session to show Not listening before Start.
+10. Resize the Mac window.
+    Expect the native layout to remain usable.
+11. Check larger text, VoiceOver, and Mac keyboard navigation.
     Expect labeled controls, readable choices, and accessible Save, Back, and Continue actions.
 
 Report the device model, OS version, launch result, layout issues, and any permission prompt or crash.
@@ -134,7 +127,7 @@ Mac audio capture, speech recognition, and cue quality use the separate live pro
 
 ## Prepare checks
 
-1. Open Prepare on the Mac, iPhone, or iPad.
+1. Open Prepare on the Mac.
    Expect a truthful model-readiness message and an empty conversation form.
 2. Enter a synthetic topic, such as “Give constructive feedback.”
 3. Select Prepare conversation.
@@ -150,9 +143,7 @@ Mac audio capture, speech recognition, and cue quality use the separate live pro
    Expect preparation to consider the saved profile. Unsaved Settings edits must not change preparation.
 9. Start model preparation and select Cancel when the action is available.
    Expect generation to stop without a late result. A previous request may need time to finish cancellation.
-10. On iPhone or iPad, switch apps during preparation.
-    Expect a privacy cover in the app switcher and cleared preparation after you return.
-11. Quit and relaunch the application.
+10. Quit and relaunch the application.
     Expect saved profile settings and empty preparation fields.
 
 The model generates bounded language for the supplied situation and role. Fixed phrases are used for fallback.
@@ -416,8 +407,17 @@ Current automated tests use synthetic PCM and passive lifecycle checks. Actual c
 
 ## Native UI tests
 
-Select Composure Mobile and an installed iPhone or iPad simulator in Xcode, then run Product > Test.
+Select Composure Mac and My Mac in Xcode, then run Product > Test.
 The UI test uses an isolated Debug preference domain and synthetic choices.
-It checks onboarding, profile restoration, Prepare, Clear, background clearing, and empty preparation after relaunch.
-The Prepare journey forces model unavailability and verifies the profile-guidance path.
-The root test command runs core tests. Simulator UI tests require this separate Xcode action.
+The Mac journeys check onboarding, profile state, and synthetic live controls without real audio capture.
+The root test command runs package tests. Native UI journeys require this separate Xcode action.
+
+## Reference-machine performance gate
+
+Evaluate the full pipeline on an M3/M4 MacBook Air with 16 GB unified memory before claiming target performance.
+Run capture, both speech analyzers, inference, and a representative meeting application together for a sustained session.
+Include Chrome with Google Meet in the measured workload.
+Record memory pressure, swap growth, responsiveness, cue latency, and thermal behavior.
+Keep existing context bounds, inference deadlines, and concurrency limits until measurements justify a change.
+The 64 GiB M5 benchmark host and model-only allocation figures do not satisfy this gate.
+See the [Mac-only scope plan](../../specs/composure-macos-v1.plan.md) for the active scope and resource direction.
