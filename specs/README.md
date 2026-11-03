@@ -18,6 +18,7 @@ Created: 2026
 | Public website | [Website status](website.status.md) | [Website guide](../src/web/README.md) |
 | Composure | [Composure status](composure.status.md) | [Normative specification](../src/composure/implementation-specification.md) |
 | Composure model options | [Quality investigation](composure-live-quality.plan.md) | [Proposed model strategy](composure-model-strategy.plan.md) |
+| Composure local benchmark | [Measured results](composure-local-benchmark.results.md) | [Benchmark plan](composure-local-benchmark.plan.md) and [invented evidence](composure-local-benchmark.evidence.json) |
 
 Keep existing source and specification locations. This index does not move application files.
 Record future verified results in the owning status file.

@@ -708,3 +708,25 @@ Recommended prioritizing stronger on-device models and deferring cloud integrati
 The owner authorized a Mac-first comparison of Gemma 4 E4B and Qwen3.5-4B using invented conversations.
 Created a file-level benchmark plan. The current development host reports an M5 Pro and 64 GiB memory.
 Application integration remains subject to measured quality and latency. Cloud remains deferred.
+
+## Local benchmark checkpoint on 3 November 2026
+
+### User requests
+
+> try again
+
+> is the current session maxed out?
+
+Confirmed that work can continue after context compaction and resumed the pending benchmark.
+The previous fixture export completed successfully. Added a background-first input regression and retained strict JSON parsing.
+Compared the same 17 invented cases across Apple's shared-policy baseline, Gemma 4 E4B, Qwen3.5-4B, and Qwen3.5-9B.
+Pinned public artifacts and optional Python dependencies. Local inference accessed no real meeting content or credentials.
+
+All downloaded candidates returned valid structured replies but passed only 14/17 checks after actual Core cue arbitration.
+Qwen's wrong early REPHRASE also prevented a needed PAUSE six seconds later.
+Manual wording review found direct questions and unsupported speaker-role assumptions.
+Recorded final replies and measurements in specs/composure-local-benchmark.evidence.json and the linked results document.
+The separate verification set remains unused. No model is selected, and the production application remains unchanged.
+The existing owner edit to Composure.xcodeproj/project.pbxproj remains outside this work.
+The full repository suite, benchmark boundary tests, all-platform unsigned Composure builds, and source-style checks passed.
+The opt-in model quality replays failed as recorded. Engineering checks do not satisfy the model adoption gate.

@@ -291,6 +291,93 @@ This evaluation requires an available model. It checks two promotion situations,
 and three instruction-override fixtures. These checks do not establish broad coaching quality or general injection resistance.
 Real audio routes, long physical sessions, offline operation, and post-Stop content searches remain acceptance gates.
 
+## Optional local model benchmark
+
+This developer tool compares downloaded models using invented text. It does not change the application's model or start audio capture.
+See the [results and limits](../../specs/composure-local-benchmark.results.md) before interpreting a score.
+Never pass real conversation text to this harness. Its reports retain the supplied invented replies on disk.
+Model weights, caches, dependencies, and local reports belong under ignored `local/composure-benchmark/`.
+
+1. Create the optional Python environment on an Apple silicon Mac with Python 3.14.
+
+   ```sh
+   python3.14 -m venv local/composure-benchmark/venv
+   local/composure-benchmark/venv/bin/python -m pip install --require-hashes \
+       -r scripts/composure_benchmark.requirements.txt
+   ```
+
+   The lock records the tested Mac ARM64 wheel set. These packages are separate from native app dependencies.
+
+2. Download one pinned public conversion from the checked-in artifact manifest.
+
+   ```sh
+   local/composure-benchmark/venv/bin/python - <<'PY'
+   import json
+   import os
+   from pathlib import Path
+
+   os.environ["HF_HOME"] = str(Path("local/composure-benchmark/hf-home").resolve())
+   os.environ["HF_HUB_DISABLE_IMPLICIT_TOKEN"] = "1"
+   from huggingface_hub import snapshot_download
+
+   model_id = "qwen3.5-4b"
+   manifest = json.loads(Path("specs/composure-model-artifacts.json").read_text())
+   model = next(item for item in manifest["models"] if item["id"] == model_id)
+   snapshot_download(repo_id=model["repository"], revision=model["revision"],
+                     allow_patterns=[item["path"] for item in model["files"]], token=False,
+                     local_dir=Path("local/composure-benchmark/models") / model_id)
+   PY
+   ```
+
+   The manifest lists conversion and upstream provenance. Weight licenses remain the publishers' licenses.
+   The Qwen 4B conversion omits a separate license declaration. Redistribution needs its own license review.
+
+3. Export the frozen development inputs directly to a file.
+
+   ```sh
+   COMPOSURE_BENCHMARK_MODE=export-development \
+   COMPOSURE_BENCHMARK_EXPORT_PATH="$PWD/local/composure-benchmark/development.json" \
+       ./test.sh composure
+   ```
+
+   The export contains the shared policy, bounded model inputs, and separate expected outcomes.
+   The inference driver sends only the policy and input fields to the model.
+   Direct file export avoids interleaved Swift Testing output corrupting JSON.
+
+4. Run local inference with a new report path.
+
+   ```sh
+   local/composure-benchmark/venv/bin/python scripts/composure_model_benchmark.py \
+       --fixtures local/composure-benchmark/development.json \
+       --model-dir local/composure-benchmark/models/qwen3.5-4b \
+       --model-id qwen3.5-4b \
+       --output local/composure-benchmark/qwen-report.json
+   ```
+
+   The worker verifies every pinned artifact before loading weights. Inference runs offline without model tools or remote model code.
+   Requests are serial and bounded. A six-second deadline failure differs from intentional silence.
+   The process watchdog stops a worker after five minutes. Existing reports are not overwritten.
+
+5. Replay the replies through Composure's actual cue rules.
+
+   ```sh
+   COMPOSURE_BENCHMARK_REPLAY="$PWD/local/composure-benchmark/qwen-report.json" ./test.sh composure
+   ```
+
+   Every expected action must also survive independent validation and sparse cue arbitration.
+   A quality failure causes this opt-in test to fail. Read each instruction for grounding and useful wording too.
+   A default test pass does not mean that the model passed this quality check.
+
+6. Run the optional Apple comparison under the same exported policy version.
+
+   ```sh
+   COMPOSURE_BENCHMARK_MODE=apple-development \
+   COMPOSURE_BENCHMARK_OUTPUT_PATH="$PWD/local/composure-benchmark/apple-report.json" ./test.sh composure
+   ```
+
+   Apple Intelligence must be available. This uses a new one-pass benchmark request, separate from the production Apple adapter.
+   Use the same replay command for its report. Keep the separate verification set unused until a candidate passes development review.
+
 ## Development Mac audio check
 
 Use the Composure Mac scheme in Debug configuration with the launch argument `--development-audio-check`.

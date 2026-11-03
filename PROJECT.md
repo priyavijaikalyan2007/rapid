@@ -62,6 +62,9 @@ Separate microphone and selected-application audio feed two on-device speech ana
 A shared model work slot supports Prepare and sparse live cues. A non-activating native panel provides one cue and Stop.
 Speaker attribution remains unknown until route testing supports it. Mobile live capture and speaker-dependent detectors remain planned.
 A separate Debug dual-stream feasibility check remains available through a launch argument.
+An optional Python MLX benchmark compares downloaded models using invented text and Core cue replay.
+Its dependencies and weights remain separate from the application. No downloaded candidate passed the adoption gate on 3 November 2026.
+See specs/composure-local-benchmark.results.md for measured results and limits.
 
 ## Development prerequisites
 

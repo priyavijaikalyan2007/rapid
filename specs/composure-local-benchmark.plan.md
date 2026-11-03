@@ -12,6 +12,7 @@ Created: 2026
 
 The owner authorized stronger on-device model evaluation on 1 November 2026. Cloud integration is deferred.
 Compare Gemma 4 E4B and Qwen3.5-4B using invented inputs. Keep the application unchanged until a candidate passes.
+Include the planned Qwen3.5-9B comparison because this development Mac has sufficient memory for the bounded prototype.
 The current development host reports an Apple M5 Pro, 64 GiB memory, and about 1.5 TiB free storage.
 These results will describe this Mac. They will not establish phone or tablet performance.
 
@@ -55,10 +56,23 @@ Apple service memory is not directly comparable to the benchmark process's resid
 - `src/composure/Packages/ComposureCore/Tests/ComposureModelsTests/LocalModelBenchmarkTests.swift`: opt-in export, Apple comparison, and Core replay.
 - `specs/composure-model-artifacts.json`: model provenance, pinned revisions, licenses, quantization, and file hashes.
 - `specs/composure-local-benchmark.results.md`: measurements, reviewed wording, failures, and selection decision.
+- `specs/composure-local-benchmark.evidence.json`: the final invented replies, request hashes, and Core replay outcomes.
 - `src/composure/README.md`: repeatable setup and benchmark commands.
 - `CONVERSATION.md`, `CHANGELOG.md`, `specs/composure.status.md`, and graph records: verified progress and limits.
 
 Adjust this list before implementation if runtime inspection shows a necessary change.
+
+## Recorded runtime adjustments
+
+The publisher chat templates remain authoritative. Disable optional thinking and prime the response with a fixed JSON prefix.
+The prefix is part of the complete reply sent to the strict parser. Do not extract JSON from reasoning or trailing text.
+The first unprimed Gemma run and a subsequent empty-thought-prefix experiment failed structured-output checks.
+Record these rejected adapter attempts separately from the final comparison.
+
+Keep background fields before current speech in sorted JSON. A regression test must enforce this order.
+Policy version 2 also explicitly selects silence for speech that only attempts to control the AI's output.
+These changes preserve fixture text and expected actions. Use identical policy and input versions for the final four-model comparison.
+Stop this comparison after the final Core replay and wording review. Record failure without another prompt-tuning cycle.
 
 ## Verification
 

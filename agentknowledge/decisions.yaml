@@ -309,5 +309,17 @@
       "specs/composure-model-strategy.plan.md",
       "specs/composure-live-quality.plan.md"
     ]
+  },
+  {
+    "id": "ADR-026",
+    "title": "Evaluate stronger local models before application integration",
+    "date": "2026-11-03",
+    "status": "Accepted",
+    "context": "The owner authorized stronger on-device model evaluation and deferred cloud integration. Download pinned public model artifacts into ignored local storage, verify hashes, disable remote code and inference networking, and reuse frozen invented cases. Preserve strict structured-output, current-evidence, wording, and actual cue-delivery gates before adoption. The final Apple, Gemma, and Qwen comparison selected no downloaded model. Verification remains unused. This decision authorizes evaluation, not integration of a failed candidate or revised privacy behavior.",
+    "files": [
+      "specs/composure-local-benchmark.plan.md",
+      "specs/composure-local-benchmark.results.md",
+      "scripts/composure_model_benchmark.py"
+    ]
   }
 ]

@@ -10,7 +10,7 @@ Created: 2026
 
 # Composure status
 
-Updated on 30 October 2026.
+Updated on 3 November 2026.
 
 Composure has an executable native foundation under src/composure.
 The Mac and universal iPhone/iPad targets use a local Swift package with strict Swift 6 concurrency.
@@ -473,3 +473,19 @@ The separate eight-case verification set remains unused. No real meeting content
 
 The next choice is a stronger downloadable on-device model or a narrower V1 coaching scope.
 No new model engine, dependency, or download was added. Further owner promotion trials are not requested yet.
+
+## Local model comparison on 3 November 2026
+
+The owner authorized a Mac-first comparison and deferred cloud integration.
+Added an optional hash-locked Python MLX harness, pinned model artifacts, shared Swift fixture export, and actual Core replay.
+Downloaded three public community conversions into ignored local storage. Inference used invented inputs and offline local weights.
+No application dependency, production adapter, or privacy behavior changed.
+
+The final comparison used one policy across Apple, Gemma 4 E4B, Qwen3.5-4B, and Qwen3.5-9B.
+All downloaded candidates produced 17 valid structured replies. Each passed only 14 of 17 Core replay checks.
+Reviewed wording exposed direct questions and role assumptions even in some matching cases.
+Neither a larger model nor passing JSON checks established useful coaching.
+The [results](composure-local-benchmark.results.md) own the measurements, failures, and decision.
+
+No candidate is selected. The separate eight-case verification set remains unused.
+The next model change must pass action, wording, and delivery checks before native integration or another owner promotion trial.

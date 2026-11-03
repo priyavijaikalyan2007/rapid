@@ -10,6 +10,13 @@ Created: 2026
 
 # Changelog
 
+## 3 November 2026
+
+### Added
+
+- Added an optional offline local-model benchmark with pinned artifacts, strict replies, shared invented fixtures, and Core cue replay.
+- Recorded Apple, Gemma, and Qwen comparisons. No candidate passed the adoption gate, so the application's model remains unchanged.
+
 ## 1 November 2026
 
 ### Fixed

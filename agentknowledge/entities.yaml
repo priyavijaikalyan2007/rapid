@@ -273,5 +273,15 @@
       "ComposureLiveQuality",
       "ComposureLiveSemantics"
     ]
+  },
+  {
+    "name": "LocalModelBenchmarkTests",
+    "table": null,
+    "file": "src/composure/Packages/ComposureCore/Tests/ComposureModelsTests/LocalModelBenchmarkTests.swift",
+    "description": "Opt-in fixture export, shared-policy Apple comparison, and replay of typed invented outputs through independent validation and sparse timing arbitration. Default tests do not imply model quality acceptance.",
+    "related": [
+      "ComposureLocalModelBenchmark",
+      "ComposureLiveQuality"
+    ]
   }
 ]

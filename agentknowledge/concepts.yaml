@@ -282,5 +282,14 @@
       "ComposureLiveSemantics",
       "ComposureLiveDiagnostics"
     ]
+  },
+  {
+    "name": "ComposureLocalModelBenchmark",
+    "definition": "Optional offline MLX prototype with pinned artifacts, invented shared fixtures, strict replies, current-speech-last inputs, and actual Core cue replay. No downloaded model passed adoption checks.",
+    "anchor_file": "specs/composure-local-benchmark.results.md",
+    "related": [
+      "ComposureLiveQuality",
+      "ComposureLiveSemantics"
+    ]
   }
 ]

@@ -1,0 +1,1262 @@
+{
+  "_meta": {
+    "SPDX-FileCopyrightText": "2026 Outcrop Inc",
+    "SPDX-License-Identifier": "GPL-3.0-or-later",
+    "repository": "rapid",
+    "fileGUID": "07762465-6d11-4215-9c02-13ceee9b063a",
+    "created": 2026,
+    "purpose": "Final invented model replies and actual Core replay. No real meeting content."
+  },
+  "recordedOn": "2026-11-03",
+  "dataClass": "invented",
+  "version": 1,
+  "host": {
+    "chip": "Apple M5 Pro",
+    "physicalMemoryGiB": 64,
+    "macOS": "26.6.2"
+  },
+  "fixtureSHA256": "24579ced8f365337bee3fb19f361d7adb37c1c21c68cb269e03e43507c23f904",
+  "policySHA256": "8b33484708177e7c1edd9dd4d48fae76fda67a04690998324fd70026ddbfab25",
+  "policyVersion": 2,
+  "inputFormatVersion": 2,
+  "verificationSetUsed": false,
+  "adoptedModel": null,
+  "reports": [
+    {
+      "candidate": "apple-common",
+      "sourceReport": "apple-common-development-v2.json",
+      "sourceReportSHA256": "96868e0d9178c1ff53d06b136d5d820fbba06cc6fe9e43f34d5b6f0d90a0c122",
+      "report": {
+        "cases": [
+          {
+            "elapsedSeconds": 0.771385958,
+            "group": "promotion-evidence",
+            "id": "promotion-evidence",
+            "offset": 0,
+            "reply": {
+              "action": "askFirst",
+              "confidence": 0.9,
+              "instruction": "Explain why you think you need to show more leadership."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.887976167,
+            "group": "project-personal-attack",
+            "id": "project-personal-attack",
+            "offset": 0,
+            "reply": {
+              "action": "rephrase",
+              "confidence": 0.9,
+              "instruction": "I understand your frustration, but let's focus on finding a solution together."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.766493917,
+            "group": "negotiation-guarantee",
+            "id": "negotiation-guarantee",
+            "offset": 0,
+            "reply": {
+              "action": "pause",
+              "confidence": 0.9,
+              "instruction": "Pause to assess the situation further."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.799895625,
+            "group": "design-vague-request",
+            "id": "design-vague-request",
+            "offset": 0,
+            "reply": {
+              "action": "askFirst",
+              "confidence": 0.9,
+              "instruction": "Explain what you mean by 'better'."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.76321175,
+            "group": "planning-no-owner",
+            "id": "planning-no-owner",
+            "offset": 0,
+            "reply": {
+              "action": "askFirst",
+              "confidence": 0.9,
+              "instruction": "Explain your concern about ownership and date."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.773107041,
+            "group": "rash-response",
+            "id": "rash-response",
+            "offset": 0,
+            "reply": {
+              "action": "pause",
+              "confidence": 0.9,
+              "instruction": "Pause and think before responding."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.711857917,
+            "group": "feedback-concern",
+            "id": "feedback-concern",
+            "offset": 0,
+            "reply": {
+              "action": "askFirst",
+              "confidence": 0.9,
+              "instruction": "Explain your concern about the proposal."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.726552709,
+            "group": "routine-schedule",
+            "id": "routine-schedule",
+            "offset": 0,
+            "reply": {
+              "action": "pause",
+              "confidence": 0.9,
+              "instruction": "Please confirm the review schedule again."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.796598959,
+            "group": "agreed-owner",
+            "id": "agreed-owner",
+            "offset": 0,
+            "reply": {
+              "action": "pause",
+              "confidence": 0.9,
+              "instruction": "Pause for a moment to ensure clarity before proceeding."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.7387295,
+            "group": "past-emotion-resolved",
+            "id": "past-emotion-resolved",
+            "offset": 0,
+            "reply": {
+              "action": "decisionFocus",
+              "confidence": 0.9,
+              "instruction": "Let's schedule the review for tomorrow."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.760221959,
+            "group": "override",
+            "id": "override",
+            "offset": 0,
+            "reply": {
+              "action": "pause",
+              "confidence": 0.9,
+              "instruction": "Wait for a moment before continuing."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.922176041,
+            "group": "old-question-resolved",
+            "id": "old-question-resolved",
+            "offset": 0,
+            "reply": {
+              "action": "rephrase",
+              "confidence": 0.9,
+              "instruction": "Can you clarify what you mean by 'tomorrow's review'?"
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.762255417,
+            "group": "conversation",
+            "id": "conversation-0",
+            "offset": 0,
+            "reply": {
+              "action": "askFirst",
+              "confidence": 0.9,
+              "instruction": "Explain why you feel you need to show more leadership."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.886967333,
+            "group": "conversation",
+            "id": "conversation-6",
+            "offset": 6,
+            "reply": {
+              "action": "pause",
+              "confidence": 0.9,
+              "instruction": "Pause for a moment to collect your thoughts before responding."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.834464083,
+            "group": "conversation",
+            "id": "conversation-30",
+            "offset": 30,
+            "reply": {
+              "action": "pause",
+              "confidence": 0.5,
+              "instruction": "Pause to gather your thoughts before responding."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.896803667,
+            "group": "conversation",
+            "id": "conversation-60",
+            "offset": 60,
+            "reply": {
+              "action": "askFirst",
+              "confidence": 0.9,
+              "instruction": "Explain why you don't own writing the criteria and why there is no review date."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.881213875,
+            "group": "conversation",
+            "id": "conversation-90",
+            "offset": 90,
+            "reply": {
+              "action": "pause",
+              "confidence": 0.9,
+              "instruction": "Pause for a moment to ensure clarity on the next steps."
+            },
+            "status": "ok"
+          }
+        ],
+        "dataClass": "invented",
+        "version": 1
+      },
+      "coreReplay": [
+        {
+          "id": "promotion-evidence",
+          "match": true
+        },
+        {
+          "id": "project-personal-attack",
+          "match": true
+        },
+        {
+          "id": "negotiation-guarantee",
+          "match": false
+        },
+        {
+          "id": "design-vague-request",
+          "match": true
+        },
+        {
+          "id": "planning-no-owner",
+          "match": false
+        },
+        {
+          "id": "rash-response",
+          "match": true
+        },
+        {
+          "id": "feedback-concern",
+          "match": true
+        },
+        {
+          "id": "routine-schedule",
+          "match": false
+        },
+        {
+          "id": "agreed-owner",
+          "match": false
+        },
+        {
+          "id": "past-emotion-resolved",
+          "match": false
+        },
+        {
+          "id": "override",
+          "match": false
+        },
+        {
+          "id": "old-question-resolved",
+          "match": false
+        },
+        {
+          "id": "conversation-0",
+          "match": true
+        },
+        {
+          "id": "conversation-6",
+          "match": true
+        },
+        {
+          "id": "conversation-30",
+          "match": false
+        },
+        {
+          "id": "conversation-60",
+          "match": false
+        },
+        {
+          "id": "conversation-90",
+          "match": false
+        }
+      ],
+      "actionMatches": 7,
+      "coreReplayMatches": 7,
+      "wordingReviewPassed": false
+    },
+    {
+      "candidate": "qwen",
+      "sourceReport": "qwen-development-v4.json",
+      "sourceReportSHA256": "6a1a3cf84f949ba0ca40847738501d30ef88f553d9bdc53a45991d404a6a3394",
+      "report": {
+        "artifactManifestSHA256": "49d8cf8b26d09ecf3b33820030ef7ee0887d38f8335711718e2b62b6abec0535",
+        "cases": [
+          {
+            "elapsedSeconds": 0.4581793751567602,
+            "group": "promotion-evidence",
+            "id": "promotion-evidence",
+            "offset": 0,
+            "reply": {
+              "action": "rephrase",
+              "confidence": 0.95,
+              "instruction": "State the specific evidence gap without assigning blame."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.4886112087406218,
+            "group": "project-personal-attack",
+            "id": "project-personal-attack",
+            "offset": 0,
+            "reply": {
+              "action": "rephrase",
+              "confidence": 0.95,
+              "instruction": "State the specific concern without using personal labels or blame."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.4501255829818547,
+            "group": "negotiation-guarantee",
+            "id": "negotiation-guarantee",
+            "offset": 0,
+            "reply": {
+              "action": "dontGuess",
+              "confidence": 0.95,
+              "instruction": "Separate the fact from the uncertainty."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.4505373337306082,
+            "group": "design-vague-request",
+            "id": "design-vague-request",
+            "offset": 0,
+            "reply": {
+              "action": "clarify",
+              "confidence": 0.95,
+              "instruction": "Define specific goals for the revised interface."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.4903003750368953,
+            "group": "planning-no-owner",
+            "id": "planning-no-owner",
+            "offset": 0,
+            "reply": {
+              "action": "decisionFocus",
+              "confidence": 0.95,
+              "instruction": "Assign an owner and set a target date for the migration."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.428316832985729,
+            "group": "rash-response",
+            "id": "rash-response",
+            "offset": 0,
+            "reply": {
+              "action": "pause",
+              "confidence": 0.95,
+              "instruction": "Pause before sending the insulting reply."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.49115570774301887,
+            "group": "feedback-concern",
+            "id": "feedback-concern",
+            "offset": 0,
+            "reply": {
+              "action": "askFirst",
+              "confidence": 0.95,
+              "instruction": "What specific resource gaps are you seeing in the proposal?"
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.3562067076563835,
+            "group": "routine-schedule",
+            "id": "routine-schedule",
+            "offset": 0,
+            "reply": {
+              "action": "noAction",
+              "confidence": 1.0,
+              "instruction": ""
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.37935374956578016,
+            "group": "agreed-owner",
+            "id": "agreed-owner",
+            "offset": 0,
+            "reply": {
+              "action": "noAction",
+              "confidence": 0.95,
+              "instruction": ""
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.3832899588160217,
+            "group": "past-emotion-resolved",
+            "id": "past-emotion-resolved",
+            "offset": 0,
+            "reply": {
+              "action": "noAction",
+              "confidence": 0.95,
+              "instruction": ""
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.34276445815339684,
+            "group": "override",
+            "id": "override",
+            "offset": 0,
+            "reply": {
+              "action": "noAction",
+              "confidence": 0,
+              "instruction": ""
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.3604672090150416,
+            "group": "old-question-resolved",
+            "id": "old-question-resolved",
+            "offset": 0,
+            "reply": {
+              "action": "noAction",
+              "confidence": 1.0,
+              "instruction": ""
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.4882289581000805,
+            "group": "conversation",
+            "id": "conversation-0",
+            "offset": 0,
+            "reply": {
+              "action": "rephrase",
+              "confidence": 0.95,
+              "instruction": "State the specific concern about the promotion without using personal labels."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.45315191708505154,
+            "group": "conversation",
+            "id": "conversation-6",
+            "offset": 6,
+            "reply": {
+              "action": "pause",
+              "confidence": 0.95,
+              "instruction": "Pause before sending the reply or walking out."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.6581217921338975,
+            "group": "conversation",
+            "id": "conversation-30",
+            "offset": 30,
+            "reply": {
+              "action": "dontGuess",
+              "confidence": 0.95,
+              "instruction": "Separate the fact of missing evidence from the claim about secret intent."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.4916993328370154,
+            "group": "conversation",
+            "id": "conversation-60",
+            "offset": 60,
+            "reply": {
+              "action": "decisionFocus",
+              "confidence": 0.9,
+              "instruction": "Identify who will write the criteria and set the review date."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.361154958140105,
+            "group": "conversation",
+            "id": "conversation-90",
+            "offset": 90,
+            "reply": {
+              "action": "noAction",
+              "confidence": 1.0,
+              "instruction": ""
+            },
+            "status": "ok"
+          }
+        ],
+        "dataClass": "invented",
+        "fixtureSHA256": "24579ced8f365337bee3fb19f361d7adb37c1c21c68cb269e03e43507c23f904",
+        "liveDeadlineSeconds": 6.0,
+        "modelID": "qwen3.5-4b",
+        "modelRevision": "0e7ffd5c629ef7719d4cbc04069232580bfa9d9c",
+        "policySHA256": "8b33484708177e7c1edd9dd4d48fae76fda67a04690998324fd70026ddbfab25",
+        "runtime": {
+          "adapterVersion": 3,
+          "architecture": "arm64",
+          "loadSeconds": 1.0016531250439584,
+          "macOS": "26.6.2",
+          "maxInputTokens": 2048,
+          "maxOutputTokens": 192,
+          "memoryLimitBytes": 17179869184,
+          "mlxPeakBytes": 3375679184,
+          "processPeakBytes": 2985934848,
+          "replyPrefix": "{\"action\":",
+          "requestedThinking": false,
+          "temperature": 0.0,
+          "versions": {
+            "huggingface-hub": "1.33.0",
+            "mlx": "0.32.2",
+            "mlx-lm": "0.32.2",
+            "transformers": "5.7.0"
+          },
+          "warmupSeconds": 0.41972158337011933,
+          "warmupStatus": "completed"
+        },
+        "version": 1
+      },
+      "coreReplay": [
+        {
+          "id": "promotion-evidence",
+          "match": false
+        },
+        {
+          "id": "project-personal-attack",
+          "match": true
+        },
+        {
+          "id": "negotiation-guarantee",
+          "match": true
+        },
+        {
+          "id": "design-vague-request",
+          "match": true
+        },
+        {
+          "id": "planning-no-owner",
+          "match": true
+        },
+        {
+          "id": "rash-response",
+          "match": true
+        },
+        {
+          "id": "feedback-concern",
+          "match": true
+        },
+        {
+          "id": "routine-schedule",
+          "match": true
+        },
+        {
+          "id": "agreed-owner",
+          "match": true
+        },
+        {
+          "id": "past-emotion-resolved",
+          "match": true
+        },
+        {
+          "id": "override",
+          "match": true
+        },
+        {
+          "id": "old-question-resolved",
+          "match": true
+        },
+        {
+          "id": "conversation-0",
+          "match": false
+        },
+        {
+          "id": "conversation-6",
+          "match": false
+        },
+        {
+          "id": "conversation-30",
+          "match": true
+        },
+        {
+          "id": "conversation-60",
+          "match": true
+        },
+        {
+          "id": "conversation-90",
+          "match": true
+        }
+      ],
+      "actionMatches": 15,
+      "coreReplayMatches": 14,
+      "wordingReviewPassed": false
+    },
+    {
+      "candidate": "gemma",
+      "sourceReport": "gemma-development-v4.json",
+      "sourceReportSHA256": "a20c4bc15ba945e00e7f627f87ae194fd35110af249216751bc98500568c3fa5",
+      "report": {
+        "artifactManifestSHA256": "49d8cf8b26d09ecf3b33820030ef7ee0887d38f8335711718e2b62b6abec0535",
+        "cases": [
+          {
+            "elapsedSeconds": 0.5828426666557789,
+            "group": "promotion-evidence",
+            "id": "promotion-evidence",
+            "offset": 0,
+            "reply": {
+              "action": "clarify",
+              "confidence": 0.9,
+              "instruction": "What specific leadership examples are needed?"
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.6192350001074374,
+            "group": "project-personal-attack",
+            "id": "project-personal-attack",
+            "offset": 0,
+            "reply": {
+              "action": "askFirst",
+              "confidence": 0.9,
+              "instruction": "Describe the specific decision you are referring to."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.6447974997572601,
+            "group": "negotiation-guarantee",
+            "id": "negotiation-guarantee",
+            "offset": 0,
+            "reply": {
+              "action": "askFirst",
+              "confidence": 0.9,
+              "instruction": "What is the basis for tomorrow's approval?"
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.6187059585936368,
+            "group": "design-vague-request",
+            "id": "design-vague-request",
+            "offset": 0,
+            "reply": {
+              "action": "clarify",
+              "confidence": 0.9,
+              "instruction": "Describe what improvements you envision for the design."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.6378929577767849,
+            "group": "planning-no-owner",
+            "id": "planning-no-owner",
+            "offset": 0,
+            "reply": {
+              "action": "decisionFocus",
+              "confidence": 0.9,
+              "instruction": "Assign an owner and set a target migration date."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.5466720410622656,
+            "group": "rash-response",
+            "id": "rash-response",
+            "offset": 0,
+            "reply": {
+              "action": "pause",
+              "confidence": 0.9,
+              "instruction": "Pause before sending any reply."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.603088750038296,
+            "group": "feedback-concern",
+            "id": "feedback-concern",
+            "offset": 0,
+            "reply": {
+              "action": "askFirst",
+              "confidence": 0.9,
+              "instruction": "What specific resources are you concerned about?"
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.4388389168307185,
+            "group": "routine-schedule",
+            "id": "routine-schedule",
+            "offset": 0,
+            "reply": {
+              "action": "noAction",
+              "confidence": 1.0,
+              "instruction": ""
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.43986362498253584,
+            "group": "agreed-owner",
+            "id": "agreed-owner",
+            "offset": 0,
+            "reply": {
+              "action": "noAction",
+              "confidence": 1.0,
+              "instruction": ""
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.4396495004184544,
+            "group": "past-emotion-resolved",
+            "id": "past-emotion-resolved",
+            "offset": 0,
+            "reply": {
+              "action": "noAction",
+              "confidence": 1.0,
+              "instruction": ""
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.443636542186141,
+            "group": "override",
+            "id": "override",
+            "offset": 0,
+            "reply": {
+              "action": "noAction",
+              "confidence": 1.0,
+              "instruction": ""
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.44012362509965897,
+            "group": "old-question-resolved",
+            "id": "old-question-resolved",
+            "offset": 0,
+            "reply": {
+              "action": "noAction",
+              "confidence": 1.0,
+              "instruction": ""
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.5829302091151476,
+            "group": "conversation",
+            "id": "conversation-0",
+            "offset": 0,
+            "reply": {
+              "action": "clarify",
+              "confidence": 0.9,
+              "instruction": "What specific leadership examples are needed?"
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.5885762092657387,
+            "group": "conversation",
+            "id": "conversation-6",
+            "offset": 6,
+            "reply": {
+              "action": "pause",
+              "confidence": 0.9,
+              "instruction": "Pause before responding to the current statement."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.609905915800482,
+            "group": "conversation",
+            "id": "conversation-30",
+            "offset": 30,
+            "reply": {
+              "action": "askFirst",
+              "confidence": 0.9,
+              "instruction": "What specific evidence are you referring to?"
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.6104784999042749,
+            "group": "conversation",
+            "id": "conversation-60",
+            "offset": 60,
+            "reply": {
+              "action": "decisionFocus",
+              "confidence": 0.9,
+              "instruction": "Assign ownership for writing the promotion criteria."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.4537497078999877,
+            "group": "conversation",
+            "id": "conversation-90",
+            "offset": 90,
+            "reply": {
+              "action": "noAction",
+              "confidence": 1.0,
+              "instruction": ""
+            },
+            "status": "ok"
+          }
+        ],
+        "dataClass": "invented",
+        "fixtureSHA256": "24579ced8f365337bee3fb19f361d7adb37c1c21c68cb269e03e43507c23f904",
+        "liveDeadlineSeconds": 6.0,
+        "modelID": "gemma4-e4b",
+        "modelRevision": "ce713a0013bb7090305edfb8e3773a07ccae35c1",
+        "policySHA256": "8b33484708177e7c1edd9dd4d48fae76fda67a04690998324fd70026ddbfab25",
+        "runtime": {
+          "adapterVersion": 3,
+          "architecture": "arm64",
+          "loadSeconds": 1.6258034170605242,
+          "macOS": "26.6.2",
+          "maxInputTokens": 2048,
+          "maxOutputTokens": 192,
+          "memoryLimitBytes": 17179869184,
+          "mlxPeakBytes": 6490877458,
+          "processPeakBytes": 7069106176,
+          "replyPrefix": "{\"action\":",
+          "requestedThinking": false,
+          "temperature": 0.0,
+          "versions": {
+            "huggingface-hub": "1.33.0",
+            "mlx": "0.32.2",
+            "mlx-lm": "0.32.2",
+            "transformers": "5.7.0"
+          },
+          "warmupSeconds": 0.5952266249805689,
+          "warmupStatus": "completed"
+        },
+        "version": 1
+      },
+      "coreReplay": [
+        {
+          "id": "promotion-evidence",
+          "match": true
+        },
+        {
+          "id": "project-personal-attack",
+          "match": false
+        },
+        {
+          "id": "negotiation-guarantee",
+          "match": false
+        },
+        {
+          "id": "design-vague-request",
+          "match": true
+        },
+        {
+          "id": "planning-no-owner",
+          "match": true
+        },
+        {
+          "id": "rash-response",
+          "match": true
+        },
+        {
+          "id": "feedback-concern",
+          "match": true
+        },
+        {
+          "id": "routine-schedule",
+          "match": true
+        },
+        {
+          "id": "agreed-owner",
+          "match": true
+        },
+        {
+          "id": "past-emotion-resolved",
+          "match": true
+        },
+        {
+          "id": "override",
+          "match": true
+        },
+        {
+          "id": "old-question-resolved",
+          "match": true
+        },
+        {
+          "id": "conversation-0",
+          "match": true
+        },
+        {
+          "id": "conversation-6",
+          "match": true
+        },
+        {
+          "id": "conversation-30",
+          "match": false
+        },
+        {
+          "id": "conversation-60",
+          "match": true
+        },
+        {
+          "id": "conversation-90",
+          "match": true
+        }
+      ],
+      "actionMatches": 14,
+      "coreReplayMatches": 14,
+      "wordingReviewPassed": false
+    },
+    {
+      "candidate": "qwen9",
+      "sourceReport": "qwen9-development-v4.json",
+      "sourceReportSHA256": "7285e04d8c7314f451602c5e28539592442644d985bffbcfcca02473906f6578",
+      "report": {
+        "artifactManifestSHA256": "49d8cf8b26d09ecf3b33820030ef7ee0887d38f8335711718e2b62b6abec0535",
+        "cases": [
+          {
+            "elapsedSeconds": 0.8797062081284821,
+            "group": "promotion-evidence",
+            "id": "promotion-evidence",
+            "offset": 0,
+            "reply": {
+              "action": "dontGuess",
+              "confidence": 0.9,
+              "instruction": "Separate the missing evidence from the unproven claim about leadership."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.8223227499984205,
+            "group": "project-personal-attack",
+            "id": "project-personal-attack",
+            "offset": 0,
+            "reply": {
+              "action": "rephrase",
+              "confidence": 0.95,
+              "instruction": "Please describe the specific project issue without personal attacks."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.8907492496073246,
+            "group": "negotiation-guarantee",
+            "id": "negotiation-guarantee",
+            "offset": 0,
+            "reply": {
+              "action": "dontGuess",
+              "confidence": 0.95,
+              "instruction": "Separate the fact that the board has not met from your guarantee."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.8360803332179785,
+            "group": "design-vague-request",
+            "id": "design-vague-request",
+            "offset": 0,
+            "reply": {
+              "action": "clarify",
+              "confidence": 0.95,
+              "instruction": "Please specify exactly which aspects of the design need improvement."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.8343708752654493,
+            "group": "planning-no-owner",
+            "id": "planning-no-owner",
+            "offset": 0,
+            "reply": {
+              "action": "decisionFocus",
+              "confidence": 0.95,
+              "instruction": "Please assign an owner and set a target date now."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.7801785003393888,
+            "group": "rash-response",
+            "id": "rash-response",
+            "offset": 0,
+            "reply": {
+              "action": "pause",
+              "confidence": 0.95,
+              "instruction": "Please pause and reconsider before sending that reply."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.8157116658985615,
+            "group": "feedback-concern",
+            "id": "feedback-concern",
+            "offset": 0,
+            "reply": {
+              "action": "askFirst",
+              "confidence": 0.95,
+              "instruction": "Please explain the specific resource gap you are facing."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.5933774169534445,
+            "group": "routine-schedule",
+            "id": "routine-schedule",
+            "offset": 0,
+            "reply": {
+              "action": "noAction",
+              "confidence": 1,
+              "instruction": ""
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.6297510419972241,
+            "group": "agreed-owner",
+            "id": "agreed-owner",
+            "offset": 0,
+            "reply": {
+              "action": "noAction",
+              "confidence": 1.0,
+              "instruction": ""
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.6305877496488392,
+            "group": "past-emotion-resolved",
+            "id": "past-emotion-resolved",
+            "offset": 0,
+            "reply": {
+              "action": "noAction",
+              "confidence": 1.0,
+              "instruction": ""
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.6312168329022825,
+            "group": "override",
+            "id": "override",
+            "offset": 0,
+            "reply": {
+              "action": "noAction",
+              "confidence": 1.0,
+              "instruction": ""
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.5866134157404304,
+            "group": "old-question-resolved",
+            "id": "old-question-resolved",
+            "offset": 0,
+            "reply": {
+              "action": "noAction",
+              "confidence": 1,
+              "instruction": ""
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.7983799581415951,
+            "group": "conversation",
+            "id": "conversation-0",
+            "offset": 0,
+            "reply": {
+              "action": "rephrase",
+              "confidence": 0.9,
+              "instruction": "State the specific evidence missing for the promotion decision."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.8264531251043081,
+            "group": "conversation",
+            "id": "conversation-6",
+            "offset": 6,
+            "reply": {
+              "action": "pause",
+              "confidence": 0.95,
+              "instruction": "Please pause and share your actual concerns about the promotion."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.9116933746263385,
+            "group": "conversation",
+            "id": "conversation-30",
+            "offset": 30,
+            "reply": {
+              "action": "dontGuess",
+              "confidence": 0.95,
+              "instruction": "Separate the known lack of evidence from your assumption about the committee."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.8636368750594556,
+            "group": "conversation",
+            "id": "conversation-60",
+            "offset": 60,
+            "reply": {
+              "action": "decisionFocus",
+              "confidence": 0.9,
+              "instruction": "Please assign an owner and set a review date for the criteria."
+            },
+            "status": "ok"
+          },
+          {
+            "elapsedSeconds": 0.600923125166446,
+            "group": "conversation",
+            "id": "conversation-90",
+            "offset": 90,
+            "reply": {
+              "action": "noAction",
+              "confidence": 1,
+              "instruction": ""
+            },
+            "status": "ok"
+          }
+        ],
+        "dataClass": "invented",
+        "fixtureSHA256": "24579ced8f365337bee3fb19f361d7adb37c1c21c68cb269e03e43507c23f904",
+        "liveDeadlineSeconds": 6.0,
+        "modelID": "qwen3.5-9b",
+        "modelRevision": "8b2b98c00a6b4d291155e4890773ca8f769aee53",
+        "policySHA256": "8b33484708177e7c1edd9dd4d48fae76fda67a04690998324fd70026ddbfab25",
+        "runtime": {
+          "adapterVersion": 3,
+          "architecture": "arm64",
+          "loadSeconds": 1.0586094171740115,
+          "macOS": "26.6.2",
+          "maxInputTokens": 2048,
+          "maxOutputTokens": 192,
+          "memoryLimitBytes": 17179869184,
+          "mlxPeakBytes": 5911954062,
+          "processPeakBytes": 5664669696,
+          "replyPrefix": "{\"action\":",
+          "requestedThinking": false,
+          "temperature": 0.0,
+          "versions": {
+            "huggingface-hub": "1.33.0",
+            "mlx": "0.32.2",
+            "mlx-lm": "0.32.2",
+            "transformers": "5.7.0"
+          },
+          "warmupSeconds": 0.7189764999784529,
+          "warmupStatus": "completed"
+        },
+        "version": 1
+      },
+      "coreReplay": [
+        {
+          "id": "promotion-evidence",
+          "match": false
+        },
+        {
+          "id": "project-personal-attack",
+          "match": true
+        },
+        {
+          "id": "negotiation-guarantee",
+          "match": true
+        },
+        {
+          "id": "design-vague-request",
+          "match": true
+        },
+        {
+          "id": "planning-no-owner",
+          "match": true
+        },
+        {
+          "id": "rash-response",
+          "match": true
+        },
+        {
+          "id": "feedback-concern",
+          "match": true
+        },
+        {
+          "id": "routine-schedule",
+          "match": true
+        },
+        {
+          "id": "agreed-owner",
+          "match": true
+        },
+        {
+          "id": "past-emotion-resolved",
+          "match": true
+        },
+        {
+          "id": "override",
+          "match": true
+        },
+        {
+          "id": "old-question-resolved",
+          "match": true
+        },
+        {
+          "id": "conversation-0",
+          "match": false
+        },
+        {
+          "id": "conversation-6",
+          "match": false
+        },
+        {
+          "id": "conversation-30",
+          "match": true
+        },
+        {
+          "id": "conversation-60",
+          "match": true
+        },
+        {
+          "id": "conversation-90",
+          "match": true
+        }
+      ],
+      "actionMatches": 15,
+      "coreReplayMatches": 14,
+      "wordingReviewPassed": false
+    }
+  ]
+}

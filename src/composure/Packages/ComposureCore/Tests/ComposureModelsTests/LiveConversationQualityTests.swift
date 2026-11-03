@@ -16,12 +16,7 @@ import Testing
 @Suite(.serialized)
 struct LiveConversationQualityTests
 {
-    private struct Turn
-    {
-        let offset: Double
-        let text: String
-        let expected: Set<String>
-    }
+    private typealias Turn = LiveQualityConversationScenarios.Turn
 
     @Test(.enabled(if: ProcessInfo.processInfo.environment["COMPOSURE_EVALUATE_LIVE_QUALITY"] == "conversation"))
     func progressingConversationKeepsUsefulActionsAndOrdinarySilence() async throws
@@ -31,7 +26,7 @@ struct LiveConversationQualityTests
         var buffer = ConversationBuffer()
         let arbiter = CueArbiter(profile: CoachingProfile())
         var shownKinds = Set<String>()
-        for turn in Self.turns
+        for turn in LiveQualityConversationScenarios.cases
         {
             let now = 100 + turn.offset
             let event = try TranscriptEvent(
@@ -115,38 +110,4 @@ struct LiveConversationQualityTests
         #expect(started.duration(to: .now) < .seconds(6))
         return shown?.kind.rawValue
     }
-
-    private static let turns: [Turn] = [
-        Turn(
-            offset: 0,
-            text: "You were not promoted. You need to show more leadership.",
-            expected: ["clarify", "askFirst"]
-        ),
-        Turn(
-            offset: 6,
-            text: "This is ridiculous. I am going to send an insulting reply now and walk out.",
-            expected: ["pause"]
-        ),
-        Turn(
-            offset: 30,
-            text: "I have no evidence, but I know the committee secretly intends to block every future opportunity for me.",
-            expected: ["dontGuess", "rephrase"]
-        ),
-        Turn(
-            offset: 60,
-            text: """
-                We listed several development actions, but no one owns writing the criteria and we still have no date \
-                for a review.
-                """,
-            expected: ["decisionFocus"]
-        ),
-        Turn(
-            offset: 90,
-            text: """
-                Agreed. I will bring the design-review examples, my manager will write the criteria by Friday, and we \
-                will meet on Tuesday.
-                """,
-            expected: []
-        )
-    ]
 }
