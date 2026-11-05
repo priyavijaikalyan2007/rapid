@@ -369,6 +369,27 @@ Model weights, caches, dependencies, and local reports belong under ignored `loc
    Apple Intelligence must be available. This uses a new one-pass benchmark request, separate from the production Apple adapter.
    Use the same replay command for its report. Keep the separate verification set unused until a candidate passes development review.
 
+### Optional evidence-first benchmark
+
+The developer benchmark also supports `--mode evidence`. It requests an issue and an exact quote from current speech.
+Application-owned rules select an action and fixed wording. Direct output remains the default mode.
+Both evidence policies failed the development gate. Read the [measured results](../../specs/composure-evidence-prototype.results.md).
+The [model shortlist](../../specs/composure-model-shortlist.md) records additional Hugging Face choices and hardware limits.
+
+Use the same invented fixture export and pinned environment described above:
+
+```sh
+local/composure-benchmark/venv/bin/python scripts/composure_model_benchmark.py \
+    --fixtures local/composure-benchmark/development.json \
+    --model-dir local/composure-benchmark/models/qwen3.5-4b \
+    --model-id qwen3.5-4b --mode evidence \
+    --output local/composure-benchmark/qwen-evidence-new.json
+```
+
+Select an unused report path. Replay it through Core using `COMPOSURE_BENCHMARK_REPLAY` as described above.
+An exact quote establishes text provenance, not correct interpretation. Keep the separate verification set unused until development passes.
+The prototype does not change the application's model or start capture.
+
 ## Development Mac audio check
 
 Use the Composure Mac scheme in Debug configuration with the launch argument `--development-audio-check`.

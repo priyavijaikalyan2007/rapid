@@ -283,5 +283,15 @@
       "ComposureLocalModelBenchmark",
       "ComposureLiveQuality"
     ]
+  },
+  {
+    "name": "ComposureIssueObservation",
+    "table": null,
+    "file": "scripts/composure_evidence_policy.py",
+    "description": "Closed experimental issue, numeric confidence, and exact current-speech evidence contract. Complete JSON validation rejects extra or duplicate fields and ungrounded quotes. Correct provenance does not prove correct classification.",
+    "related": [
+      "ComposureEvidencePrototype",
+      "ComposureLocalModelBenchmark"
+    ]
   }
 ]

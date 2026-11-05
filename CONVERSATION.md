@@ -754,3 +754,44 @@ Updated the profile, specifications, model direction, and manual checks. No new 
 The next quality prototype remains a bounded local model on the 16 GB target, with simultaneous meeting-app and speech workload checks.
 Verification passed the full repository suite, all 37 Bats checks, both unsigned Mac destinations, profile validation, and source-style checks.
 No reference-machine performance check or new model quality evaluation occurred during this scope change.
+
+## Evidence-first Qwen experiment and model choices on 5 November 2026
+
+### User requests
+
+> great, let's continue working on the composure app. I think you were planning to use the Qwen 4B models?
+
+Confirmed the checked-in Qwen3.5-4B experimental baseline and the remaining quality and reference-machine gates.
+
+> go ahead - any other embedded model choices that we could use? Did we try Gemma? What about GLM, Mistral, or Muse?
+
+> You could look for more model choices on huggingface?
+
+> I thik Meta Muse
+
+> For wording, do you want to use a combination of Apple Foundational models + another model? That is, combine one or more modesl in a mixture of experts style to get better output?
+
+> fair enough. try out your approach first.
+
+> Ack on Muse.
+
+### Outcome
+
+Confirmed Gemma's final 14/17 action and Core scores rather than its earlier rejected parsing experiments.
+Researched publisher model cards on Hugging Face and recorded the independent small-model shortlist.
+Meta Muse Glimmer's published quantized text build exceeds the practical 16 GB combined-workload budget.
+The owner acknowledged that limit. No additional model was downloaded.
+
+Implemented optional evidence mode after failing tests. The model supplies an issue, confidence, and exact current-speech quote.
+Application rules map observations to existing actions and reviewed phrases. Production behavior and Core rules remain unchanged.
+The fresh direct Qwen baseline scored 15/17 actions and 14/17 Core replays.
+Evidence policy 1 scored 13/17 actions and 12/17 Core replays. Policy 2 scored 14/17 for both checks.
+Policy 2 still misclassified vague feedback, returned one invalid reply, and gave a false cue for an AI-output override.
+No evidence policy passed. Kept verification unused and deferred Apple-generated wording until detection passes.
+
+The 51 Python tests, 37 Bats checks, source-style checks, website checks, and 129 Core tests passed.
+The full repository command failed because an unchanged native audio test crashed inside Apple's `AnalyzerInput.data(from:)`.
+The host runtime reports macOS 27.2, and Xcode also reported an older installed CoreSimulator version.
+Focused synthetic replays completed all 17 cases and failed their quality assertions as recorded.
+Preserved the owner's pre-existing Xcode project edit. No microphone capture or real meeting content entered this experiment.
+Detailed results and invented evidence are in specs/composure-evidence-prototype.results.md and its linked artifact.

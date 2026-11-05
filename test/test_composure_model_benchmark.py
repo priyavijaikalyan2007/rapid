@@ -146,6 +146,15 @@ class ComposureModelBenchmarkTests(unittest.TestCase):
 
         self.assertEqual(render_prompt(Tokenizer(), "policy", "invented input"), "publisher-format" + JSON_REPLY_PREFIX)
 
+    def test_evidence_prefix_preserves_publisher_chat_format(self):
+        class Tokenizer:
+            def apply_chat_template(self, messages, **kwargs):
+                return "publisher-format"
+
+        rendered = render_prompt(Tokenizer(), "policy", "invented input", reply_prefix='{"issue":')
+
+        self.assertEqual(rendered, 'publisher-format{"issue":')
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -20,6 +20,7 @@ Created: 2026
 | Composure V1 scope | [Mac-only scope and reference hardware](composure-macos-v1.plan.md) | [Product specification](../src/composure/product-specification.md) |
 | Composure model options | [Quality investigation](composure-live-quality.plan.md) | [Proposed model strategy](composure-model-strategy.plan.md) |
 | Composure local benchmark | [Measured results](composure-local-benchmark.results.md) | [Benchmark plan](composure-local-benchmark.plan.md) and [invented evidence](composure-local-benchmark.evidence.json) |
+| Composure evidence prototype | [Measured results](composure-evidence-prototype.results.md) | [Prototype plan](composure-evidence-prototype.plan.md) and [model shortlist](composure-model-shortlist.md) |
 
 Keep existing source and specification locations. This index does not move application files.
 Record future verified results in the owning status file.

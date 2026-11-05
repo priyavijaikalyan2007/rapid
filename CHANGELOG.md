@@ -10,6 +10,12 @@ Created: 2026
 
 # Changelog
 
+## 5 November 2026
+
+### Added
+
+- Added optional evidence-first Composure model evaluation and a publisher-backed shortlist. Both prototype policies failed the quality gate.
+
 ## 3 November 2026
 
 ### Added

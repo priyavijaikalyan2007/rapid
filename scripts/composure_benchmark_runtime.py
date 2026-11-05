@@ -21,18 +21,19 @@ import time
 JSON_REPLY_PREFIX = '{"action":'
 
 
-def render_prompt(tokenizer, policy: str, prompt: str) -> str:
+def render_prompt(tokenizer, policy: str, prompt: str, *, reply_prefix: str = JSON_REPLY_PREFIX) -> str:
     """Start the structured response before generation. The full response remains subject to strict parsing."""
     messages = [{"role": "system", "content": policy}, {"role": "user", "content": prompt}]
     rendered = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True,
                                              enable_thinking=False)
-    return rendered + JSON_REPLY_PREFIX
+    return rendered + reply_prefix
 
 
 class MLXBenchmarkRuntime:
     """Keep model imports optional and network-disabled before initializing the MLX library."""
 
-    def __init__(self, model_path: Path) -> None:
+    def __init__(self, model_path: Path, *, reply_prefix: str = JSON_REPLY_PREFIX) -> None:
+        self._reply_prefix = reply_prefix
         cache = Path(__file__).resolve().parents[1] / "local" / "composure-benchmark" / "hf-home"
         os.environ.update({"HF_HOME": str(cache), "HF_HUB_OFFLINE": "1", "TRANSFORMERS_OFFLINE": "1",
                            "HF_HUB_DISABLE_IMPLICIT_TOKEN": "1"})
@@ -67,11 +68,11 @@ class MLXBenchmarkRuntime:
 
     def generate(self, policy: str, prompt: str) -> str:
         """Create a fresh request and cache. The stream checks a cooperative six-second deadline."""
-        rendered = render_prompt(self._tokenizer, policy, prompt)
+        rendered = render_prompt(self._tokenizer, policy, prompt, reply_prefix=self._reply_prefix)
         if len(self._tokenizer.encode(rendered, add_special_tokens=False)) > 2048:
             raise ValueError("Prompt exceeds its token budget.")
-        parts = [JSON_REPLY_PREFIX]
-        byte_count = len(JSON_REPLY_PREFIX)
+        parts = [self._reply_prefix]
+        byte_count = len(self._reply_prefix.encode("utf-8"))
         started = time.monotonic()
         stream = self._stream_generate(self._model, self._tokenizer, rendered, max_tokens=192,
                                         sampler=self._sampler, max_kv_size=4096, prefill_step_size=512)
@@ -97,5 +98,5 @@ class MLXBenchmarkRuntime:
                 "warmupStatus": self._warmup_status, "mlxPeakBytes": self._mx.get_peak_memory(),
                 "processPeakBytes": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
                 "maxOutputTokens": 192, "maxInputTokens": 2048, "temperature": 0.0,
-                "requestedThinking": False, "adapterVersion": 3, "replyPrefix": JSON_REPLY_PREFIX,
+                "requestedThinking": False, "adapterVersion": 4, "replyPrefix": self._reply_prefix,
                 "memoryLimitBytes": 16 * 1024 ** 3}

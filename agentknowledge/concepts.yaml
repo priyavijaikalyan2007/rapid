@@ -301,5 +301,15 @@
       "ComposureLocalModelBenchmark",
       "ComposureRemoteCapture"
     ]
+  },
+  {
+    "name": "ComposureEvidencePrototype",
+    "definition": "Optional offline issue observations quote current invented speech. Application-owned rules select actions and fixed phrases. Both Qwen policy revisions failed development checks, and no native model change is accepted.",
+    "anchor_file": "specs/composure-evidence-prototype.results.md",
+    "related": [
+      "ComposureLocalModelBenchmark",
+      "ComposureLiveQuality",
+      "ComposureMacV1Scope"
+    ]
   }
 ]

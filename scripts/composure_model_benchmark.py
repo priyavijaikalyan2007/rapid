@@ -21,6 +21,10 @@ import subprocess
 import sys
 import time
 
+from composure_evidence_policy import (
+    EVIDENCE_POLICY, EVIDENCE_POLICY_VERSION, EVIDENCE_REPLY_PREFIX, parse_observation, select_cue,
+)
+
 ACTIONS = frozenset({"noAction", "clarify", "askFirst", "decisionFocus", "dontGuess", "pause", "rephrase"})
 MAX_FIXTURE_BYTES = 262144
 MAX_INPUT_BYTES = 8192
@@ -147,7 +151,22 @@ def verify_model(root: Path, model_id: str, manifest_path: Path) -> dict:
     return model
 
 
-def _run_case(case: dict, policy: str, generate, clock) -> dict:
+def _parse_response(raw: str, input_value: dict, mode: str) -> dict:
+    """Validate the selected output contract before it enters the existing Core reply format."""
+    if mode == "direct":
+        return {"reply": parse_reply(raw)}
+    observation = parse_observation(raw, input_value.get("currentSpeech"))
+    return {"observation": observation, "reply": parse_reply(json.dumps(select_cue(observation)))}
+
+
+def policy_for_mode(fixtures: dict, mode: str) -> str:
+    """Select an application-owned policy without exposing fixture expectations."""
+    if mode not in ("direct", "evidence"):
+        raise ValueError("Select direct or evidence benchmark mode.")
+    return fixtures["policy"] if mode == "direct" else EVIDENCE_POLICY
+
+
+def _run_case(case: dict, policy: str, generate, clock, mode: str) -> dict:
     result = {key: case[key] for key in ("id", "group", "offset")}
     result.update({"status": "generationFailed", "reply": None})
     started = clock()
@@ -155,7 +174,7 @@ def _run_case(case: dict, policy: str, generate, clock) -> dict:
         prompt = json.dumps(case["input"], ensure_ascii=False, sort_keys=True, allow_nan=False, separators=(",", ":"))
         raw = generate(policy, prompt)
         result["status"] = "invalidOutput"
-        result["reply"] = parse_reply(raw)
+        result.update(_parse_response(raw, case["input"], mode))
         result["status"] = "ok"
     except TimeoutError:
         result["status"] = "deadlineExceeded"
@@ -170,11 +189,13 @@ def _run_case(case: dict, policy: str, generate, clock) -> dict:
     return result
 
 
-def run_cases(fixtures: dict, generate: Callable[[str, str], str], clock: Callable[[], float]) -> dict:
+def run_cases(fixtures: dict, generate: Callable[[str, str], str], clock: Callable[[], float],
+              *, mode: str = "direct") -> dict:
     """Run serial fresh requests. Gold labels and case metadata never reach generation."""
     _validate_fixtures(fixtures)
+    policy = policy_for_mode(fixtures, mode)
     return {"version": 1, "dataClass": "invented", "liveDeadlineSeconds": LIVE_DEADLINE_SECONDS,
-            "cases": [_run_case(case, fixtures["policy"], generate, clock) for case in fixtures["cases"]]}
+            "mode": mode, "cases": [_run_case(case, policy, generate, clock, mode) for case in fixtures["cases"]]}
 
 
 def _arguments(argv: list[str]):
@@ -183,26 +204,31 @@ def _arguments(argv: list[str]):
     parser.add_argument("--model-dir", type=Path, required=True)
     parser.add_argument("--model-id", required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--mode", choices=("direct", "evidence"), default="direct")
     parser.add_argument("--worker", action="store_true", help=argparse.SUPPRESS)
     return parser.parse_args(argv)
 
 
 def _worker(args) -> int:
-    from composure_benchmark_runtime import MLXBenchmarkRuntime
+    from composure_benchmark_runtime import JSON_REPLY_PREFIX, MLXBenchmarkRuntime
 
     fixtures = load_fixtures(args.fixtures)
     if args.output.exists():
         raise ValueError("Select a new output path.")
     manifest = Path(__file__).resolve().parents[1] / "specs" / "composure-model-artifacts.json"
     model = verify_model(args.model_dir, args.model_id, manifest)
-    runtime = MLXBenchmarkRuntime(args.model_dir)
-    runtime.warmup(fixtures["policy"])
-    result = run_cases(fixtures, runtime.generate, time.monotonic)
+    prefix = EVIDENCE_REPLY_PREFIX if args.mode == "evidence" else JSON_REPLY_PREFIX
+    policy = policy_for_mode(fixtures, args.mode)
+    runtime = MLXBenchmarkRuntime(args.model_dir, reply_prefix=prefix)
+    runtime.warmup(policy)
+    result = run_cases(fixtures, runtime.generate, time.monotonic, mode=args.mode)
     result["modelID"] = args.model_id
     result["modelRevision"] = model["revision"]
     result["artifactManifestSHA256"] = hashlib.sha256(manifest.read_bytes()).hexdigest()
     result["fixtureSHA256"] = hashlib.sha256(args.fixtures.read_bytes()).hexdigest()
-    result["policySHA256"] = hashlib.sha256(fixtures["policy"].encode("utf-8")).hexdigest()
+    result["policySHA256"] = hashlib.sha256(policy.encode("utf-8")).hexdigest()
+    if args.mode == "evidence":
+        result["evidencePolicyVersion"] = EVIDENCE_POLICY_VERSION
     result["runtime"] = runtime.metrics()
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open("x", encoding="utf-8") as stream:

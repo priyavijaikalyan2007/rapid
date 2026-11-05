@@ -335,5 +335,18 @@
       "src/composure/build.sh",
       "PROJECT_PROFILE.md"
     ]
+  },
+  {
+    "id": "ADR-028",
+    "title": "Evaluate grounded issue observations before optional model-generated wording",
+    "date": "2026-11-05",
+    "status": "Accepted",
+    "context": "The owner authorized an evidence-first Qwen prototype, requested Hugging Face alternatives, and proposed an Apple wording stage. First isolate detection with exact current-speech quotes, application-owned action mapping, fixed reviewed phrases, and unchanged Core validation and delivery rules. Both policy revisions failed the development gate, so neither enters the native app and verification stays unused. Do not add an Apple wording model until detection passes. Research identifies independent small-model alternatives, but this checkpoint downloads no new weights. The unchanged native audio test crashes inside Apple AnalyzerInput on the current host, so full native validation remains open.",
+    "files": [
+      "specs/composure-evidence-prototype.plan.md",
+      "specs/composure-evidence-prototype.results.md",
+      "scripts/composure_evidence_policy.py",
+      "specs/composure-model-shortlist.md"
+    ]
   }
 ]

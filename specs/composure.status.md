@@ -508,3 +508,22 @@ Context retention, inference deadlines, concurrency, and privacy limits remain u
 No new model or reference-machine acceptance result is claimed by this scope change.
 The full repository suite passed, including the two new shell regressions, 28 Python checks, and 37 Bats checks.
 The revised Mac-only `all` build, profile check, and source-style checks passed.
+
+## Evidence-first prototype on 5 November 2026
+
+The owner authorized the next Qwen experiment and requested more choices from Hugging Face, including Meta Muse.
+The owner also proposed an Apple wording stage, then confirmed that the evidence-first approach should run first.
+The [shortlist](composure-model-shortlist.md) records publisher sources and the acknowledged Muse resource limit.
+
+Added an optional evidence mode using exact current-speech quotes, application-owned action mapping, and reviewed fixed phrases.
+A fresh direct baseline passed 15/17 action checks and 14/17 Core replay checks on macOS 27.2.
+Evidence policy 1 passed 13/17 action checks and 12/17 Core checks.
+Policy 2 passed 14/17 action and Core checks, with one invalid reply and a false cue on an AI-output override.
+The [results](composure-evidence-prototype.results.md) and [invented evidence](composure-evidence-prototype.evidence.json) own the measurements.
+Neither policy passed adoption. The verification set remains unused, and no Apple wording stage or new model download occurred.
+
+All 51 Python tests, 37 Bats checks, source-style checks, website checks, and 129 Core tests passed.
+Full validation remains open because an unchanged native audio test crashed inside Apple's `AnalyzerInput.data(from:)`.
+The selected Xcode also reported an older installed CoreSimulator version.
+Focused model replays completed all 17 cases and failed quality assertions as recorded.
+The production application, native audio source, cue rules, and owner's Xcode project edit remain unchanged.
