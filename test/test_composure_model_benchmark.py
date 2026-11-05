@@ -17,7 +17,7 @@ import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from composure_model_benchmark import load_fixtures, parse_reply, run_cases, verify_model
-from composure_benchmark_runtime import JSON_REPLY_PREFIX, render_prompt
+from composure_benchmark_runtime import JSON_REPLY_PREFIX, render_prompt, tokenizer_configuration
 
 
 class ComposureModelBenchmarkTests(unittest.TestCase):
@@ -154,6 +154,21 @@ class ComposureModelBenchmarkTests(unittest.TestCase):
         rendered = render_prompt(Tokenizer(), "policy", "invented input", reply_prefix='{"issue":')
 
         self.assertEqual(rendered, 'publisher-format{"issue":')
+
+    def test_ministral_enables_its_publisher_regex_correction(self):
+        options = tokenizer_configuration({"model_type": "mistral3"})
+
+        self.assertIs(options.get("fix_mistral_regex"), True)
+
+    def test_other_families_keep_their_tokenization_policy(self):
+        options = tokenizer_configuration({"model_type": "granite"})
+
+        self.assertNotIn("fix_mistral_regex", options)
+
+    def test_model_config_cannot_enable_remote_tokenizer_code(self):
+        options = tokenizer_configuration({"model_type": "mistral3", "trust_remote_code": True})
+
+        self.assertEqual((options["trust_remote_code"], options["local_files_only"]), (False, True))
 
 
 if __name__ == "__main__":

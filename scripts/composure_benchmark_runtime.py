@@ -21,6 +21,14 @@ import time
 JSON_REPLY_PREFIX = '{"action":'
 
 
+def tokenizer_configuration(model_config: dict) -> dict:
+    """Apply Mistral's supported regex correction only to its family and keep tokenizer loading offline."""
+    options = {"trust_remote_code": False, "local_files_only": True}
+    if model_config.get("model_type") in ("mistral3", "ministral3"):
+        options["fix_mistral_regex"] = True
+    return options
+
+
 def render_prompt(tokenizer, policy: str, prompt: str, *, reply_prefix: str = JSON_REPLY_PREFIX) -> str:
     """Start the structured response before generation. The full response remains subject to strict parsing."""
     messages = [{"role": "system", "content": policy}, {"role": "user", "content": prompt}]
@@ -48,13 +56,15 @@ class MLXBenchmarkRuntime:
         mx.set_cache_limit(1024 ** 3)
         mx.reset_peak_memory()
         started = time.monotonic()
+        config = json.loads((model_path / "config.json").read_text())
+        self._tokenizer_options = tokenizer_configuration(config)
         self._model, self._tokenizer = load(str(model_path.resolve(strict=True)),
-                                             tokenizer_config={"trust_remote_code": False, "local_files_only": True},
+                                             tokenizer_config=self._tokenizer_options,
                                              trust_remote_code=False)
         self._load_seconds = time.monotonic() - started
         self._warmup_seconds = 0.0
         self._warmup_status = "notRun"
-        self._model_type = json.loads((model_path / "config.json").read_text())["model_type"]
+        self._model_type = config["model_type"]
 
     def warmup(self, policy: str) -> None:
         """Record one neutral invented warmup separately from quality and latency cases."""
@@ -98,5 +108,6 @@ class MLXBenchmarkRuntime:
                 "warmupStatus": self._warmup_status, "mlxPeakBytes": self._mx.get_peak_memory(),
                 "processPeakBytes": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
                 "maxOutputTokens": 192, "maxInputTokens": 2048, "temperature": 0.0,
-                "requestedThinking": False, "adapterVersion": 4, "replyPrefix": self._reply_prefix,
+                "requestedThinking": False, "adapterVersion": 5, "replyPrefix": self._reply_prefix,
+                "tokenizerOptions": self._tokenizer_options,
                 "memoryLimitBytes": 16 * 1024 ** 3}

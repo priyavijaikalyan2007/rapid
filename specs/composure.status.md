@@ -527,3 +527,27 @@ Full validation remains open because an unchanged native audio test crashed insi
 The selected Xcode also reported an older installed CoreSimulator version.
 Focused model replays completed all 17 cases and failed quality assertions as recorded.
 The production application, native audio source, cue rules, and owner's Xcode project edit remain unchanged.
+
+## Independent models and automatic goal on 5 November 2026
+
+The owner authorized Ministral and Granite and asked whether to abandon Composure.
+The owner then rejected manual help requests as a substitute. Automatic, always-on coaching remains the core goal.
+Recorded this constraint in PROJECT.md and ADDITIONAL.md.
+
+Downloaded and hash-verified pinned four-bit Ministral 3 3B and Granite 4.1 3B conversions.
+Tested both under unchanged direct and evidence policies on the same 17 invented cases.
+Ministral passed 15/17 direct action checks and 14/17 Core checks. Its evidence mode passed 7/17.
+Granite passed 9/17 direct action checks and 5/17 Core checks. Its evidence mode passed 10/17.
+Reviewed failures included direct questions, inferred feelings, wrong current issues, malformed observations, and a false cue.
+The [results](composure-additional-models.results.md) own complete measurements and diagnostic examples.
+
+No candidate passed adoption. The separate verification set remains unused, and no native model changed.
+Stop generic model searches at this checkpoint.
+The [next decision proposal](composure-next-decision.md) preserves automatic operation and proposes diagnosis before a bounded detector experiment.
+Manual requests, preparation, and rehearsal do not replace the owner's goal.
+
+Added failing tests before a scoped Ministral tokenizer correction and verified the actual pattern against pinned Tekken data.
+All 54 Python tests and 37 Bats checks passed. Core's 129 tests passed in the full run.
+Four focused Core replays completed every case and failed quality checks as recorded.
+Full native validation remains open because the unchanged audio test process again exited with signal 5.
+No real conversation, microphone session, reference-machine test, or owner Xcode project edit entered this work.

@@ -15,6 +15,7 @@ Created: 2026
 ### Added
 
 - Added optional evidence-first Composure model evaluation and a publisher-backed shortlist. Both prototype policies failed the quality gate.
+- Recorded pinned Ministral and Granite comparisons and a tested tokenizer correction. Neither model passed the automatic-coaching quality gate.
 
 ## 3 November 2026
 

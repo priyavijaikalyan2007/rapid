@@ -53,6 +53,8 @@ Its V1 target is macOS 26 or later, using a local ComposureCore Swift package.
 The performance reference is an M3/M4 MacBook Air with 16 GB unified memory, using the M3 as the slower baseline.
 Existing iPhone/iPad source and Xcode targets remain deferred scaffolding outside V1 build and acceptance gates.
 Composure supports Apple silicon Macs only. Both Debug and Release Mac applications use arm64.
+The core product goal is automatic, always-on coaching during an explicitly started listening session.
+The owner rejected manual help requests as a substitute for automatic coaching.
 The application provides privacy onboarding, saved Coaching Profile settings, Prepare mode, speech-asset setup, and content-safe local logging.
 Its shared core includes a pure session transition policy and typed, bounded preference storage.
 ComposureModels isolates Apple's on-device model, which generates bounded, role-aware preparation from supplied context.
@@ -65,8 +67,9 @@ A shared model work slot supports Prepare and sparse live cues. A non-activating
 Speaker attribution remains unknown until route testing supports it. Speaker-dependent detectors remain planned.
 A separate Debug dual-stream feasibility check remains available through a launch argument.
 An optional Python MLX benchmark compares downloaded models using invented text and Core cue replay.
-Its dependencies and weights remain separate from the application. No downloaded candidate passed the adoption gate on 3 November 2026.
-See specs/composure-local-benchmark.results.md for measured results and limits.
+Its dependencies and weights remain separate from the application. No downloaded candidate passed the adoption gate on 5 November 2026.
+The latest comparison added Ministral and Granite. The current recommendation is to stop generic model searches at this checkpoint.
+See specs/composure-additional-models.results.md and specs/composure-next-decision.md for evidence and the proposed next gate.
 
 ## Development prerequisites
 

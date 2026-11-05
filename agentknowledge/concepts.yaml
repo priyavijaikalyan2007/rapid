@@ -311,5 +311,16 @@
       "ComposureLiveQuality",
       "ComposureMacV1Scope"
     ]
+  },
+  {
+    "name": "ComposureAutomaticCoachingDirection",
+    "definition": "The owner requires automatic always-on coaching during explicit listening sessions and rejects manual help as a substitute. Independent model comparisons passed no candidate. Further generic searches stop, and a bounded automatic detector experiment remains proposed.",
+    "anchor_file": "specs/composure-next-decision.md",
+    "related": [
+      "Composure",
+      "ComposureLocalModelBenchmark",
+      "ComposureLiveQuality",
+      "ComposureMacV1Scope"
+    ]
   }
 ]

@@ -348,5 +348,18 @@
       "scripts/composure_evidence_policy.py",
       "specs/composure-model-shortlist.md"
     ]
+  },
+  {
+    "id": "ADR-029",
+    "title": "Preserve automatic coaching and close the generic model comparison checkpoint",
+    "date": "2026-11-05",
+    "status": "Accepted",
+    "context": "The owner authorized Ministral and Granite comparison, then rejected user-requested help as a fallback. Automatic always-on coaching remains the product requirement during explicitly started listening sessions. Both candidates failed the unchanged development and wording gates, so no model is adopted and verification stays unused. Stop generic model searches at this checkpoint. A proposed next stage audits semantic, schema, speaker-evidence, and delivery failures before a bounded automatic detector experiment. No training, manual-help pivot, new privacy behavior, or detector architecture is accepted by this record. Full native validation remains open after an unchanged audio-test process crash.",
+    "files": [
+      "PROJECT.md",
+      "ADDITIONAL.md",
+      "specs/composure-additional-models.results.md",
+      "specs/composure-next-decision.md"
+    ]
   }
 ]

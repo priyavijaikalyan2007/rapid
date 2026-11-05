@@ -20,6 +20,8 @@ Record observed designs separately from accepted decisions. Do not infer origina
 
 CropPrint is implemented. Composure provides privacy onboarding, saved profile settings, memory-only Prepare mode, and speech-asset setup.
 Composure now provides explicit Mac remote live coaching with temporary speech context and a floating cue panel.
+Composure's core goal is automatic coaching during an explicitly started listening session.
+Do not substitute manual help requests, preparation, or rehearsal for the automatic, always-on coaching goal.
 Composure V1 targets macOS only. Existing mobile source and targets are deferred scaffolding.
 Use an M3/M4 MacBook Air with 16 GB unified memory as the performance reference, with the M3 as the slower baseline.
 Do not treat the 64 GiB M5 development host as reference-machine acceptance evidence.

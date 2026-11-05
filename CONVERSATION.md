@@ -795,3 +795,39 @@ The host runtime reports macOS 27.2, and Xcode also reported an older installed 
 Focused synthetic replays completed all 17 cases and failed their quality assertions as recorded.
 Preserved the owner's pre-existing Xcode project edit. No microphone capture or real meeting content entered this experiment.
 Detailed results and invented evidence are in specs/composure-evidence-prototype.results.md and its linked artifact.
+
+## Independent models and automatic coaching requirement on 5 November 2026
+
+### User requests
+
+> ok. go ahead and try ministral and granite although given that Qwen, Gemma & Apple MF have failed so far, I have little faith in those other models doing any better. What can we do next? Do we abandon this project?
+
+> The "user requested help" thing is a non-started unfortunately. It's not going to work. The whole idea is to do this "automatically" providing an "always on" sort of coach
+
+### Clarification and outcome
+
+Initially suggested user-requested help as a possible narrower product. The owner rejected that direction.
+Recorded automatic, always-on coaching as the required product goal and removed the manual-help alternative from the proposed path.
+Existing explicit Start and Stop privacy controls remain unchanged. No product pivot was implemented.
+
+Downloaded and hash-verified pinned four-bit Ministral 3 3B Instruct 2512 and Granite 4.1 3B conversions.
+Used the same frozen 17 invented development cases and unchanged direct and evidence policies.
+Corrected a tokenizer warning through a scoped supported flag after adding failing tests.
+Verified the actual tokenizer pattern against the pinned publisher Tekken data.
+
+Ministral direct output passed 15/17 action checks and 14/17 Core checks. Evidence mode passed 7/17 for both.
+Granite direct output passed 9/17 action checks and 5/17 Core checks. Evidence mode passed 10/17 for both.
+Reviewed direct questions, inferred feelings, wrong interventions, a stale issue, invalid output, and a false cue.
+Repeated five invented cases to diagnose strict-parser failures without repairing output or changing acceptance labels.
+No candidate passed adoption. Kept the separate verification set unused and the production model unchanged.
+
+Recommended stopping generic model searches and auditing errors before a bounded automatic detector experiment.
+The proposed next stage preserves automatic timing, tests a closed observation contract, and considers reviewed training data only if needed.
+The project should stop if a bounded automatic-coaching trial cannot produce useful advice under its hardware and privacy constraints.
+The current small authored set does not establish that automatic coaching is impossible or that a task-specific detector will succeed.
+
+All 54 Python tests and 37 Bats checks passed. Core's 129 tests passed in the full run.
+All four focused Core replays evaluated 17 cases and failed their quality assertions as recorded.
+The required full repository command again failed in the unchanged native audio test target with signal 5.
+The owner's Xcode project edit and all frozen evaluation source files remain unchanged.
+Detailed results are in specs/composure-additional-models.results.md. The proposed next decision is in specs/composure-next-decision.md.

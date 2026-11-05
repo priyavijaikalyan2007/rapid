@@ -21,6 +21,7 @@ Created: 2026
 | Composure model options | [Quality investigation](composure-live-quality.plan.md) | [Proposed model strategy](composure-model-strategy.plan.md) |
 | Composure local benchmark | [Measured results](composure-local-benchmark.results.md) | [Benchmark plan](composure-local-benchmark.plan.md) and [invented evidence](composure-local-benchmark.evidence.json) |
 | Composure evidence prototype | [Measured results](composure-evidence-prototype.results.md) | [Prototype plan](composure-evidence-prototype.plan.md) and [model shortlist](composure-model-shortlist.md) |
+| Composure independent models | [Ministral and Granite results](composure-additional-models.results.md) | [Comparison plan](composure-additional-models.plan.md) and [automatic-coaching decision](composure-next-decision.md) |
 
 Keep existing source and specification locations. This index does not move application files.
 Record future verified results in the owning status file.
