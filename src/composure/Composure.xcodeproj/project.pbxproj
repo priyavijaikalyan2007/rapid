@@ -1,19 +1,10 @@
 // !$*UTF8*$!
-// SPDX-FileCopyrightText: 2026 Outcrop Inc
-// SPDX-License-Identifier: GPL-3.0-or-later
-// Repository: rapid
-// File GUID: a1854623-74e3-4b85-96d4-d611ca669510
-// Created: 2026
-// COMPONENT: Composure native targets
-// PURPOSE: Build sandboxed Apple silicon Mac and iPhone/iPad shells with a local Swift package.
-// RELATES: Apps, Packages/ComposureCore
-// FLOW: Shared schemes -> native target sources and local core -> unsigned development product.
-
 {
-    archiveVersion = 1;
-    classes = {};
-    objectVersion = 56;
-    objects = {
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 60;
+	objects = {
         F80000000000000000000001 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests/MacUI/LiveCoachUITests.swift; sourceTree = "<group>"; };
         A80000000000000000000001 = {isa = PBXBuildFile; fileRef = F80000000000000000000001; };
         F80000000000000000000002 = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = "Composure Mac UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,339 +47,620 @@
         A60000000000000000000013 = {isa = PBXBuildFile; fileRef = F60000000000000000000003; };
         F60000000000000000000004 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadinessUITests.swift; sourceTree = "<group>"; };
         A60000000000000000000020 = {isa = PBXBuildFile; fileRef = F60000000000000000000004; };
-        A10000000000000000000001 = {isa = PBXBuildFile; fileRef = F10000000000000000000001; };
-        A10000000000000000000002 = {isa = PBXBuildFile; fileRef = F10000000000000000000002; };
-        A10000000000000000000003 = {isa = PBXBuildFile; fileRef = F10000000000000000000003; };
-        A10000000000000000000004 = {isa = PBXBuildFile; fileRef = F10000000000000000000004; };
-        A10000000000000000000005 = {isa = PBXBuildFile; fileRef = F10000000000000000000005; };
-        A10000000000000000000006 = {isa = PBXBuildFile; fileRef = F10000000000000000000006; };
-        A10000000000000000000007 = {isa = PBXBuildFile; fileRef = F10000000000000000000007; };
-        A10000000000000000000008 = {isa = PBXBuildFile; fileRef = F10000000000000000000003; };
-        A10000000000000000000009 = {isa = PBXBuildFile; fileRef = F10000000000000000000004; };
-        A1000000000000000000000A = {isa = PBXBuildFile; fileRef = F10000000000000000000005; };
-        A1000000000000000000000B = {isa = PBXBuildFile; fileRef = F10000000000000000000008; };
-        A1000000000000000000000C = {isa = PBXBuildFile; fileRef = F10000000000000000000008; };
-        A1000000000000000000000D = {isa = PBXBuildFile; productRef = D10000000000000000000001; };
-        A1000000000000000000000E = {isa = PBXBuildFile; productRef = D10000000000000000000002; };
-        F20000000000000000000003 = {isa = PBXBuildFile; fileRef = F20000000000000000000004; };
 
-        A30000000000000000000001 = {isa = PBXBuildFile; fileRef = F30000000000000000000001; };
-        A30000000000000000000002 = {isa = PBXBuildFile; fileRef = F30000000000000000000002; };
-        A30000000000000000000003 = {isa = PBXBuildFile; fileRef = F30000000000000000000003; };
-        A30000000000000000000004 = {isa = PBXBuildFile; fileRef = F30000000000000000000004; };
-        A30000000000000000000005 = {isa = PBXBuildFile; fileRef = F30000000000000000000005; };
-        A30000000000000000000006 = {isa = PBXBuildFile; fileRef = F30000000000000000000006; };
-        A30000000000000000000007 = {isa = PBXBuildFile; fileRef = F30000000000000000000007; };
-        A30000000000000000000008 = {isa = PBXBuildFile; fileRef = F30000000000000000000008; };
-        A30000000000000000000009 = {isa = PBXBuildFile; fileRef = F30000000000000000000009; };
-        A3000000000000000000000A = {isa = PBXBuildFile; fileRef = F30000000000000000000001; };
-        A3000000000000000000000B = {isa = PBXBuildFile; fileRef = F30000000000000000000002; };
-        A3000000000000000000000C = {isa = PBXBuildFile; fileRef = F30000000000000000000003; };
-        A3000000000000000000000D = {isa = PBXBuildFile; fileRef = F30000000000000000000004; };
-        A3000000000000000000000E = {isa = PBXBuildFile; fileRef = F30000000000000000000005; };
-        A3000000000000000000000F = {isa = PBXBuildFile; fileRef = F30000000000000000000006; };
-        A30000000000000000000010 = {isa = PBXBuildFile; fileRef = F30000000000000000000007; };
-        A30000000000000000000011 = {isa = PBXBuildFile; fileRef = F30000000000000000000008; };
-        A30000000000000000000012 = {isa = PBXBuildFile; fileRef = F30000000000000000000009; };
+/* Begin PBXBuildFile section */
+		A10000000000000000000001 /* ComposureMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000001 /* ComposureMacApp.swift */; };
+		A10000000000000000000002 /* MacRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000002 /* MacRootView.swift */; };
+		A10000000000000000000003 /* AppSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000003 /* AppSection.swift */; };
+		A10000000000000000000004 /* FeaturePlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000004 /* FeaturePlaceholder.swift */; };
+		A10000000000000000000005 /* ApplicationDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000005 /* ApplicationDiagnostics.swift */; };
+		A10000000000000000000006 /* ComposureMobileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000006 /* ComposureMobileApp.swift */; };
+		A10000000000000000000007 /* MobileRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000007 /* MobileRootView.swift */; };
+		A10000000000000000000008 /* AppSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000003 /* AppSection.swift */; };
+		A10000000000000000000009 /* FeaturePlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000004 /* FeaturePlaceholder.swift */; };
+		A1000000000000000000000A /* ApplicationDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000005 /* ApplicationDiagnostics.swift */; };
+		A1000000000000000000000B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000008 /* PrivacyInfo.xcprivacy */; };
+		A1000000000000000000000C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000008 /* PrivacyInfo.xcprivacy */; };
+		A1000000000000000000000D /* ComposureCore in Frameworks */ = {isa = PBXBuildFile; productRef = D10000000000000000000001 /* ComposureCore */; };
+		A1000000000000000000000E /* ComposureCore in Frameworks */ = {isa = PBXBuildFile; productRef = D10000000000000000000002 /* ComposureCore */; };
+		A30000000000000000000001 /* AppPreferencesComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000000000000000000001 /* AppPreferencesComposition.swift */; };
+		A30000000000000000000002 /* PreferencesRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000000000000000000002 /* PreferencesRootView.swift */; };
+		A30000000000000000000003 /* OnboardingStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000000000000000000003 /* OnboardingStep.swift */; };
+		A30000000000000000000004 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000000000000000000004 /* OnboardingView.swift */; };
+		A30000000000000000000005 /* FocusImportance+Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000000000000000000005 /* FocusImportance+Label.swift */; };
+		A30000000000000000000006 /* ProfileFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000000000000000000006 /* ProfileFields.swift */; };
+		A30000000000000000000007 /* PreferenceSaveStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000000000000000000007 /* PreferenceSaveStatusView.swift */; };
+		A30000000000000000000008 /* PreferencesRecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000000000000000000008 /* PreferencesRecoveryView.swift */; };
+		A30000000000000000000009 /* CoachingSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000000000000000000009 /* CoachingSettingsView.swift */; };
+		A3000000000000000000000A /* AppPreferencesComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000000000000000000001 /* AppPreferencesComposition.swift */; };
+		A3000000000000000000000B /* PreferencesRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000000000000000000002 /* PreferencesRootView.swift */; };
+		A3000000000000000000000C /* OnboardingStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000000000000000000003 /* OnboardingStep.swift */; };
+		A3000000000000000000000D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000000000000000000004 /* OnboardingView.swift */; };
+		A3000000000000000000000E /* FocusImportance+Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000000000000000000005 /* FocusImportance+Label.swift */; };
+		A3000000000000000000000F /* ProfileFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000000000000000000006 /* ProfileFields.swift */; };
+		A30000000000000000000010 /* PreferenceSaveStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000000000000000000007 /* PreferenceSaveStatusView.swift */; };
+		A30000000000000000000011 /* PreferencesRecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000000000000000000008 /* PreferencesRecoveryView.swift */; };
+		A30000000000000000000012 /* CoachingSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000000000000000000009 /* CoachingSettingsView.swift */; };
+		A40000000000000000000001 /* PrepareUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40000000000000000000001 /* PrepareUITests.swift */; };
+		A50000000000000000000001 /* PreparationComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50000000000000000000001 /* PreparationComposition.swift */; };
+		A50000000000000000000002 /* UnavailablePreparationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50000000000000000000002 /* UnavailablePreparationModel.swift */; };
+		A50000000000000000000003 /* ModelReadinessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50000000000000000000003 /* ModelReadinessView.swift */; };
+		A50000000000000000000004 /* PreparationFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50000000000000000000004 /* PreparationFields.swift */; };
+		A50000000000000000000005 /* PreparationResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50000000000000000000005 /* PreparationResultView.swift */; };
+		A50000000000000000000006 /* PrepareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50000000000000000000006 /* PrepareView.swift */; };
+		A50000000000000000000007 /* PreparationPrivacyShield.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50000000000000000000007 /* PreparationPrivacyShield.swift */; };
+		A50000000000000000000008 /* PreparationPrivacyShieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50000000000000000000008 /* PreparationPrivacyShieldView.swift */; };
+		A5000000000000000000000B /* PreparationComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50000000000000000000001 /* PreparationComposition.swift */; };
+		A5000000000000000000000C /* UnavailablePreparationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50000000000000000000002 /* UnavailablePreparationModel.swift */; };
+		A5000000000000000000000D /* ModelReadinessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50000000000000000000003 /* ModelReadinessView.swift */; };
+		A5000000000000000000000E /* PreparationFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50000000000000000000004 /* PreparationFields.swift */; };
+		A5000000000000000000000F /* PreparationResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50000000000000000000005 /* PreparationResultView.swift */; };
+		A50000000000000000000010 /* PrepareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50000000000000000000006 /* PrepareView.swift */; };
+		A50000000000000000000019 /* ComposureModels in Frameworks */ = {isa = PBXBuildFile; productRef = D50000000000000000000001 /* ComposureModels */; };
+		A5000000000000000000001A /* ComposureModels in Frameworks */ = {isa = PBXBuildFile; productRef = D50000000000000000000002 /* ComposureModels */; };
+		F20000000000000000000003 /* OnboardingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000004 /* OnboardingUITests.swift */; };
+/* End PBXBuildFile section */
 
-        F30000000000000000000001 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppPreferencesComposition.swift"; sourceTree = "<group>"; };
-        F30000000000000000000002 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PreferencesRootView.swift"; sourceTree = "<group>"; };
-        F30000000000000000000003 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingStep.swift"; sourceTree = "<group>"; };
-        F30000000000000000000004 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingView.swift"; sourceTree = "<group>"; };
-        F30000000000000000000005 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FocusImportance+Label.swift"; sourceTree = "<group>"; };
-        F30000000000000000000006 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileFields.swift"; sourceTree = "<group>"; };
-        F30000000000000000000007 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PreferenceSaveStatusView.swift"; sourceTree = "<group>"; };
-        F30000000000000000000008 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PreferencesRecoveryView.swift"; sourceTree = "<group>"; };
-        F30000000000000000000009 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoachingSettingsView.swift"; sourceTree = "<group>"; };
+/* Begin PBXContainerItemProxy section */
+		D20000000000000000000002 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E10000000000000000000003 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E10000000000000000000002;
+			remoteInfo = "Composure Mobile";
+		};
+/* End PBXContainerItemProxy section */
 
-        F10000000000000000000001 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposureMacApp.swift; sourceTree = "<group>"; };
-        F10000000000000000000002 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacRootView.swift; sourceTree = "<group>"; };
-        F10000000000000000000003 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSection.swift; sourceTree = "<group>"; };
-        F10000000000000000000004 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturePlaceholder.swift; sourceTree = "<group>"; };
-        F10000000000000000000005 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDiagnostics.swift; sourceTree = "<group>"; };
-        F10000000000000000000006 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposureMobileApp.swift; sourceTree = "<group>"; };
-        F10000000000000000000007 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileRootView.swift; sourceTree = "<group>"; };
-        F10000000000000000000008 = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-        F10000000000000000000009 = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Composure.entitlements; sourceTree = "<group>"; };
-        F1000000000000000000000A = {isa = PBXFileReference; explicitFileType = wrapper.application; path = Composure.app; sourceTree = BUILT_PRODUCTS_DIR; };
-        F1000000000000000000000B = {isa = PBXFileReference; explicitFileType = wrapper.application; path = Composure.app; sourceTree = BUILT_PRODUCTS_DIR; };
-        F20000000000000000000002 = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = "Composure Mobile UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-        F50000000000000000000001 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparationComposition.swift; sourceTree = "<group>"; };
-        A50000000000000000000001 = {isa = PBXBuildFile; fileRef = F50000000000000000000001; };
-        A5000000000000000000000B = {isa = PBXBuildFile; fileRef = F50000000000000000000001; };
-        F50000000000000000000002 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnavailablePreparationModel.swift; sourceTree = "<group>"; };
-        A50000000000000000000002 = {isa = PBXBuildFile; fileRef = F50000000000000000000002; };
-        A5000000000000000000000C = {isa = PBXBuildFile; fileRef = F50000000000000000000002; };
-        F50000000000000000000003 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelReadinessView.swift; sourceTree = "<group>"; };
-        A50000000000000000000003 = {isa = PBXBuildFile; fileRef = F50000000000000000000003; };
-        A5000000000000000000000D = {isa = PBXBuildFile; fileRef = F50000000000000000000003; };
-        F50000000000000000000004 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparationFields.swift; sourceTree = "<group>"; };
-        A50000000000000000000004 = {isa = PBXBuildFile; fileRef = F50000000000000000000004; };
-        A5000000000000000000000E = {isa = PBXBuildFile; fileRef = F50000000000000000000004; };
-        F50000000000000000000005 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparationResultView.swift; sourceTree = "<group>"; };
-        A50000000000000000000005 = {isa = PBXBuildFile; fileRef = F50000000000000000000005; };
-        A5000000000000000000000F = {isa = PBXBuildFile; fileRef = F50000000000000000000005; };
-        F50000000000000000000006 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareView.swift; sourceTree = "<group>"; };
-        A50000000000000000000006 = {isa = PBXBuildFile; fileRef = F50000000000000000000006; };
-        A50000000000000000000010 = {isa = PBXBuildFile; fileRef = F50000000000000000000006; };
-        F50000000000000000000007 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparationPrivacyShield.swift; sourceTree = "<group>"; };
-        A50000000000000000000007 = {isa = PBXBuildFile; fileRef = F50000000000000000000007; };
-        F50000000000000000000008 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparationPrivacyShieldView.swift; sourceTree = "<group>"; };
-        A50000000000000000000008 = {isa = PBXBuildFile; fileRef = F50000000000000000000008; };
-        F40000000000000000000001 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareUITests.swift; sourceTree = "<group>"; };
-        A40000000000000000000001 = {isa = PBXBuildFile; fileRef = F40000000000000000000001; };
-        F20000000000000000000004 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingUITests.swift; sourceTree = "<group>"; };
+/* Begin PBXFileReference section */
+		F10000000000000000000001 /* ComposureMacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposureMacApp.swift; sourceTree = "<group>"; };
+		F10000000000000000000002 /* MacRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacRootView.swift; sourceTree = "<group>"; };
+		F10000000000000000000003 /* AppSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSection.swift; sourceTree = "<group>"; };
+		F10000000000000000000004 /* FeaturePlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturePlaceholder.swift; sourceTree = "<group>"; };
+		F10000000000000000000005 /* ApplicationDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDiagnostics.swift; sourceTree = "<group>"; };
+		F10000000000000000000006 /* ComposureMobileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposureMobileApp.swift; sourceTree = "<group>"; };
+		F10000000000000000000007 /* MobileRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileRootView.swift; sourceTree = "<group>"; };
+		F10000000000000000000008 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		F10000000000000000000009 /* Composure.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Composure.entitlements; sourceTree = "<group>"; };
+		F1000000000000000000000A /* Composure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = Composure.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1000000000000000000000B /* Composure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = Composure.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F20000000000000000000002 /* Composure Mobile UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = "Composure Mobile UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F20000000000000000000004 /* OnboardingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingUITests.swift; sourceTree = "<group>"; };
+		F30000000000000000000001 /* AppPreferencesComposition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPreferencesComposition.swift; sourceTree = "<group>"; };
+		F30000000000000000000002 /* PreferencesRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesRootView.swift; sourceTree = "<group>"; };
+		F30000000000000000000003 /* OnboardingStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStep.swift; sourceTree = "<group>"; };
+		F30000000000000000000004 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		F30000000000000000000005 /* FocusImportance+Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FocusImportance+Label.swift"; sourceTree = "<group>"; };
+		F30000000000000000000006 /* ProfileFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFields.swift; sourceTree = "<group>"; };
+		F30000000000000000000007 /* PreferenceSaveStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceSaveStatusView.swift; sourceTree = "<group>"; };
+		F30000000000000000000008 /* PreferencesRecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesRecoveryView.swift; sourceTree = "<group>"; };
+		F30000000000000000000009 /* CoachingSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachingSettingsView.swift; sourceTree = "<group>"; };
+		F40000000000000000000001 /* PrepareUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareUITests.swift; sourceTree = "<group>"; };
+		F50000000000000000000001 /* PreparationComposition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparationComposition.swift; sourceTree = "<group>"; };
+		F50000000000000000000002 /* UnavailablePreparationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnavailablePreparationModel.swift; sourceTree = "<group>"; };
+		F50000000000000000000003 /* ModelReadinessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelReadinessView.swift; sourceTree = "<group>"; };
+		F50000000000000000000004 /* PreparationFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparationFields.swift; sourceTree = "<group>"; };
+		F50000000000000000000005 /* PreparationResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparationResultView.swift; sourceTree = "<group>"; };
+		F50000000000000000000006 /* PrepareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareView.swift; sourceTree = "<group>"; };
+		F50000000000000000000007 /* PreparationPrivacyShield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparationPrivacyShield.swift; sourceTree = "<group>"; };
+		F50000000000000000000008 /* PreparationPrivacyShieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparationPrivacyShieldView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
 
-        B10000000000000000000001 = {
-            isa = PBXGroup;
-            children = (F80000000000000000000001, B10000000000000000000002, B20000000000000000000001, B10000000000000000000006);
-            sourceTree = "<group>";
-        };
-        B10000000000000000000002 = {
-            isa = PBXGroup;
-            path = Apps;
-            children = (B10000000000000000000003, B10000000000000000000004, B10000000000000000000005);
-            sourceTree = "<group>";
-        };
-        B10000000000000000000003 = {
-            isa = PBXGroup;
-            path = macOS;
-            children = (F81000000000000000000001, F81000000000000000000002, F81000000000000000000003, F81000000000000000000004, F81000000000000000000005, F81000000000000000000006, F81000000000000000000007, F81000000000000000000008, F70000000000000000000001, F70000000000000000000002, F10000000000000000000001, F10000000000000000000002, F10000000000000000000009);
-            sourceTree = "<group>";
-        };
-        B10000000000000000000004 = {
-            isa = PBXGroup;
-            path = iOS;
-            children = (F10000000000000000000006, F10000000000000000000007, F50000000000000000000007, F50000000000000000000008);
-            sourceTree = "<group>";
-        };
-        B10000000000000000000005 = {
-            isa = PBXGroup;
-            path = Shared;
-            children = (F60000000000000000000001, F60000000000000000000002, F60000000000000000000003, F10000000000000000000003, F10000000000000000000004, F10000000000000000000005, F10000000000000000000008, F30000000000000000000001, F30000000000000000000002, F30000000000000000000003, F30000000000000000000004, F30000000000000000000005, F30000000000000000000006, F30000000000000000000007, F30000000000000000000008, F30000000000000000000009, F50000000000000000000001, F50000000000000000000002, F50000000000000000000003, F50000000000000000000004, F50000000000000000000005, F50000000000000000000006);
-            sourceTree = "<group>";
-        };
-        B10000000000000000000006 = {
-            isa = PBXGroup;
-            name = Products;
-            children = (F80000000000000000000002, F1000000000000000000000A, F1000000000000000000000B, F20000000000000000000002);
-            sourceTree = "<group>";
-        };
-        B20000000000000000000001 = {
-            isa = PBXGroup;
-            path = Tests/UI;
-            children = (F60000000000000000000004, F20000000000000000000004, F40000000000000000000001);
-            sourceTree = "<group>";
-        };
+/* Begin PBXFrameworksBuildPhase section */
+		C10000000000000000000003 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000000000000000000000D /* ComposureCore in Frameworks */,
+				A50000000000000000000019 /* ComposureModels in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C10000000000000000000004 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000000000000000000000E /* ComposureCore in Frameworks */,
+				A5000000000000000000001A /* ComposureModels in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C20000000000000000000002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
-        C10000000000000000000001 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A81000000000000000000001, A81000000000000000000002, A81000000000000000000003, A81000000000000000000004, A81000000000000000000005, A81000000000000000000006, A81000000000000000000007, A81000000000000000000008, A70000000000000000000001, A60000000000000000000001, A60000000000000000000002, A60000000000000000000003, A10000000000000000000001, A10000000000000000000002, A10000000000000000000003, A10000000000000000000004, A10000000000000000000005, A30000000000000000000001, A30000000000000000000002, A30000000000000000000003, A30000000000000000000004, A30000000000000000000005, A30000000000000000000006, A30000000000000000000007, A30000000000000000000008, A30000000000000000000009, A5000000000000000000000B, A5000000000000000000000C, A5000000000000000000000D, A5000000000000000000000E, A5000000000000000000000F, A50000000000000000000010); runOnlyForDeploymentPostprocessing = 0; };
-        C10000000000000000000002 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A60000000000000000000011, A60000000000000000000012, A60000000000000000000013, A10000000000000000000006, A10000000000000000000007, A10000000000000000000008, A10000000000000000000009, A1000000000000000000000A, A3000000000000000000000A, A3000000000000000000000B, A3000000000000000000000C, A3000000000000000000000D, A3000000000000000000000E, A3000000000000000000000F, A30000000000000000000010, A30000000000000000000011, A30000000000000000000012, A50000000000000000000001, A50000000000000000000002, A50000000000000000000003, A50000000000000000000004, A50000000000000000000005, A50000000000000000000006, A50000000000000000000007, A50000000000000000000008); runOnlyForDeploymentPostprocessing = 0; };
-        C10000000000000000000003 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (A1000000000000000000000D, A50000000000000000000019); runOnlyForDeploymentPostprocessing = 0; };
-        C10000000000000000000004 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (A1000000000000000000000E, A5000000000000000000001A); runOnlyForDeploymentPostprocessing = 0; };
-        C10000000000000000000005 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (A1000000000000000000000B); runOnlyForDeploymentPostprocessing = 0; };
-        C10000000000000000000006 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (A1000000000000000000000C); runOnlyForDeploymentPostprocessing = 0; };
-        C20000000000000000000001 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A60000000000000000000020, F20000000000000000000003, A40000000000000000000001); runOnlyForDeploymentPostprocessing = 0; };
-        C20000000000000000000002 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
-        C20000000000000000000003 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+/* Begin PBXGroup section */
+		B10000000000000000000001 = {
+			isa = PBXGroup;
+			children = (F80000000000000000000001,
+				B10000000000000000000002 /* Apps */,
+				B20000000000000000000001 /* Tests/UI */,
+				B10000000000000000000006 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B10000000000000000000002 /* Apps */ = {
+			isa = PBXGroup;
+			children = (
+				B10000000000000000000003 /* macOS */,
+				B10000000000000000000004 /* iOS */,
+				B10000000000000000000005 /* Shared */,
+			);
+			path = Apps;
+			sourceTree = "<group>";
+		};
+		B10000000000000000000003 /* macOS */ = {
+			isa = PBXGroup;
+			children = (F81000000000000000000001, F81000000000000000000002, F81000000000000000000003, F81000000000000000000004, F81000000000000000000005, F81000000000000000000006, F81000000000000000000007, F81000000000000000000008, F70000000000000000000001, F70000000000000000000002,
+				F10000000000000000000001 /* ComposureMacApp.swift */,
+				F10000000000000000000002 /* MacRootView.swift */,
+				F10000000000000000000009 /* Composure.entitlements */,
+			);
+			path = macOS;
+			sourceTree = "<group>";
+		};
+		B10000000000000000000004 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				F10000000000000000000006 /* ComposureMobileApp.swift */,
+				F10000000000000000000007 /* MobileRootView.swift */,
+				F50000000000000000000007 /* PreparationPrivacyShield.swift */,
+				F50000000000000000000008 /* PreparationPrivacyShieldView.swift */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		B10000000000000000000005 /* Shared */ = {
+			isa = PBXGroup;
+			children = (F60000000000000000000001, F60000000000000000000002, F60000000000000000000003,
+				F10000000000000000000003 /* AppSection.swift */,
+				F10000000000000000000004 /* FeaturePlaceholder.swift */,
+				F10000000000000000000005 /* ApplicationDiagnostics.swift */,
+				F10000000000000000000008 /* PrivacyInfo.xcprivacy */,
+				F30000000000000000000001 /* AppPreferencesComposition.swift */,
+				F30000000000000000000002 /* PreferencesRootView.swift */,
+				F30000000000000000000003 /* OnboardingStep.swift */,
+				F30000000000000000000004 /* OnboardingView.swift */,
+				F30000000000000000000005 /* FocusImportance+Label.swift */,
+				F30000000000000000000006 /* ProfileFields.swift */,
+				F30000000000000000000007 /* PreferenceSaveStatusView.swift */,
+				F30000000000000000000008 /* PreferencesRecoveryView.swift */,
+				F30000000000000000000009 /* CoachingSettingsView.swift */,
+				F50000000000000000000001 /* PreparationComposition.swift */,
+				F50000000000000000000002 /* UnavailablePreparationModel.swift */,
+				F50000000000000000000003 /* ModelReadinessView.swift */,
+				F50000000000000000000004 /* PreparationFields.swift */,
+				F50000000000000000000005 /* PreparationResultView.swift */,
+				F50000000000000000000006 /* PrepareView.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		B10000000000000000000006 /* Products */ = {
+			isa = PBXGroup;
+			children = (F80000000000000000000002,
+				F1000000000000000000000A /* Composure.app */,
+				F1000000000000000000000B /* Composure.app */,
+				F20000000000000000000002 /* Composure Mobile UI Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B20000000000000000000001 /* Tests/UI */ = {
+			isa = PBXGroup;
+			children = (F60000000000000000000004,
+				F20000000000000000000004 /* OnboardingUITests.swift */,
+				F40000000000000000000001 /* PrepareUITests.swift */,
+			);
+			path = Tests/UI;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
 
-        D20000000000000000000001 = {isa = PBXTargetDependency; target = E10000000000000000000002; targetProxy = D20000000000000000000002; };
-        D20000000000000000000002 = {isa = PBXContainerItemProxy; containerPortal = E10000000000000000000003; proxyType = 1; remoteGlobalIDString = E10000000000000000000002; remoteInfo = "Composure Mobile"; };
+/* Begin PBXNativeTarget section */
+		E10000000000000000000001 /* Composure Mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E10000000000000000000004 /* Build configuration list for PBXNativeTarget "Composure Mac" */;
+			buildPhases = (
+				C10000000000000000000001 /* Sources */,
+				C10000000000000000000003 /* Frameworks */,
+				C10000000000000000000005 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Composure Mac";
+			packageProductDependencies = (
+				D10000000000000000000001 /* ComposureCore */,
+				D50000000000000000000001 /* ComposureModels */,
+			);
+			productName = Composure;
+			productReference = F1000000000000000000000A /* Composure.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E10000000000000000000002 /* Composure Mobile */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E10000000000000000000005 /* Build configuration list for PBXNativeTarget "Composure Mobile" */;
+			buildPhases = (
+				C10000000000000000000002 /* Sources */,
+				C10000000000000000000004 /* Frameworks */,
+				C10000000000000000000006 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Composure Mobile";
+			packageProductDependencies = (
+				D10000000000000000000002 /* ComposureCore */,
+				D50000000000000000000002 /* ComposureModels */,
+			);
+			productName = Composure;
+			productReference = F1000000000000000000000B /* Composure.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F20000000000000000000001 /* Composure Mobile UI Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E30000000000000000000001 /* Build configuration list for PBXNativeTarget "Composure Mobile UI Tests" */;
+			buildPhases = (
+				C20000000000000000000001 /* Sources */,
+				C20000000000000000000002 /* Frameworks */,
+				C20000000000000000000003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D20000000000000000000001 /* PBXTargetDependency */,
+			);
+			name = "Composure Mobile UI Tests";
+			productName = "Composure Mobile UI Tests";
+			productReference = F20000000000000000000002 /* Composure Mobile UI Tests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
 
-        D10000000000000000000001 = {isa = XCSwiftPackageProductDependency; package = D10000000000000000000003; productName = ComposureCore; };
-        D10000000000000000000002 = {isa = XCSwiftPackageProductDependency; package = D10000000000000000000003; productName = ComposureCore; };
-        D50000000000000000000001 = {isa = XCSwiftPackageProductDependency; package = D10000000000000000000003; productName = ComposureModels; };
-        D50000000000000000000002 = {isa = XCSwiftPackageProductDependency; package = D10000000000000000000003; productName = ComposureModels; };
-        A50000000000000000000019 = {isa = PBXBuildFile; productRef = D50000000000000000000001; };
-        A5000000000000000000001A = {isa = PBXBuildFile; productRef = D50000000000000000000002; };
-        D10000000000000000000003 = {isa = XCLocalSwiftPackageReference; relativePath = Packages/ComposureCore; };
+/* Begin PBXProject section */
+		E10000000000000000000003 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 2710;
+				LastUpgradeCheck = 2710;
+			};
+			buildConfigurationList = E10000000000000000000006 /* Build configuration list for PBXProject "Composure" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B10000000000000000000001;
+			packageReferences = (
+				D10000000000000000000003 /* XCLocalSwiftPackageReference "Packages/ComposureCore" */,
+			);
+			productRefGroup = B10000000000000000000006 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (E80000000000000000000001,
+				E10000000000000000000001 /* Composure Mac */,
+				E10000000000000000000002 /* Composure Mobile */,
+				F20000000000000000000001 /* Composure Mobile UI Tests */,
+			);
+		};
+/* End PBXProject section */
 
-        E10000000000000000000001 = {
-            isa = PBXNativeTarget;
-            buildConfigurationList = E10000000000000000000004;
-            buildPhases = (C10000000000000000000001, C10000000000000000000003, C10000000000000000000005);
-            buildRules = ();
-            dependencies = ();
-            name = "Composure Mac";
-            packageProductDependencies = (D10000000000000000000001, D50000000000000000000001);
-            productName = Composure;
-            productReference = F1000000000000000000000A;
-            productType = "com.apple.product-type.application";
-        };
-        E10000000000000000000002 = {
-            isa = PBXNativeTarget;
-            buildConfigurationList = E10000000000000000000005;
-            buildPhases = (C10000000000000000000002, C10000000000000000000004, C10000000000000000000006);
-            buildRules = ();
-            dependencies = ();
-            name = "Composure Mobile";
-            packageProductDependencies = (D10000000000000000000002, D50000000000000000000002);
-            productName = Composure;
-            productReference = F1000000000000000000000B;
-            productType = "com.apple.product-type.application";
-        };
-        E10000000000000000000003 = {
-            isa = PBXProject;
-            attributes = {LastSwiftUpdateCheck = 2710; LastUpgradeCheck = 2710; };
-            buildConfigurationList = E10000000000000000000006;
-            compatibilityVersion = "Xcode 14.0";
-            developmentRegion = en;
-            hasScannedForEncodings = 0;
-            knownRegions = (en, Base);
-            mainGroup = B10000000000000000000001;
-            packageReferences = (D10000000000000000000003);
-            productRefGroup = B10000000000000000000006;
-            projectDirPath = "";
-            projectRoot = "";
-            targets = (E80000000000000000000001, E10000000000000000000001, E10000000000000000000002, F20000000000000000000001);
-        };
+/* Begin PBXResourcesBuildPhase section */
+		C10000000000000000000005 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000000000000000000000B /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C10000000000000000000006 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000000000000000000000C /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C20000000000000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
-        F20000000000000000000001 = {
-            isa = PBXNativeTarget;
-            buildConfigurationList = E30000000000000000000001;
-            buildPhases = (C20000000000000000000001, C20000000000000000000002, C20000000000000000000003);
-            buildRules = ();
-            dependencies = (D20000000000000000000001);
-            name = "Composure Mobile UI Tests";
-            productName = "Composure Mobile UI Tests";
-            productReference = F20000000000000000000002;
-            productType = "com.apple.product-type.bundle.ui-testing";
-        };
+/* Begin PBXSourcesBuildPhase section */
+		C10000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (A81000000000000000000001, A81000000000000000000002, A81000000000000000000003, A81000000000000000000004, A81000000000000000000005, A81000000000000000000006, A81000000000000000000007, A81000000000000000000008, A70000000000000000000001, A60000000000000000000001, A60000000000000000000002, A60000000000000000000003,
+				A10000000000000000000001 /* ComposureMacApp.swift in Sources */,
+				A10000000000000000000002 /* MacRootView.swift in Sources */,
+				A10000000000000000000003 /* AppSection.swift in Sources */,
+				A10000000000000000000004 /* FeaturePlaceholder.swift in Sources */,
+				A10000000000000000000005 /* ApplicationDiagnostics.swift in Sources */,
+				A30000000000000000000001 /* AppPreferencesComposition.swift in Sources */,
+				A30000000000000000000002 /* PreferencesRootView.swift in Sources */,
+				A30000000000000000000003 /* OnboardingStep.swift in Sources */,
+				A30000000000000000000004 /* OnboardingView.swift in Sources */,
+				A30000000000000000000005 /* FocusImportance+Label.swift in Sources */,
+				A30000000000000000000006 /* ProfileFields.swift in Sources */,
+				A30000000000000000000007 /* PreferenceSaveStatusView.swift in Sources */,
+				A30000000000000000000008 /* PreferencesRecoveryView.swift in Sources */,
+				A30000000000000000000009 /* CoachingSettingsView.swift in Sources */,
+				A5000000000000000000000B /* PreparationComposition.swift in Sources */,
+				A5000000000000000000000C /* UnavailablePreparationModel.swift in Sources */,
+				A5000000000000000000000D /* ModelReadinessView.swift in Sources */,
+				A5000000000000000000000E /* PreparationFields.swift in Sources */,
+				A5000000000000000000000F /* PreparationResultView.swift in Sources */,
+				A50000000000000000000010 /* PrepareView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C10000000000000000000002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (A60000000000000000000011, A60000000000000000000012, A60000000000000000000013,
+				A10000000000000000000006 /* ComposureMobileApp.swift in Sources */,
+				A10000000000000000000007 /* MobileRootView.swift in Sources */,
+				A10000000000000000000008 /* AppSection.swift in Sources */,
+				A10000000000000000000009 /* FeaturePlaceholder.swift in Sources */,
+				A1000000000000000000000A /* ApplicationDiagnostics.swift in Sources */,
+				A3000000000000000000000A /* AppPreferencesComposition.swift in Sources */,
+				A3000000000000000000000B /* PreferencesRootView.swift in Sources */,
+				A3000000000000000000000C /* OnboardingStep.swift in Sources */,
+				A3000000000000000000000D /* OnboardingView.swift in Sources */,
+				A3000000000000000000000E /* FocusImportance+Label.swift in Sources */,
+				A3000000000000000000000F /* ProfileFields.swift in Sources */,
+				A30000000000000000000010 /* PreferenceSaveStatusView.swift in Sources */,
+				A30000000000000000000011 /* PreferencesRecoveryView.swift in Sources */,
+				A30000000000000000000012 /* CoachingSettingsView.swift in Sources */,
+				A50000000000000000000001 /* PreparationComposition.swift in Sources */,
+				A50000000000000000000002 /* UnavailablePreparationModel.swift in Sources */,
+				A50000000000000000000003 /* ModelReadinessView.swift in Sources */,
+				A50000000000000000000004 /* PreparationFields.swift in Sources */,
+				A50000000000000000000005 /* PreparationResultView.swift in Sources */,
+				A50000000000000000000006 /* PrepareView.swift in Sources */,
+				A50000000000000000000007 /* PreparationPrivacyShield.swift in Sources */,
+				A50000000000000000000008 /* PreparationPrivacyShieldView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C20000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (A60000000000000000000020,
+				F20000000000000000000003 /* OnboardingUITests.swift in Sources */,
+				A40000000000000000000001 /* PrepareUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
 
-        E30000000000000000000001 = {isa = XCConfigurationList; buildConfigurations = (E30000000000000000000002, E30000000000000000000003); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
-        E30000000000000000000002 = {
-            isa = XCBuildConfiguration;
-            name = Debug;
-            buildSettings = {
-                GENERATE_INFOPLIST_FILE = YES;
-                IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-                PRODUCT_BUNDLE_IDENTIFIER = us.outcrop.apps.composure.uitests;
-                PRODUCT_NAME = "$(TARGET_NAME)";
-                SDKROOT = iphoneos;
-                SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-                TARGETED_DEVICE_FAMILY = "1,2";
-                TEST_TARGET_NAME = "Composure Mobile";
-            };
-        };
-        E30000000000000000000003 = {
-            isa = XCBuildConfiguration;
-            name = Release;
-            buildSettings = {
-                GENERATE_INFOPLIST_FILE = YES;
-                IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-                PRODUCT_BUNDLE_IDENTIFIER = us.outcrop.apps.composure.uitests;
-                PRODUCT_NAME = "$(TARGET_NAME)";
-                SDKROOT = iphoneos;
-                SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-                TARGETED_DEVICE_FAMILY = "1,2";
-                TEST_TARGET_NAME = "Composure Mobile";
-            };
-        };
+/* Begin PBXTargetDependency section */
+		D20000000000000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E10000000000000000000002 /* Composure Mobile */;
+			targetProxy = D20000000000000000000002 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
-        E10000000000000000000004 = {isa = XCConfigurationList; buildConfigurations = (E20000000000000000000001, E20000000000000000000002); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
-        E10000000000000000000005 = {isa = XCConfigurationList; buildConfigurations = (E20000000000000000000003, E20000000000000000000004); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
-        E10000000000000000000006 = {isa = XCConfigurationList; buildConfigurations = (E20000000000000000000005, E20000000000000000000006); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
-        E20000000000000000000001 = {
-            isa = XCBuildConfiguration;
-            name = Debug;
-            buildSettings = {
+/* Begin XCBuildConfiguration section */
+		E20000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
                 INFOPLIST_KEY_NSMicrophoneUsageDescription = "Composure uses microphone audio for on-device coaching only after you select Start. Composure does not save audio or transcript text.";
-                ARCHS = arm64;
-                CODE_SIGN_ENTITLEMENTS = Apps/macOS/ComposureDebug.entitlements;
-                ENABLE_APP_SANDBOX = YES;
-                GENERATE_INFOPLIST_FILE = YES;
-                INFOPLIST_KEY_CFBundleDisplayName = Composure;
-                MACOSX_DEPLOYMENT_TARGET = 26.0;
-                PRODUCT_BUNDLE_IDENTIFIER = us.outcrop.apps.composure;
-                PRODUCT_NAME = Composure;
-                SDKROOT = macosx;
-                SUPPORTED_PLATFORMS = macosx;
-            };
-        };
-        E20000000000000000000002 = {
-            isa = XCBuildConfiguration;
-            name = Release;
-            buildSettings = {
+				ARCHS = arm64;
+				CODE_SIGN_ENTITLEMENTS = Apps/macOS/ComposureDebug.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				DEVELOPMENT_TEAM = 4JD5A6Q2HL;
+				ENABLE_APP_SANDBOX = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Composure;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				PRODUCT_BUNDLE_IDENTIFIER = us.outcrop.apps.composure;
+				PRODUCT_NAME = Composure;
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+			};
+			name = Debug;
+		};
+		E20000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
                 INFOPLIST_KEY_NSMicrophoneUsageDescription = "Composure uses microphone audio for on-device coaching only after you select Start. Composure does not save audio or transcript text.";
-                ARCHS = arm64;
-                CODE_SIGN_ENTITLEMENTS = Apps/macOS/Composure.entitlements;
-                ENABLE_APP_SANDBOX = YES;
-                GENERATE_INFOPLIST_FILE = YES;
-                INFOPLIST_KEY_CFBundleDisplayName = Composure;
-                MACOSX_DEPLOYMENT_TARGET = 26.0;
-                PRODUCT_BUNDLE_IDENTIFIER = us.outcrop.apps.composure;
-                PRODUCT_NAME = Composure;
-                SDKROOT = macosx;
-                SUPPORTED_PLATFORMS = macosx;
-            };
-        };
-        E20000000000000000000003 = {
-            isa = XCBuildConfiguration;
-            name = Debug;
-            buildSettings = {
-                GENERATE_INFOPLIST_FILE = YES;
-                INFOPLIST_KEY_CFBundleDisplayName = Composure;
-                INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-                INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-                INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-                "INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad" = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-                IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-                PRODUCT_BUNDLE_IDENTIFIER = us.outcrop.apps.composure;
-                PRODUCT_NAME = Composure;
-                SDKROOT = iphoneos;
-                SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-                TARGETED_DEVICE_FAMILY = "1,2";
-            };
-        };
-        E20000000000000000000004 = {
-            isa = XCBuildConfiguration;
-            name = Release;
-            buildSettings = {
-                GENERATE_INFOPLIST_FILE = YES;
-                INFOPLIST_KEY_CFBundleDisplayName = Composure;
-                INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-                INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-                INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-                "INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad" = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-                IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-                PRODUCT_BUNDLE_IDENTIFIER = us.outcrop.apps.composure;
-                PRODUCT_NAME = Composure;
-                SDKROOT = iphoneos;
-                SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-                TARGETED_DEVICE_FAMILY = "1,2";
-            };
-        };
-        E20000000000000000000005 = {
-            isa = XCBuildConfiguration;
-            name = Debug;
-            buildSettings = {
-                CLANG_ENABLE_MODULES = YES;
-                CODE_SIGN_STYLE = Automatic;
-                CURRENT_PROJECT_VERSION = 1;
-                DEBUG_INFORMATION_FORMAT = dwarf;
-                ENABLE_TESTABILITY = YES;
-                MARKETING_VERSION = 0.1.0;
-                ONLY_ACTIVE_ARCH = YES;
-                SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-                SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-                SWIFT_STRICT_CONCURRENCY = complete;
-                SWIFT_VERSION = 6.0;
-            };
-        };
-        E20000000000000000000006 = {
-            isa = XCBuildConfiguration;
-            name = Release;
-            buildSettings = {
-                CLANG_ENABLE_MODULES = YES;
-                CODE_SIGN_STYLE = Automatic;
-                CURRENT_PROJECT_VERSION = 1;
-                DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-                MARKETING_VERSION = 0.1.0;
-                ONLY_ACTIVE_ARCH = NO;
-                SWIFT_OPTIMIZATION_LEVEL = "-O";
-                SWIFT_STRICT_CONCURRENCY = complete;
-                SWIFT_VERSION = 6.0;
-            };
-        };
-    };
-    rootObject = E10000000000000000000003;
+				ARCHS = arm64;
+				CODE_SIGN_ENTITLEMENTS = Apps/macOS/Composure.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				DEVELOPMENT_TEAM = 4JD5A6Q2HL;
+				ENABLE_APP_SANDBOX = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Composure;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				PRODUCT_BUNDLE_IDENTIFIER = us.outcrop.apps.composure;
+				PRODUCT_NAME = Composure;
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+			};
+			name = Release;
+		};
+		E20000000000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Composure;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				PRODUCT_BUNDLE_IDENTIFIER = us.outcrop.apps.composure;
+				PRODUCT_NAME = Composure;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E20000000000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Composure;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				PRODUCT_BUNDLE_IDENTIFIER = us.outcrop.apps.composure;
+				PRODUCT_NAME = Composure;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E20000000000000000000005 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				MARKETING_VERSION = 0.1.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		E20000000000000000000006 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				MARKETING_VERSION = 0.1.0;
+				ONLY_ACTIVE_ARCH = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		E30000000000000000000002 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				PRODUCT_BUNDLE_IDENTIFIER = us.outcrop.apps.composure.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Composure Mobile";
+			};
+			name = Debug;
+		};
+		E30000000000000000000003 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				PRODUCT_BUNDLE_IDENTIFIER = us.outcrop.apps.composure.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Composure Mobile";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E10000000000000000000004 /* Build configuration list for PBXNativeTarget "Composure Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E20000000000000000000001 /* Debug */,
+				E20000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E10000000000000000000005 /* Build configuration list for PBXNativeTarget "Composure Mobile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E20000000000000000000003 /* Debug */,
+				E20000000000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E10000000000000000000006 /* Build configuration list for PBXProject "Composure" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E20000000000000000000005 /* Debug */,
+				E20000000000000000000006 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E30000000000000000000001 /* Build configuration list for PBXNativeTarget "Composure Mobile UI Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E30000000000000000000002 /* Debug */,
+				E30000000000000000000003 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		D10000000000000000000003 /* XCLocalSwiftPackageReference "Packages/ComposureCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/ComposureCore;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D10000000000000000000001 /* ComposureCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D10000000000000000000003 /* XCLocalSwiftPackageReference "Packages/ComposureCore" */;
+			productName = ComposureCore;
+		};
+		D10000000000000000000002 /* ComposureCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D10000000000000000000003 /* XCLocalSwiftPackageReference "Packages/ComposureCore" */;
+			productName = ComposureCore;
+		};
+		D50000000000000000000001 /* ComposureModels */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D10000000000000000000003 /* XCLocalSwiftPackageReference "Packages/ComposureCore" */;
+			productName = ComposureModels;
+		};
+		D50000000000000000000002 /* ComposureModels */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D10000000000000000000003 /* XCLocalSwiftPackageReference "Packages/ComposureCore" */;
+			productName = ComposureModels;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = E10000000000000000000003 /* Project object */;
 }
