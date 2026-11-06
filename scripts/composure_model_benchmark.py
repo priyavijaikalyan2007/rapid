@@ -24,12 +24,20 @@ import time
 from composure_evidence_policy import (
     EVIDENCE_POLICY, EVIDENCE_POLICY_VERSION, EVIDENCE_REPLY_PREFIX, parse_observation, select_cue,
 )
+from composure_detector_policy import (
+    DETECTOR_POLICY, DETECTOR_POLICY_VERSION, constrained_generation, detection_input, parse_detection,
+)
 
 ACTIONS = frozenset({"noAction", "clarify", "askFirst", "decisionFocus", "dontGuess", "pause", "rephrase"})
 MAX_FIXTURE_BYTES = 262144
 MAX_INPUT_BYTES = 8192
 MAX_RESPONSE_BYTES = 4096
 LIVE_DEADLINE_SECONDS = 6.0
+POLICY_METADATA = {
+    "evidence": {"evidencePolicyVersion": EVIDENCE_POLICY_VERSION},
+    "constrained": {"detectorPolicyVersion": DETECTOR_POLICY_VERSION,
+                    "confidenceSource": "modelSelectedUncalibrated"},
+}
 
 
 def _object(pairs: list) -> dict:
@@ -155,15 +163,21 @@ def _parse_response(raw: str, input_value: dict, mode: str) -> dict:
     """Validate the selected output contract before it enters the existing Core reply format."""
     if mode == "direct":
         return {"reply": parse_reply(raw)}
-    observation = parse_observation(raw, input_value.get("currentSpeech"))
-    return {"observation": observation, "reply": parse_reply(json.dumps(select_cue(observation)))}
+    if mode == "evidence":
+        observation = parse_observation(raw, input_value.get("currentSpeech"))
+    else:
+        observation = parse_detection(raw, input_value["currentSpans"])
+    result = {"observation": observation, "reply": parse_reply(json.dumps(select_cue(observation)))}
+    if mode == "constrained":
+        result["rawDetection"] = raw
+    return result
 
 
 def policy_for_mode(fixtures: dict, mode: str) -> str:
     """Select an application-owned policy without exposing fixture expectations."""
-    if mode not in ("direct", "evidence"):
-        raise ValueError("Select direct or evidence benchmark mode.")
-    return fixtures["policy"] if mode == "direct" else EVIDENCE_POLICY
+    if mode not in ("direct", "evidence", "constrained"):
+        raise ValueError("Select direct, evidence, or constrained benchmark mode.")
+    return {"direct": fixtures["policy"], "evidence": EVIDENCE_POLICY, "constrained": DETECTOR_POLICY}[mode]
 
 
 def _run_case(case: dict, policy: str, generate, clock, mode: str) -> dict:
@@ -171,10 +185,11 @@ def _run_case(case: dict, policy: str, generate, clock, mode: str) -> dict:
     result.update({"status": "generationFailed", "reply": None})
     started = clock()
     try:
-        prompt = json.dumps(case["input"], ensure_ascii=False, sort_keys=True, allow_nan=False, separators=(",", ":"))
+        model_input = detection_input(case["input"]) if mode == "constrained" else case["input"]
+        prompt = json.dumps(model_input, ensure_ascii=False, sort_keys=True, allow_nan=False, separators=(",", ":"))
         raw = generate(policy, prompt)
         result["status"] = "invalidOutput"
-        result.update(_parse_response(raw, case["input"], mode))
+        result.update(_parse_response(raw, model_input, mode))
         result["status"] = "ok"
     except TimeoutError:
         result["status"] = "deadlineExceeded"
@@ -204,7 +219,7 @@ def _arguments(argv: list[str]):
     parser.add_argument("--model-dir", type=Path, required=True)
     parser.add_argument("--model-id", required=True)
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--mode", choices=("direct", "evidence"), default="direct")
+    parser.add_argument("--mode", choices=("direct", "evidence", "constrained"), default="direct")
     parser.add_argument("--worker", action="store_true", help=argparse.SUPPRESS)
     return parser.parse_args(argv)
 
@@ -217,18 +232,18 @@ def _worker(args) -> int:
         raise ValueError("Select a new output path.")
     manifest = Path(__file__).resolve().parents[1] / "specs" / "composure-model-artifacts.json"
     model = verify_model(args.model_dir, args.model_id, manifest)
-    prefix = EVIDENCE_REPLY_PREFIX if args.mode == "evidence" else JSON_REPLY_PREFIX
+    prefix = {"direct": JSON_REPLY_PREFIX, "evidence": EVIDENCE_REPLY_PREFIX, "constrained": ""}[args.mode]
     policy = policy_for_mode(fixtures, args.mode)
     runtime = MLXBenchmarkRuntime(args.model_dir, reply_prefix=prefix)
     runtime.warmup(policy)
-    result = run_cases(fixtures, runtime.generate, time.monotonic, mode=args.mode)
+    generate = constrained_generation(runtime.generate) if args.mode == "constrained" else runtime.generate
+    result = run_cases(fixtures, generate, time.monotonic, mode=args.mode)
     result["modelID"] = args.model_id
     result["modelRevision"] = model["revision"]
     result["artifactManifestSHA256"] = hashlib.sha256(manifest.read_bytes()).hexdigest()
     result["fixtureSHA256"] = hashlib.sha256(args.fixtures.read_bytes()).hexdigest()
     result["policySHA256"] = hashlib.sha256(policy.encode("utf-8")).hexdigest()
-    if args.mode == "evidence":
-        result["evidencePolicyVersion"] = EVIDENCE_POLICY_VERSION
+    result.update(POLICY_METADATA.get(args.mode, {}))
     result["runtime"] = runtime.metrics()
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open("x", encoding="utf-8") as stream:

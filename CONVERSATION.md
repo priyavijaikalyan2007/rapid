@@ -831,3 +831,42 @@ All four focused Core replays evaluated 17 cases and failed their quality assert
 The required full repository command again failed in the unchanged native audio test target with signal 5.
 The owner's Xcode project edit and all frozen evaluation source files remain unchanged.
 Detailed results are in specs/composure-additional-models.results.md. The proposed next decision is in specs/composure-next-decision.md.
+
+## Bounded automatic detector experiment completed on 6 November 2026
+
+### User authorization
+
+> ok go ahead.
+
+The owner authorized the proposed failure audit, constrained detector, and bounded timed-conversation experiment.
+The automatic, always-on requirement remained in force. No manual-help alternative was implemented.
+
+### Implementation and evidence
+
+Added a finite token trie, exact current-speech span references, a strict observation parser, and fixed reviewed wording.
+New boundary tests failed before implementation. An actual MLX check verified that illegal high-scoring tokens were masked.
+Created and hashed four invented eight-turn conversations before inference, with 12 target windows and 20 required silences.
+Fixed the trial gate before scoring: 32 valid replies, zero wrong displayed cues, and at least 10 useful delivered cues.
+Kept the original 17-case expectations and the independent verification set unchanged.
+
+Iteration one passed the restricted delivery gate with 11 useful cues and no wrong displayed cues.
+It still proposed five unnecessary cues that Core withheld. Used the second permitted iteration to improve resolution and uncertainty distinctions.
+Iteration two delivered all 12 target cues and no wrong cues, with two unnecessary proposals withheld by cooldown.
+Both restricted trials passed, and all 98 scored outputs belonged to their finite catalogs.
+
+The original gate still failed: 8/17 Core checks in iteration one and 10/17 in iteration two.
+Four expected cases were outside the restricted scope. The final supported-or-silence slice passed only 10/13.
+The model still mislabeled factual feedback as unsupported certainty. Earlier wrong advice suppressed a needed later cue.
+The authored conversation pass does not establish generalization, independent usefulness, or a low false-cue rate outside cooldown.
+
+### Decision and validation
+
+Completed the two-iteration budget and stopped prompt iteration. No detector or downloaded model entered the native application.
+Recommended pausing automatic feature development unless the owner chooses a separate reviewed-data, calibration, and training investment.
+If that investment is outside the intended budget, stopping Composure is the recommended decision.
+The independent verification set remains unused. No training, cloud request, real meeting data, or microphone capture occurred.
+
+All 79 Python tests, repository shell checks, website checks, and four new native gate checks passed.
+Both active and generic unsigned ARM64 Mac builds passed. Core's 129 tests passed during the full run.
+The full suite still failed because the unchanged native audio test process crashed.
+Preserved the owner's Xcode project edit. Measured results and reproducible evidence are in specs/composure-automatic-detector.results.md.

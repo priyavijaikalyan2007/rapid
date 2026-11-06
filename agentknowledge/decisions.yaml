@@ -361,5 +361,19 @@
       "specs/composure-additional-models.results.md",
       "specs/composure-next-decision.md"
     ]
+  },
+  {
+    "id": "ADR-030",
+    "title": "Complete two constrained detector iterations without native adoption",
+    "date": "2026-11-06",
+    "status": "Accepted",
+    "context": "The owner authorized the bounded automatic-coaching experiment. Use pinned Qwen weights, a finite token trie, current-span references, and fixed reviewed wording without changing Core delivery rules or original expectations. Freeze the new 32-turn development trial and thresholds before inference. Iteration two delivered 12 target cues with zero wrong displayed cues but two unnecessary proposals withheld by cooldown. The original gate still passed only 10/17 Core checks, including 10/13 supported-or-silence cases. The two-iteration budget is complete. No model or detector enters the native application, and verification remains unused. Recommend pausing automatic feature development unless the owner separately chooses a reviewed-data and training investment. Do not treat the authored trial pass as proof of generalization, calibrated confidence, or reference-machine acceptance.",
+    "files": [
+      "specs/composure-automatic-detector.plan.md",
+      "specs/composure-automatic-detector.results.md",
+      "specs/composure-next-decision.md",
+      "scripts/composure_detector_policy.py",
+      "scripts/composure_token_choices.py"
+    ]
   }
 ]

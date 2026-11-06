@@ -69,7 +69,9 @@ A separate Debug dual-stream feasibility check remains available through a launc
 An optional Python MLX benchmark compares downloaded models using invented text and Core cue replay.
 Its dependencies and weights remain separate from the application. No downloaded candidate passed the adoption gate on 5 November 2026.
 The latest comparison added Ministral and Granite. The current recommendation is to stop generic model searches at this checkpoint.
-See specs/composure-additional-models.results.md and specs/composure-next-decision.md for evidence and the proposed next gate.
+The subsequent two-iteration constrained detector experiment also failed the original quality gate on 6 November 2026.
+Its finite-output contract passed, but intervention judgment remained unreliable. No experimental detector entered the native application.
+See specs/composure-automatic-detector.results.md and specs/composure-next-decision.md for evidence and the next decision.
 
 ## Development prerequisites
 

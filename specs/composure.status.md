@@ -551,3 +551,24 @@ All 54 Python tests and 37 Bats checks passed. Core's 129 tests passed in the fu
 Four focused Core replays completed every case and failed quality checks as recorded.
 Full native validation remains open because the unchanged audio test process again exited with signal 5.
 No real conversation, microphone session, reference-machine test, or owner Xcode project edit entered this work.
+
+## Bounded automatic detector experiment on 6 November 2026
+
+The owner authorized the proposed bounded experiment. Completed both permitted policy iterations using the existing Qwen3.5-4B weights.
+Added current-span references, a finite token catalog, strict independent parsing, and a replay of frozen timed invented conversations.
+The prototype covers unclear criteria, missing decisions, and unsupported certainty. Other cue types remain outside its scope.
+
+All 98 scored replies passed the output contract. The second conversation trial delivered 12/12 target cues and no wrong cues.
+It still proposed two unnecessary cues that Core withheld. The trial's post-issue quiet turns fall inside cooldown.
+The original regression gate passed only 10/17 Core checks, including 10/13 supported-or-silence cases.
+Wrong early advice still blocked a needed later cue. The production gate remains unmet and verification remains unused.
+The [results](composure-automatic-detector.results.md) distinguish the restricted delivery pass from failed original coverage.
+
+The two-iteration budget is complete. Do not continue prompt tuning or integrate this detector under that budget.
+Recommended pausing automatic feature development unless the owner chooses a separate reviewed-data and task-specific training effort.
+The automatic, always-on goal remains required. No manual-help pivot or training run occurred.
+
+All 79 Python tests passed, along with repository shell checks, website checks, and four new native gate checks.
+Both active and generic unsigned ARM64 Mac builds passed. Core's 129 tests passed in the full run.
+Full native validation remains open because the unchanged audio-test process still crashes.
+No real audio capture, reference-machine acceptance, application model change, or owner Xcode project edit occurred.

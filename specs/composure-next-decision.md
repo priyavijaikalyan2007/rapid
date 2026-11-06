@@ -20,6 +20,20 @@ The [completed comparison](composure-additional-models.results.md) passed no can
 Ministral matched Qwen's 14/17 direct Core score. Granite reached 10/17 in evidence mode.
 The next recommendation therefore moves to diagnosis and a bounded automatic-coaching experiment.
 
+## Completed bounded experiment on 6 November 2026
+
+The owner authorized the two-iteration experiment. It is now complete.
+The [results](composure-automatic-detector.results.md) show valid finite output in all 98 scored requests.
+The final new conversation trial displayed all 12 target cues and no wrong cues, with two unnecessary proposals withheld.
+However, the original gate passed only 10/17 Core checks, or 10/13 after separately identifying unsupported expected actions.
+The detector still confused factual feedback with unsupported certainty and blocked later useful advice.
+
+Do not integrate this detector or continue prompt iterations under the completed budget.
+The recommendation is to pause automatic feature development unless the owner chooses a separate reviewed-data and training investment.
+Such an investment needs an explicit budget, calibration data, and independent evaluation, with no guarantee of success.
+If that investment is outside the intended budget, stopping Composure is the recommended decision.
+The automatic goal remains unchanged. Manual help requests are not an alternative product path.
+
 ## What the results establish
 
 The frozen cases test action choice, deliberate silence, bounded wording, and delivery through Composure's cue rules.
@@ -33,10 +47,10 @@ The current system also lacks verified speaker attribution on its audio routes.
 Changing the text model cannot by itself supply missing speaker evidence or establish useful timing.
 These are product and pipeline risks as well as model risks.
 
-## Recommended next experiment
+## Rationale for the completed experiment
 
-If neither new candidate passes, stop further generic model searches and prompt tuning at this checkpoint.
-Audit the remaining failures before deciding what to train or redesign.
+Neither new candidate passed, so further generic model searches stopped at this checkpoint.
+The completed experiment audited the remaining failures before considering training or redesign.
 Distinguish wrong detection from unclear speaker evidence, debatable action labels, unsuitable wording, and delivery suppression.
 Preserve existing regression expectations. Record disputed cases separately instead of changing labels to obtain a pass.
 
@@ -46,7 +60,7 @@ Select evidence spans from supplied text rather than accepting arbitrary rewritt
 This can address some formatting failures. It cannot establish correct issue detection or useful timing.
 Keep any classifier scores untrusted until a separate calibration set supports an intervention threshold.
 
-Then test a smaller set of clearly defined automatic interventions.
+The experiment tested a smaller set of clearly defined automatic interventions.
 The coach still observes an explicitly started session and decides when to display a cue without a manual help request.
 A narrower intervention set reduces the number of distinctions the detector must make while preserving automatic operation.
 The useful intervention set must follow the audit and a separate evaluation. No current cue type is assumed ready.
@@ -55,7 +69,7 @@ Evaluate verified speech-source evidence where advice depends on who spoke.
 Microphone and application streams alone do not prove speaker identity on unverified speaker routes.
 Use route validation and bounded evidence rules before permitting speaker-dependent advice.
 Before a real listening trial, resolve the current native audio-test crash and verify the required audio route.
-This is a proposed next experiment. No new detector, training run, speaker promise, or product scope changed in this checkpoint.
+The detector remains an optional developer experiment. No native detector, training run, speaker promise, or release scope changed.
 
 ## Proposed bounded usefulness trial
 

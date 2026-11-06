@@ -293,5 +293,15 @@
       "ComposureEvidencePrototype",
       "ComposureLocalModelBenchmark"
     ]
+  },
+  {
+    "name": "ConstrainedDetection",
+    "table": null,
+    "file": "scripts/composure_detector_policy.py",
+    "description": "Closed issue, current span index or null, and one of three uncalibrated model-selected confidence values. Evidence is resolved from application-supplied current spans. Exact provenance and valid output do not prove the issue judgment.",
+    "related": [
+      "ComposureConstrainedDetector",
+      "ComposureIssueObservation"
+    ]
   }
 ]

@@ -390,6 +390,38 @@ Select an unused report path. Replay it through Core using `COMPOSURE_BENCHMARK_
 An exact quote establishes text provenance, not correct interpretation. Keep the separate verification set unused until development passes.
 The prototype does not change the application's model or start capture.
 
+### Optional constrained detector experiment
+
+The benchmark supports `--mode constrained` for three automatic cue types and fixed reviewed wording.
+It selects exact current-speech span references through a finite token catalog. No native model integration is included.
+The two-iteration experiment failed the original quality gate. Read the [results](../../specs/composure-automatic-detector.results.md) first.
+
+1. Run the frozen invented conversation trial using verified local weights.
+
+   ```sh
+   local/composure-benchmark/venv/bin/python scripts/composure_model_benchmark.py \
+       --fixtures specs/composure-automatic-detector.fixtures.json \
+       --model-dir local/composure-benchmark/models/qwen3.5-4b \
+       --model-id qwen3.5-4b --mode constrained \
+       --output local/composure-benchmark/qwen-detector-new.json
+   ```
+
+2. Replay the report through Core's actual delivery rules.
+
+   ```sh
+   COMPOSURE_DETECTOR_FIXTURES="$PWD/specs/composure-automatic-detector.fixtures.json" \
+   COMPOSURE_DETECTOR_REPORT="$PWD/local/composure-benchmark/qwen-detector-new.json" \
+   COMPOSURE_DETECTOR_REPLAY_OUTPUT="$PWD/local/composure-benchmark/qwen-detector-new-core.json" \
+   DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcrun swift test \
+       --package-path src/composure/Packages/ComposureCore \
+       --scratch-path src/composure/build/Core --enable-code-coverage \
+       --filter AutomaticDetectorReplayTests
+   ```
+
+Select unused output paths. The replay refuses to overwrite its outcome file.
+Passing this restricted development trial does not pass the original product gate or establish real-call usefulness.
+Reports retain invented content. Never pass real meeting text to these developer tools.
+
 ## Development Mac audio check
 
 Use the Composure Mac scheme in Debug configuration with the launch argument `--development-audio-check`.

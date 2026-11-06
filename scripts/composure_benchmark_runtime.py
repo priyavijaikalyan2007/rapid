@@ -76,16 +76,18 @@ class MLXBenchmarkRuntime:
             self._warmup_status = "deadlineExceeded"
         self._warmup_seconds = time.monotonic() - started
 
-    def generate(self, policy: str, prompt: str) -> str:
+    def generate(self, policy: str, prompt: str, *, allowed_replies: list[str] | None = None) -> str:
         """Create a fresh request and cache. The stream checks a cooperative six-second deadline."""
         rendered = render_prompt(self._tokenizer, policy, prompt, reply_prefix=self._reply_prefix)
         if len(self._tokenizer.encode(rendered, add_special_tokens=False)) > 2048:
             raise ValueError("Prompt exceeds its token budget.")
         parts = [self._reply_prefix]
         byte_count = len(self._reply_prefix.encode("utf-8"))
+        processors = [self._constraint(allowed_replies)] if allowed_replies is not None else None
         started = time.monotonic()
         stream = self._stream_generate(self._model, self._tokenizer, rendered, max_tokens=192,
-                                        sampler=self._sampler, max_kv_size=4096, prefill_step_size=512)
+                                        sampler=self._sampler, max_kv_size=4096, prefill_step_size=512,
+                                        logits_processors=processors)
         try:
             for part in stream:
                 if time.monotonic() - started > 6:
@@ -99,6 +101,15 @@ class MLXBenchmarkRuntime:
             self._mx.clear_cache()
         return "".join(parts)
 
+    def _constraint(self, choices: list[str]):
+        """Mask unapproved tokens before sampling. Never repair text after generation."""
+        from composure_token_choices import TokenChoices
+
+        if self._reply_prefix or any(type(text) is not str or len(text.encode('utf-8')) > 256 for text in choices):
+            raise ValueError("Invalid constrained response catalog.")
+        sequences = [self._tokenizer.encode(text, add_special_tokens=False) for text in choices]
+        return TokenChoices(sequences, list(self._tokenizer.eos_token_ids)).processor(self._mx)
+
     def metrics(self) -> dict:
         """Report measured prototype memory and versions without model requests or application data."""
         packages = ("mlx", "mlx-lm", "transformers", "huggingface-hub")
@@ -108,6 +119,6 @@ class MLXBenchmarkRuntime:
                 "warmupStatus": self._warmup_status, "mlxPeakBytes": self._mx.get_peak_memory(),
                 "processPeakBytes": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
                 "maxOutputTokens": 192, "maxInputTokens": 2048, "temperature": 0.0,
-                "requestedThinking": False, "adapterVersion": 5, "replyPrefix": self._reply_prefix,
+                "requestedThinking": False, "adapterVersion": 6, "replyPrefix": self._reply_prefix,
                 "tokenizerOptions": self._tokenizer_options,
                 "memoryLimitBytes": 16 * 1024 ** 3}

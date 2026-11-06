@@ -10,6 +10,12 @@ Created: 2026
 
 # Changelog
 
+## 6 November 2026
+
+### Added
+
+- Added finite-output automatic detector evaluation and frozen timed conversations. Both iterations failed the original coaching-quality gate.
+
 ## 5 November 2026
 
 ### Added
