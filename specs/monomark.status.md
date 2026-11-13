@@ -16,6 +16,9 @@ The owner requested a fast, read-only monospace Markdown viewer, primarily for m
 iPhone and iPad are secondary targets, ideally sharing rendering features.
 The owner confirmed one left sidebar with Files, Contents, and Links tabs.
 MonoMark replaces the earlier candidate name MacDownMono.
+The owner also requires a switchable window mode and full-screen reading limited to the current display.
+The brief defines proposed shortcuts, Escape precedence, printing, focus-aware scrolling, and horizontal panning.
+Multi-display and keyboard acceptance checks remain planned until an application prototype exists.
 
 The [product brief](monomark.product.md) records requirements, proposed behavior, architecture tradeoffs, and a delivery sequence.
 The renderer recommendation remains provisional until a bounded prototype measures fidelity and resource use.

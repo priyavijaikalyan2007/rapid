@@ -39,6 +39,8 @@ The main area displays one rendered document. The app does not edit Markdown fil
 | Typography | Configure the monospace font and sizes for headings, body text, and other text elements. |
 | Rendering | Support LaTeX-style math, Mermaid diagrams, highlighted code, emoji, images, and complex Markdown. |
 | Platforms | Prioritize macOS. Preserve a path to comparable iPhone and iPad behavior. |
+| Window modes | Support both a resizable window and full-screen reading on the window's current display, with switching between modes. |
+| Keyboard and pointer | Provide deliberate shortcuts for opening, closing, printing, zooming, panning, scrolling, and navigation. |
 
 ## Proposed reading behavior
 
@@ -84,6 +86,104 @@ Resolve local paths relative to the current file. Decode and normalize paths bef
 Check symlink destinations as well as textual paths. Never treat an external web page as a trusted local document.
 Hover exposes a small action popover on Mac. Keyboard focus and context menus expose equivalent actions.
 On touch devices, use a long-press menu. Hover must not be the only way to reach an action.
+
+## Window modes and multiple displays
+
+Both window mode and single-display full-screen mode are required. Full screen applies only to the active document window.
+Enter full screen on the display that currently contains that window, even when the pointer is on another display.
+If the window spans displays, use the display containing the largest part of the window.
+Do not span displays, blank other displays, create mirrored document windows, or change the modes of other MonoMark windows.
+In an extended desktop, other displays must remain available for unrelated applications and windows.
+System-mirrored displays share a desktop. MonoMark must not alter that system configuration.
+
+Provide visible Enter Full Screen and Exit Full Screen commands in the View menu.
+Keep an exit control discoverable when window chrome is hidden. Full-screen reading must retain access to the sidebar.
+Switch modes without reopening the file or losing reading position, selection, zoom, or sidebar state.
+On exit, restore the previous window size and position within the available display area.
+If a display disconnects, recover the document on an available display and keep the exit command reachable.
+Opening another file must not force window mode or full-screen mode on other windows.
+
+Use native window behavior where it meets this contract.
+Apple provides a per-window [full-screen toggle](https://developer.apple.com/documentation/appkit/nswindow/togglefullscreen(_:)).
+Validate behavior under both settings for “Displays have separate Spaces,” as well as mirrored and extended display arrangements.
+Do not change system display or Spaces settings to satisfy this requirement.
+If native full screen cannot preserve other displays, evaluate a screen-limited presentation window as the fallback.
+The mechanism remains provisional until multi-display testing proves the required behavior.
+
+## Keyboard, scrolling, and panning contract
+
+Keyboard access is required from the first prototype. The following bindings are proposed defaults for macOS.
+Use native menu commands and show their shortcuts in the menu.
+Common commands follow [Apple's keyboard conventions](https://support.apple.com/en-us/102650), with app-specific additions for viewer navigation.
+
+| Action | Proposed shortcut | Scope and result |
+| --- | --- | --- |
+| Open file | Command-O | Open the native file dialog for the active window. |
+| Open folder | Shift-Command-O | Open the native folder dialog. |
+| Close window | Command-W | Close the active document window without quitting the app. |
+| Close or dismiss | Escape | Apply the ordered rules below, once per key press. |
+| Print | Command-P | Open the native print dialog for the rendered document. |
+| Enter or exit full screen | Control-Command-F | Toggle only the active window on its current display. |
+| Zoom in | Command-Plus, with Command-Equals as an alias | Enlarge the document view while retaining the reading anchor. |
+| Zoom out | Command-Minus | Reduce document zoom within defined limits. |
+| Actual size | Command-0 | Reset document zoom to 100 percent without resetting saved font preferences. |
+| Find | Command-F | Show document search and focus its field. |
+| Next or previous match | Command-G or Shift-Command-G | Move through document search results. |
+| Previous or next location | Command-[ or Command-] | Navigate document and fragment history. |
+| Toggle sidebar | Option-Command-S | Show or hide the sidebar without changing the document. |
+| Select sidebar tab | Command-1, Command-2, Command-3 | Show and focus Files, Contents, or Links, respectively. |
+| Copy or select all | Command-C or Command-A | Act within the focused text field, document, or sidebar. |
+| Settings | Command-Comma | Open native settings. |
+| Quit | Command-Q | Use the normal application quit command. |
+
+Escape performs the first applicable action in this order:
+
+1. Cancel the active system dialog, sheet, or input composition through its native handling.
+2. Dismiss the foremost temporary interaction, such as a context menu, link popover, or search bar.
+3. Exit full-screen mode and retain the open document in its restored window.
+4. Close the active document window when it is already in window mode.
+
+An empty start window does not close through Escape. Escape never quits the application.
+One press must not dismiss a popover and also close the document. Ignore key repeat for Escape-driven window closure.
+After dismissing an interaction, restore focus to its invoking control or the document.
+
+| Interaction | Required behavior |
+| --- | --- |
+| Vertical scrolling | Mouse wheel, trackpad, and Up or Down Arrow scroll the focused reading viewport. |
+| Page scrolling | Page Up or Page Down and Space or Shift-Space move by a viewport. |
+| Document boundaries | Command-Up Arrow or Command-Down Arrow moves to the document start or end when the reading viewport owns focus. |
+| Horizontal panning | Two-axis trackpad gestures, horizontal wheel input, and Shift-wheel move wide tables, code, and diagrams. |
+| Keyboard panning | Left or Right Arrow pans a focused overflow viewport. A wide object must be keyboard-focusable. |
+| Sidebar navigation | Arrow keys move among entries or expand and collapse a tree. Return activates the selected target. |
+| Focus navigation | Tab and Shift-Tab follow platform keyboard-navigation settings and retain visible focus. |
+| Text selection | Dragging selects document text. Panning must not replace selection or require a drag-only gesture. |
+
+Scrolling keys must respect focus. Space activates a focused button, and arrow keys edit text within a search field.
+Text fields, menus, trees, and accessibility interactions must receive their normal keys before document scrolling handles them.
+An event must trigger only one action across native controls and the rendered document.
+Bound zoom and pan values. Keep small documents readable, and prevent movement beyond an object's usable viewport.
+Avoid idle timers or continuous work merely to support keyboard handling, scrolling, or panning.
+On iPad, preserve applicable commands when a hardware keyboard is attached and provide discoverable touch equivalents.
+
+Printing uses rendered content and excludes application chrome, sidebars, hover controls, and error debugging details.
+Complete required deferred local diagrams and images for the print layout, without silently loading blocked remote resources.
+Use readable page breaks and handle wide content without clipping. Keep source files and on-screen zoom unchanged.
+Canceling printing must retain the current document, reading position, and window mode.
+
+## Window and input acceptance checks
+
+These checks define future validation. No application currently exists to execute them.
+
+- Switch repeatedly between window mode and full screen while retaining the document, reading anchor, zoom, and sidebar state.
+- Enter full screen on either of two displays, including when the pointer is on the other display.
+- On an extended desktop, keep other displays usable and other document windows unchanged under both Spaces settings.
+- Recover from display disconnection, display scaling changes, and interrupted full-screen transitions.
+- Verify Escape precedence in dialogs, search, link popovers, full screen, and a normal document window.
+- Verify that a held Escape key cannot cascade from dismissal into document closure.
+- Open, navigate, search, copy, zoom, pan, print, and close through keyboard commands without duplicate actions.
+- Preserve text-field editing, tree navigation, visible focus, VoiceOver interaction, and non-US keyboard access.
+- Print long documents containing wide tables, highlighted code, local images, math, and deferred Mermaid diagrams.
+- Test trackpads, a mouse wheel, a keyboard without dedicated page keys, and an iPad hardware keyboard.
 
 ## Typography and Markdown compatibility
 
@@ -169,7 +269,7 @@ Do not hide slow diagram completion behind a fast plain-text measurement.
 4. Build a bounded rendering prototype that covers text, math, tables, code, Mermaid, and images.
 5. Measure fidelity, startup, switching, combined process memory, idle CPU, and scroll behavior.
 6. Select the rendering architecture and freeze performance thresholds from that evidence.
-7. Implement the Mac viewer, folder navigation, object outline, links, preferences, and file lifecycle through failing tests.
+7. Implement the Mac viewer and navigation through failing tests, including window modes, input handling, printing, preferences, and file lifecycle.
 8. Adapt the shared renderer and document logic to iPad and iPhone, and record any feature differences.
 
 Mobile layout should adapt navigation rather than duplicate the desktop sidebar at a narrow width.

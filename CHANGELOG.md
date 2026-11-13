@@ -15,6 +15,7 @@ Created: 2026
 ### Added
 
 - Recorded MonoMark viewer requirements and a proposed design. Application implementation remains planned.
+- Defined MonoMark single-display full screen, window switching, keyboard shortcuts, printing, scrolling, and panning requirements.
 
 ## 6 November 2026
 

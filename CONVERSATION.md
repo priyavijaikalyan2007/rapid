@@ -897,3 +897,19 @@ Kept math fonts, Markdown extensions, folder access, mobile layout, and combined
 The MonoReader listing exposed no usable interface details through automated access. The reference description remains owner-supplied.
 No application implementation, platform floor, performance threshold, or dependency selection is claimed as complete.
 Repository validation passed: the profile check, 79 Python tests, and 37 shell contract checks.
+
+## MonoMark window and keyboard refinements on 13 November 2026
+
+### User request
+
+> ok. some additional refinements: 1) the app shouldl support a "single screen full screen view" - MarkdownView is a bad example. Their full screen view tries to bee fullscreen on all windows and its either fullscreen or nothing. Our app shoudl support both a "full screen on this screen" view and a "window mode" with the ability to swtich. 2) Pay attention to keyboard shortcuts such as open, Esc for close, print, zoom in / zoom out, pan , scroll etc.
+
+### Output summary
+
+Extended the product brief with per-window full screen on the current display and a resizable window mode.
+Required other displays to remain usable and previous window geometry and reading state to survive switching.
+Added proposed Mac shortcuts and Escape rules that dismiss temporary UI, exit full screen, or close a window in that order.
+Specified focus-aware scrolling, horizontal panning, native printing, and multi-display and keyboard acceptance checks.
+The native full-screen mechanism and any fallback still require prototype validation under both Spaces settings.
+These changes define planned behavior. No application implementation or runtime validation is claimed.
+The profile check, 79 Python tests, 37 shell checks, specification links, history JSON, and whitespace validation passed.
