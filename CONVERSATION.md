@@ -870,3 +870,30 @@ All 79 Python tests, repository shell checks, website checks, and four new nativ
 Both active and generic unsigned ARM64 Mac builds passed. Core's 129 tests passed during the full run.
 The full suite still failed because the unchanged native audio test process crashed.
 Preserved the owner's Xcode project edit. Measured results and reproducible evidence are in specs/composure-automatic-detector.results.md.
+
+## MonoMark product definition on 13 November 2026
+
+### User request
+
+> Ok. I want to work on a new app. This is going to be a very fast, very simple Markdown Viewer for MacOS. It's inpiration is the excellent MonoReader "https://apps.microsoft.com/detail/9nhr7vv7zwkt?hl=en-US&gl=US" app. It does only one thing: display rendered Markdown files in a monospace font. It shows a left side bar for the table of contents. It is fast, simple and convenient. I want to build that but with some variations. 1) The right sidebar has 2 tabs: a] the file view - which shows all Markdown files in a tree structure within a folder if it is started in a folder. selecting a different markdown file switches what file is displayed. b] the toc view which shows the table of contents. crucially, it should also include figures, tables etc as a sub-elements in the toc so it is easy to jump to them. 2) the monospace font and size for diffrent elements (headings, body etc.) are configurable. 3) it is only a viewer; not an editor. 4) the focus is on speed, memory/cpu footprint minimization and otpimization for viewing clarity 5) it should support latex, mermaid js diagrams, syntax highlighting for code sections, emojis renderings, images and such so that I can view fairly complex markdown files in it 6) Links/sources for any embedded links should be avialble in a separate 3rd left sidebar tab showing "links". This allows me to navigate. HOvering over a link should show me a few options: navigate to it [browser if external, in-viewer if internal or reference to another file in the folder], copy it. MacOS is our primary target with iOS being a secondary target. For iOS a smaller subset of features is fine if we need to but ideally it would be the same experience (iOS & iPadOS).
+
+### User clarifications
+
+> One sidebar on the left
+
+> MacDownMono might be a good name?
+
+After the agent identified the existing MacDown editor, the owner replied:
+
+> oh then lets rename. how about MonoMark?
+
+### Output summary
+
+Used MonoMark as the working product name and recorded the confirmed left sidebar and three tabs.
+Created specs/monomark.product.md and specs/monomark.status.md, and registered them in the specification index.
+Separated confirmed requirements from proposed caption rules, navigation, privacy defaults, architecture, and performance acceptance.
+Recommended a native shell and bundled WebKit rendering as a hypothesis for a bounded prototype.
+Kept math fonts, Markdown extensions, folder access, mobile layout, and combined renderer resource costs explicit.
+The MonoReader listing exposed no usable interface details through automated access. The reference description remains owner-supplied.
+No application implementation, platform floor, performance threshold, or dependency selection is claimed as complete.
+Repository validation passed: the profile check, 79 Python tests, and 37 shell contract checks.

@@ -10,6 +10,12 @@ Created: 2026
 
 # Changelog
 
+## 13 November 2026
+
+### Added
+
+- Recorded MonoMark viewer requirements and a proposed design. Application implementation remains planned.
+
 ## 6 November 2026
 
 ### Added
