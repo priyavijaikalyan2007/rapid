@@ -118,37 +118,43 @@
       "number": 19,
       "id": 6388332577,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/19",
-      "progress": "implemented; verification recorded separately"
+      "progress": "closed",
+      "commit": "639ab63"
     },
     "annotation-selection": {
       "number": 20,
       "id": 6388332883,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/20",
-      "progress": "implemented; verification recorded separately"
+      "progress": "needs verification",
+      "commit": "639ab63"
     },
     "annotation-sidebar": {
       "number": 21,
       "id": 6388333171,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/21",
-      "progress": "implemented; verification recorded separately"
+      "progress": "closed",
+      "commit": "639ab63"
     },
     "notes-local": {
       "number": 22,
       "id": 6388333375,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/22",
-      "progress": "implemented; verification recorded separately"
+      "progress": "closed",
+      "commit": "639ab63"
     },
     "export-section": {
       "number": 23,
       "id": 6388333638,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/23",
-      "progress": "implemented; verification recorded separately"
+      "progress": "closed",
+      "commit": "639ab63"
     },
     "export-file": {
       "number": 24,
       "id": 6388333873,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/24",
-      "progress": "implemented; verification recorded separately"
+      "progress": "needs verification",
+      "commit": "639ab63"
     },
     "palette-controls": {
       "number": 25,

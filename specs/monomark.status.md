@@ -27,7 +27,7 @@ The [native smoke evidence](monomark.smoke.json) now verifies dark rendering, ar
 Visual inspection confirms that exported diagram labels and connector colors remain readable in dark mode.
 The regression suite uses real Mermaid output and checks label text after sanitization.
 The current renderer suite passes 34 tests, with 98.60% line coverage for loaded renderer modules.
-The native suite passes 56 tests, with 96.78% line coverage including the autosave controller.
+The native core suite passes 56 tests, with 96.78% line coverage including the autosave controller.
 
 The synthetic [indexing evidence](monomark.benchmark.json) records about 487 ms for 10 MiB on this 64 GiB development host.
 The Node process RSS after that run was about 264 MB. This is not complete-app or reference-machine performance acceptance.
@@ -43,7 +43,7 @@ Physical devices, multiple physical displays, idle energy, and reference-machine
 The [application guide](../src/app/monomark/README.md) records explicit source, object, image, and print limits.
 Cross-viewport selection and very large single-table rendering need further acceptance work.
 The reader/copy/appearance checkpoint is committed and pushed as b9677e7.
-The following stage adds a native right inspector for highlights, comments, and reading notes.
+Annotation checkpoint 639ab63 is also committed and pushed. It adds a native right inspector for highlights, comments, and reading notes.
 Annotations and notes use a separate versioned SQLite store with stale-update protection.
 Coalesced note writes flush during normal document and application lifecycle changes.
 Native smoke and manual UI checks confirm visible highlights, comments, note editing, and recovery from local storage.

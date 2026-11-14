@@ -998,3 +998,6 @@ Physical mobile execution, signed sandbox export grants, extensive-edit anchor a
 Direct autosave-controller tests exposed a close-time race when another edit arrived during an active write.
 The flush now waits until the latest pending edit is durable. The reproducing regression fails before this fix and passes after it.
 The current native suite passes 56 tests at 96.78% line coverage. The renderer passes 34 tests at 98.60% for loaded modules.
+
+Committed and pushed annotation checkpoint 639ab63. Ten task or bug issues are now closed across the two checkpoints.
+The epic separates implemented behavior from pending native acceptance. Palette customization remains planned.
