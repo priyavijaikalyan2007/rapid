@@ -62,32 +62,75 @@ struct ReaderSettings: View
             {
                 Toggle("Band columns instead of rows", isOn: $session.preferences.columnBanding)
             }
-            Section
+            Section("History")
             {
-                Button("Use These Settings as Defaults")
-                {
-                    session.saveDefaults()
-                }
-                Button("Reset Document Appearance")
-                {
-                    session.preferences = ReaderPreferences()
-                }
                 Button("Clear Viewing History", role: .destructive)
                 {
                     session.clearHistory()
                 }
-                Button("Done")
-                {
-                    session.showSettings = false
-                }
+                Text("Highlights, comments, and reading notes are kept separately.")
+                    .font(.caption).foregroundStyle(.secondary)
             }
         }
         .formStyle(.grouped)
-        .frame(minWidth: 360, idealWidth: 440, minHeight: 500)
+        .safeAreaInset(edge: .bottom)
+        {
+            VStack(spacing: 0)
+            {
+                Divider()
+                ViewThatFits(in: .horizontal)
+                {
+                    HStack
+                    { reset
+                        defaults
+                        Spacer()
+                        done
+                    }
+                    VStack
+                    { HStack
+                    { reset
+                        defaults
+                    }
+                        done
+                    }
+                }.padding(12)
+            }.background(.regularMaterial)
+        }
+        #if os(macOS)
+        .frame(minWidth: 680, idealWidth: 720, minHeight: 560)
+        #else
+        .frame(minWidth: 320, minHeight: 500)
+        #endif
         .onChange(of: session.preferences)
         { _, _ in
             session.updatePreferences()
         }
+    }
+
+    private var reset: some View
+    {
+        Button("Reset Appearance")
+        {
+            session.preferences = ReaderPreferences()
+        }
+        .help("Reset this document's appearance")
+    }
+
+    private var defaults: some View
+    {
+        Button("Use as Defaults")
+        {
+            session.saveDefaults()
+        }
+        .help("Use these settings for documents without saved preferences")
+    }
+
+    private var done: some View
+    {
+        Button("Done")
+        {
+            session.showSettings = false
+        }.keyboardShortcut(.defaultAction)
     }
 
     private func font(_ title: String, value: Binding<String>) -> some View

@@ -70,3 +70,17 @@ test('a stale preferred offset never resolves two identical quote contexts', () 
     const mark = { id: 'one', color: 'pink', anchors: [{ blockID: 'b', quote: 'Same', prefix: '', suffix: '', start: 0 }] };
     assert.deepEqual(renderAnnotations(window, window.document.querySelector('main'), [mark]).unresolved, ['one']);
 });
+
+test('annotation navigation scrolls to the marked line within a block', async () => {
+    const { scrollToAnnotation } = await import('../src/annotations.mjs');
+    const window = fixture();
+    let position;
+    window.scrollTo = (x, y) => { position = y; };
+    window.HTMLElement.prototype.getBoundingClientRect = () => ({ top: 600 });
+    const root = window.document.querySelector('main');
+    const mark = { id: 'one', color: 'blue', anchors: [{ blockID: 'b', quote: 'chosen sentence', prefix: 'Before a ', suffix: ' after.', start: 9 }] };
+    renderAnnotations(window, root, [mark]);
+    assert.equal(scrollToAnnotation(window, root, 'one'), true);
+    assert.ok(position > 0 && position < 600);
+    assert.equal(scrollToAnnotation(window, root, 'missing'), false);
+});

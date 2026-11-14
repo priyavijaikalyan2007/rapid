@@ -77,3 +77,21 @@ Verify native interactions where the host permits. Multi-display and physical-de
 
 The prototype must report source bytes, block count, parse duration, first visible content, resident memory,
 and retained mounted blocks. These observations do not establish performance on an untested reference machine.
+
+## UX refinements from 14 November 2026
+
+Track the twelve owner requests as issues #30 through #41. Page layout uses feature #29 under epic #1.
+Use four independently verified implementation steps:
+
+1. Fix quote navigation, active file selection, copyable title paths, settings actions, and language highlighting.
+2. Add annotation expansion/search and native note search. Preserve all autosave and conflict behavior.
+3. Add installed-font choices and native About/Help content following CropPrint's conventions.
+4. Add paper preferences, estimated page progress, and bounded Pages/Pageless rendering.
+
+Files: update ReaderSession+Annotations, FolderRow, ReaderWindowController, ReaderSettings, ReaderPreferences,
+AnnotationController, AnnotationInspector, AnnotationRow, ReaderView, AppDelegate, host.mjs, annotations.mjs,
+reader.css, and native/renderer tests. Add DocumentPresentation, InstalledFonts, ReaderInformation, NativeNotesEditor,
+TextSearch, PaperLayout, syntax.mjs, and page-layout.mjs as focused types or functions. Register native sources in Xcode.
+Keep navigation, search ranges, and page calculations in tested functions or models. Native adapters own platform APIs.
+No new GoF pattern is required. Existing observable state and small functions suffice.
+Keep document rendering bounded. Never change Markdown while navigating, changing fonts, searching, or changing layout.

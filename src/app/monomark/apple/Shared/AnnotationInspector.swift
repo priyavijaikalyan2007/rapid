@@ -106,10 +106,7 @@ struct AnnotationInspector: View
                                 remove: controller.remove
                             )
                             {
-                                if let anchor = annotation.anchors.first
-                                {
-                                    session.command(["type": "find", "query": anchor.quote])
-                                }
+                                session.navigateAnnotation(annotation)
                             }.id(annotation.id)
                         }
                     }

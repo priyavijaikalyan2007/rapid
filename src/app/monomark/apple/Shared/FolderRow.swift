@@ -54,6 +54,24 @@ struct FolderRow: View
                     }
                 }
             }
+            .task(id: session.url)
+            {
+                if DocumentPresentation.reveals(entry.url, document: session.url)
+                {
+                    expanded = true
+                    do
+                    {
+                        children = try await Task.detached
+                        {
+                            try FolderEntry.children(of: entry.url)
+                        }.value
+                    }
+                    catch
+                    {
+                        session.message = "This folder cannot be listed. Check its permissions."
+                    }
+                }
+            }
         }
         else
         {
@@ -62,10 +80,26 @@ struct FolderRow: View
                 session.open(entry.url, folder: session.root)
             }
             label: {
-                Label(entry.title, systemImage: "doc.text")
+                HStack
+                {
+                    Label(entry.title, systemImage: "doc.text")
+                    Spacer()
+                    if DocumentPresentation.isSelected(session.url, file: entry.url)
+                    {
+                        Image(systemName: "checkmark").accessibilityLabel("Current document")
+                    }
+                }
+                .padding(4)
+                .background(
+                    DocumentPresentation.isSelected(session.url, file: entry.url) ? Color.accentColor
+                        .opacity(0.18) : Color.clear,
+                    in: RoundedRectangle(cornerRadius: 4)
+                )
+                .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
             .help(entry.url.path)
+            .accessibilityValue(DocumentPresentation.isSelected(session.url, file: entry.url) ? "Current document" : "")
             .contextMenu
             {
                 Button("Open in New Tab")

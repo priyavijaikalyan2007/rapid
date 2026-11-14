@@ -82,6 +82,7 @@ function decorate(window, match, annotation)
             range.setEnd(node, end);
             const mark = window.document.createElement('mark');
             mark.dataset.annotation = annotation.id;
+            mark.tabIndex = 0;
             mark.dataset.color = colors.has(annotation.color) ? annotation.color : 'yellow';
             mark.title = annotation.comment || 'Highlight';
             range.surroundContents(mark);
@@ -110,4 +111,13 @@ export function renderAnnotations(window, root, annotations)
         result.attached.push(annotation.id);
     }
     return result;
+}
+
+/** Use the first marked line rather than the beginning of a potentially long paragraph. */
+export function scrollToAnnotation(window, root, id)
+{
+    const mark = [...root.querySelectorAll('mark[data-annotation]')].find(node => node.dataset.annotation === id);
+    if (!mark) { return false; }
+    window.scrollTo(0, Math.max(0, mark.getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.25));
+    return true;
 }

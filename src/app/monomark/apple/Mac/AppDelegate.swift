@@ -313,6 +313,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         current?.session.loadRenderer()
     }
 
+    @objc func copyDocumentPath(_ sender: Any?)
+    {
+        current?.copyDocumentPath(sender)
+    }
+
     @objc func openRecent(_ sender: NSMenuItem)
     {
         if let record = sender.representedObject as? ReadingState
@@ -369,6 +374,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         file.addItem(recent)
         item("New Tab", #selector(newTab(_:)), key: "t", on: file)
         item("Close", #selector(NSWindow.performClose(_:)), key: "w", target: nil, on: file)
+        item("Copy Document Path", #selector(copyDocumentPath(_:)), on: file)
         item("Print…", #selector(printReader(_:)), key: "p", on: file)
         item("Export Notes and Annotations to This File", #selector(exportReadingData(_:)), on: file)
         item("Export a Copy…", #selector(exportReadingCopy(_:)), on: file)

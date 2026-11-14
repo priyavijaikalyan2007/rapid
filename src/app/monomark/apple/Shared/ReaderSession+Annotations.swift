@@ -36,4 +36,9 @@ extension ReaderSession
     {
         command(["type": "annotations", "value": annotations.records.map(dictionary)])
     }
+
+    func navigateAnnotation(_ annotation: ReadingAnnotation)
+    {
+        command(["type": "annotation", "id": annotation.id])
+    }
 }

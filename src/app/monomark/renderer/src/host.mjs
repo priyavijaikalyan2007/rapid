@@ -11,7 +11,7 @@
 import { windowRange } from './viewport.mjs';
 import { sanitizeDocument, sanitizeDiagram, localImageURL } from './sanitizer.mjs';
 import { installArtifactActions, imageBounds } from './artifacts.mjs';
-import { captureSelection, renderAnnotations } from './annotations.mjs';
+import { captureSelection, renderAnnotations, scrollToAnnotation } from './annotations.mjs';
 
 const viewport = document.getElementById('monomark-document');
 const status = document.getElementById('monomark-status');
@@ -41,10 +41,12 @@ let copyOverlay;
 let appearance = 'system';
 let annotations = [];
 let selectionTimer;
+let pendingAnnotation;
 
 function decorateAnnotations()
 {
     emit('annotationStatus', renderAnnotations(window, viewport, annotations));
+    if (pendingAnnotation && scrollToAnnotation(window, viewport, pendingAnnotation)) { pendingAnnotation = null; }
 }
 
 function emit(type, payload = {})
@@ -147,12 +149,12 @@ async function enhance(element)
     for (const code of element.querySelectorAll('pre code[class*="language-"]'))
     {
         if (code.textContent.length > 100000) { continue; }
-        const { default: highlight } = await import('highlight.js/lib/common');
+        const { highlightSource } = await import('./syntax.mjs');
         const language = [...code.classList].find(name => name.startsWith('language-'))?.slice(9);
-        if (highlight.getLanguage(language))
-        {
-            code.innerHTML = sanitizeDocument(window, highlight.highlight(code.textContent, { language }).value);
-        }
+        const highlighted = highlightSource(code.textContent, language);
+        code.classList.add('hljs');
+        code.parentElement.dataset.language = highlighted.language;
+        code.innerHTML = sanitizeDocument(window, highlighted.html);
     }
     for (const diagram of element.querySelectorAll('[data-mermaid]'))
     {
@@ -219,6 +221,21 @@ function jump(id, offset = 0)
     requestRange(true);
 }
 
+function navigateAnnotation(id)
+{
+    pendingAnnotation = id;
+    if (scrollToAnnotation(window, viewport, id)) { pendingAnnotation = null; return; }
+    const annotation = annotations.find(item => item.id === id);
+    const anchor = annotation?.anchors[0];
+    if (!anchor) { return; }
+    if (metadata.some(block => block.id === anchor.blockID || block.blockID === anchor.blockID)) { jump(anchor.blockID); }
+    else
+    {
+        emit('status', { message: 'The saved location changed. Searching for the quotation.' });
+        worker?.postMessage({ type: 'find', query: anchor.quote, request: ++request });
+    }
+}
+
 function savePosition()
 {
     clearTimeout(positionTimer);
@@ -241,6 +258,7 @@ async function load(command)
     document.body.style.zoom = String(zoom);
     renderedEpoch = '';
     annotations = [];
+    pendingAnnotation = null;
     clearTimeout(positionTimer);
     worker?.terminate();
     metadata = [];
@@ -362,6 +380,7 @@ window.MonoMark = {
         }
         if (command.type === 'copyComplete') { copyOverlay?.remove(); copyOverlay = null; }
         if (command.type === 'jump') { jump(command.id); }
+        if (command.type === 'annotation') { navigateAnnotation(command.id); }
         if (command.type === 'find') { worker?.postMessage({ type: 'find', query: command.query, request: ++request }); }
         if (command.type === 'next') { nextMatch(command.direction || 1); }
         if (command.type === 'zoom')
@@ -402,6 +421,7 @@ document.addEventListener('click', event =>
     {
         event.preventDefault();
         emit('annotationSelected', { id: annotation.dataset.annotation });
+        navigateAnnotation(annotation.dataset.annotation);
         return;
     }
     const anchor = event.target.closest('a');
@@ -432,6 +452,12 @@ document.addEventListener('focusin', event =>
 });
 document.addEventListener('keydown', event =>
 {
+    const mark = event.target.closest('mark[data-annotation]');
+    if (mark && ['Enter', ' '].includes(event.key))
+    {
+        event.preventDefault();
+        mark.click();
+    }
     if (event.key === 'Escape' && !popover.hidden) { popover.hidden = true; event.stopPropagation(); event.preventDefault(); }
 });
 for (const [id, type] of [['monomark-open', 'navigate'], ['monomark-open-tab', 'navigate'], ['monomark-copy', 'copy']])

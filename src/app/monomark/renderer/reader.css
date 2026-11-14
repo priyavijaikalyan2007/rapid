@@ -45,3 +45,10 @@ mark[data-color="green"] { background: light-dark(#c9efbd, #294e26); }
 mark[data-color="blue"] { background: light-dark(#cce8ff, #254766); }
 mark[data-color="pink"] { background: light-dark(#ffd3e0, #682c43); }
 mark[data-color="purple"] { background: light-dark(#e6d5ff, #51326b); }
+/* Code languages share token roles while keeping keywords, classes, strings, and comments distinct. */
+pre code.hljs { padding: 0; background: transparent; }
+pre[data-language]::before { content: attr(data-language); display: block; margin-bottom: 8px; font-size: 0.75em; text-transform: uppercase; color: GrayText; }
+.hljs-keyword { font-weight: 600; }
+.hljs-type, .hljs-title.class_ { color: light-dark(#6f42c1, #d2a8ff); }
+.hljs-string { color: light-dark(#116329, #a5d6ff); }
+.hljs-comment { font-style: italic; }

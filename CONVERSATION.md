@@ -1001,3 +1001,16 @@ The current native suite passes 56 tests at 96.78% line coverage. The renderer p
 
 Committed and pushed annotation checkpoint 639ab63. Ten task or bug issues are now closed across the two checkpoints.
 The epic separates implemented behavior from pending native acceptance. Palette customization remains planned.
+
+## MonoMark UX refinements on 14 November 2026
+
+### User request
+
+> nice! some UX elements I noticed: 1) I should be able to click on an annnotation or highlight to jump to that annotated line. i know its brittle but that's ok. 2) when in folder view, teh open document should be highlighted in the Files view. 3) the path to the open document should be displayed in the title bar and should be "copyable" if I want to. 4) I don't like your button layout in the settings dialog? Shouldn't they be horizontal; why vertical? 5) syntax highlighting on code doesn't seem that good; I see obvious words like true/false highlighted but c# code, sql and java look the same? 6) each annotation or highlight appears to be a separate panel; if so, a few UX refinements: a] an inline toolbar at the top to expand all, collapse all panels, b] a new annotation panel is always expanded; c] clicking a panel expands it if it is collapsed; c] search of annotations is probably valuable 7) search in notes may be valuable? 8) I see you have chosen fixed fonts but my mac has several monospace fonts I prefer installed such as JetBrains Mono and Atkinson Hyperlegible. You should let me choose the font from teh system too. 9) Probably the About MonoMark dialog should show more than just the name. Example look at CropPrint for how we show build numbers, version numbers, copyrights etc. 10) We need lightweight help similar to cropprint - primarily dealing with annotations and comments and how they are stored etc; 11) It might be nice to have a "default paper size" that then is used to show how many "pages" are there nad which page we are on. This will be calculated and may not be precise but that's ok. 12) It might be also good to show a "print" vs "document" view similar to how Microsoft Office does it or a "Pages" vs "Pageless" view similar to how google docs does it. Basically, render in paged boxes vs "pageless" continuous view which is the current model. File the 12 items and categorize into bugs/features and link to the appropriate feature adn then continue working on this.
+
+> sorry ocntinue
+
+Filed all twelve items as issues #30–#41, categorized as five bugs and seven enhancements.
+Added page-layout feature #29 and native sub-issue links to the appropriate feature parents.
+
+First UX step adds saved-quote navigation, active file rows with ancestor expansion, title-bar path copying, a horizontal settings footer, and richer code token styling. Regression tests pass and the Mac targets compile.

@@ -61,10 +61,25 @@ final class ReaderWindowController: NSWindowController, NSWindowDelegate
             session.showFind = false
             return true
         }
-        session.titleChanged = { [weak window, weak application] title in
-            window?.title = title
+        session.titleChanged = { [weak window, weak session, weak application] _ in
+            if let file = session?.url
+            {
+                window?.title = DocumentPresentation.title(file)
+                window?.representedURL = file
+            }
             application?.saveTabs()
         }
+        let accessory = NSTitlebarAccessoryViewController()
+        let copyPath = NSButton(
+            image: NSImage(systemSymbolName: "doc.on.doc", accessibilityDescription: "Copy Document Path")!,
+            target: self,
+            action: #selector(copyDocumentPath(_:))
+        )
+        copyPath.frame = NSRect(x: 0, y: 0, width: 28, height: 24)
+        copyPath.toolTip = "Copy the full document path"
+        accessory.view = copyPath
+        accessory.layoutAttribute = .right
+        window.addTitlebarAccessoryViewController(accessory)
         session.openNewTab = { [weak self, weak application] file, folder in
             application?.createWindow(file: file, folder: folder, tabbedWith: self)
         }
@@ -76,6 +91,14 @@ final class ReaderWindowController: NSWindowController, NSWindowDelegate
     required init?(coder: NSCoder)
     {
         nil
+    }
+
+    @objc func copyDocumentPath(_ sender: Any?)
+    {
+        if let file = session.url
+        {
+            session.copy(file.path)
+        }
     }
 
     func togglePresentation()
