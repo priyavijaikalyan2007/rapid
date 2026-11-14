@@ -1,0 +1,23 @@
+{
+    "name": "monomark-renderer",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "test": "node --test --experimental-test-coverage test/*.test.mjs",
+        "build": "node build.mjs"
+    },
+    "dependencies": {
+        "dompurify": "3.4.17",
+        "highlight.js": "11.11.1",
+        "katex": "0.19.1",
+        "markdown-it": "15.0.3",
+        "markdown-it-emoji": "3.0.0",
+        "markdown-it-footnote": "4.0.0",
+        "mermaid": "12.3.0"
+    },
+    "devDependencies": {
+        "esbuild": "0.25.12",
+        "jsdom": "27.4.0"
+    }
+}

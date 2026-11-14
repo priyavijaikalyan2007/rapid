@@ -41,6 +41,7 @@ STUB
     run cat "$STYLE_CALL_LOG"
     [[ "$output" == *'--lint'* ]]
     [[ "$output" == *'src/composure'* ]]
+    [[ "$output" == *'src/app/monomark/apple'* ]]
     [[ "$output" == *'shfmt:-d '* ]]
     [[ "$output" != *'--fix'* ]]
 }

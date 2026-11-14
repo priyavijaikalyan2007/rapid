@@ -162,6 +162,42 @@ Keep Source state: planned explicit for absent paths. Do not enable future compo
 - SDK component: none
 - Deployment: native application
 
+### monomark-native
+
+- [x] Enabled
+- Source paths: src/app/monomark/apple, src/app/monomark/Package.swift
+- Source state: existing
+- Targets: apps
+- Languages: Swift
+- Platforms: macOS, iOS, iPadOS
+- SaaS client: no
+- SDK component: none
+- Deployment: native application
+
+### monomark-renderer
+
+- [x] Enabled
+- Source paths: src/app/monomark/renderer
+- Source state: existing
+- Targets: static-assets
+- Languages: JavaScript, HTML, CSS
+- Platforms: macOS, iOS, iPadOS
+- SaaS client: no
+- SDK component: none
+- Deployment: bundled offline document renderer
+
+### monomark-tools
+
+- [x] Enabled
+- Source paths: src/app/monomark/build.sh, src/app/monomark/clean.sh
+- Source state: existing
+- Targets: tools
+- Languages: Shell
+- Platforms: macOS
+- SaaS client: no
+- SDK component: none
+- Deployment: local build commands
+
 ## Agent roles
 
 Use [shared role definitions](instructions/AGENT_ROLES.md).

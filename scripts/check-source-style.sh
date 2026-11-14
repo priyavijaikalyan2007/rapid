@@ -48,9 +48,10 @@ main()
     swift_formatter="$(resolve_tool swiftformat local/tools/swiftformat/swiftformat)"
     shell_checker="$(resolve_tool shellcheck local/tools/shellcheck-v0.11.0/shellcheck)"
     shell_formatter="$(resolve_tool shfmt local/tools/shfmt)"
-    "$swift_formatter" src/cropprint src/composure --config src/.swiftformat --cache ignore --lint --quiet
+    "$swift_formatter" src/cropprint src/composure src/app/monomark/apple \
+        --config src/.swiftformat --cache ignore --lint --quiet
     local sources=(src/cropprint/*.sh src/cropprint/scripts/*.sh src/composure/*.sh src/web/*.sh
-        scripts/check-source-style.sh)
+        src/app/monomark/build.sh src/app/monomark/clean.sh scripts/check-source-style.sh)
     "$shell_checker" -x "${sources[@]}"
     "$shell_formatter" -d -i 4 -ci -fn "${sources[@]}"
     printf '%s\n' 'Native and shell source style checks passed.'

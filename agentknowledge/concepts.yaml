@@ -332,5 +332,30 @@
       "ComposureLocalModelBenchmark",
       "ComposureLiveQuality"
     ]
+  },
+  {
+    "name": "MonoMark",
+    "definition": "Native local monospace Markdown viewer for Mac, iPhone, and iPad.",
+    "anchor_file": "src/app/monomark/README.md",
+    "related": [
+      "MonoMarkHistory",
+      "MonoMarkRenderer"
+    ]
+  },
+  {
+    "name": "MonoMarkHistory",
+    "definition": "SQLite-backed complete local viewing history and per-file reading state.",
+    "anchor_file": "src/app/monomark/apple/Core/HistoryStore.swift",
+    "related": [
+      "MonoMark"
+    ]
+  },
+  {
+    "name": "MonoMarkRenderer",
+    "definition": "Bundled worker-based Markdown parsing and virtualized WebKit display.",
+    "anchor_file": "src/app/monomark/renderer/src/host.mjs",
+    "related": [
+      "MonoMark"
+    ]
   }
 ]

@@ -16,7 +16,7 @@ repository_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
 usage()
 {
-    printf '%s\n' 'Usage: ./test.sh [all|repository|cropprint|composure|web]' \
+    printf '%s\n' 'Usage: ./test.sh [all|repository|cropprint|composure|monomark|web]' \
         'Default: all. Repository checks require Python 3.10+ and Bats 1.12+.'
 }
 
@@ -42,7 +42,7 @@ validate_arguments()
         return 2
     fi
     case "${1:-all}" in
-        all | repository | cropprint | composure | web | --help | -h) ;;
+        all | repository | cropprint | composure | monomark | web | --help | -h) ;;
         *)
             usage >&2
             return 2
@@ -67,6 +67,9 @@ main()
     fi
     if [[ "$mode" == all || "$mode" == composure ]]; then
         "$repository_root/src/composure/build.sh" test
+    fi
+    if [[ "$mode" == monomark || ("$mode" == all && -x "$repository_root/src/app/monomark/build.sh") ]]; then
+        "$repository_root/src/app/monomark/build.sh" test
     fi
     if [[ "$mode" == all || "$mode" == web ]]; then
         "$repository_root/src/web/build.sh" test

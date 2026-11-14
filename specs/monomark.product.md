@@ -12,7 +12,7 @@ Created: 2026
 # MonoMark product brief
 
 Recorded on 13 November 2026. The owner approved the product baseline and supplied further refinements.
-Implementation has not started. Architecture and performance claims still require prototype evidence.
+Implementation started. See monomark.status.md for current evidence and remaining acceptance limits.
 The owner selected MonoMark after considering MacDownMono. Name availability remains unverified.
 
 ## Product goal
@@ -434,4 +434,26 @@ Mobile remains part of the product direction. A reduced feature set must be expl
 - Confirmation of remote-image defaults and any additional embedded content types.
 - Distribution method and release scope for the secondary mobile targets.
 
-No application source, Xcode project, dependencies, or validated rendering prototype exists for MonoMark yet.
+The first native implementation and renderer exist. Tests and acceptance limits are recorded in monomark.status.md.
+
+## Artifact copying, appearance, and document comments
+
+Provide icon-only copy actions with descriptive hover text and accessible names on tables, diagrams, equations, code, and images.
+Copy table data as CSV, TSV, or pipe-separated values, with correct quoting for embedded separators and line breaks.
+Copy diagram definitions, raw LaTeX, and literal code without converting source into rendered text.
+Offer PNG for rendered diagrams, equations, and images. Bound image dimensions and keep the complete artifact in the image.
+Provide explicit System, Light, and Dark modes for native controls and rendered content.
+Hide HTML comments, including copyright metadata, while preserving comment syntax inside code fences.
+
+The owner also authorized a subsequent annotations stage. Highlights, comments, and reading notes remain app-local unless explicitly exported.
+Place comments and highlights in a right sidebar, with a second tab for plain-text or Markdown notes.
+Export replaces a marked, auto-generated section. Ordinary reading and annotation edits do not modify the Markdown file.
+Use “Export Notes and Annotations to This File” instead of Save. Provide Export a Copy as a distinct action.
+
+## Palette customization
+
+The owner requested configurable default colors for headings, captions, equations, callouts, table headers,
+and table backgrounds, including alternate row and column colors.
+Provide a palette with sensible light and dark presets, with System selecting the matching default appearance.
+Preserve contrast and allow a reset to defaults. Keep reader overrides distinct from author-defined diagram colors.
+This refinement is queued after the reader and annotations stages.

@@ -1,0 +1,173 @@
+{
+  "epic": {
+    "number": 1,
+    "id": 6388308358,
+    "url": "https://github.com/priyavijaikalyan2007/rapid/issues/1"
+  },
+  "features": {
+    "reader": {
+      "number": 2,
+      "id": 6388328527,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/2",
+      "progress": "pending"
+    },
+    "rendering": {
+      "number": 3,
+      "id": 6388328755,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/3",
+      "progress": "pending"
+    },
+    "copy": {
+      "number": 4,
+      "id": 6388328916,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/4",
+      "progress": "pending"
+    },
+    "annotations": {
+      "number": 5,
+      "id": 6388329169,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/5",
+      "progress": "pending"
+    },
+    "notes": {
+      "number": 6,
+      "id": 6388329546,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/6",
+      "progress": "pending"
+    },
+    "palette": {
+      "number": 7,
+      "id": 6388329737,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/7",
+      "progress": "pending"
+    },
+    "validation": {
+      "number": 8,
+      "id": 6388329980,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/8",
+      "progress": "pending"
+    }
+  },
+  "tasks": {
+    "core": {
+      "number": 9,
+      "id": 6388330210,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/9",
+      "progress": "implemented"
+    },
+    "switch-race": {
+      "number": 10,
+      "id": 6388330406,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/10",
+      "progress": "implemented"
+    },
+    "lifecycle": {
+      "number": 11,
+      "id": 6388330712,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/11",
+      "progress": "pending"
+    },
+    "formats": {
+      "number": 12,
+      "id": 6388330977,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/12",
+      "progress": "implemented"
+    },
+    "comments-hidden": {
+      "number": 13,
+      "id": 6388331205,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/13",
+      "progress": "implemented"
+    },
+    "large-documents": {
+      "number": 14,
+      "id": 6388331466,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/14",
+      "progress": "pending"
+    },
+    "large-print-selection": {
+      "number": 15,
+      "id": 6388331615,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/15",
+      "progress": "pending"
+    },
+    "copy-formats": {
+      "number": 16,
+      "id": 6388331825,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/16",
+      "progress": "implemented"
+    },
+    "png-copy": {
+      "number": 17,
+      "id": 6388332092,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/17",
+      "progress": "active"
+    },
+    "appearance": {
+      "number": 18,
+      "id": 6388332339,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/18",
+      "progress": "active"
+    },
+    "annotation-store": {
+      "number": 19,
+      "id": 6388332577,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/19",
+      "progress": "pending"
+    },
+    "annotation-selection": {
+      "number": 20,
+      "id": 6388332883,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/20",
+      "progress": "pending"
+    },
+    "annotation-sidebar": {
+      "number": 21,
+      "id": 6388333171,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/21",
+      "progress": "pending"
+    },
+    "notes-local": {
+      "number": 22,
+      "id": 6388333375,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/22",
+      "progress": "pending"
+    },
+    "export-section": {
+      "number": 23,
+      "id": 6388333638,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/23",
+      "progress": "pending"
+    },
+    "export-file": {
+      "number": 24,
+      "id": 6388333873,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/24",
+      "progress": "pending"
+    },
+    "palette-controls": {
+      "number": 25,
+      "id": 6388334197,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/25",
+      "progress": "pending"
+    },
+    "platform-builds": {
+      "number": 26,
+      "id": 6388334401,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/26",
+      "progress": "implemented"
+    },
+    "native-ui-host": {
+      "number": 27,
+      "id": 6388334675,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/27",
+      "progress": "blocked"
+    },
+    "device-display": {
+      "number": 28,
+      "id": 6388334866,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/28",
+      "progress": "pending"
+    }
+  }
+}

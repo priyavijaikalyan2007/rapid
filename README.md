@@ -12,6 +12,9 @@ Composure provides privacy onboarding, saved profile settings, and Prepare mode 
 Composure V1 targets Apple silicon Macs on macOS 26 or later, with an M3/M4 MacBook Air and 16 GB memory as the performance reference.
 Mac remote live coaching is implemented but has not passed its quality gate. Mobile source remains deferred.
 
+MonoMark is a native monospace Markdown reader under [src/app/monomark](src/app/monomark/README.md).
+It supports document navigation, reading history, complex rendering, and native Mac document tabs.
+
 ## Repository validation and navigation
 
 Repository checks require Python 3.10 or later and Bats 1.12 or later.

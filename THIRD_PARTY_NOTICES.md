@@ -37,3 +37,11 @@ These resources retain their own licenses and attribution requirements.
 
 The local setup used Bats 1.12.0 under ignored local/tools/.
 Bats retains its upstream license and is a developer tool, not an application resource or tracked project dependency.
+
+## MonoMark offline renderer
+
+MonoMark bundles locked Markdown-it, Markdown-it Footnote, Markdown-it Emoji, KaTeX, Mermaid, Highlight.js,
+and DOMPurify dependencies, including their transitive dependencies, under their original licenses.
+The exact versions and integrity hashes are in src/app/monomark/renderer/package-lock.json.
+The renderer build copies dependency license texts into its packaged THIRD_PARTY_LICENSES.txt resource.
+First-party application source remains GPL-3.0-or-later. Dependency licenses are not changed.

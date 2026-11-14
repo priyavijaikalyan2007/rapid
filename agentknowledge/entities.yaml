@@ -303,5 +303,14 @@
       "ComposureConstrainedDetector",
       "ComposureIssueObservation"
     ]
+  },
+  {
+    "name": "ReadingState",
+    "table": null,
+    "file": "src/app/monomark/apple/Core/ReadingState.swift",
+    "description": "Serialized per-file identity, bookmark, appearance override, and reading checkpoint stored in a native SQLite payload.",
+    "related": [
+      "MonoMarkHistory"
+    ]
   }
 ]

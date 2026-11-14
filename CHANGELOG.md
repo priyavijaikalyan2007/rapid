@@ -10,6 +10,12 @@ Created: 2026
 
 # Changelog
 
+## 14 November 2026
+
+### Added
+
+- Added the MonoMark native reader, offline renderer, reading history, document navigation, artifact copying, and appearance settings.
+
 ## 13 November 2026
 
 ### Added

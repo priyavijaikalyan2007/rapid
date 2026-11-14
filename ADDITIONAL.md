@@ -33,6 +33,12 @@ Use native platform themes, colors, components, and interaction guidance for nat
 Use on-device processing and AI. Optional licensed resource downloads do not authorize uploads of user content.
 The website's existing external theme and website-only analytics remain separate from native application behavior.
 
+## Work tracking
+
+Track application work in GitHub issues as epic, feature, and task or bug hierarchies.
+For MonoMark, use https://github.com/priyavijaikalyan2007/rapid/issues/1 and specs/monomark.issues.json.
+Link implementation and test evidence before closing tasks. Keep unexecuted acceptance checks open.
+
 ## Operations
 
 Commit and push verified changes in small logical steps as work proceeds.

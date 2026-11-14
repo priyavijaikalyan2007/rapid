@@ -4,7 +4,7 @@ set -euo pipefail
 
 repository_root="$(cd "$(dirname "$0")" && pwd)"
 shopt -s nullglob
-app_cleaners=("$repository_root"/src/*/clean.sh)
+app_cleaners=("$repository_root"/src/*/clean.sh "$repository_root"/src/app/*/clean.sh)
 
 if [[ ${#app_cleaners[@]} -eq 0 ]]; then
   echo "No application clean scripts were found under $repository_root/src."

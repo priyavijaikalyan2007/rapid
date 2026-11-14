@@ -1,0 +1,42 @@
+/* SPDX-FileCopyrightText: 2026 Outcrop Inc
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * File GUID: d59c441c-ed29-4b4b-937b-6b3fa031668b
+ * COMPONENT: MonoMark reading styles
+ * PURPOSE: Use system appearance, monospace text, and readable bounded objects.
+ */
+:root { color-scheme: light dark; --reader-font: ui-monospace; --body-size: 15px; --line-height: 1.65; --page-width: 960px; --code-size: 14px; --table-size: 14px; --caption-size: 13px; }
+body { margin: 0; padding: 28px 32px; background: Canvas; color: CanvasText; font-family: var(--reader-font), SFMono-Regular, Menlo, monospace; font-size: var(--body-size); line-height: var(--line-height); overflow-anchor: none; }
+#monomark-document { max-width: var(--page-width); margin: auto; outline-offset: 5px; }
+.monomark-block { display: flow-root; min-height: 24px; padding-bottom: 12px; }
+h1 { font-size: var(--h1, 30px); } h2 { font-size: var(--h2, 25px); } h3 { font-size: var(--h3, 21px); }
+h4 { font-size: var(--h4, 18px); } h5 { font-size: var(--h5, 16px); } h6 { font-size: var(--h6, 15px); }
+h1,h2,h3,h4,h5,h6 { line-height: 1.3; margin: 0.8em 0 0.45em; font-family: inherit; }
+p { margin: 0.3em 0 0.8em; } a { color: LinkText; } a:focus-visible,button:focus-visible { outline: 2px solid Highlight; outline-offset: 3px; }
+pre, .monomark-diagram, [data-display="true"] { overflow: auto; max-width: 100%; }
+pre { font-size: var(--code-size); padding: 14px; border: 1px solid GrayText; border-radius: 5px; }
+code { font-family: inherit; white-space: pre; } img { max-width: 100%; height: auto; min-height: 32px; }
+.monomark-diagram svg { max-width: 100%; height: auto; } blockquote { margin-left: 0; padding-left: 18px; border-left: 3px solid GrayText; }
+table { font-size: var(--table-size); border-collapse: collapse; display: block; overflow-x: auto; max-width: 100%; }
+th,td { padding: 8px 12px; border: 1px solid GrayText; min-width: 45px; max-width: 600px; overflow-wrap: anywhere; }
+th { background: color-mix(in srgb, CanvasText 13%, Canvas); font-weight: 600; }
+tr:nth-child(even) td { background: color-mix(in srgb, CanvasText 5%, Canvas); }
+.monomark-column-banding tr:nth-child(even) td { background: transparent; }
+.monomark-column-banding td:nth-child(even) { background: color-mix(in srgb, CanvasText 5%, Canvas); }
+#monomark-status { font: -apple-system-body; color: GrayText; }
+#monomark-preview { position: fixed; z-index: 10; width: 310px; max-height: 200px; overflow: auto; padding: 14px; background: Canvas; border: 1px solid GrayText; border-radius: 8px; box-shadow: 0 5px 20px #0003; font: 13px/1.5 -apple-system, sans-serif; }
+#monomark-preview-address { overflow-wrap: anywhere; font-weight: 600; } #monomark-preview button { font: inherit; }
+@media (prefers-contrast: more) { th, td, pre { border-width: 2px; } }
+@media print { body { padding: 0; zoom: 1 !important; } #monomark-preview,#monomark-status { display: none; } .monomark-block { break-inside: avoid; } table { display: table; width: 100%; } pre,code { white-space: pre-wrap; overflow-wrap: anywhere; } }
+h1,h2,h3,h4,h5,h6 { font-family: var(--heading-font, var(--reader-font)), monospace; }
+code,pre { font-family: var(--code-font, var(--reader-font)), monospace; }
+table { font-family: var(--table-font, var(--reader-font)), monospace; }
+figcaption { font-family: var(--caption-font, var(--reader-font)), monospace; font-size: var(--caption-size); }
+.monomark-artifact { position: relative; }
+.monomark-artifact-equation { display: inline-block; }
+.monomark-artifact-actions { display: flex; justify-content: flex-end; gap: 3px; padding: 2px; user-select: none; }
+.monomark-artifact-actions button { width: 26px; height: 26px; padding: 4px; color: CanvasText; background: Canvas; border: 1px solid GrayText; border-radius: 4px; cursor: pointer; }
+.monomark-artifact-actions svg { width: 100%; height: 100%; }
+.monomark-artifact-equation > .monomark-artifact-actions { display: none; position: absolute; bottom: 100%; right: 0; }
+.monomark-artifact-equation:hover > .monomark-artifact-actions, .monomark-artifact-equation:focus-within > .monomark-artifact-actions { display: flex; }
+.monomark-copy-overlay { position: fixed; z-index: 2147483647; inset: 0; background: Canvas; overflow: hidden; }
+@media print { .monomark-artifact-actions { display: none !important; } }

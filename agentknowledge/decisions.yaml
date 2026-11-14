@@ -375,5 +375,19 @@
       "scripts/composure_detector_policy.py",
       "scripts/composure_token_choices.py"
     ]
+  },
+  {
+    "id": "ADR-031",
+    "title": "Use a native reader shell with a bundled worker-based renderer",
+    "date": "2026-11-14",
+    "status": "Accepted",
+    "context": "The owner approved the MonoMark specification and authorized implementation. Use native Mac tabs and adaptive mobile controls, a narrow WebKit bridge, background Markdown tokenization, and bounded mounted blocks. SQLite persists complete local history. All renderer libraries are bundled with original notices. Native smoke checks verify tables, math, and Mermaid. Performance on reference hardware, physical mobile behavior, and broad multi-display acceptance remain open. Mutable file access uses coordinated bounded reads rather than unsafe long-lived mappings.",
+    "files": [
+      "specs/monomark.product.md",
+      "specs/monomark.implementation.md",
+      "src/app/monomark/Package.swift",
+      "src/app/monomark/renderer/package-lock.json",
+      "src/app/monomark/apple/Core/HistoryStore.swift"
+    ]
   }
 ]

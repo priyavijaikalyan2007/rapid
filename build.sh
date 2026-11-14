@@ -5,7 +5,7 @@ set -euo pipefail
 repository_root="$(cd "$(dirname "$0")" && pwd)"
 mode="${1:-all}"
 shopt -s nullglob
-app_builders=("$repository_root"/src/*/build.sh)
+app_builders=("$repository_root"/src/*/build.sh "$repository_root"/src/app/*/build.sh)
 
 if [[ ${#app_builders[@]} -eq 0 ]]; then
   echo "No application build scripts were found under $repository_root/src."
