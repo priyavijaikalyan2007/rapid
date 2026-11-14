@@ -9,15 +9,31 @@
 // FLOW: Native view -> validated session -> document surface.
 
 import SwiftUI
+#if os(iOS)
+import UIKit
+#endif
 
 /// Native window chrome surrounds a read-only document surface.
 struct ReaderView: View
 {
     @ObservedObject var session: ReaderSession
+    @ObservedObject private var annotations: AnnotationController
     @AppStorage("appearance-mode") private var appearance = "system"
     @FocusState private var findFocused: Bool
+    #if os(iOS)
+    @State private var exportDocument = MarkdownExportDocument(data: Data())
+    @State private var showingExport = false
+    #endif
     var openFile: () -> Void
     var openFolder: () -> Void
+    init(session: ReaderSession, openFile: @escaping () -> Void, openFolder: @escaping () -> Void)
+    {
+        self.session = session
+        annotations = session.annotations
+        self.openFile = openFile
+        self.openFolder = openFolder
+    }
+
     var body: some View
     {
         VStack(spacing: 0)
@@ -103,6 +119,27 @@ struct ReaderView: View
                 {
                     Label("Open", systemImage: "doc")
                 }
+                #if os(iOS)
+                Menu
+                {
+                    Button("Export a Copy…")
+                    {
+                        exportCopy()
+                    }.disabled(!annotations.ready)
+                    Button("Print…")
+                    {
+                        session.command(["type": "print"])
+                    }.keyboardShortcut("p")
+                } label: {
+                    Label("Document Actions", systemImage: "square.and.arrow.up")
+                }
+                #endif
+                Button
+                {
+                    annotations.shown.toggle()
+                } label: {
+                    Label("Notes and Annotations", systemImage: "sidebar.right")
+                }
                 Button
                 {
                     session.showSettings = true
@@ -112,6 +149,11 @@ struct ReaderView: View
             }
         }
         .preferredColorScheme(appearance == "dark" ? .dark : appearance == "light" ? .light : nil)
+        .inspector(isPresented: $annotations.shown)
+        {
+            AnnotationInspector(session: session, controller: annotations)
+                .inspectorColumnWidth(min: 260, ideal: 320, max: 480)
+        }
         .onChange(of: appearance)
         { _, value in
             session.command(["type": "appearance", "mode": value])
@@ -131,6 +173,38 @@ struct ReaderView: View
         {
             ReaderSettings(session: session)
         }
+        #if os(iOS)
+        .fileExporter(
+            isPresented: $showingExport,
+            document: exportDocument,
+            contentType: MarkdownExportDocument.writableContentTypes[0],
+            defaultFilename: (session.url?.deletingPathExtension().lastPathComponent ?? "Document") +
+                "-reading-notes"
+        )
+        { result in
+            switch result
+            {
+            case .success: session.message = "Exported a copy. The original Markdown is unchanged."
+            case .failure(let error): session.message = error.localizedDescription
+            }
+        }
+        .onAppear
+        {
+            session.printAction = {
+                guard let webView = session.webView
+                else
+                {
+                    return
+                }
+                let printer = UIPrintInteractionController.shared
+                printer.printFormatter = webView.viewPrintFormatter()
+                printer.present(animated: true)
+                { _, _, _ in
+                    session.command(["type": "afterPrint"])
+                }
+            }
+        }
+        #endif
     }
 
     private var document: some View
@@ -161,4 +235,45 @@ struct ReaderView: View
             }
         }
     }
+
+    #if os(iOS)
+    private func exportCopy()
+    {
+        guard let source = session.url
+        else
+        {
+            return
+        }
+        Task
+        {
+            guard await annotations.drain()
+            else
+            {
+                return
+            }
+            let notes = ReadingNotes(
+                annotations: annotations.records,
+                text: annotations.text,
+                format: annotations.format
+            )
+            do
+            {
+                let data = try await Task.detached(priority: .userInitiated)
+                {
+                    let bytes = try DocumentAccess.read(source)
+                    return Data(try AnnotationExporter.render(
+                        source: String(decoding: bytes, as: UTF8.self),
+                        notes: notes
+                    ).utf8)
+                }.value
+                exportDocument = MarkdownExportDocument(data: data)
+                showingExport = true
+            }
+            catch
+            {
+                session.message = error.localizedDescription
+            }
+        }
+    }
+    #endif
 }

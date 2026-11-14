@@ -1,0 +1,27 @@
+{
+  "annotationSaveError": "",
+  "appearance": "dark",
+  "blocks": 16,
+  "copyButtons": 10,
+  "diagrams": 1,
+  "editingMenu": [
+    "Undo",
+    "Redo",
+    "Cut",
+    "Copy",
+    "Paste",
+    "Select All",
+    "Find\u2026",
+    "Find Next",
+    "Find Previous"
+  ],
+  "highlightCount": 1,
+  "math": 2,
+  "mounted": 14,
+  "nativeAnnotationCount": 1,
+  "nativeNotesRecovered": true,
+  "nativeStatus": "Copied rendering as PNG.",
+  "outline": 10,
+  "text": "MonoMark\n\nA monospace Markdown viewer. Open a file or folder to begin reading.\n\nReading\nUse the sidebar for Files, Contents, Links, and History.\nOpen related documents in native tabs.\nReading positions and typography stay on this machine.\nTable\nFeature\tStatus\tDetail\nMarkdown\tReady\tLocal rendering\nTables\tReady\tAlternating rows\nNavigation\tReady\tHeadings and objects\nCSV\nTSV\nPSV\nMathematics\n\nAn inline expression E\n=\nm\nc\n2\nE=mc \n2\n  and a display equation:\n\n\u222b\n0\n1\nx\n2\n\u2009\nd\nx\n=\n1\n3\n\u222b \n0\n1\n\u200b\t\n x \n2\n dx=3\n1\n\u200b\t\n Diagram\nFile\nIndex\nReader\nContents\nCode\nlet message = \"Read without editing.\"\nprint(message)\nLinks",
+  "visualCheck": "Native right inspector and restored highlight were inspected. Diagram PNG labels and connectors are readable."
+}

@@ -9,31 +9,31 @@
       "number": 2,
       "id": 6388328527,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/2",
-      "progress": "pending"
+      "progress": "in progress"
     },
     "rendering": {
       "number": 3,
       "id": 6388328755,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/3",
-      "progress": "pending"
+      "progress": "in progress"
     },
     "copy": {
       "number": 4,
       "id": 6388328916,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/4",
-      "progress": "pending"
+      "progress": "in progress"
     },
     "annotations": {
       "number": 5,
       "id": 6388329169,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/5",
-      "progress": "pending"
+      "progress": "in progress"
     },
     "notes": {
       "number": 6,
       "id": 6388329546,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/6",
-      "progress": "pending"
+      "progress": "in progress"
     },
     "palette": {
       "number": 7,
@@ -45,7 +45,7 @@
       "number": 8,
       "id": 6388329980,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/8",
-      "progress": "pending"
+      "progress": "in progress"
     }
   },
   "tasks": {
@@ -53,13 +53,15 @@
       "number": 9,
       "id": 6388330210,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/9",
-      "progress": "implemented"
+      "progress": "closed",
+      "commit": "b9677e7"
     },
     "switch-race": {
       "number": 10,
       "id": 6388330406,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/10",
-      "progress": "implemented"
+      "progress": "closed",
+      "commit": "b9677e7"
     },
     "lifecycle": {
       "number": 11,
@@ -71,13 +73,15 @@
       "number": 12,
       "id": 6388330977,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/12",
-      "progress": "implemented"
+      "progress": "closed",
+      "commit": "b9677e7"
     },
     "comments-hidden": {
       "number": 13,
       "id": 6388331205,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/13",
-      "progress": "implemented"
+      "progress": "closed",
+      "commit": "b9677e7"
     },
     "large-documents": {
       "number": 14,
@@ -95,7 +99,8 @@
       "number": 16,
       "id": 6388331825,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/16",
-      "progress": "implemented"
+      "progress": "closed",
+      "commit": "b9677e7"
     },
     "png-copy": {
       "number": 17,
@@ -113,37 +118,37 @@
       "number": 19,
       "id": 6388332577,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/19",
-      "progress": "pending"
+      "progress": "implemented; verification recorded separately"
     },
     "annotation-selection": {
       "number": 20,
       "id": 6388332883,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/20",
-      "progress": "pending"
+      "progress": "implemented; verification recorded separately"
     },
     "annotation-sidebar": {
       "number": 21,
       "id": 6388333171,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/21",
-      "progress": "pending"
+      "progress": "implemented; verification recorded separately"
     },
     "notes-local": {
       "number": 22,
       "id": 6388333375,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/22",
-      "progress": "pending"
+      "progress": "implemented; verification recorded separately"
     },
     "export-section": {
       "number": 23,
       "id": 6388333638,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/23",
-      "progress": "pending"
+      "progress": "implemented; verification recorded separately"
     },
     "export-file": {
       "number": 24,
       "id": 6388333873,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/24",
-      "progress": "pending"
+      "progress": "implemented; verification recorded separately"
     },
     "palette-controls": {
       "number": 25,
@@ -155,7 +160,8 @@
       "number": 26,
       "id": 6388334401,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/26",
-      "progress": "implemented"
+      "progress": "closed",
+      "commit": "b9677e7"
     },
     "native-ui-host": {
       "number": 27,

@@ -17,6 +17,13 @@ The reader includes native document tabs, Files/Contents/Links/History navigatio
 per-document typography, local link previews, diagram and math rendering, syntax highlighting, emoji, and table styles.
 Artifact icons copy source text, CSV/TSV/pipe-separated table data, or rendered PNG images where appropriate.
 Settings offers System, Light, and Dark modes. Mac presentation fills only the active window's display.
+The right inspector provides colored highlights, quote comments, and Markdown or plain-text reading notes.
+These records save locally. The reader does not change the source file during reading or note editing.
+
+On Mac, use File > Export Notes and Annotations to This File for explicit source export.
+Export replaces one marked generated section and preserves surrounding content. File > Export a Copy preserves the original.
+Saved read-only access may require the system destination picker before the first source export.
+On iPhone and iPad, Document Actions provides Export a Copy and Print.
 
 ## Build and run
 
@@ -49,6 +56,9 @@ Reading history and per-file state live in the platform's Application Support di
 SQLite stores small records and pages the history list. The complete history has no automatic recent-file truncation.
 Normal Mac document tabs restore their saved metadata, and inactive tabs can release their renderer.
 Security-scoped bookmarks preserve authorized document access. A stored path alone does not grant access to another file.
+Annotations use a separate versioned SQLite database, so clearing reading history does not remove notes.
+Note writes are coalesced and flushed before document changes, tab closure, and normal Mac termination.
+Conflicting updates preserve the visible draft and offer explicit retry or reload controls.
 
 ## Current limits
 
@@ -62,7 +72,10 @@ PNG copies fit the full artifact into the available viewport, so large objects m
 
 The first implementation does not establish release performance on an untested reference machine.
 Multi-display behavior and physical mobile devices need direct acceptance tests.
-Annotations, reading notes, and explicit export back to Markdown are a separately requested implementation stage.
+Selections are limited to mounted blocks, with at most 128 anchors and 16,000 UTF-16 units per quoted block.
+Reading notes support up to 1 MiB of UTF-8 text. Unattached quotations remain visible in the inspector.
+Quote reattachment across extensive external edits needs further acceptance work.
+Palette customization remains planned in the issue tracker.
 
 See the [product specification](../../../specs/monomark.product.md),
 [implementation plan](../../../specs/monomark.implementation.md), and

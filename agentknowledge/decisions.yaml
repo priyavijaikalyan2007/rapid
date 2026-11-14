@@ -389,5 +389,19 @@
       "src/app/monomark/renderer/package-lock.json",
       "src/app/monomark/apple/Core/HistoryStore.swift"
     ]
+  },
+  {
+    "id": "ADR-032",
+    "title": "Store reading annotations separately and export only through explicit native actions",
+    "date": "2026-11-14",
+    "status": "Accepted",
+    "context": "The owner requested app-local highlights, comments, notes, and explicit Markdown export. Keep a separate versioned SQLite database so history deletion does not remove reading data. An actor serializes persistence and a directly tested observable controller coalesces note edits and drains all pending edits during normal closure. Conditional updates protect visible drafts from stale windows. Only explicit native export actions coordinate and atomically replace source. The renderer bridge has no source-write command. A normalized path recovers annotations after atomic source replacement. Quote context permits conservative attachment in mounted blocks, with visible notices for unmatched text. Signed write grants, physical mobile export, and extensive source-edit acceptance remain open.",
+    "files": [
+      "src/app/monomark/apple/Core/AnnotationStore.swift",
+      "src/app/monomark/apple/Core/AnnotationController.swift",
+      "src/app/monomark/apple/Core/AnnotationExporter.swift",
+      "src/app/monomark/apple/Mac/AppDelegate+Export.swift",
+      "src/app/monomark/renderer/src/annotations.mjs"
+    ]
   }
 ]

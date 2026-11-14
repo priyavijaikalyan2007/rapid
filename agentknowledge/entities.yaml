@@ -312,5 +312,14 @@
     "related": [
       "MonoMarkHistory"
     ]
+  },
+  {
+    "name": "ReadingAnnotation",
+    "table": null,
+    "file": "src/app/monomark/apple/Core/ReadingAnnotation.swift",
+    "description": "Serialized quotation anchors, color, comment, and timestamps stored in the local annotations SQLite table. Reading notes live in the documents table.",
+    "related": [
+      "MonoMarkAnnotations"
+    ]
   }
 ]

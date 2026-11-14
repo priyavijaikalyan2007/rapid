@@ -18,6 +18,7 @@ struct MobileReaderView: View
     @State private var selected = 0
     @State private var picker = false
     @State private var folderPicker = false
+    @Environment(\.scenePhase) private var scenePhase
     var body: some View
     {
         NavigationStack
@@ -49,9 +50,22 @@ struct MobileReaderView: View
                         if sessions.count > 1
                         {
                             Button("Close Tab")
-                            { sessions[selected].close()
-                                sessions.remove(at: selected)
-                                selected = max(0, selected - 1)
+                            {
+                                let session = sessions[selected]
+                                Task
+                                {
+                                    guard await session.annotations.drain(),
+                                          let index = sessions.firstIndex(where: {
+                                              $0 === session
+                                          })
+                                    else
+                                    {
+                                        return
+                                    }
+                                    session.close()
+                                    sessions.remove(at: index)
+                                    selected = max(0, min(selected, sessions.count - 1))
+                                }
                             }
                         }
                     }
@@ -81,6 +95,24 @@ struct MobileReaderView: View
         .onOpenURL
         {
             sessions[selected].open($0)
+        }
+        .onChange(of: scenePhase)
+        { _, phase in
+            if phase != .active
+            {
+                let background = UIApplication.shared.beginBackgroundTask()
+                Task
+                {
+                    for session in sessions
+                    {
+                        _ = await session.annotations.drain()
+                    }
+                    if background != .invalid
+                    {
+                        UIApplication.shared.endBackgroundTask(background)
+                    }
+                }
+            }
         }
         .onAppear
         {

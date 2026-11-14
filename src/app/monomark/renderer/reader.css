@@ -40,3 +40,8 @@ figcaption { font-family: var(--caption-font, var(--reader-font)), monospace; fo
 .monomark-artifact-equation:hover > .monomark-artifact-actions, .monomark-artifact-equation:focus-within > .monomark-artifact-actions { display: flex; }
 .monomark-copy-overlay { position: fixed; z-index: 2147483647; inset: 0; background: Canvas; overflow: hidden; }
 @media print { .monomark-artifact-actions { display: none !important; } }
+mark[data-annotation] { color: inherit; border-radius: 2px; cursor: pointer; background: light-dark(#fff0a6, #66571c); }
+mark[data-color="green"] { background: light-dark(#c9efbd, #294e26); }
+mark[data-color="blue"] { background: light-dark(#cce8ff, #254766); }
+mark[data-color="pink"] { background: light-dark(#ffd3e0, #682c43); }
+mark[data-color="purple"] { background: light-dark(#e6d5ff, #51326b); }

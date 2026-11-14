@@ -987,3 +987,14 @@ Visual inspection then found missing SVG styles and labels despite a nonempty PN
 Flattened safe diagram styles before sanitization and corrected the root Mermaid HTML-label setting.
 A real Mermaid regression test now checks surviving label text. Native PNG inspection confirms readable labels and connectors.
 The renderer tests pass with 98.35% measured line coverage for loaded modules, and native-core coverage remains 94.98%.
+
+Committed and pushed the reader checkpoint as b9677e7, then closed six verified GitHub tasks.
+Implemented a separate annotation stage with local SQLite highlights, comments, and coalesced Markdown/plain-text notes.
+Added a native right inspector and quote anchors that restore mounted highlights and report unattached quotations.
+Added explicit Mac file/copy export and mobile export-copy/printing actions. Export preserves source outside marked sections.
+The native smoke confirms a visible highlight, saved comment, recovered notes, and a generated export file.
+Manual native UI checks confirm the inspector, note input, and export menu. Added standard note-editing menu commands.
+Physical mobile execution, signed sandbox export grants, extensive-edit anchor acceptance, and palette controls remain open.
+Direct autosave-controller tests exposed a close-time race when another edit arrived during an active write.
+The flush now waits until the latest pending edit is durable. The reproducing regression fails before this fix and passes after it.
+The current native suite passes 56 tests at 96.78% line coverage. The renderer passes 34 tests at 98.60% for loaded modules.

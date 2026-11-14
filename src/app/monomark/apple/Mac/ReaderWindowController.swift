@@ -22,6 +22,7 @@ final class ReaderWindowController: NSWindowController, NSWindowDelegate
     private var savedFrame: NSRect?
     private var savedStyle: NSWindow.StyleMask?
     private var savedLevel: NSWindow.Level?
+    private var allowClose = false
 
     init(application: AppDelegate)
     {
@@ -116,6 +117,24 @@ final class ReaderWindowController: NSWindowController, NSWindowDelegate
         window.level = NSWindow.Level(rawValue: NSWindow.Level.mainMenu.rawValue + 1)
         window.hidesOnDeactivate = true
         window.setFrame(screen.frame, display: true)
+    }
+
+    func windowShouldClose(_ sender: NSWindow) -> Bool
+    {
+        if allowClose ||
+            (session.annotations.pending == 0 && !session.annotations.notesDirty && !session.annotations.hasFailedEdits)
+        {
+            return true
+        }
+        Task
+        {
+            if await session.annotations.drain()
+            {
+                allowClose = true
+                sender.performClose(nil)
+            }
+        }
+        return false
     }
 
     func windowWillClose(_ notification: Notification)

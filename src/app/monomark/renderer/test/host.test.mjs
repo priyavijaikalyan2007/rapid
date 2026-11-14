@@ -105,3 +105,28 @@ test('rich artifacts retain visible diagram labels and copy rendered images', as
     assert.equal(document.querySelector('.monomark-copy-overlay'), null);
     await new Promise(resolve => setTimeout(resolve, 300));
 });
+
+test('native annotations decorate remounted prose and selection reaches the inspector', async () => {
+    window.MonoMark.command({ type: 'load', epoch: 'notes' });
+    await new Promise(resolve => setTimeout(resolve, 20));
+    const worker = workers.at(-1);
+    worker.onmessage({ data: { type: 'index', outline: [], links: [], blocks: [{ id: 'a', blockID: 'a', estimate: 80 }] } });
+    worker.onmessage({ data: { type: 'range', request: worker.sent.at(-1).request, start: 0,
+        blocks: [{ id: 'a', html: '<p>Remember this sentence.</p>' }] } });
+    const range = document.createRange();
+    range.selectNodeContents(document.querySelector('.monomark-block p'));
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.dispatchEvent(new window.MouseEvent('mouseup', { bubbles: true }));
+    const selection = messages.at(-1);
+    assert.equal(selection.type, 'selection');
+    assert.equal(selection.anchors[0].quote, 'Remember this sentence.');
+    window.MonoMark.command({ type: 'annotations', value: [{ id: 'note-one', color: 'yellow', anchors: selection.anchors }] });
+    const mark = document.querySelector('mark');
+    assert.equal(mark.textContent, 'Remember this sentence.');
+    assert.deepEqual(messages.at(-1).attached, ['note-one']);
+    mark.click();
+    assert.equal(messages.at(-1).type, 'annotationSelected');
+    assert.equal(messages.at(-1).id, 'note-one');
+    await new Promise(resolve => setTimeout(resolve, 300));
+});

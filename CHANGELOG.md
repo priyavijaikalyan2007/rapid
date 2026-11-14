@@ -14,6 +14,7 @@ Created: 2026
 
 ### Added
 
+- Added MonoMark app-local highlights, quote comments, reading notes, a right inspector, and explicit generated-section export.
 - Added the MonoMark native reader, offline renderer, reading history, document navigation, artifact copying, and appearance settings.
 
 ## 13 November 2026

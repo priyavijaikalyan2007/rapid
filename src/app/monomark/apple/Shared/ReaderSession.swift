@@ -22,6 +22,7 @@ import UIKit
 @MainActor
 final class ReaderSession: ObservableObject
 {
+    let annotations = AnnotationController()
     @Published var url: URL?
     @Published var root: URL?
     @Published var outline: [NavigationEntry] = []
@@ -52,8 +53,7 @@ final class ReaderSession: ObservableObject
     private var locationIndex = -1
     private var forgotten = false
     private let logger = Logger(subsystem: "us.outcrop.MonoMark", category: "Reader")
-    private var watcher: DispatchSourceFileSystemObject?
-    private var watchDescriptor: Int32 = -1
+    var watcher: DispatchSourceFileSystemObject?
     var lastCopyRequest: [String: Any] = [:]
     var documentEpoch: String
     {
@@ -88,10 +88,19 @@ final class ReaderSession: ObservableObject
             message = ReaderFailure.invalidStore.localizedDescription
         }
         refreshHistory()
+        annotations.changed = { [weak self] in
+            self?.sendAnnotations()
+        }
     }
 
     /// Opening a document is the only operation that creates or updates its visit record.
-    func open(_ file: URL, folder: URL? = nil, fragment: String? = nil, addHistory: Bool = true)
+    func open(
+        _ file: URL,
+        folder: URL? = nil,
+        fragment: String? = nil,
+        addHistory: Bool = true,
+        resume: ReadingState? = nil
+    )
     {
         checkpoint()
         generation = UUID()
@@ -108,6 +117,13 @@ final class ReaderSession: ObservableObject
         }
         Task
         {
+            guard await annotations.drain()
+            else
+            {
+                message = annotations.error ?? "The reading notes could not be saved."
+                isLoading = false
+                return
+            }
             do
             {
                 let store = self.store
@@ -123,13 +139,15 @@ final class ReaderSession: ObservableObject
                     return
                 }
                 self.url = file
+                annotations.open(document: result.0, path: file.standardizedFileURL.path)
                 root = folder ?? file
-                state = result.1 ?? ReadingState(
+                state = result.1 ?? resume ?? ReadingState(
                     id: result.0,
                     path: file.path,
                     accessedAt: Date().timeIntervalSince1970
                 )
                 state?.path = file.path
+                state?.id = result.0
                 state?.accessedAt = Date().timeIntervalSince1970
                 state?.rootPath = root?.path
                 state?.bookmark = bookmark(file)
@@ -230,6 +248,10 @@ final class ReaderSession: ObservableObject
                 copy(text)
             }
         case "copyPNG": copyPNG(message)
+        case "selection": receiveSelection(message)
+        case "annotationStatus": annotations.visibleIDs = Set((message["attached"] as? [String] ?? []).prefix(20000))
+        case "annotationSelected": annotations.selectedID = message["id"] as? String
+            annotations.shown = true
         case "status": self.message = String((message["message"] as? String ?? "").prefix(500))
             isLoading = false
         case "printReady": printAction?()
@@ -248,6 +270,7 @@ final class ReaderSession: ObservableObject
         }
         outline = (try? JSONDecoder().decode([NavigationEntry].self, from: a)) ?? []
         links = (try? JSONDecoder().decode([DocumentLink].self, from: b)) ?? []
+        sendAnnotations()
         message = "\(data["blocks"] as? Int ?? 0) blocks · \(Int(data["duration"] as? Double ?? 0)) ms to index"
     }
 
@@ -423,44 +446,6 @@ final class ReaderSession: ObservableObject
             scope.stopAccessingSecurityScopedResource()
         }
         scopes = []
-    }
-
-    private func watch(_ file: URL)
-    {
-        watcher?.cancel()
-        let descriptor = Darwin.open(file.path, O_EVTONLY)
-        guard descriptor >= 0
-        else
-        {
-            return
-        }
-        let source = DispatchSource.makeFileSystemObjectSource(
-            fileDescriptor: descriptor,
-            eventMask: [.write, .rename, .delete],
-            queue: .main
-        )
-        source.setEventHandler
-        { [weak self] in
-            Task
-            { @MainActor in
-                guard let self
-                else
-                {
-                    return
-                }
-                self.message = "The file changed outside MonoMark. Reload to view the latest content."
-                if source.data.contains(.write)
-                {
-                    self.loadRenderer()
-                }
-            }
-        }
-        source.setCancelHandler
-        {
-            Darwin.close(descriptor)
-        }
-        watcher = source
-        source.resume()
     }
 
     func dictionary<T: Encodable>(_ value: T) -> [String: Any]

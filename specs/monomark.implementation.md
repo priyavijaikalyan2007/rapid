@@ -9,6 +9,22 @@ Created: 2026
 
 # MonoMark implementation plan
 
+## Annotation stage
+
+The reader checkpoint is committed separately as b9677e7.
+Add `ReadingAnnotation`, `TextAnchor`, `ReadingNotes`, and `AnnotationStore` under `apple/Core`.
+Add actual SQLite tests in `apple/Tests/AnnotationStoreTests.swift` before implementation.
+The store exposes load, annotation upsert/delete, and conditional note updates.
+Document identity and normalized path allow recovery after atomic source replacement.
+History deletion must not delete notes. Reject unsupported future schemas.
+
+Add `AnnotationExporter` and its tests for exact generated-section replacement, malformed markers, fences, and line endings.
+Add `annotations.mjs` with DOM quote anchors and tests before renderer integration.
+Add an annotation controller and a native right inspector with Annotations and Notes tabs.
+Use the existing native/renderer bridge. Keep annotation text out of HTML interpolation.
+Add explicit Mac export menu commands and a mobile export-copy flow after persistence and selection work.
+No new GoF pattern is required. Value types, an actor-owned SQLite store, and plain export functions suffice.
+
 The owner authorized implementation on 13 November 2026.
 Initial deployment targets are macOS 15 and iOS/iPadOS 18. Mac supports Apple silicon and Intel.
 Use SwiftUI with AppKit/UIKit adapters and a bundled offline WebKit renderer.

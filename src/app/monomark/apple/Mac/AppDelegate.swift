@@ -17,7 +17,7 @@ import WebKit
 final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
 {
     var controllers: [ReaderWindowController] = []
-    private var smokeStarted = false
+    var smokeStarted = false
     private var recentMenu = NSMenu(title: "Open Recent")
     var current: ReaderWindowController?
     {
@@ -83,6 +83,24 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
             createWindow()
         }
         return true
+    }
+
+    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply
+    {
+        let sessions = controllers.map(\.session)
+        Task
+        {
+            var ready = true
+            for session in sessions
+            {
+                if !(await session.annotations.drain())
+                {
+                    ready = false
+                }
+            }
+            sender.reply(toApplicationShouldTerminate: ready)
+        }
+        return .terminateLater
     }
 
     func applicationWillTerminate(_ notification: Notification)
@@ -352,8 +370,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         item("New Tab", #selector(newTab(_:)), key: "t", on: file)
         item("Close", #selector(NSWindow.performClose(_:)), key: "w", target: nil, on: file)
         item("Print…", #selector(printReader(_:)), key: "p", on: file)
+        item("Export Notes and Annotations to This File", #selector(exportReadingData(_:)), on: file)
+        item("Export a Copy…", #selector(exportReadingCopy(_:)), on: file)
         let edit = submenu("Edit", on: bar)
+        item("Undo", Selector(("undo:")), key: "z", on: edit)
+        item("Redo", Selector(("redo:")), key: "z", modifiers: [.command, .shift], on: edit)
+        item("Cut", #selector(NSText.cut(_:)), key: "x", on: edit)
         item("Copy", #selector(NSText.copy(_:)), key: "c", target: nil, on: edit)
+        item("Paste", #selector(NSText.paste(_:)), key: "v", on: edit)
         item("Select All", #selector(NSText.selectAll(_:)), key: "a", target: nil, on: edit)
         item("Find…", #selector(find(_:)), key: "f", on: edit)
         item("Find Next", #selector(nextMatch(_:)), key: "g", on: edit)
@@ -410,55 +434,5 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
     private func present(_ error: Error)
     {
         NSAlert(error: error).runModal()
-    }
-
-    private func configureSmoke(output: String)
-    {
-        current?.session.smokeRendered = { [weak self] in
-            guard let self, !smokeStarted, let view = current?.session.webView
-            else
-            {
-                return
-            }
-            smokeStarted = true
-            Task
-            { @MainActor in
-                try? await Task.sleep(for: .seconds(3))
-                self.current?.session.command(["type": "jump", "id": "monomark-diagram-1"])
-                try? await Task.sleep(for: .seconds(5))
-                _ = try? await view.evaluateJavaScript("window.MonoMark.command({type:'appearance',mode:'dark'})")
-                try? await Task.sleep(for: .seconds(1))
-                _ = try? await view
-                    .evaluateJavaScript(
-                        "document.querySelector('.monomark-artifact-diagram button[title*=PNG]')?.click()"
-                    )
-                try? await Task.sleep(for: .seconds(2))
-                let result = try? await view
-                    .evaluateJavaScript(
-                        """
-                        ({ ...window.MonoMark.metrics(), text: document.body.innerText.slice(0,1000), math: \
-                        document.querySelectorAll('.katex').length, diagrams: \
-                        document.querySelectorAll('.monomark-diagram svg').length, copyButtons: document.querySelectorAll('.monomark-artifact-actions button').length, appearance: document.documentElement.style.colorScheme })
-                        """
-                    )
-                var report = result as? [String: Any] ?? [:]
-                report["nativeCopyRequest"] = self.current?.session.lastCopyRequest
-                report["nativeStatus"] = self.current?.session.message
-                if let data = try? JSONSerialization.data(
-                    withJSONObject: report,
-                    options: [.prettyPrinted, .sortedKeys]
-                )
-                {
-                    try? data.write(to: URL(fileURLWithPath: output))
-                }
-                if let image = try? await view.takeSnapshot(configuration: nil),
-                   let tiff = image.tiffRepresentation, let bitmap = NSBitmapImageRep(data: tiff),
-                   let png = bitmap.representation(using: .png, properties: [:])
-                {
-                    try? png.write(to: URL(fileURLWithPath: output + ".png"))
-                }
-                NSApp.terminate(nil)
-            }
-        }
     }
 }

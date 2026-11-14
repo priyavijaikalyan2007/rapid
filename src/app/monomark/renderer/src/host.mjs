@@ -11,6 +11,7 @@
 import { windowRange } from './viewport.mjs';
 import { sanitizeDocument, sanitizeDiagram, localImageURL } from './sanitizer.mjs';
 import { installArtifactActions, imageBounds } from './artifacts.mjs';
+import { captureSelection, renderAnnotations } from './annotations.mjs';
 
 const viewport = document.getElementById('monomark-document');
 const status = document.getElementById('monomark-status');
@@ -38,6 +39,13 @@ let diagramSequence = 0;
 let renderedEpoch = '';
 let copyOverlay;
 let appearance = 'system';
+let annotations = [];
+let selectionTimer;
+
+function decorateAnnotations()
+{
+    emit('annotationStatus', renderAnnotations(window, viewport, annotations));
+}
 
 function emit(type, payload = {})
 {
@@ -88,11 +96,18 @@ function mount(message)
     viewport.replaceChildren(fragment);
     renderedEpoch = epoch;
     const visible = [...viewport.querySelectorAll('.monomark-block')];
+    const enhancements = [];
     for (const element of visible)
     {
         heights[Number(element.dataset.block)] = Math.max(32, element.getBoundingClientRect().height / zoom);
-        enhance(element);
+        enhancements.push(enhance(element));
     }
+    const mountedEpoch = epoch;
+    decorateAnnotations();
+    Promise.all(enhancements).then(() =>
+    {
+        if (mountedEpoch === epoch) { decorateAnnotations(); }
+    });
     rebuildOffsets();
     if (pendingAnchor)
     {
@@ -225,6 +240,7 @@ async function load(command)
     zoom = Math.min(3, Math.max(0.5, Number(command.zoom) || 1));
     document.body.style.zoom = String(zoom);
     renderedEpoch = '';
+    annotations = [];
     clearTimeout(positionTimer);
     worker?.terminate();
     metadata = [];
@@ -339,6 +355,11 @@ window.MonoMark = {
         if (command.type === 'load') { load(command).catch(() => emit('status', { message: 'The document could not be loaded.' })); }
         if (command.type === 'preferences') { applyPreferences(command.value); }
         if (command.type === 'appearance') { applyAppearance(command.mode); }
+        if (command.type === 'annotations')
+        {
+            annotations = command.value || [];
+            decorateAnnotations();
+        }
         if (command.type === 'copyComplete') { copyOverlay?.remove(); copyOverlay = null; }
         if (command.type === 'jump') { jump(command.id); }
         if (command.type === 'find') { worker?.postMessage({ type: 'find', query: command.query, request: ++request }); }
@@ -376,10 +397,28 @@ window.addEventListener('scroll', () =>
 window.addEventListener('resize', () => requestRange(true));
 document.addEventListener('click', event =>
 {
+    const annotation = event.target.closest('mark[data-annotation]');
+    if (annotation)
+    {
+        event.preventDefault();
+        emit('annotationSelected', { id: annotation.dataset.annotation });
+        return;
+    }
     const anchor = event.target.closest('a');
     if (!anchor) { return; }
     event.preventDefault();
     emit('navigate', { href: anchor.getAttribute('href'), newTab: event.metaKey });
+});
+function reportSelection()
+{
+    emit('selection', { anchors: captureSelection(window, viewport) });
+}
+document.addEventListener('mouseup', reportSelection);
+document.addEventListener('keyup', reportSelection);
+document.addEventListener('selectionchange', () =>
+{
+    clearTimeout(selectionTimer);
+    selectionTimer = setTimeout(reportSelection, 120);
 });
 document.addEventListener('pointerover', event =>
 {

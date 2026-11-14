@@ -357,5 +357,14 @@
     "related": [
       "MonoMark"
     ]
+  },
+  {
+    "name": "MonoMarkAnnotations",
+    "definition": "App-local highlights, quote comments, and reading notes with explicit generated-section Markdown export.",
+    "anchor_file": "src/app/monomark/apple/Core/AnnotationStore.swift",
+    "related": [
+      "MonoMark",
+      "MonoMarkRenderer"
+    ]
   }
 ]
