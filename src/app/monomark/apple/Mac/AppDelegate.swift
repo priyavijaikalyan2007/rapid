@@ -430,6 +430,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
             modifiers: [.command, .control],
             on: view
         )
+        item("Pages", #selector(showPages(_:)), on: view)
+        item("Pageless", #selector(showPageless(_:)), on: view)
         item("Zoom In", #selector(zoomIn(_:)), key: ">", modifiers: [.command, .shift], on: view)
         item("Zoom Out", #selector(zoomOut(_:)), key: "<", modifiers: [.command, .shift], on: view)
         item("Actual Size", #selector(actualSize(_:)), key: "0", on: view)

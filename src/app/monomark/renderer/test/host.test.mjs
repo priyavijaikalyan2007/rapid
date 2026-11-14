@@ -160,3 +160,81 @@ test('an offscreen annotation finishes at the quote rather than the block start'
         window.scrollTo = originalScroll;
     }
 });
+
+test('Pages and Pageless modes keep a bounded document and expose estimated progress', async () => {
+    window.MonoMark.command({ type: 'load', epoch: 'page-view' });
+    await new Promise(resolve => setTimeout(resolve, 20));
+    const worker = workers.at(-1);
+    worker.onmessage({ data: { type: 'index', outline: [], links: [], blocks: [{id:'paper-a',blockID:'paper-a',estimate:80}] } });
+    window.MonoMark.command({ type:'preferences', value:{layoutMode:'pages',paperWidth:816,paperHeight:1056,paperMargin:48} });
+    worker.onmessage({ data: { type: 'range', request: worker.sent.at(-1).request, start:0,
+        blocks:[{id:'paper-a',html:'<p>Paper content.</p>'}] } });
+    await new Promise(resolve => setTimeout(resolve, 20));
+    assert.ok(document.querySelector('.monomark-page'));
+    assert.equal(window.MonoMark.metrics().layout, 'pages');
+    assert.ok(messages.some(message => message.type === 'pages' && message.total >= 1));
+    window.MonoMark.command({ type:'preferences', value:{layoutMode:'pageless'} });
+    worker.onmessage({ data: { type: 'range', request: worker.sent.at(-1).request, start:0,
+        blocks:[{id:'paper-a',html:'<p>Paper content.</p>'}] } });
+    assert.equal(document.querySelector('.monomark-page'), null);
+    assert.match(document.body.textContent, /Paper content/);
+    await new Promise(resolve => setTimeout(resolve, 300));
+});
+
+test('deferred math does not oscillate between unfinished and measured page heights', async () => {
+    window.MonoMark.command({type:'load',epoch:'stable-paper'});
+    await new Promise(resolve => setTimeout(resolve,20));
+    const worker = workers.at(-1);
+    const original = window.HTMLElement.prototype.getBoundingClientRect;
+    let ranges = 0;
+    window.HTMLElement.prototype.getBoundingClientRect = function() {
+        return {top:0,left:0,width:400,bottom:200,height:this.querySelector('.katex') ? 200 : 80};
+    };
+    worker.postMessage = message => {
+        worker.sent.push(message);
+        if (message.type !== 'range') { return; }
+        ranges++;
+        if (ranges > 6) { return; }
+        queueMicrotask(() => worker.onmessage({data:{type:'range',request:message.request,start:0,
+            blocks:[{id:'stable',html:'<p><span data-math="x" data-display="false"></span></p>'}]}}));
+    };
+    try {
+        window.MonoMark.command({type:'preferences',value:{layoutMode:'pages'}});
+        worker.onmessage({data:{type:'index',outline:[],links:[],blocks:[{id:'stable',blockID:'stable',estimate:200}]}});
+        await new Promise(resolve => setTimeout(resolve,150));
+        assert.ok(ranges <= 2, `Requested ${ranges} mounts for a stable block`);
+    } finally { window.HTMLElement.prototype.getBoundingClientRect = original; }
+    await new Promise(resolve => setTimeout(resolve,300));
+});
+
+test('document replacement dismisses the previous local link preview', async () => {
+    document.getElementById('monomark-preview').hidden = false;
+    window.MonoMark.command({type:'load',epoch:'preview-reset'});
+    assert.equal(document.getElementById('monomark-preview').hidden,true);
+    await new Promise(resolve => setTimeout(resolve,20));
+});
+
+test('print cancellation restores the previous block position', async () => {
+    window.MonoMark.command({type:'load',epoch:'print-position'});
+    await new Promise(resolve => setTimeout(resolve,20));
+    const worker = workers.at(-1);
+    worker.onmessage({data:{type:'index',outline:[],links:[],blocks:[{id:'reading',blockID:'reading',estimate:200}]}});
+    const mount = () => worker.onmessage({data:{type:'range',request:worker.sent.at(-1).request,start:0,
+        blocks:[{id:'reading',html:'<p>Reading location.</p>'}]}});
+    mount();
+    const original = window.HTMLElement.prototype.getBoundingClientRect;
+    const originalScroll = window.scrollTo;
+    const scrolls = [];
+    window.HTMLElement.prototype.getBoundingClientRect = () => ({top:-120,left:0,width:400,height:200,bottom:80});
+    window.scrollTo = (_,top) => scrolls.push(top);
+    try {
+        window.MonoMark.command({type:'print'});
+        worker.onmessage({data:{type:'print-page',start:0,blocks:[{html:'<p>Print view.</p>'}]}});
+        await new Promise(resolve => setTimeout(resolve,20));
+        window.HTMLElement.prototype.getBoundingClientRect = () => ({top:50,left:0,width:400,height:200,bottom:250});
+        window.MonoMark.command({type:'afterPrint'});
+        mount();
+        assert.equal(scrolls.at(-1),170);
+    } finally { window.HTMLElement.prototype.getBoundingClientRect = original; window.scrollTo = originalScroll; }
+    await new Promise(resolve => setTimeout(resolve,300));
+});

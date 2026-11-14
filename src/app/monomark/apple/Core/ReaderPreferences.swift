@@ -26,6 +26,8 @@ struct ReaderPreferences: Codable, Equatable, Sendable
     var lineHeight = 1.65
     var pageWidth = 960.0
     var columnBanding = false
+    var paperSize = "system"
+    var layoutMode = "pageless"
 
     init()
     {
@@ -34,6 +36,7 @@ struct ReaderPreferences: Codable, Equatable, Sendable
     private enum CodingKeys: String, CodingKey
     {
         case fontFamily, headingFontFamily, codeFontFamily, tableFontFamily, captionFontFamily
+        case paperSize, layoutMode
         case bodySize, headingSizes, codeSize, tableSize, captionSize, lineHeight, pageWidth, columnBanding
     }
 
@@ -54,12 +57,22 @@ struct ReaderPreferences: Codable, Equatable, Sendable
         lineHeight = try values.decodeIfPresent(Double.self, forKey: .lineHeight) ?? 1.65
         pageWidth = try values.decodeIfPresent(Double.self, forKey: .pageWidth) ?? 960
         columnBanding = try values.decodeIfPresent(Bool.self, forKey: .columnBanding) ?? false
+        paperSize = try values.decodeIfPresent(String.self, forKey: .paperSize) ?? "system"
+        layoutMode = try values.decodeIfPresent(String.self, forKey: .layoutMode) ?? "pageless"
         normalize()
     }
 
     /// Normalize persisted values before applying them to native or web views.
     mutating func normalize()
     {
+        if !["system", "a4", "letter", "legal"].contains(paperSize)
+        {
+            paperSize = "system"
+        }
+        if !["pages", "pageless"].contains(layoutMode)
+        {
+            layoutMode = "pageless"
+        }
         fontFamily = Self.safeFamily(fontFamily, fallback: "ui-monospace")
         headingFontFamily = Self.safeFamily(headingFontFamily)
         codeFontFamily = Self.safeFamily(codeFontFamily)

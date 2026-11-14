@@ -26,8 +26,8 @@ Real WebKit smoke evidence shows math, tables, and Mermaid, with 15 mounted bloc
 The [native smoke evidence](monomark.smoke.json) now verifies dark rendering, artifact controls, and successful PNG output.
 Visual inspection confirms that exported diagram labels and connector colors remain readable in dark mode.
 The regression suite uses real Mermaid output and checks label text after sanitization.
-The current renderer suite passes 34 tests, with 98.60% line coverage for loaded renderer modules.
-The native core suite passes 56 tests, with 96.78% line coverage including the autosave controller.
+The current renderer suite passes 54 tests, with 97.94% line coverage for loaded renderer modules.
+The native core suite passes 71 tests, with 95.62% line coverage including the autosave controller.
 
 The synthetic [indexing evidence](monomark.benchmark.json) records about 487 ms for 10 MiB on this 64 GiB development host.
 The Node process RSS after that run was about 264 MB. This is not complete-app or reference-machine performance acceptance.
@@ -56,8 +56,29 @@ Save and Command-S remain unassigned. Export a Copy preserves the original and i
 The signed sandbox write-grant path and physical mobile export remain acceptance checks.
 Unmatched quotes receive a visible inspector notice. Reattachment after extensive external edits needs further acceptance work.
 
+## UX refinements
+
+All twelve requests from 14 November are implemented across commits 08ebf87, 2713f6a, and the paper-layout checkpoint.
+The reader now jumps to quoted annotation lines, marks active file rows, reveals folder ancestors, and provides copyable title paths.
+Settings uses a horizontal action bar. C#, SQL, and Java use explicit language grammars and distinct token styling.
+Annotation panels provide expansion, collapse, and search. New annotations expand automatically.
+Notes support separate Unicode-aware search and contextual Mac Find commands.
+Font menus include installed families. Native About and offline Help cover build details, reading data, recovery, and export.
+
+Pages and Pageless share the bounded renderer. Paper choices are System, A4, US Letter, and US Legal.
+The footer shows approximate current and total pages. Large blocks use expanded sheets rather than clipped content.
+Paper selection persists per file and can become an application default. Printing keeps global printer settings unchanged.
+Print completion restores the reading location, and document navigation dismisses stale link previews.
+
+An isolated native Mac demo verified page boxes, page progress, paper controls, print-dialog opening,
+file selection/revelation, language token colors, horizontal settings controls, installed fonts, About/Help,
+annotation expansion, and contextual notes search. The user's existing document windows were left open.
+A regression reproduces and prevents repeated remounts while deferred math changes height.
+The large-layout test keeps at most 80 mounted blocks for a 10,000-block document.
+Physical printer output, mobile interactions, and release performance remain acceptance checks.
+
 ## GitHub tracking
 
-The [MonoMark epic](https://github.com/priyavijaikalyan2007/rapid/issues/1) contains seven features and twenty task or bug issues.
+The [MonoMark epic](https://github.com/priyavijaikalyan2007/rapid/issues/1) contains eight features and thirty-two task or bug issues.
 The [issue map](monomark.issues.json) records the hierarchy. Implementation and acceptance status remain distinct.
 Palette customization is also recorded in the epic and product specification.

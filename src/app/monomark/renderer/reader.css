@@ -52,3 +52,10 @@ pre[data-language]::before { content: attr(data-language); display: block; margi
 .hljs-type, .hljs-title.class_ { color: light-dark(#6f42c1, #d2a8ff); }
 .hljs-string { color: light-dark(#116329, #a5d6ff); }
 .hljs-comment { font-style: italic; }
+
+/* Estimated paper boxes retain a bounded, virtualized block tree. */
+body.monomark-paged { background: light-dark(#e6e8eb, #181a1d); }
+.monomark-paged #monomark-document { max-width: none; }
+.monomark-page { position: relative; box-sizing: border-box; margin: 0 auto; background: Canvas; box-shadow: 0 1px 6px #0004; border-radius: 2px; }
+.monomark-page-label { position: absolute; top: 7px; right: 12px; color: GrayText; font: 11px/1.2 -apple-system, sans-serif; user-select: none; }
+@media print { body.monomark-paged { background: white; color: black; } .monomark-page-label { display: none; } #monomark-document { max-width: none; } }

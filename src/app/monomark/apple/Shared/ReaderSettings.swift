@@ -30,6 +30,23 @@ struct ReaderSettings: View
                     Text("Dark").tag("dark")
                 }
             }
+            Section("Reading layout")
+            {
+                Picker("View", selection: $session.preferences.layoutMode)
+                {
+                    Text("Pageless").tag("pageless")
+                    Text("Pages").tag("pages")
+                }
+                Picker("Paper size", selection: $session.preferences.paperSize)
+                {
+                    Text("System default").tag("system")
+                    Text("A4").tag("a4")
+                    Text("US Letter").tag("letter")
+                    Text("US Legal").tag("legal")
+                }
+                Text("Page counts are estimates. Large objects remain on an expanded sheet. Printed breaks can differ.")
+                    .font(.caption).foregroundStyle(.secondary)
+            }
             Section("Typography")
             {
                 Picker("Body font", selection: $session.preferences.fontFamily)

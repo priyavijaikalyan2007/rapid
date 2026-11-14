@@ -366,5 +366,14 @@
       "MonoMark",
       "MonoMarkRenderer"
     ]
+  },
+  {
+    "name": "MonoMarkPaperLayout",
+    "definition": "Bounded whole-block paper boxes and approximate page progress with persisted physical paper preferences.",
+    "anchor_file": "src/app/monomark/renderer/src/page-layout.mjs",
+    "related": [
+      "MonoMark",
+      "MonoMarkRenderer"
+    ]
   }
 ]

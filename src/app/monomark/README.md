@@ -18,6 +18,13 @@ per-document typography, local link previews, diagram and math rendering, syntax
 Artifact icons copy source text, CSV/TSV/pipe-separated table data, or rendered PNG images where appropriate.
 Settings offers System, Light, and Dark modes. Mac presentation fills only the active window's display.
 The right inspector provides colored highlights, quote comments, and Markdown or plain-text reading notes.
+Annotation panels support expansion, collapse, quote jumps, and search. Notes provide separate search with standard Mac Find commands.
+Font selectors include installed system families. About shows version/build/revision details, and Help works offline.
+Reading Layout switches between Pages and Pageless. Settings offers System, A4, US Letter, and US Legal paper sizes.
+The status bar shows estimated current and total pages. Use as Defaults applies these settings to new documents.
+Pages keeps whole blocks inside separate paper boxes and expands sheets for oversized objects.
+Page counts change with width, fonts, and measured content. Printed page breaks can differ.
+Mac printing uses a private copy of printer settings. Mobile chooses the nearest paper supported by the printer.
 These records save locally. The reader does not change the source file during reading or note editing.
 
 On Mac, use File > Export Notes and Annotations to This File for explicit source export.

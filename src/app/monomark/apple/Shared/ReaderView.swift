@@ -91,6 +91,12 @@ struct ReaderView: View
                 }
                 Text(session.message).font(.caption).foregroundStyle(.secondary).lineLimit(2)
                 Spacer()
+                if session.url != nil
+                {
+                    Text("Page \(session.currentPage) of ~\(session.totalPages)")
+                        .font(.caption).monospacedDigit().foregroundStyle(.secondary)
+                        .help("Estimated from paper size and current layout. Printed page breaks can differ.")
+                }
             }.padding(.horizontal, 10).padding(.vertical, 5)
         }
         .toolbar
@@ -140,6 +146,19 @@ struct ReaderView: View
                 } label: {
                     Label("Notes and Annotations", systemImage: "sidebar.right")
                 }
+                Menu
+                {
+                    Button("Pageless")
+                    {
+                        session.setLayout("pageless")
+                    }
+                    Button("Pages")
+                    {
+                        session.setLayout("pages")
+                    }
+                } label: {
+                    Label("Reading Layout", systemImage: "rectangle.split.1x2")
+                }.help("Switch between Pages and Pageless")
                 Button
                 {
                     session.showSettings = true
@@ -197,9 +216,15 @@ struct ReaderView: View
                     return
                 }
                 let printer = UIPrintInteractionController.shared
+                let paperDelegate = ReaderPrintDelegate(paper: session.paperLayout)
+                printer.delegate = paperDelegate
                 printer.printFormatter = webView.viewPrintFormatter()
                 printer.present(animated: true)
                 { _, _, _ in
+                    withExtendedLifetime(paperDelegate)
+                    {
+                    }
+                    printer.delegate = nil
                     session.command(["type": "afterPrint"])
                 }
             }

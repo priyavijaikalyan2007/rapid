@@ -457,3 +457,18 @@ and table backgrounds, including alternate row and column colors.
 Provide a palette with sensible light and dark presets, with System selecting the matching default appearance.
 Preserve contrast and allow a reset to defaults. Keep reader overrides distinct from author-defined diagram colors.
 This refinement is queued after the reader and annotations stages.
+
+
+## Reading controls from 14 November 2026
+
+The left Files tree marks the open file and reveals its folder ancestors. The title bar shows the full copyable path.
+Annotation panels provide Expand All, Collapse All, quote navigation, and search of quotations and comments.
+New annotations start expanded. Reading notes provide separate search with previous and next matches.
+Mac Find commands target notes when the notes editor or its search field has focus.
+Typography selectors include installed system fonts. About includes version, build, revision, and copyright details.
+Offline Help explains local storage, autosave, recovery, and explicit Markdown export.
+
+Paper size choices are System, A4, US Letter, and US Legal. Document settings and application defaults retain the choice.
+Pages shows separate estimated paper boxes. Pageless keeps continuous reading. Both show approximate page progress.
+Pages preserves whole blocks and expands a sheet when an object exceeds one page. Print pagination can differ.
+The renderer keeps the mounted document bounded in both modes. Paper changes do not modify global printer settings.

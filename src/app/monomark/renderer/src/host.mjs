@@ -9,10 +9,12 @@
 // FLOW: Validated command -> bounded view update -> native event.
 
 import { windowRange } from './viewport.mjs';
-import { sanitizeDocument, sanitizeDiagram, localImageURL } from './sanitizer.mjs';
-import { installArtifactActions, imageBounds } from './artifacts.mjs';
+import { sanitizeDocument } from './sanitizer.mjs';
+import { imageBounds } from './artifacts.mjs';
 import { captureSelection, renderAnnotations, scrollToAnnotation } from './annotations.mjs';
 import { cssFontFamily } from './typography.mjs';
+import { paperGeometry, layoutBlocks, pageAt, buildViewport } from './page-layout.mjs';
+import { enhanceContent } from './rich-content.mjs';
 
 const viewport = document.getElementById('monomark-document');
 const status = document.getElementById('monomark-status');
@@ -33,10 +35,14 @@ let scrollFrame = false;
 let positionTimer;
 let preferences = {};
 let printing = false;
+let printAnchor;
 let printBlocks = [];
 let epoch = '';
 let loadSequence = 0;
-let diagramSequence = 0;
+let paper = paperGeometry();
+let paged = false;
+let plan = layoutBlocks([], paper, false);
+let measureQueued = false;
 let renderedEpoch = '';
 let copyOverlay;
 let appearance = 'system';
@@ -57,9 +63,9 @@ function emit(type, payload = {})
 
 function rebuildOffsets()
 {
-    let sum = 0;
-    offsets = heights.map(height => { const value = sum; sum += height; return value; });
-    return sum;
+    plan = layoutBlocks(heights, paper, paged);
+    offsets = plan.offsets;
+    return plan.totalHeight;
 }
 
 function requestRange(force = false)
@@ -75,34 +81,13 @@ function requestRange(force = false)
 function mount(message)
 {
     if (message.request !== request || printing) { return; }
-    const top = document.createElement('div');
-    top.style.height = `${offsets[message.start] || 0}px`;
-    const fragment = document.createDocumentFragment();
-    fragment.append(top);
-    for (const [index, block] of message.blocks.entries())
-    {
-        const element = document.createElement('section');
-        element.className = 'monomark-block';
-        element.id = block.id;
-        element.dataset.block = String(message.start + index);
-        if (block.html.length > 1024 * 1024)
-        {
-            element.textContent = 'This block exceeds the 1 MiB rendered-object limit. Split the source block to view it.';
-        }
-        else { element.innerHTML = sanitizeDocument(window, block.html); }
-        fragment.append(element);
-    }
-    const bottom = document.createElement('div');
-    const end = message.start + message.blocks.length;
-    bottom.style.height = `${Math.max(0, rebuildOffsets() - (offsets[end] ?? rebuildOffsets()))}px`;
-    fragment.append(bottom);
-    viewport.replaceChildren(fragment);
+    viewport.replaceChildren(buildViewport(document, message, plan, paper, makeBlock));
     renderedEpoch = epoch;
     const visible = [...viewport.querySelectorAll('.monomark-block')];
     const enhancements = [];
     for (const element of visible)
     {
-        heights[Number(element.dataset.block)] = Math.max(32, element.getBoundingClientRect().height / zoom);
+        // Measure after deferred content finishes, so incomplete math/diagrams cannot shrink a stable page.
         enhancements.push(enhance(element));
     }
     const mountedEpoch = epoch;
@@ -123,57 +108,19 @@ function mount(message)
     savePosition();
 }
 
-async function enhance(element)
+function makeBlock(block, index)
 {
-    for (const image of element.querySelectorAll('img[data-src]'))
+    const element = document.createElement('section');
+    element.className = 'monomark-block'; element.id = block.id; element.dataset.block = String(index);
+    if (block.html.length > 1024 * 1024)
     {
-        const url = localImageURL(image.dataset.src);
-        if (url) { image.src = url; }
-        else { image.title = 'Remote or unsupported image blocked. Use the Links sidebar to open its source.'; }
-        image.addEventListener('load', () => measure(element), { once: true });
-        image.addEventListener('error', () => { image.alt = `${image.alt} (image unavailable)`; }, { once: true });
+        element.textContent = 'This block exceeds the 1 MiB rendered-object limit. Split the source block to view it.';
     }
-    for (const math of element.querySelectorAll('[data-math]'))
-    {
-        try
-        {
-            const { default: katex } = await import('katex');
-            const source = decodeURIComponent(math.dataset.math);
-            if (source.length > 16384) { throw new Error('limit'); }
-            math.innerHTML = sanitizeDocument(window, katex.renderToString(source, {
-                displayMode: math.dataset.display === 'true', throwOnError: false, trust: false,
-                maxExpand: 500, maxSize: 20, output: 'htmlAndMathml'
-            }));
-        }
-        catch { math.textContent = 'Math could not be rendered.'; }
-    }
-    for (const code of element.querySelectorAll('pre code[class*="language-"]'))
-    {
-        if (code.textContent.length > 100000) { continue; }
-        const { highlightSource } = await import('./syntax.mjs');
-        const language = [...code.classList].find(name => name.startsWith('language-'))?.slice(9);
-        const highlighted = highlightSource(code.textContent, language);
-        code.classList.add('hljs');
-        code.parentElement.dataset.language = highlighted.language;
-        code.innerHTML = sanitizeDocument(window, highlighted.html);
-    }
-    for (const diagram of element.querySelectorAll('[data-mermaid]'))
-    {
-        try
-        {
-            const source = decodeURIComponent(diagram.dataset.mermaid);
-            if (source.length > 16384) { throw new Error('limit'); }
-            const { default: mermaid } = await import('mermaid');
-            mermaid.initialize({ startOnLoad: false, securityLevel: 'strict', maxTextSize: 16384, maxEdges: 500,
-                htmlLabels: false, theme: document.documentElement.style.colorScheme === 'dark' ? 'dark' : 'default' });
-            const output = await mermaid.render(`diagram-${++diagramSequence}`, source);
-            diagram.innerHTML = sanitizeDiagram(window, output.svg);
-        }
-        catch { diagram.textContent = 'Diagram could not be rendered. Its syntax or complexity exceeds this viewer’s limits.'; }
-    }
-    installArtifactActions(element, { text: text => emit('copyText', { text }), png: copyPNG });
-    measure(element);
+    else { element.innerHTML = sanitizeDocument(window, block.html); }
+    return element;
 }
+
+const enhance = element => enhanceContent(element, { measure, emit, copyPNG });
 
 async function copyPNG(element)
 {
@@ -207,8 +154,17 @@ async function copyPNG(element)
 function measure(element)
 {
     if (!element.isConnected || printing) { return; }
-    heights[Number(element.dataset.block)] = Math.max(32, element.getBoundingClientRect().height / zoom);
-    rebuildOffsets();
+    const index = Number(element.dataset.block);
+    const height = Math.max(32, element.getBoundingClientRect().height / zoom);
+    if (Math.abs(heights[index] - height) < 1) { return; }
+    heights[index] = height;
+    if (measureQueued) { return; }
+    measureQueued = true;
+    queueMicrotask(() =>
+    {
+        measureQueued = false; rebuildOffsets();
+        if (paged) { requestRange(true); }
+    });
 }
 
 function jump(id, offset = 0)
@@ -244,7 +200,8 @@ function savePosition()
     {
         if (renderedEpoch !== epoch) { return; }
         const element = [...viewport.querySelectorAll('.monomark-block')].find(item => item.getBoundingClientRect().bottom > 0);
-        if (!element) { return; }
+        if (!element) { emit('pages', { current: 1, total: plan.totalPages }); return; }
+        emit('pages', { current: pageAt(plan, window.scrollY / zoom), total: plan.totalPages });
         emit('position', { anchor: element.id, offset: -element.getBoundingClientRect().top,
             progress: window.scrollY / Math.max(1, document.documentElement.scrollHeight - window.innerHeight), zoom });
     }, 250);
@@ -253,6 +210,7 @@ function savePosition()
 async function load(command)
 {
     const sequence = ++loadSequence;
+    popover.hidden = true; currentLink = ''; printAnchor = null; printing = false;
     copyOverlay?.remove();
     epoch = command.epoch;
     zoom = Math.min(3, Math.max(0.5, Number(command.zoom) || 1));
@@ -286,6 +244,7 @@ function onWorker(data, initial)
         rebuildOffsets();
         emit('index', { outline, links: data.links, duration: data.duration, sourceBytes: data.sourceBytes, blocks: metadata.length });
         status.textContent = '';
+        if (!metadata.length) { viewport.replaceChildren(); renderedEpoch = epoch; emit('visible', { mounted: 0 }); savePosition(); }
         if (initial.anchor) { jump(initial.anchor, initial.offset || 0); }
         else
         {
@@ -329,6 +288,23 @@ function applyPreferences(value)
     (preferences.headingSizes || [30, 25, 21, 18, 16, 15]).forEach((size, index) => style.setProperty(`--h${index + 1}`, `${Number(size)}px`));
     style.setProperty('--line-height', String(preferences.lineHeight || 1.65));
     document.body.classList.toggle('monomark-column-banding', !!preferences.columnBanding);
+    configureLayout();
+}
+
+function configureLayout()
+{
+    const visible = [...viewport.querySelectorAll('.monomark-block')].find(item => item.getBoundingClientRect().bottom > 0);
+    if (visible && renderedEpoch === epoch && !pendingAnchor)
+    {
+        pendingAnchor = { id: visible.id, offset: -visible.getBoundingClientRect().top };
+    }
+    paper = paperGeometry({ width: preferences.paperWidth, height: preferences.paperHeight, margin: preferences.paperMargin }, window.innerWidth / zoom - 64);
+    paged = preferences.layoutMode === 'pages';
+    document.body.classList.toggle('monomark-paged', paged);
+    let printStyle = document.getElementById('monomark-paper-style');
+    if (!printStyle) { printStyle = document.createElement('style'); printStyle.id = 'monomark-paper-style'; document.head.append(printStyle); }
+    printStyle.textContent = `@page { size: ${paper.physicalWidth * 0.75}pt ${paper.physicalHeight * 0.75}pt; margin: ${paper.physicalMargin * 0.75}pt; }`;
+    rebuildOffsets(); activeRange = ''; requestRange(true);
 }
 
 function applyAppearance(mode)
@@ -388,7 +364,7 @@ window.MonoMark = {
         {
             zoom = Math.min(3, Math.max(0.5, command.value === 0 ? 1 : zoom + command.value));
             document.body.style.zoom = String(zoom);
-            requestRange(true);
+            configureLayout();
         }
         if (command.type === 'preview' && command.href === currentLink)
         {
@@ -397,13 +373,15 @@ window.MonoMark = {
         if (command.type === 'print')
         {
             if (metadata.length > 5000) { emit('status', { message: 'Printing is limited to 5,000 blocks in this build.' }); return; }
+            const reading = [...viewport.querySelectorAll('.monomark-block')].find(item => item.getBoundingClientRect().bottom > 0);
+            printAnchor = reading ? { id: reading.id, offset: -reading.getBoundingClientRect().top } : null;
             printing = true;
             printBlocks = [];
             worker.postMessage({ type: 'print', start: 0 });
         }
-        if (command.type === 'afterPrint') { printing = false; activeRange = ''; requestRange(true); }
+        if (command.type === 'afterPrint') { printing = false; pendingAnchor = printAnchor; printAnchor = null; activeRange = ''; requestRange(true); }
     },
-    metrics() { return { blocks: metadata.length, mounted: viewport.querySelectorAll('.monomark-block').length, outline: outline.length }; }
+    metrics() { return { layout: paged ? 'pages' : 'pageless', pages: plan.totalPages, blocks: metadata.length, mounted: viewport.querySelectorAll('.monomark-block').length, outline: outline.length }; }
 };
 
 window.addEventListener('scroll', () =>
@@ -414,7 +392,7 @@ window.addEventListener('scroll', () =>
         requestAnimationFrame(() => { scrollFrame = false; requestRange(); savePosition(); });
     }
 }, { passive: true });
-window.addEventListener('resize', () => requestRange(true));
+window.addEventListener('resize', configureLayout);
 document.addEventListener('click', event =>
 {
     const annotation = event.target.closest('mark[data-annotation]');

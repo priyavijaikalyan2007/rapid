@@ -203,7 +203,22 @@ final class ReaderWindowController: NSWindowController, NSWindowDelegate
         {
             return
         }
-        let operation = view.printOperation(with: NSPrintInfo.shared)
+        guard let info = NSPrintInfo.shared.copy() as? NSPrintInfo
+        else
+        {
+            return
+        }
+        let paper = session.paperLayout
+        if session.preferences.paperSize != "system"
+        {
+            info.orientation = .portrait
+            info.paperSize = NSSize(width: paper.widthPoints, height: paper.heightPoints)
+        }
+        info.topMargin = paper.marginPoints
+        info.bottomMargin = paper.marginPoints
+        info.leftMargin = paper.marginPoints
+        info.rightMargin = paper.marginPoints
+        let operation = view.printOperation(with: info)
         operation.runModal(for: window, delegate: nil, didRun: nil, contextInfo: nil)
         session.command(["type": "afterPrint"])
     }

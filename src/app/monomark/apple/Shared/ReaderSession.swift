@@ -36,6 +36,8 @@ final class ReaderSession: ObservableObject
     @Published var showFind = false
     @Published var query = ""
     @Published var historyQuery = ""
+    @Published var currentPage = 1
+    @Published var totalPages = 1
     @Published var preferences = ReaderPreferences()
     @Published var showSidebar = true
     @Published var rendererReady = false
@@ -193,7 +195,7 @@ final class ReaderSession: ObservableObject
         {
             return
         }
-        command(["type": "preferences", "value": dictionary(preferences)])
+        command(["type": "preferences", "value": rendererPreferences()])
         command([
             "type": "load",
             "anchor": state?.anchor ?? "",
@@ -238,6 +240,9 @@ final class ReaderSession: ObservableObject
         case "index": indexed(message)
         case "visible": isLoading = false
             smokeRendered?()
+        case "pages":
+            totalPages = max(1, min(10000000, message["total"] as? Int ?? 1))
+            currentPage = max(1, min(totalPages, message["current"] as? Int ?? 1))
         case "position": updatePosition(message)
         case "navigate": navigate(message["href"] as? String ?? "", newTab: message["newTab"] as? Bool ?? false)
         case "preview": preview(message["href"] as? String ?? "")
