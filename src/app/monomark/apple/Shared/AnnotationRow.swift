@@ -12,58 +12,70 @@ struct AnnotationRow: View
 {
     let annotation: ReadingAnnotation
     var attached: Bool
+    @Binding var expanded: Bool
     var update: (ReadingAnnotation) -> Void
     var remove: (ReadingAnnotation) -> Void
     var navigate: () -> Void
 
     var body: some View
     {
-        VStack(alignment: .leading, spacing: 8)
+        DisclosureGroup(isExpanded: $expanded)
         {
-            Button(action: navigate)
+            VStack(alignment: .leading, spacing: 8)
+            {
+                if !attached
+                {
+                    Text("Not attached in the current view. Locate the quotation to check its source.")
+                        .font(.caption).foregroundStyle(.secondary)
+                }
+                Picker("Color", selection: Binding(get: {
+                    annotation.color
+                }, set: { value in
+                    var changed = annotation
+                    changed.color = value
+                    update(changed)
+                }))
+                {
+                    ForEach(ReadingAnnotation.colors, id: \.self)
+                    {
+                        Text($0.capitalized).tag($0)
+                    }
+                }
+                TextField("Add a comment", text: Binding(get: {
+                    annotation.comment
+                }, set: { value in
+                    var changed = annotation
+                    changed.comment = value
+                    update(changed)
+                }), axis: .vertical).lineLimit(2 ... 8)
+                HStack
+                {
+                    Spacer()
+                    Button(role: .destructive)
+                    {
+                        remove(annotation)
+                    } label: {
+                        Image(systemName: "trash")
+                    }
+                    .help("Delete annotation").accessibilityLabel("Delete annotation")
+                }
+            }
+        }
+        label:
+        {
+            Button
+            {
+                expanded = true
+                navigate()
+            }
+            label:
             {
                 Text(annotation.anchors.map(\.quote).joined(separator: "\n"))
-                    .multilineTextAlignment(.leading).lineLimit(8)
-            }.buttonStyle(.plain).help("Jump to this quotation")
-            if !attached
-            {
-                Text("Not attached in the current view. Locate the quotation to check its source.")
-                    .font(.caption).foregroundStyle(.secondary)
-            }
-            Picker("Color", selection: Binding(get: {
-                annotation.color
-            }, set: { value in
-                var changed = annotation
-                changed.color = value
-                update(changed)
-            }))
-            {
-                ForEach(ReadingAnnotation.colors, id: \.self)
-                {
-                    Text($0.capitalized).tag($0)
-                }
-            }
-            TextField("Add a comment", text: Binding(get: {
-                annotation.comment
-            }, set: { value in
-                var changed = annotation
-                changed.comment = value
-                update(changed)
-            }), axis: .vertical).lineLimit(2 ... 8)
-            HStack
-            {
-                Spacer()
-                Button(role: .destructive)
-                {
-                    remove(annotation)
-                } label: {
-                    Image(systemName: "trash")
-                }
-                .help("Delete annotation").accessibilityLabel("Delete annotation")
-            }
-            Divider()
+                    .multilineTextAlignment(.leading).lineLimit(expanded ? 8 : 2)
+                    .frame(maxWidth: .infinity, alignment: .leading).contentShape(Rectangle())
+            }.buttonStyle(.plain).help("Expand and jump to this quotation")
         }
-        .padding(6)
+        .padding(8)
         .background(.quaternary.opacity(0.3), in: RoundedRectangle(cornerRadius: 6))
     }
 }

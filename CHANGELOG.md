@@ -17,6 +17,8 @@ Created: 2026
 - Added MonoMark app-local highlights, quote comments, reading notes, a right inspector, and explicit generated-section export.
 - Added the MonoMark native reader, offline renderer, reading history, document navigation, artifact copying, and appearance settings.
 
+- Added MonoMark annotation panel controls, annotation and note search, installed fonts, version details, and offline Help.
+
 ### Fixed
 
 - Improved MonoMark annotation jumps, active file rows, copyable title paths, settings actions, and code token styling.

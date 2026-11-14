@@ -11,8 +11,18 @@
 import { build } from 'esbuild';
 import { mkdir, cp, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { execFileSync } from 'node:child_process';
 const output = path.resolve('../build/Renderer');
 await mkdir(output, { recursive: true });
+let revision = 'development';
+try
+{
+    revision = execFileSync('git', ['rev-parse', '--short=12', 'HEAD'], { encoding: 'utf8' }).trim();
+    if (execFileSync('git', ['status', '--porcelain', '--untracked-files=normal', '--', '..'], { encoding: 'utf8' }).trim())
+    { revision += '-dirty'; }
+}
+catch { /* Source archives without Git retain an explicit development marker. */ }
+await writeFile(output + '/build-info.json', JSON.stringify({ gitSHA: revision, builtAt: new Date().toISOString() }));
 await build({ entryPoints: ['src/host.mjs'], bundle: true, splitting: true, format: 'esm', outdir: output,
     entryNames: 'host', chunkNames: 'chunks/[name]-[hash]', target: 'safari18', minify: true });
 await build({ entryPoints: ['src/worker.mjs'], bundle: true, format: 'iife', outfile: output + '/worker.js', target: 'safari18', minify: true });

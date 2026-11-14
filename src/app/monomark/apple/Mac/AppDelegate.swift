@@ -17,6 +17,7 @@ import WebKit
 final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
 {
     var controllers: [ReaderWindowController] = []
+    var informationWindows: [String: NSWindowController] = [:]
     var smokeStarted = false
     private var recentMenu = NSMenu(title: "Open Recent")
     var current: ReaderWindowController?
@@ -240,17 +241,49 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
 
     @objc func find(_ sender: Any?)
     {
-        current?.session.showFind = true
+        if searchingNotes
+        {
+            current?.session.annotations.noteSearchFocus = UUID()
+        }
+        else
+        {
+            current?.session.showFind = true
+        }
     }
 
     @objc func nextMatch(_ sender: Any?)
     {
-        current?.session.command(["type": "next", "direction": 1])
+        if searchingNotes
+        {
+            current?.session.annotations.findNote(1)
+        }
+        else
+        {
+            current?.session.command(["type": "next", "direction": 1])
+        }
     }
 
     @objc func previousMatch(_ sender: Any?)
     {
-        current?.session.command(["type": "next", "direction": -1])
+        if searchingNotes
+        {
+            current?.session.annotations.findNote(-1)
+        }
+        else
+        {
+            current?.session.command(["type": "next", "direction": -1])
+        }
+    }
+
+    private var searchingNotes: Bool
+    {
+        guard let current, current.session.annotations.shown, current.session.annotations.inspectorTab == "Notes"
+        else
+        {
+            return false
+        }
+        return (current.window?.firstResponder as? NSTextView)?.identifier?.rawValue == "reading-notes" ||
+            current.session.annotations.notesSearchFocused
     }
 
     @objc func settings(_ sender: Any?)
@@ -360,7 +393,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         let bar = NSMenu()
         NSApp.mainMenu = bar
         let app = submenu("MonoMark", on: bar)
-        item("About MonoMark", #selector(NSApplication.orderFrontStandardAboutPanel(_:)), on: app)
+        item("About MonoMark", #selector(showAbout(_:)), on: app)
         item("Settings…", #selector(settings(_:)), key: ",", on: app)
         app.addItem(.separator())
         item("Hide MonoMark", #selector(NSApplication.hide(_:)), key: "h", target: nil, on: app)
@@ -411,6 +444,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         item("Show Next Tab", #selector(NSWindow.selectNextTab(_:)), target: nil, on: windows)
         item("Show Previous Tab", #selector(NSWindow.selectPreviousTab(_:)), target: nil, on: windows)
         item("Move Tab to New Window", #selector(NSWindow.moveTabToNewWindow(_:)), target: nil, on: windows)
+        let help = submenu("Help", on: bar)
+        item("MonoMark Help", #selector(showHelp(_:)), key: "?", on: help)
     }
 
     private func submenu(_ title: String, on parent: NSMenu) -> NSMenu

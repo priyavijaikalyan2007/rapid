@@ -25,6 +25,22 @@ final class AnnotationController: ObservableObject
     @Published var selectedID: String?
     @Published var color = "yellow"
     @Published var visibleIDs: Set<String> = []
+    @Published var inspectorTab = "Annotations"
+    @Published var annotationQuery = ""
+    @Published var collapsedIDs: Set<String> = []
+    @Published var revealToken = UUID()
+    @Published var noteQuery = ""
+    {
+        didSet { refreshNoteMatches(selectFirst: true) }
+    }
+
+    @Published private(set) var noteMatches: [NSRange] = []
+    @Published private(set) var noteSelection: NSRange?
+    @Published private(set) var noteSelectionGeneration = UUID()
+    @Published var noteSearchFocus = UUID()
+    var notesEditorFocused = false
+    var notesSearchFocused = false
+    private var noteMatchIndex = -1
     var changed: (() -> Void)?
     private var store: AnnotationStore?
     private var document = ""
@@ -61,6 +77,9 @@ final class AnnotationController: ObservableObject
         selectedID = nil
         records = []
         text = ""
+        collapsedIDs = []
+        annotationQuery = ""
+        noteQuery = ""
         ready = false
         reload()
     }
@@ -91,6 +110,7 @@ final class AnnotationController: ObservableObject
                 }
                 records = saved.annotations
                 text = saved.text
+                refreshNoteMatches(selectFirst: false)
                 format = saved.format
                 queuedText = saved.text
                 notesDirty = false
@@ -122,9 +142,9 @@ final class AnnotationController: ObservableObject
             return
         }
         let annotation = ReadingAnnotation(anchors: selection, color: color)
-        selectedID = annotation.id
-        shown = true
         update(annotation)
+        annotationQuery = ""
+        selectAnnotation(annotation.id)
         selection = []
     }
 
@@ -184,6 +204,7 @@ final class AnnotationController: ObservableObject
             return
         }
         text = value
+        refreshNoteMatches(selectFirst: false)
         if let format
         {
             self.format = format
@@ -296,5 +317,105 @@ final class AnnotationController: ObservableObject
             }
             pending -= 1
         }
+    }
+
+    var filteredRecords: [ReadingAnnotation]
+    {
+        guard !annotationQuery.isEmpty
+        else
+        {
+            return records
+        }
+        return records.filter
+        { record in
+            record.comment.range(of: annotationQuery, options: [.caseInsensitive, .diacriticInsensitive]) != nil ||
+                record.anchors.contains { $0.quote.range(
+                    of: annotationQuery,
+                    options: [.caseInsensitive, .diacriticInsensitive]
+                ) != nil }
+        }
+    }
+
+    func isExpanded(_ id: String) -> Bool
+    {
+        !collapsedIDs.contains(id)
+    }
+
+    func expandAll()
+    {
+        collapsedIDs = []
+    }
+
+    func collapseAll()
+    {
+        collapsedIDs = Set(records.map(\.id))
+    }
+
+    func setExpanded(_ id: String, _ value: Bool)
+    {
+        if value
+        {
+            collapsedIDs.remove(id)
+        }
+        else
+        {
+            collapsedIDs.insert(id)
+        }
+    }
+
+    func selectAnnotation(_ id: String)
+    {
+        guard records.contains(where: {
+            $0.id == id
+        }) else
+        {
+            return
+        }
+        if !filteredRecords.contains(where: {
+            $0.id == id
+        })
+        {
+            annotationQuery = ""
+        }
+        collapsedIDs.remove(id)
+        inspectorTab = "Annotations"
+        selectedID = id
+        revealToken = UUID()
+        shown = true
+    }
+
+    private func refreshNoteMatches(selectFirst: Bool)
+    {
+        noteMatches = TextSearch.ranges(in: text, query: noteQuery)
+        noteMatchIndex = -1
+        if selectFirst
+        {
+            findNote(1)
+        }
+    }
+
+    func findNote(_ direction: Int)
+    {
+        guard !noteMatches.isEmpty
+        else
+        {
+            noteSelection = nil
+            return
+        }
+        if noteMatchIndex < 0
+        {
+            noteMatchIndex = direction < 0 ? noteMatches.count - 1 : 0
+        }
+        else
+        {
+            noteMatchIndex = (noteMatchIndex + (direction < 0 ? -1 : 1) + noteMatches.count) % noteMatches.count
+        }
+        noteSelection = noteMatches[noteMatchIndex]
+        noteSelectionGeneration = UUID()
+    }
+
+    var noteMatchLabel: String
+    {
+        noteMatches.isEmpty ? "No matches" : "\(max(0, noteMatchIndex + 1)) of \(noteMatches.count)\(noteMatches.count == 10000 ? "+" : "")"
     }
 }

@@ -59,7 +59,7 @@ test('native commands preserve document context and expose link actions', async 
     document.getElementById('monomark-open-tab').click();
     assert.equal(messages.at(-1).newTab, true);
     window.MonoMark.command({ type: 'preferences', value: { bodySize: 18, codeFontFamily: 'Menlo', columnBanding: true } });
-    assert.equal(document.documentElement.style.getPropertyValue('--code-font'), 'Menlo');
+    assert.equal(document.documentElement.style.getPropertyValue('--code-font'), '"Menlo"');
     assert.equal(document.body.classList.contains('monomark-column-banding'), true);
     window.MonoMark.command({ type: 'find', query: 'Next' });
     assert.equal(worker.sent.at(-1).type, 'find');
@@ -129,4 +129,34 @@ test('native annotations decorate remounted prose and selection reaches the insp
     assert.equal(messages.at(-1).type, 'annotationSelected');
     assert.equal(messages.at(-1).id, 'note-one');
     await new Promise(resolve => setTimeout(resolve, 300));
+});
+
+test('an offscreen annotation finishes at the quote rather than the block start', async () => {
+    const original = window.HTMLElement.prototype.getBoundingClientRect;
+    const scrolls = [];
+    const originalScroll = window.scrollTo;
+    window.scrollTo = (x, y) => scrolls.push(y);
+    window.HTMLElement.prototype.getBoundingClientRect = function() {
+        return { top: this.tagName === 'MARK' ? 900 : 100, left: 0, width: 400, bottom: 980, height: 80 };
+    };
+    try
+    {
+        window.MonoMark.command({ type: 'load', epoch: 'quote-jump' });
+        await new Promise(resolve => setTimeout(resolve, 20));
+        const worker = workers.at(-1);
+        worker.onmessage({ data: { type: 'index', outline: [], links: [], blocks: [
+            { id: 'a', blockID: 'a', estimate: 80 }, { id: 'b', blockID: 'b', estimate: 160 }] } });
+        window.MonoMark.command({ type: 'annotations', value: [{ id: 'offscreen', color: 'yellow', anchors: [
+            { blockID: 'b', quote: 'Target', prefix: 'Intro. ', suffix: ' text.', start: 7 }] }] });
+        window.MonoMark.command({ type: 'annotation', id: 'offscreen' });
+        worker.onmessage({ data: { type: 'range', request: worker.sent.at(-1).request, start: 1,
+            blocks: [{ id: 'b', html: '<p>Intro. Target text.</p>' }] } });
+        await new Promise(resolve => setTimeout(resolve, 20));
+        assert.ok(scrolls.at(-1) > 600, `Final scroll was ${scrolls.at(-1)}`);
+    }
+    finally
+    {
+        window.HTMLElement.prototype.getBoundingClientRect = original;
+        window.scrollTo = originalScroll;
+    }
 });

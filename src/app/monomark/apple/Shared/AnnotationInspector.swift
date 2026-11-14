@@ -12,19 +12,19 @@ struct AnnotationInspector: View
 {
     @ObservedObject var session: ReaderSession
     @ObservedObject var controller: AnnotationController
-    @State private var tab = "Annotations"
+    @FocusState private var noteSearchFocused: Bool
     @State private var discard = false
 
     var body: some View
     {
         VStack(alignment: .leading, spacing: 12)
         {
-            Picker("Reading data", selection: $tab)
+            Picker("Reading data", selection: $controller.inspectorTab)
             {
                 Text("Annotations").tag("Annotations")
                 Text("Notes").tag("Notes")
             }.pickerStyle(.segmented)
-            if tab == "Annotations"
+            if controller.inspectorTab == "Annotations"
             {
                 annotations
             }
@@ -60,7 +60,14 @@ struct AnnotationInspector: View
             }
         }
         .padding()
-        .disabled(!controller.ready && controller.error == nil)
+        .onChange(of: controller.noteSearchFocus)
+        { _, _ in
+            noteSearchFocused = true
+        }
+        .onChange(of: noteSearchFocused)
+        { _, focused in
+            controller.notesSearchFocused = focused
+        }
         .confirmationDialog("Discard the visible draft and reload saved notes?", isPresented: $discard)
         {
             Button("Discard Draft", role: .destructive)
@@ -91,31 +98,59 @@ struct AnnotationInspector: View
                     controller.addSelection()
                 }.disabled(controller.selection.isEmpty)
             }
+            HStack
+            {
+                TextField("Search annotations", text: $controller.annotationQuery).textFieldStyle(.roundedBorder)
+                    .accessibilityLabel("Search annotations")
+                Button
+                {
+                    controller.expandAll()
+                } label: {
+                    Label("Expand All", systemImage: "chevron.down.2")
+                }
+                .labelStyle(.iconOnly).help("Expand all annotations")
+                Button
+                {
+                    controller.collapseAll()
+                } label: {
+                    Label("Collapse All", systemImage: "chevron.up.2")
+                }
+                .labelStyle(.iconOnly).help("Collapse all annotations")
+            }
             ScrollViewReader
             { proxy in
                 ScrollView
                 {
                     LazyVStack(alignment: .leading, spacing: 16)
                     {
-                        ForEach(controller.records)
+                        ForEach(controller.filteredRecords)
                         { annotation in
                             AnnotationRow(
                                 annotation: annotation,
                                 attached: controller.visibleIDs.contains(annotation.id),
+                                expanded: Binding(
+                                    get: {
+                                        controller.isExpanded(annotation.id)
+                                    },
+                                    set: {
+                                        controller.setExpanded(annotation.id, $0)
+                                    }
+                                ),
                                 update: controller.update,
                                 remove: controller.remove
                             )
                             {
+                                controller.selectAnnotation(annotation.id)
                                 session.navigateAnnotation(annotation)
                             }.id(annotation.id)
                         }
                     }
                 }
-                .onChange(of: controller.selectedID)
-                { _, id in
-                    if let id
+                .onChange(of: controller.revealToken)
+                { _, _ in
+                    if let id = controller.selectedID
                     {
-                        proxy.scrollTo(id)
+                        proxy.scrollTo(id, anchor: .top)
                     }
                 }
             }
@@ -141,14 +176,37 @@ struct AnnotationInspector: View
                 Text("Markdown").tag("markdown")
                 Text("Plain text").tag("plain")
             }
-            TextEditor(text: Binding(get: {
-                controller.text
-            }, set: {
-                controller.editNotes($0)
-            }))
-            .font(.system(.body, design: .monospaced))
-            .accessibilityLabel("Reading notes")
-            .accessibilityIdentifier("reading-notes")
+            HStack
+            {
+                TextField("Search notes", text: $controller.noteQuery)
+                    .textFieldStyle(.roundedBorder).focused($noteSearchFocused)
+                    .onSubmit
+                    {
+                        controller.findNote(1)
+                    }
+                    .accessibilityLabel("Search notes")
+                Button
+                {
+                    controller.findNote(-1)
+                } label: {
+                    Label("Previous Match", systemImage: "chevron.up")
+                }
+                .labelStyle(.iconOnly).help("Previous note match").disabled(controller.noteMatches.isEmpty)
+                Button
+                {
+                    controller.findNote(1)
+                } label: {
+                    Label("Next Match", systemImage: "chevron.down")
+                }
+                .labelStyle(.iconOnly).help("Next note match").disabled(controller.noteMatches.isEmpty)
+            }
+            if !controller.noteQuery.isEmpty
+            {
+                Text(controller.noteMatchLabel).font(.caption).foregroundStyle(.secondary)
+            }
+            NativeNotesEditor(controller: controller)
+                .frame(minHeight: 120)
         }
+        .disabled(!controller.ready)
     }
 }

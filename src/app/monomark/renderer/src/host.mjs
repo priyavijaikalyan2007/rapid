@@ -12,6 +12,7 @@ import { windowRange } from './viewport.mjs';
 import { sanitizeDocument, sanitizeDiagram, localImageURL } from './sanitizer.mjs';
 import { installArtifactActions, imageBounds } from './artifacts.mjs';
 import { captureSelection, renderAnnotations, scrollToAnnotation } from './annotations.mjs';
+import { cssFontFamily } from './typography.mjs';
 
 const viewport = document.getElementById('monomark-document');
 const status = document.getElementById('monomark-status');
@@ -105,7 +106,6 @@ function mount(message)
         enhancements.push(enhance(element));
     }
     const mountedEpoch = epoch;
-    decorateAnnotations();
     Promise.all(enhancements).then(() =>
     {
         if (mountedEpoch === epoch) { decorateAnnotations(); }
@@ -118,6 +118,7 @@ function mount(message)
         const target = document.getElementById(saved.id);
         if (target) { window.scrollTo(0, target.getBoundingClientRect().top + window.scrollY + saved.offset); }
     }
+    decorateAnnotations();
     emit('visible', { mounted: visible.length });
     savePosition();
 }
@@ -315,10 +316,10 @@ function applyPreferences(value)
 {
     preferences = value || {};
     const style = document.documentElement.style;
-    style.setProperty('--reader-font', preferences.fontFamily || 'ui-monospace');
+    style.setProperty('--reader-font', cssFontFamily(preferences.fontFamily));
     for (const kind of ['heading', 'code', 'table', 'caption'])
     {
-        style.setProperty(`--${kind}-font`, preferences[`${kind}FontFamily`] || preferences.fontFamily || 'ui-monospace');
+        style.setProperty(`--${kind}-font`, cssFontFamily(preferences[`${kind}FontFamily`] || preferences.fontFamily));
     }
     for (const [key, property, fallback] of [['bodySize', '--body-size', 15], ['codeSize', '--code-size', 14],
         ['tableSize', '--table-size', 14], ['captionSize', '--caption-size', 13], ['pageWidth', '--page-width', 960]])

@@ -250,8 +250,7 @@ final class ReaderSession: ObservableObject
         case "copyPNG": copyPNG(message)
         case "selection": receiveSelection(message)
         case "annotationStatus": annotations.visibleIDs = Set((message["attached"] as? [String] ?? []).prefix(20000))
-        case "annotationSelected": annotations.selectedID = message["id"] as? String
-            annotations.shown = true
+        case "annotationSelected": annotations.selectAnnotation(message["id"] as? String ?? "")
         case "status": self.message = String((message["message"] as? String ?? "").prefix(500))
             isLoading = false
         case "printReady": printAction?()

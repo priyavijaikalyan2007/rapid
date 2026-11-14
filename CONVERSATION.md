@@ -1014,3 +1014,5 @@ Filed all twelve items as issues #30–#41, categorized as five bugs and seven e
 Added page-layout feature #29 and native sub-issue links to the appropriate feature parents.
 
 First UX step adds saved-quote navigation, active file rows with ancestor expansion, title-bar path copying, a horizontal settings footer, and richer code token styling. Regression tests pass and the Mac targets compile.
+
+The second UX checkpoint adds collapsible/searchable annotation panels, contextual native note search, installed font families, build-aware About information, and offline Help. Native QA in an isolated bundle confirms JetBrains Mono and Atkinson Hyperlegible, horizontal settings actions, new expanded panels, Collapse All, note input, Command-F, and Command-G. A regression also protects precise offscreen quote scrolling.

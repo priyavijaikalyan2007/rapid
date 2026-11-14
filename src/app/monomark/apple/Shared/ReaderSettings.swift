@@ -15,6 +15,8 @@ struct ReaderSettings: View
 {
     @ObservedObject var session: ReaderSession
     @AppStorage("appearance-mode") private var appearance = "system"
+    @State private var about = false
+    @State private var help = false
     var body: some View
     {
         Form
@@ -30,9 +32,13 @@ struct ReaderSettings: View
             }
             Section("Typography")
             {
-                Picker("Monospace font", selection: $session.preferences.fontFamily)
+                Picker("Body font", selection: $session.preferences.fontFamily)
                 {
-                    ForEach(["ui-monospace", "Menlo", "Monaco", "Courier New", "SFMono-Regular"], id: \.self)
+                    Text("System Monospace").tag("ui-monospace")
+                    ForEach(
+                        FontChoices.make(installed: InstalledFonts.families, current: session.preferences.fontFamily),
+                        id: \.self
+                    )
                     {
                         Text($0).tag($0)
                     }
@@ -71,8 +77,27 @@ struct ReaderSettings: View
                 Text("Highlights, comments, and reading notes are kept separately.")
                     .font(.caption).foregroundStyle(.secondary)
             }
+            Section("Information")
+            {
+                Button("MonoMark Help")
+                {
+                    help = true
+                }
+                Button("About MonoMark")
+                {
+                    about = true
+                }
+            }
         }
         .formStyle(.grouped)
+        .sheet(isPresented: $about)
+        {
+            ReaderAboutView()
+        }
+        .sheet(isPresented: $help)
+        {
+            ReaderHelpView()
+        }
         .safeAreaInset(edge: .bottom)
         {
             VStack(spacing: 0)
@@ -138,7 +163,7 @@ struct ReaderSettings: View
         Picker(title, selection: value)
         {
             Text("Use body font").tag("")
-            ForEach(["Menlo", "Monaco", "Courier New", "SFMono-Regular"], id: \.self)
+            ForEach(FontChoices.make(installed: InstalledFonts.families, current: value.wrappedValue), id: \.self)
             {
                 Text($0).tag($0)
             }

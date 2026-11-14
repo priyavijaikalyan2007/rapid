@@ -27,3 +27,10 @@ test('unknown languages remain escaped literal text', () => {
     const result = highlightSource('<script>bad()</script>', 'unknown');
     assert.equal(result.html, '&lt;script&gt;bad()&lt;/script&gt;');
 });
+
+test('font family names remain a single quoted CSS family', async () => {
+    const { cssFontFamily } = await import('../src/typography.mjs');
+    assert.equal(cssFontFamily('JetBrains Mono'), '"JetBrains Mono"');
+    assert.equal(cssFontFamily('Font "Quoted"'), '"Font \\"Quoted\\""');
+    assert.equal(cssFontFamily('ui-monospace'), 'ui-monospace');
+});
