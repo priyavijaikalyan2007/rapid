@@ -11,7 +11,8 @@ Created: 2026
 
 # MonoMark product brief
 
-Recorded on 13 November 2026. Status: requirements captured, design proposed, implementation not started.
+Recorded on 13 November 2026. The owner approved the product baseline and supplied further refinements.
+Implementation has not started. Architecture and performance claims still require prototype evidence.
 The owner selected MonoMark after considering MacDownMono. Name availability remains unverified.
 
 ## Product goal
@@ -27,8 +28,8 @@ No independent comparison of MonoReader's interface or performance is claimed.
 
 ## Confirmed requirements
 
-The owner confirmed one sidebar on the left. Its three tabs are Files, Contents, and Links.
-The main area displays one rendered document. The app does not edit Markdown files.
+The owner confirmed one sidebar on the left. Its four tabs are Files, Contents, Links, and History.
+The main area displays the active document tab. The app does not edit Markdown files.
 
 | Area | Required behavior |
 | --- | --- |
@@ -41,10 +42,17 @@ The main area displays one rendered document. The app does not edit Markdown fil
 | Platforms | Prioritize macOS. Preserve a path to comparable iPhone and iPad behavior. |
 | Window modes | Support both a resizable window and full-screen reading on the window's current display, with switching between modes. |
 | Keyboard and pointer | Provide deliberate shortcuts for opening, closing, printing, zooming, panning, scrolling, and navigation. |
+| Reading state | Keep per-file reading positions and settings in the user's local application data. |
+| Large documents | Optimize file access, parsing, rendering, and navigation for very large documents. |
+| Document tabs | Use platform-appropriate document tabs to support navigation among files. |
+| Local link previews | Show a bounded preamble or target-section preview for accessible linked Markdown documents. |
+| History | Retain a searchable local record of every Markdown document viewed, ordered by most recent use. |
+| Tables | Study Zed's table rendering and provide clear, theme-aware row and column differentiation. |
+| Platform conventions | Use macOS, iOS, and iPadOS keyboard conventions. Do not invent conflicting shortcut mappings. |
 
 ## Proposed reading behavior
 
-These details refine the requirements. They remain proposals until reviewed or validated through implementation.
+These details refine the approved baseline. Mechanisms described as provisional still require implementation evidence.
 
 Open a file or folder through native dialogs, Finder, or drag and drop.
 Opening one file must not require folder access. Request folder access when related files need that permission.
@@ -87,6 +95,77 @@ Check symlink destinations as well as textual paths. Never treat an external web
 Hover exposes a small action popover on Mac. Keyboard focus and context menus expose equivalent actions.
 On touch devices, use a long-press menu. Hover must not be the only way to reach an action.
 
+## Local reading state and history
+
+Store reading positions, per-file preferences, and viewing history persistently within the user's local application data.
+Use OS-provided directories under the user's home or app container, rather than a hardcoded home path.
+On a nonsandboxed Mac, the proposed durable location is `~/Library/Application Support/MonoMark/`.
+Use the sandbox-resolved Application Support directory on sandboxed Mac, iPhone, and iPad installations.
+Keep disposable rendering data in the corresponding Caches directory. Never rely on purgeable caches for reading history or settings.
+This distinction follows [Apple's file-system guidance](https://developer.apple.com/documentation/foundation/using-the-file-system-effectively).
+No sidecar file or modification to the Markdown document is required.
+
+Each file record contains its identity, last known location, access bookmark where supported, first-viewed time, and last-viewed time.
+Store the reading anchor, relative offset within that block, document-version information, zoom, and per-file display overrides.
+Keep global defaults separate from per-file overrides. Preserve unmodified defaults when a file has no override.
+Use filesystem or provider identity where available, with a path fallback and explicit handling for replacement at the same path.
+Resolve bookmarks and access rights before reading. A history record never grants new filesystem permission.
+Handle renamed, moved, replaced, removed, and provider-unavailable documents without silently assigning state to an unrelated file.
+
+Restore a semantic anchor and its local offset when possible. Use a bounded relative-position fallback if the source changed.
+Do not rely solely on a saved pixel offset, because fonts, window width, and deferred content change layout.
+Save through coalesced background writes and flush at tab closure and normal lifecycle boundaries.
+Use atomic updates or transactions, a versioned schema, and safe migration or recovery after interruption.
+Coordinate updates across windows so an older inactive tab cannot overwrite a newer reading position.
+The exact persistence engine remains provisional. Test its real transaction and recovery behavior before adoption.
+
+The History sidebar tab shows the complete retained machine-local viewing history, newest first.
+Provide search, filename and path disambiguation, and reopening at the saved reading position.
+Retain small history records until the user explicitly forgets an entry or clears history.
+Do not silently truncate history to a small recent-files limit or evict history when rendering caches fill.
+Load history rows in pages instead of keeping all entries in memory.
+Only actual document viewing records a visit. Folder scans and link previews do not create history entries.
+
+Keep missing or inaccessible files visible with their availability state and an explicit relink or forget action.
+Expose a native Open Recent menu backed by the same store. The menu may show a short list, while History retains all entries.
+Clearing history removes its records, associated reading positions, and stored file access references without deleting source files.
+Reset global preferences separately. Provide a separate action to clear disposable rendering caches.
+Keep history local to this installation. Do not add account sync or upload file paths, previews, or document content.
+Store no full document copies or preview excerpts persistently by default, and do not log file contents or history paths.
+Protect metadata through platform file protections and app-private storage. Do not describe that storage as independently encrypted.
+
+Validate restoration after relaunch, font changes, window resizing, source edits, renames, replacement, and permission loss.
+Test interrupted writes, disk-full errors, schema migration, corrupt records, and simultaneous window updates.
+If state cannot be saved, retain reading access and report the persistence failure without changing the source file.
+Test a large history dataset, explicit forgetting, complete clearing, and cache eviction without history loss.
+
+## Document tabs and link previews
+
+Use native document tabs on Mac and an adaptive tab presentation on iPad and iPhone.
+Document tabs are separate from the four sidebar tabs. Each document tab owns its location history, reading state, and zoom.
+The sidebar always describes the active document tab. Tab labels disambiguate identical filenames from different folders.
+Provide visible actions to open a link in the current tab or a new document tab.
+By default, file selection and local-link navigation use the active tab, with backward navigation retained.
+When explicitly opening a file in a new tab, reuse an existing tab for that file in the same window where practical.
+Closing a tab retains its saved state and history entry. Closing the final tab follows the platform's document-window convention.
+Restore tab metadata without eagerly loading every document, starting a renderer for every tab, or triggering provider downloads.
+Release inactive renderers and large decoded resources under pressure. Reload them from saved state when needed.
+Native Mac tabs may have separate window objects. Count active visible document surfaces, rather than window objects, when budgeting renderers.
+
+Extend the link popover with a preview for an accessible local Markdown destination.
+Show the destination title or filename and a bounded excerpt from its opening prose.
+If a link targets a heading, prefer that section's opening text and identify the section.
+Skip front matter and decorative or expensive content when selecting the excerpt.
+Keep Open, Open in New Tab, and Copy actions available without requiring the preview to succeed.
+Previewing does not change the active document, reading position, location history, or most-recently-viewed ordering.
+
+Load previews only on deliberate hover, keyboard focus, or the touch preview action.
+Limit input bytes, output length, concurrent tasks, and preview memory. Cancel work when the target changes or the popover closes.
+Do not render Mermaid, execute document scripts, decode large images, or recursively preview links inside a preview.
+Apply the same sanitization and folder-access rules as normal viewing.
+Show an unavailable or permission-needed state for inaccessible destinations. Do not download cloud placeholders silently on hover.
+External web links retain their destination and navigation actions. Fetching remote preview pages is outside this refinement.
+
 ## Window modes and multiple displays
 
 Both window mode and single-display full-screen mode are required. Full screen applies only to the active document window.
@@ -112,46 +191,52 @@ The mechanism remains provisional until multi-display testing proves the require
 
 ## Keyboard, scrolling, and panning contract
 
-Keyboard access is required from the first prototype. The following bindings are proposed defaults for macOS.
-Use native menu commands and show their shortcuts in the menu.
-Common commands follow [Apple's keyboard conventions](https://support.apple.com/en-us/102650), with app-specific additions for viewer navigation.
+Keyboard access is required from the first prototype. Use the platform's commands, responder behavior, and menu equivalents.
+The references are [Pages on Mac](https://support.apple.com/en-ae/guide/pages/tanc0ffef022/mac),
+[Pages on iPhone and iPad](https://support.apple.com/en-ae/guide/pages-ipad/tan3b1ff7f35/ipados),
+and [Apple's general Mac shortcuts](https://support.apple.com/en-us/102650).
+Respect system customizations, keyboard layouts, accessibility navigation, and platform-reserved keys.
 
-| Action | Proposed shortcut | Scope and result |
+| Action | Mac convention | iPhone and iPad hardware keyboard |
 | --- | --- | --- |
-| Open file | Command-O | Open the native file dialog for the active window. |
-| Open folder | Shift-Command-O | Open the native folder dialog. |
-| Close window | Command-W | Close the active document window without quitting the app. |
-| Close or dismiss | Escape | Apply the ordered rules below, once per key press. |
-| Print | Command-P | Open the native print dialog for the rendered document. |
-| Enter or exit full screen | Control-Command-F | Toggle only the active window on its current display. |
-| Zoom in | Command-Plus, with Command-Equals as an alias | Enlarge the document view while retaining the reading anchor. |
-| Zoom out | Command-Minus | Reduce document zoom within defined limits. |
-| Actual size | Command-0 | Reset document zoom to 100 percent without resetting saved font preferences. |
-| Find | Command-F | Show document search and focus its field. |
-| Next or previous match | Command-G or Shift-Command-G | Move through document search results. |
-| Previous or next location | Command-[ or Command-] | Navigate document and fragment history. |
-| Toggle sidebar | Option-Command-S | Show or hide the sidebar without changing the document. |
-| Select sidebar tab | Command-1, Command-2, Command-3 | Show and focus Files, Contents, or Links, respectively. |
-| Copy or select all | Command-C or Command-A | Act within the focused text field, document, or sidebar. |
-| Settings | Command-Comma | Open native settings. |
-| Quit | Command-Q | Use the normal application quit command. |
+| Open | Command-O | Command-O opens the document picker. |
+| Close active document tab or final window | Command-W | Use the native document or tab close command where supported. |
+| Print | Command-P | Use the platform Print command and its supplied equivalent, where available. |
+| Full screen | Control-Command-F | Use platform window controls. Do not impose the Mac binding. |
+| View zoom in or out | Shift-Command-> or Shift-Command-<, as in Pages | The same Pages zoom commands. |
+| Increase or decrease reading text size | Command-Plus or Command-Minus | The same Pages text-size commands. |
+| Actual size | Command-0 | Expose the native action without assigning an unsupported shortcut. |
+| Find | Command-F | Command-F. |
+| Next or previous match | Command-G or Shift-Command-G | The same commands while Find owns the interaction. |
+| Copy or select all | Command-C or Command-A | The same commands in the focused context. |
+| Settings or quit | Native Command-Comma or Command-Q | Use platform settings and lifecycle conventions. |
+
+View zoom and reading text size are different actions. Text-size changes preserve the configured heading hierarchy and source content.
+Actual Size resets view zoom, not saved font preferences.
+Open Folder, sidebar selection, location history, and tab management remain visible menu or control actions.
+Use their native equivalents only when the selected platform supplies them. Do not assign custom number keys or other speculative mappings.
+In particular, remove the earlier sidebar-number, custom folder-open, and location-history bindings from the proposed contract.
 
 Escape performs the first applicable action in this order:
 
 1. Cancel the active system dialog, sheet, or input composition through its native handling.
 2. Dismiss the foremost temporary interaction, such as a context menu, link popover, or search bar.
 3. Exit full-screen mode and retain the open document in its restored window.
-4. Close the active document window when it is already in window mode.
 
-An empty start window does not close through Escape. Escape never quits the application.
-One press must not dismiss a popover and also close the document. Ignore key repeat for Escape-driven window closure.
+This platform-convention refinement supersedes the earlier proposal that Escape closes an ordinary document window.
+Use the native Close command for tab or window closure. Escape never quits the application or closes an ordinary reading tab.
+One press must not dismiss a popover and also exit full screen. Ignore key repeat across Escape dismissal transitions.
 After dismissing an interaction, restore focus to its invoking control or the document.
 
 | Interaction | Required behavior |
 | --- | --- |
 | Vertical scrolling | Mouse wheel, trackpad, and Up or Down Arrow scroll the focused reading viewport. |
-| Page scrolling | Page Up or Page Down and Space or Shift-Space move by a viewport. |
-| Document boundaries | Command-Up Arrow or Command-Down Arrow moves to the document start or end when the reading viewport owns focus. |
+| Mac page scrolling | Page Up or Page Down, including Fn-Up Arrow or Fn-Down Arrow, scrolls without moving the text selection. |
+| Mac document boundaries | Home or Fn-Left Arrow scrolls to the start. End or Fn-Right Arrow scrolls to the end. |
+| Mac text navigation | Preserve native Command-arrow and Shift-modified selection commands in text contexts. Do not reinterpret them as global scrolling. |
+| iPhone and iPad reading navigation | Follow Pages reading view: Command-Up or Command-Down reaches the document boundaries. Option-Up or Option-Down changes pages. |
+| iPhone and iPad reading canvas | Command-Left or Command-Right moves horizontally when the reading canvas owns focus. Preserve text-field behavior. |
+| Space scrolling | Preserve native reading-view behavior where supplied. Do not override a focused control or text field. |
 | Horizontal panning | Two-axis trackpad gestures, horizontal wheel input, and Shift-wheel move wide tables, code, and diagrams. |
 | Keyboard panning | Left or Right Arrow pans a focused overflow viewport. A wide object must be keyboard-focusable. |
 | Sidebar navigation | Arrow keys move among entries or expand and collapse a tree. Return activates the selected target. |
@@ -163,7 +248,8 @@ Text fields, menus, trees, and accessibility interactions must receive their nor
 An event must trigger only one action across native controls and the rendered document.
 Bound zoom and pan values. Keep small documents readable, and prevent movement beyond an object's usable viewport.
 Avoid idle timers or continuous work merely to support keyboard handling, scrolling, or panning.
-On iPad, preserve applicable commands when a hardware keyboard is attached and provide discoverable touch equivalents.
+On iPhone and iPad, expose supported commands through native shortcut discovery and provide touch equivalents.
+Recheck supported OS versions during implementation. Do not infer a mobile shortcut from the Mac table.
 
 Printing uses rendered content and excludes application chrome, sidebars, hover controls, and error debugging details.
 Complete required deferred local diagrams and images for the print layout, without silently loading blocked remote resources.
@@ -178,12 +264,69 @@ These checks define future validation. No application currently exists to execut
 - Enter full screen on either of two displays, including when the pointer is on the other display.
 - On an extended desktop, keep other displays usable and other document windows unchanged under both Spaces settings.
 - Recover from display disconnection, display scaling changes, and interrupted full-screen transitions.
-- Verify Escape precedence in dialogs, search, link popovers, full screen, and a normal document window.
-- Verify that a held Escape key cannot cascade from dismissal into document closure.
+- Verify Escape precedence in dialogs, search, link popovers, and full screen, without closing an ordinary tab or window.
+- Verify that a held Escape key cannot cascade through several dismissal or window-mode actions.
 - Open, navigate, search, copy, zoom, pan, print, and close through keyboard commands without duplicate actions.
 - Preserve text-field editing, tree navigation, visible focus, VoiceOver interaction, and non-US keyboard access.
 - Print long documents containing wide tables, highlighted code, local images, math, and deferred Mermaid diagrams.
 - Test trackpads, a mouse wheel, a keyboard without dedicated page keys, and an iPad hardware keyboard.
+
+## Very large documents
+
+Optimize the whole path from file access to rendered navigation. Memory mapping alone does not bound parser or layout memory.
+Evaluate [Foundation's mapped-if-safe reading](https://developer.apple.com/documentation/foundation/nsdata/readingoptions/mappedifsafe) for suitable local files.
+The option is a hint, not a guarantee of mapping or zero-copy decoding.
+Use mapping only when stable backing storage and safe lifetime handling can be established.
+Handle external replacement or truncation, file-provider changes, and network or removable storage explicitly.
+Fall back to coordinated, bounded reads when mapping is unsafe. Do not require mapping for correctness.
+
+Avoid simultaneous full-size byte, decoded-text, HTML, and rendered-document copies.
+Parse away from the UI thread and build a compact, source-aligned block index.
+Evaluate a disk-backed index when retaining all index entries would exceed the memory budget.
+Preserve block boundaries, open fences, nested structures, link definitions, and other document-wide Markdown semantics.
+Do not split arbitrary byte or line chunks and parse each chunk as an independent document.
+
+Render only a bounded region around the viewport and reclaim distant rendered blocks and decoded objects.
+Load images, syntax grammars, math, and diagrams on demand. Reserve estimated layout space to limit scroll movement.
+Prioritize visible content and explicit navigation targets over speculative work.
+Cancel obsolete indexing, rendering, and search tasks when the active document changes.
+Keep inactive tabs lightweight and cap concurrent work across previews, tabs, and windows.
+Do not promise constant total memory merely because the visible view is virtualized.
+
+Contents and Links indexes can populate progressively, with a clear indexing state and cancelable work.
+Find must cover the entire document, including unloaded blocks, and report progress while indexing remains incomplete.
+Jumping to a distant heading or the document end must not require rendering every intervening block.
+Report progress when parsing context is still needed before a target can be resolved safely.
+Preserve selection, copying, accessible reading order, and location history across unloaded regions.
+Printing must cover the whole document through bounded pagination rather than materializing one enormous screen view.
+
+Window or paginate very large tables without losing headers, alignment, selection, or copying across unloaded rows.
+Bound individual code blocks, images, equations, and diagram complexity as well as total document size.
+For an object beyond safe rendering limits, show an explicit readable fallback and its navigation target.
+Keep the rest of the document usable. Do not silently remove objects from the outline.
+
+Benchmark increasing file sizes, extremely long lines, many headings, large tables, mixed scripts, and heavy object counts.
+Include repeated tab switching, distant jumps, complete-document search, printing, and externally changed files.
+Record first readable content, complete indexing, target-jump latency, scrolling, peak and retained memory, CPU, and energy separately.
+Memory measurements include the app, renderer processes, decoded resources, and resident mapped pages.
+Freeze supported sizes and release thresholds after prototype evidence, before widening the supported workload.
+
+## Table clarity and Zed reference
+
+Reviewed Zed's Markdown renderer source on 13 November 2026 at commit `4fd48c02acb46500b832a3a90f89ceea4735f9f8`.
+The [table-cell styling](https://github.com/zed-industries/zed/blob/4fd48c02acb46500b832a3a90f89ceea4735f9f8/crates/markdown/src/markdown.rs#L3157-L3200)
+uses a title-bar background for headers, a panel background on alternating body rows, and themed horizontal and vertical borders.
+This inspected path does not alternate column backgrounds. The observation comes from source review, not a visual test of Zed.
+
+Use a distinct header, subtle alternating rows, clear cell boundaries, adequate padding, and Markdown column alignment in MonoMark.
+Provide an optional alternating-column style for readers who need stronger column tracking.
+Treat column banding as a MonoMark feature rather than a verified Zed behavior.
+Choose row or column banding without stacking both into a distracting checkerboard.
+Use semantic platform colors, sufficient text contrast, and borders so color is not the only way to distinguish cells.
+Support light, dark, increased-contrast, and monochrome print appearances.
+Keep long cells readable through wrapping and horizontal scrolling rather than clipping or shrinking all text.
+Validate unequal column widths, inline code, links, math, tall rows, very wide tables, selection, and copying.
+Banding follows logical row or column indices when rows are virtualized, rather than restarting at each rendered viewport.
 
 ## Typography and Markdown compatibility
 
@@ -204,8 +347,9 @@ Unsupported code languages remain readable without highlighting. Invalid math an
 
 ## Proposed architecture and main tradeoff
 
-Start the feasibility work with a native SwiftUI shell and one reusable WebKit document view per window.
-Keep file access, sidebar state, navigation policy, settings, and lifecycle in native code.
+Start with a native SwiftUI shell and a reusable WebKit document view for each active visible document surface.
+Keep inactive document tabs as lightweight state. Prototype renderer reuse or release alongside native Mac tab behavior.
+Keep file access, tab and sidebar state, navigation policy, durable reading state, settings, and lifecycle in native code.
 Bundle renderer code, styles, fonts, and required resources for offline use.
 Load math, Mermaid, and code-language support only when the document needs them.
 No server, account, cloud rendering, or runtime CDN dependency is needed.
@@ -253,6 +397,8 @@ Record Release configuration, hardware, OS, corpus hashes, cache state, trial co
 | Cold launch and first small document | Time to readable text and time to full rendering. |
 | Switching previously opened documents | Median and tail latency, including sidebar synchronization. |
 | Large text and folder trees | UI responsiveness, indexing cost, cancellation, and peak memory. |
+| Complete history and reading-state recovery | Paged history access, restart restoration, crash recovery, and cache eviction without history loss. |
+| Multiple tabs and local previews | Active-tab responsiveness, bounded inactive resources, preview cancellation, and unchanged visit history. |
 | Math, code, images, and Mermaid | First rendering time, scroll stability, and failure isolation. |
 | Repeated file switches and window closure | Retained memory, cache bounds, and released access or observers. |
 | Idle foreground and background | CPU and energy use across the app and renderer processes. |
@@ -266,14 +412,15 @@ Do not hide slow diagram completion behind a fast plain-text measurement.
 1. Confirm platform floors, supported Mac architectures, reference devices, and the initial compatibility corpus.
 2. Record the planned app component in `PROJECT_PROFILE.md` and update project facts before source work.
 3. Define the prototype file list, interfaces, and failing acceptance tests before implementation.
-4. Build a bounded rendering prototype that covers text, math, tables, code, Mermaid, and images.
-5. Measure fidelity, startup, switching, combined process memory, idle CPU, and scroll behavior.
+4. Prototype rendering, large-document indexing, reading-state recovery, tabs, and local previews against representative and adversarial fixtures.
+5. Measure fidelity, startup, switching, distant navigation, combined memory, idle CPU, table clarity, and platform keyboard behavior.
 6. Select the rendering architecture and freeze performance thresholds from that evidence.
-7. Implement the Mac viewer and navigation through failing tests, including window modes, input handling, printing, preferences, and file lifecycle.
+7. Implement the Mac viewer through failing tests, including window modes, native input, printing, persistent history, preferences, and file lifecycle.
 8. Adapt the shared renderer and document logic to iPad and iPhone, and record any feature differences.
 
 Mobile layout should adapt navigation rather than duplicate the desktop sidebar at a narrow width.
-On iPad, retain the sidebar when space permits. On iPhone, show the three navigation tabs in a sheet or separate view.
+On iPad, retain the sidebar when space permits. On iPhone, show the four sidebar sections in a sheet or separate view.
+Adapt document tabs separately from sidebar sections. Follow each platform's keyboard and document-navigation conventions.
 Validate file-provider access, touch actions, accessibility, and memory on physical devices.
 Mobile remains part of the product direction. A reduced feature set must be explicit rather than silently omitted.
 
@@ -281,6 +428,8 @@ Mobile remains part of the product direction. A reduced feature set must be expl
 
 - Minimum macOS, iOS, and iPadOS versions, plus Apple silicon and Intel support.
 - Reference hardware, numerical performance limits, and maximum supported document sizes.
+- Persistence engine, cache budgets, file-identity fallbacks, and precise checkpoint recovery guarantees.
+- Mobile document-tab presentation and detailed bounds for link previews and individual complex objects.
 - Exact math delimiters, caption syntax, footnote behavior, and supported emoji shortcode set.
 - Confirmation of remote-image defaults and any additional embedded content types.
 - Distribution method and release scope for the secondary mobile targets.

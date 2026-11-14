@@ -16,6 +16,11 @@ Created: 2026
 
 - Recorded MonoMark viewer requirements and a proposed design. Application implementation remains planned.
 - Defined MonoMark single-display full screen, window switching, keyboard shortcuts, printing, scrolling, and panning requirements.
+- Refined MonoMark reading-state storage, full history, large documents, document tabs, local previews, and table styles.
+
+### Changed
+
+- Replaced speculative MonoMark shortcut mappings with Pages and platform conventions, including Escape and document-boundary behavior.
 
 ## 6 November 2026
 

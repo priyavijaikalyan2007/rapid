@@ -913,3 +913,23 @@ Specified focus-aware scrolling, horizontal panning, native printing, and multi-
 The native full-screen mechanism and any fallback still require prototype validation under both Spaces settings.
 These changes define planned behavior. No application implementation or runtime validation is claimed.
 The profile check, 79 Python tests, 37 shell checks, specification links, history JSON, and whitespace validation passed.
+
+## MonoMark reading-state and large-document refinements on 13 November 2026
+
+### User request
+
+> That product spec looks good. Some additional refinements: 1) In the user's home folder, maintain a cache of reading positions, settings etc. per file loaded. 2) Use optimized techniques to load and view very large documents. For example, memory mapping, lazy loading, etc. 3) Given navigation requirements between documents, a tabbed interface for viewing may be appropriate 4) link previews may be a good addition (e.g: to another markdown document, show the preamble similar to how google docs does it 5) a most recently used menu item list may be a good 4th tab to add -- basically, every markdown fiel I have ever viewed with the application on that machine 6) check how zed renders markdown tables with alternative row and column colors 7) Adhere to how macOS, iOS & iPadOS handle keyboard shortcuts ; don't invent your own mappings. best to look at what Pages does for top of document, bottom of document etc.
+
+### Output summary
+
+Recorded the owner's approval of the baseline and added persistent per-file state under platform application-data directories.
+Separated durable settings and complete viewing history from disposable caches. Added the History sidebar section and native Open Recent menu.
+Defined source-aware large-document indexing, safe mapping or bounded reads, virtualized rendering, full search, and bounded printing.
+Added document tabs, lightweight inactive state, and bounded local Markdown link previews that do not record visits.
+Reviewed pinned Zed Markdown source: header styling, alternating body rows, and grid lines are present, while column banding is absent in that path.
+Recorded optional column banding as a MonoMark design choice, without claiming visual testing of Zed.
+Checked Apple Pages documentation for Mac and iPhone/iPad hardware keyboards. Replaced speculative shortcuts with platform conventions.
+Mac Home/End scroll without moving selection. Pages mobile reading view uses Command-Up/Down for document boundaries.
+Distinguished Pages view zoom from text-size changes. Removed the earlier Escape-to-close-window proposal in favor of native Close behavior.
+These are specification changes only. No application source, storage engine, dependency, or measured runtime result was added.
+Validation passed: the profile check, 79 Python tests, 37 shell checks, specification links, history JSON, and whitespace checks.
