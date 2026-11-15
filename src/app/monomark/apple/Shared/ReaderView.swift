@@ -75,7 +75,7 @@ struct ReaderView: View
                 }
             ))
             {
-                SidebarView(session: session)
+                SidebarView(session: session, openFolder: openFolder)
                     .navigationSplitViewColumnWidth(min: 250, ideal: 280, max: 420)
             }
             detail: {
@@ -248,10 +248,12 @@ struct ReaderView: View
             {
                 ContentUnavailableView
                 {
-                    Label("MonoMark", systemImage: "doc.richtext")
+                    Label(session.root?.lastPathComponent ?? "MonoMark", systemImage: "doc.richtext")
                 }
                 description: {
-                    Text("Read Markdown without editing it.")
+                    Text(session
+                        .root == nil ? "Read Markdown without editing it." :
+                        "Select a Markdown file in Files, or open a file.")
                 }
                 actions: {
                     Button("Open File", action: openFile)

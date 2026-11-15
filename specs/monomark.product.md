@@ -474,3 +474,15 @@ Paper size choices are System, A4, US Letter, and US Legal. Document settings an
 Pages shows separate estimated paper boxes. Pageless keeps continuous reading. Both show approximate page progress.
 Pages preserves whole blocks and expands a sheet when an object exceeds one page. Print pagination can differ.
 The renderer keeps the mounted document bounded in both modes. Paper changes do not modify global printer settings.
+
+
+## Folder workspaces
+
+Every opened folder is a workspace. A native sidebar menu switches recent workspaces and remembers each folder's last document.
+Keep document tabs independent, so documents from several workspaces can remain open together.
+Retain per-file reading positions, settings, notes, and annotations in their existing stores.
+An empty workspace clears the prior document and disables note editing until a document opens.
+If the last document is missing, select an available Markdown file or show the Files tree.
+The recent menu shows up to 40 workspaces. Older records remain stored and become recent when their folder opens again.
+Forget This Workspace removes only workspace metadata. It does not delete files or reading notes.
+Use native granted bookmarks for folder access. A stored path does not grant access.

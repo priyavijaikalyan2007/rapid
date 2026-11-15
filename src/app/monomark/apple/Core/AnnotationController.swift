@@ -46,6 +46,11 @@ final class AnnotationController: ObservableObject
     private var document = ""
     private var path = ""
     private var generation = UUID()
+    var documentToken: UUID
+    {
+        generation
+    }
+
     private var tail: Task<Void, Never>?
     private var loading: Task<Void, Never>?
     private var noteTimer: Task<Void, Never>?
@@ -82,6 +87,28 @@ final class AnnotationController: ObservableObject
         noteQuery = ""
         ready = false
         reload()
+    }
+
+    /// Call only after drain succeeds, so an empty workspace cannot display or edit the previous file's notes.
+    func detach()
+    {
+        loading?.cancel()
+        noteTimer?.cancel()
+        generation = UUID()
+        document = ""
+        path = ""
+        records = []
+        text = ""
+        queuedText = ""
+        selection = []
+        selectedID = nil
+        visibleIDs = []
+        collapsedIDs = []
+        annotationQuery = ""
+        noteQuery = ""
+        ready = false
+        error = nil
+        hasFailedEdits = false
     }
 
     func reload()

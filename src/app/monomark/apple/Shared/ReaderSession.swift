@@ -23,6 +23,7 @@ import UIKit
 final class ReaderSession: ObservableObject
 {
     let annotations = AnnotationController()
+    let workspaces = WorkspaceLibrary.shared
     @Published var url: URL?
     @Published var root: URL?
     @Published var outline: [NavigationEntry] = []
@@ -47,10 +48,10 @@ final class ReaderSession: ObservableObject
     var titleChanged: ((String) -> Void)?
     var printAction: (() -> Void)?
     var smokeRendered: (() -> Void)?
-    private(set) var state: ReadingState?
+    var state: ReadingState?
     private var store: HistoryStore?
-    private var generation = UUID()
-    private var scopes: [URL] = []
+    var generation = UUID()
+    var scopes: [URL] = []
     private var locations: [(URL, String?)] = []
     private var locationIndex = -1
     private var forgotten = false
@@ -109,13 +110,10 @@ final class ReaderSession: ObservableObject
         let ticket = generation
         isLoading = true
         forgotten = false
-        if file.startAccessingSecurityScopedResource()
+        retainScope(file)
+        if let folder
         {
-            scopes.append(file)
-        }
-        if let folder, folder.startAccessingSecurityScopedResource()
-        {
-            scopes.append(folder)
+            retainScope(folder)
         }
         Task
         {
@@ -154,7 +152,11 @@ final class ReaderSession: ObservableObject
                 state?.rootPath = root?.path
                 state?.bookmark = bookmark(file)
                 state?.rootBookmark = root.flatMap(bookmark)
-                preferences = state?.preferences ?? preferences
+                preferences = ReaderPreferences.forDocument(
+                    saved: state?.preferences,
+                    defaultsData: UserDefaults.standard
+                        .data(forKey: "reader-defaults")
+                )
                 preferences.normalize()
                 if addHistory
                 {
@@ -177,7 +179,14 @@ final class ReaderSession: ObservableObject
                 {
                     loadRenderer()
                 }
+                guard ticket == generation
+                else
+                {
+                    return
+                }
                 checkpoint()
+                releaseUnusedScopes(keeping: [file, root ?? file])
+                rememberWorkspace()
                 watch(file)
                 logger.info("Opened local document")
             }
@@ -400,23 +409,6 @@ final class ReaderSession: ObservableObject
         }
     }
 
-    func loadFolder(_ folder: URL) async
-    {
-        do
-        {
-            let nodes = try await Task.detached
-            {
-                try FolderEntry.children(of: folder)
-            }.value
-            root = folder
-            entries = nodes
-        }
-        catch
-        {
-            fail(error)
-        }
-    }
-
     func go(_ direction: Int)
     {
         let next = locationIndex + direction
@@ -462,7 +454,7 @@ final class ReaderSession: ObservableObject
         return (try? JSONSerialization.jsonObject(with: data)) as? [String: Any] ?? [:]
     }
 
-    private func fail(_ error: Error)
+    func fail(_ error: Error)
     {
         isLoading = false
         message = error.localizedDescription

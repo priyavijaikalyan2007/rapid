@@ -222,16 +222,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
     private func selectFolder(_ folder: URL)
     {
         let controller = current ?? createWindow()
-        Task
-        {
-            await controller.session.loadFolder(folder)
-            if let file = controller.session.entries.first(where: {
-                !$0.isFolder
-            })?.url
-            {
-                controller.session.open(file, folder: folder)
-            }
-        }
+        controller.session.openWorkspace(folder)
     }
 
     @objc func newTab(_ sender: Any?)

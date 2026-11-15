@@ -26,8 +26,8 @@ Real WebKit smoke evidence shows math, tables, and Mermaid, with 15 mounted bloc
 The [native smoke evidence](monomark.smoke.json) now verifies dark rendering, artifact controls, and successful PNG output.
 Visual inspection confirms that exported diagram labels and connector colors remain readable in dark mode.
 The regression suite uses real Mermaid output and checks label text after sanitization.
-The current renderer suite passes 57 tests, with 98.15% line coverage for loaded renderer modules.
-The native core suite passes 77 tests, with 94.41% line coverage including the autosave controller.
+The current renderer suite passes 58 tests, with 98.17% line coverage for loaded renderer modules.
+The native core suite passes 89 tests, with 94.63% line coverage including the autosave controller.
 
 The synthetic [indexing evidence](monomark.benchmark.json) records about 487 ms for 10 MiB on this 64 GiB development host.
 The Node process RSS after that run was about 264 MB. This is not complete-app or reference-machine performance acceptance.
@@ -79,7 +79,7 @@ Physical printer output, mobile interactions, and release performance remain acc
 
 ## GitHub tracking
 
-The [MonoMark epic](https://github.com/priyavijaikalyan2007/rapid/issues/1) contains eight features and thirty-two task or bug issues.
+The [MonoMark epic](https://github.com/priyavijaikalyan2007/rapid/issues/1) contains nine features and thirty-five task or bug issues.
 The [issue map](monomark.issues.json) records the hierarchy. Implementation and acceptance status remain distinct.
 All twelve UX refinement issues are closed with implementation and test evidence.
 The paper-layout feature #29 is closed. Palette customization is implemented and verified. Remaining platform acceptance stays open.
@@ -98,3 +98,23 @@ preference recovery, native bridge appearance commands, and simulated operating-
 All unsigned builds pass. Isolated Mac QA confirms editing a light heading, independent dark choices,
 a Forest dark preset, readable math/tables/diagrams, native dark chrome, and source-view continuity.
 Real operating-system appearance transitions and physical mobile interactions remain acceptance checks.
+
+
+## Workspace checkpoint on 15 November
+
+Feature #42 adds a persistent folder registry (#43), a native workspace switcher (#44), and explicit tab acceptance (#45).
+The shared sidebar menu lists recent folders, marks the current workspace, and restores its last available document.
+Existing tabs retain their own folder context. Empty workspaces clear prior content and show file-selection guidance.
+Normal switching drains notes before the document changes. Granted folder/file scopes are deduplicated and released when unused.
+Workspace records use an independent versioned SQLite database. A newer schema fails without destructive migration.
+Stale writes cannot replace newer workspace metadata. Forgetting a workspace keeps source files and reading notes.
+
+Core tests cover deduplication, independent connections, stale records, last documents, schema recovery, invalid paths,
+missing/moved documents, note detachment, and per-file/default preference boundaries.
+Renderer tests verify empty-workspace clearing and rejection of late messages from the previous worker.
+Isolated Mac QA switched Alpha to Beta and back, resumed Alpha's second file, and recovered its note.
+Two documents remained open in native tabs, with independent workspace and note context.
+The empty-workspace test found and fixed a native editor that accepted unsaved text without a document.
+The repeat check confirmed that the field rejects edits. New Tab and Close returned to the existing workspace correctly.
+The [native regression smoke](monomark.workspaces-smoke.json) confirms note recovery, restored highlights, math, diagrams, and PNG output.
+Physical mobile interactions and signed bookmark/provider recovery remain separate acceptance checks.

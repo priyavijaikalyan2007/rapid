@@ -331,5 +331,15 @@
       "MonoMarkPalette",
       "ReadingState"
     ]
+  },
+  {
+    "name": "WorkspaceRecord",
+    "table": null,
+    "file": "src/app/monomark/apple/Core/WorkspaceRecord.swift",
+    "description": "Folder location, scoped bookmark, most recent document checkpoint, and access time in the workspaces table of the native workspaces.sqlite file. No source content is copied.",
+    "related": [
+      "MonoMarkWorkspaces",
+      "ReadingState"
+    ]
   }
 ]

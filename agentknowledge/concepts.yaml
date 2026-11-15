@@ -384,5 +384,15 @@
       "MonoMark",
       "MonoMarkRenderer"
     ]
+  },
+  {
+    "name": "MonoMarkWorkspaces",
+    "definition": "Persisted granted folder workspaces with last-document resumption, a shared recent menu, and independent document tabs.",
+    "anchor_file": "src/app/monomark/apple/Core/WorkspaceStore.swift",
+    "related": [
+      "MonoMark",
+      "MonoMarkHistory",
+      "MonoMarkAnnotations"
+    ]
   }
 ]

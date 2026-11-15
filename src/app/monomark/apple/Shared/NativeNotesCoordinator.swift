@@ -12,6 +12,7 @@ final class NativeNotesCoordinator: NSObject, NSTextViewDelegate
 {
     let controller: AnnotationController
     var selectionGeneration: UUID?
+    var documentToken: UUID?
     init(_ controller: AnnotationController)
     {
         self.controller = controller
@@ -43,6 +44,7 @@ final class NativeNotesCoordinator: NSObject, UITextViewDelegate
 {
     let controller: AnnotationController
     var selectionGeneration: UUID?
+    var documentToken: UUID?
     init(_ controller: AnnotationController)
     {
         self.controller = controller

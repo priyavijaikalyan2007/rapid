@@ -229,7 +229,7 @@ async function load(command)
     const workerURL = URL.createObjectURL(new Blob([code], { type: 'text/javascript' }));
     worker = new Worker(workerURL);
     URL.revokeObjectURL(workerURL);
-    worker.onmessage = ({ data }) => onWorker(data, command);
+    worker.onmessage = ({ data }) => { if (sequence === loadSequence) { onWorker(data, command); } };
     const source = await (await fetch(`monomark://document/source?epoch=${encodeURIComponent(epoch)}`)).text();
     if (sequence !== loadSequence) { return; }
     worker.postMessage({ type: 'load', source });
@@ -347,9 +347,24 @@ function preparePrint(data)
     Promise.all([...viewport.children].map(element => enhance(element))).then(() => emit('printReady'));
 }
 
+function clearDocument(command)
+{
+    loadSequence++; request++;
+    worker?.terminate(); worker = null;
+    epoch = command.epoch; renderedEpoch = epoch;
+    metadata = []; heights = []; outline = []; annotations = []; matches = [];
+    pendingAnchor = null; pendingAnnotation = null; activeRange = '';
+    printing = false; printBlocks = []; printAnchor = null;
+    clearTimeout(positionTimer); clearTimeout(selectionTimer);
+    copyOverlay?.remove(); popover.hidden = true;
+    viewport.replaceChildren(); status.textContent = '';
+    rebuildOffsets(); emit('visible', { mounted: 0 });
+}
+
 window.MonoMark = {
     command(command)
     {
+        if (command.type === 'clear') { clearDocument(command); }
         if (command.type === 'load') { load(command).catch(() => emit('status', { message: 'The document could not be loaded.' })); }
         if (command.type === 'preferences') { applyPreferences(command.value); }
         if (command.type === 'appearance') { applyAppearance(command.mode); }

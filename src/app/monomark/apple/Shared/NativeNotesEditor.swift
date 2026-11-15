@@ -46,6 +46,12 @@ struct NativeNotesEditor: NSViewRepresentable
         {
             return
         }
+        editor.isEditable = context.environment.isEnabled && controller.ready
+        if context.coordinator.documentToken != controller.documentToken
+        {
+            context.coordinator.documentToken = controller.documentToken
+            editor.undoManager?.removeAllActions()
+        }
         if editor.string != controller.text
         {
             editor.string = controller.text
@@ -89,6 +95,12 @@ struct NativeNotesEditor: UIViewRepresentable
 
     func updateUIView(_ editor: UITextView, context: Context)
     {
+        editor.isEditable = context.environment.isEnabled && controller.ready
+        if context.coordinator.documentToken != controller.documentToken
+        {
+            context.coordinator.documentToken = controller.documentToken
+            editor.undoManager?.removeAllActions()
+        }
         if editor.text != controller.text
         {
             editor.text = controller.text

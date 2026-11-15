@@ -1026,3 +1026,17 @@ Assistant summary: The development build works, but palettes, broader acceptance
 User: "then please contnue working on the app."
 
 Implementation response: Continue palette customization first, then remaining Mac acceptance work. Keep GitHub evidence current.
+
+## 15 November 2026: Workspaces and multiple documents
+
+User: "Another final piece of functionality I thought of: can you add the conccept of \"workspaces\" - that is whenever I open a folder, treat as a workspace and then allow me to switch workspaces. It doesn't hvae to super perfect; just allows me to rapidly swtich. Also, is the multi-tab interface (I can have multiple open files) in your issue list?"
+
+Assistant summary: Native Mac tabs already exist and their lifecycle checks are in #11. Add lightweight persisted folder workspaces with a recent-workspace switcher and remembered documents. Feature #42 tracks this work and #45 explicitly tracks multiple open documents.
+
+User: "ok are we done -- how much is left to do on teh app before I can use it? :)"
+
+Assistant summary: The current Mac build is available for trial use. Workspace/tab validation and remaining Mac reliability checks precede a daily-use recommendation. Large-file, physical-device, and release checks remain.
+
+User: "ok keep going."
+
+Implementation summary: Palette checkpoint d55c6d3 is pushed. Workspace implementation passed native and renderer regressions, all unsigned builds, and isolated Mac navigation/tab/note checks. Continue remaining Mac acceptance after committing the workspace checkpoint.

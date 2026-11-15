@@ -14,7 +14,13 @@ Created: 2026
 
 ### Added
 
+- Added MonoMark folder workspaces, a shared recent-folder switcher, remembered documents, and empty-workspace handling.
 - Added MonoMark light/dark reader palettes, named swatches, presets, per-mode reset, and text contrast checks.
+
+### Fixed
+
+- Blocked note editing without an open document and cleared note undo state across document changes.
+- Kept new documents on application defaults instead of inheriting the previous file's appearance.
 
 ## 14 November 2026
 

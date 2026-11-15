@@ -93,6 +93,17 @@ struct ReaderPreferences: Codable, Equatable, Sendable
         pageWidth = Self.bound(pageWidth, 320 ... 1800, fallback: 960)
     }
 
+    /// New documents inherit explicit app defaults. Existing document overrides always take precedence.
+    static func forDocument(saved: ReaderPreferences?, defaultsData: Data?) -> ReaderPreferences
+    {
+        var result = saved ?? defaultsData.flatMap
+        {
+            try? JSONDecoder().decode(Self.self, from: $0)
+        } ?? Self()
+        result.normalize()
+        return result
+    }
+
     private static func safeFamily(_ value: String, fallback: String = "") -> String
     {
         let allowed = CharacterSet.alphanumerics.union(CharacterSet(charactersIn: " -_"))

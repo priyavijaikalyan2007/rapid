@@ -67,6 +67,11 @@ final class ReaderWindowController: NSWindowController, NSWindowDelegate
                 window?.title = DocumentPresentation.title(file)
                 window?.representedURL = file
             }
+            else
+            {
+                window?.title = session?.root?.path ?? "MonoMark"
+                window?.representedURL = session?.root
+            }
             application?.saveTabs()
         }
         let accessory = NSTitlebarAccessoryViewController()

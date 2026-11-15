@@ -14,10 +14,13 @@ import SwiftUI
 struct SidebarView: View
 {
     @ObservedObject var session: ReaderSession
+    var openFolder: () -> Void
     var body: some View
     {
         VStack(spacing: 0)
         {
+            WorkspaceMenu(session: session, openFolder: openFolder).padding(.horizontal, 10).padding(.top, 8)
+            Divider()
             Picker("Navigation", selection: $session.section)
             {
                 ForEach(["Files", "Contents", "Links", "History"], id: \.self)
@@ -55,7 +58,9 @@ struct SidebarView: View
                 if session.entries
                     .isEmpty
                 {
-                    Text("Open a folder to browse Markdown files.").foregroundStyle(.secondary).padding()
+                    Text(session.root != nil && session.root != session
+                        .url ? "No Markdown files in this workspace." : "Open a folder to browse Markdown files.")
+                        .foregroundStyle(.secondary).padding()
                 }
             }
         case "Contents":

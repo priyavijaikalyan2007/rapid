@@ -26,7 +26,8 @@ struct ReaderInformation: Sendable
             """
             Open a Markdown file to read it. Open its folder to browse related documents and grant access to local \
             images and links. Files marks the current document. The title bar shows its path and provides Copy \
-            Document Path.
+            Document Path. Each folder is a workspace. The menu above Files switches recent workspaces and \
+            resumes the last available document. Other tabs stay open. Forget This Workspace keeps files and notes.
             """
         ),
         ReaderHelpTopic(

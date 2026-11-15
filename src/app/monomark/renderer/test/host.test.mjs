@@ -260,3 +260,20 @@ test('native palettes follow explicit appearance and system changes', () => {
     for (const listener of appearanceListeners) { listener(); }
     assert.equal(document.documentElement.style.colorScheme,'light');
 });
+
+test('an empty workspace clears stale document content and navigation', async () => {
+    window.MonoMark.command({type:'load',epoch:'before-workspace'});
+    await new Promise(resolve => setTimeout(resolve,20));
+    const worker = workers.at(-1);
+    let terminated = false;
+    worker.terminate = () => { terminated = true; };
+    worker.onmessage({data:{type:'index',outline:[],links:[],blocks:[{id:'old',blockID:'old',estimate:80}]}});
+    worker.onmessage({data:{type:'range',request:worker.sent.at(-1).request,start:0,blocks:[{id:'old',html:'<p>Old folder text</p>'}]}});
+    window.MonoMark.command({type:'clear',epoch:'empty-workspace'});
+    assert.equal(document.querySelectorAll('.monomark-block').length,0);
+    assert.equal(window.MonoMark.metrics().blocks,0);
+    assert.equal(terminated,true);
+    worker.onmessage({data:{type:'index',outline:[],links:[],blocks:[{id:'late',blockID:'late',estimate:80}]}});
+    assert.equal(window.MonoMark.metrics().blocks,0);
+    await new Promise(resolve => setTimeout(resolve,300));
+});

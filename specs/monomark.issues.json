@@ -39,7 +39,8 @@
       "number": 7,
       "id": 6388329737,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/7",
-      "progress": "pending"
+      "progress": "closed",
+      "commit": "d55c6d3"
     },
     "validation": {
       "number": 8,
@@ -54,6 +55,12 @@
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/29",
       "progress": "closed",
       "commit": "e40c5c6"
+    },
+    "workspaces": {
+      "number": 42,
+      "id": 6406686171,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/42",
+      "progress": "in progress"
     }
   },
   "tasks": {
@@ -168,7 +175,8 @@
       "number": 25,
       "id": 6388334197,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/25",
-      "progress": "pending"
+      "progress": "closed",
+      "commit": "d55c6d3"
     },
     "platform-builds": {
       "number": 26,
@@ -187,6 +195,24 @@
       "number": 28,
       "id": 6388334866,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/28",
+      "progress": "pending"
+    },
+    "workspace-store": {
+      "number": 43,
+      "id": 6406686514,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/43",
+      "progress": "pending"
+    },
+    "workspace-switcher": {
+      "number": 44,
+      "id": 6406686770,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/44",
+      "progress": "pending"
+    },
+    "tabs-acceptance": {
+      "number": 45,
+      "id": 6406687099,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/45",
       "progress": "pending"
     }
   },

@@ -16,6 +16,10 @@ The app does not provide a Markdown source editor.
 The reader includes native document tabs, Files/Contents/Links/History navigation, durable reading positions,
 per-document typography, local link previews, diagram and math rendering, syntax highlighting, emoji, and table styles.
 Artifact icons copy source text, CSV/TSV/pipe-separated table data, or rendered PNG images where appropriate.
+Opening a folder creates a workspace. The menu above Files switches among the 40 most recent workspaces.
+Switching resumes the last available document or displays an empty Files tree. Existing tabs keep their own workspace.
+Forget This Workspace removes its menu record and keeps files, history, highlights, and notes.
+Workspace records and granted folder bookmarks live in a separate local SQLite database.
 Settings offers System, Light, and Dark modes. Mac presentation fills only the active window's display.
 The right inspector provides colored highlights, quote comments, and Markdown or plain-text reading notes.
 Annotation panels support expansion, collapse, quote jumps, and search. Notes provide separate search with standard Mac Find commands.

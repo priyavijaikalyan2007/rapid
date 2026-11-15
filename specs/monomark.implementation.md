@@ -112,3 +112,19 @@ Retain document/default persistence and source immutability. Register the new na
 No pattern required. Small value types and pure functions suffice. Existing observable session state updates the UI.
 Run regression/coverage checks, all unsigned platform builds, and isolated native palette/appearance checks.
 Then inspect remaining Mac lifecycle, export, artifact-copy, large-document, and printing acceptance evidence.
+
+## Folder workspaces from 15 November 2026
+
+Feature #42 contains persistent registry #43, native switching #44, and explicit multi-document acceptance #45.
+Add WorkspaceRecord, WorkspaceStore, WorkspaceFailure, and WorkspaceLibrary under apple/Core.
+Use the existing SQLiteDatabase adapter in a separate workspaces.sqlite database with schema version checks.
+WorkspaceStore exposes remember(_:), recent(limit:), find(folder:), and remove(_:).
+Records contain the canonical folder path, scoped bookmark, most recent document checkpoint, and access time.
+Keep reading positions and notes in their existing stores. Workspace metadata does not contain document source.
+Add ReaderSession+Workspaces and WorkspaceMenu under apple/Shared. Move existing folder loading into its own adapter.
+Opening a folder registers it. Switching restores its last available document or offers its Files tree when empty.
+Retain and balance granted scopes, reject outside-folder saved destinations, and drain note edits before switching.
+The shared recent-workspace menu updates across windows. Existing tabs stay open and retain their own folder context.
+Update native Mac folder commands, mobile folder importing, SidebarView, ReaderView empty state, and title callbacks.
+Write failing SQLite/store and empty-document renderer tests first, then integrate and verify with two folders and tabs.
+No new GoF pattern is required. Existing Observer state, a small actor-owned store, and native adapters suffice.

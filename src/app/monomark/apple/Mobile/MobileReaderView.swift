@@ -83,13 +83,7 @@ struct MobileReaderView: View
         { result in
             if case .success(let folders) = result, let folder = folders.first
             {
-                if folder.startAccessingSecurityScopedResource()
-                {
-                }
-                Task
-                {
-                    await sessions[selected].loadFolder(folder)
-                }
+                sessions[selected].openWorkspace(folder)
             }
         }
         .onOpenURL
