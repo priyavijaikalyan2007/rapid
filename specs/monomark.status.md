@@ -58,7 +58,7 @@ Unmatched quotes receive a visible inspector notice. Reattachment after extensiv
 
 ## UX refinements
 
-All twelve requests from 14 November are implemented across commits 08ebf87, 2713f6a, and the paper-layout checkpoint.
+All twelve requests from 14 November are implemented across commits 08ebf87, 2713f6a, and e40c5c6.
 The reader now jumps to quoted annotation lines, marks active file rows, reveals folder ancestors, and provides copyable title paths.
 Settings uses a horizontal action bar. C#, SQL, and Java use explicit language grammars and distinct token styling.
 Annotation panels provide expansion, collapse, and search. New annotations expand automatically.
@@ -81,4 +81,5 @@ Physical printer output, mobile interactions, and release performance remain acc
 
 The [MonoMark epic](https://github.com/priyavijaikalyan2007/rapid/issues/1) contains eight features and thirty-two task or bug issues.
 The [issue map](monomark.issues.json) records the hierarchy. Implementation and acceptance status remain distinct.
-Palette customization is also recorded in the epic and product specification.
+All twelve UX refinement issues are closed with implementation and test evidence.
+The paper-layout feature #29 is closed. Palette customization and platform acceptance remain open.
