@@ -28,6 +28,10 @@ extension ReaderSession
     func rendererPreferences() -> [String: Any]
     {
         var value = dictionary(preferences)
+        value["palettes"] = [
+            "light": preferences.palette.resolve(dark: false),
+            "dark": preferences.palette.resolve(dark: true)
+        ]
         let paper = paperLayout
         value["paperWidth"] = paper.widthPoints * 4 / 3
         value["paperHeight"] = paper.heightPoints * 4 / 3

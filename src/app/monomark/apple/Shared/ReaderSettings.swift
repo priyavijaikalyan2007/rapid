@@ -17,6 +17,7 @@ struct ReaderSettings: View
     @AppStorage("appearance-mode") private var appearance = "system"
     @State private var about = false
     @State private var help = false
+    @State private var palette = false
     var body: some View
     {
         Form
@@ -29,6 +30,15 @@ struct ReaderSettings: View
                     Text("Light").tag("light")
                     Text("Dark").tag("dark")
                 }
+            }
+            Section("Reader colors")
+            {
+                Button("Customize Colors…")
+                {
+                    palette = true
+                }
+                Text("Separate light and dark palettes for headings, objects, and tables.")
+                    .font(.caption).foregroundStyle(.secondary)
             }
             Section("Reading layout")
             {
@@ -110,6 +120,10 @@ struct ReaderSettings: View
         .sheet(isPresented: $about)
         {
             ReaderAboutView()
+        }
+        .sheet(isPresented: $palette)
+        {
+            ReaderPaletteSettings(session: session)
         }
         .sheet(isPresented: $help)
         {

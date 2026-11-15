@@ -15,6 +15,7 @@ import { captureSelection, renderAnnotations, scrollToAnnotation } from './annot
 import { cssFontFamily } from './typography.mjs';
 import { paperGeometry, layoutBlocks, pageAt, buildViewport } from './page-layout.mjs';
 import { enhanceContent } from './rich-content.mjs';
+import { applyPalette } from './palette.mjs';
 
 const viewport = document.getElementById('monomark-document');
 const status = document.getElementById('monomark-status');
@@ -288,6 +289,7 @@ function applyPreferences(value)
     (preferences.headingSizes || [30, 25, 21, 18, 16, 15]).forEach((size, index) => style.setProperty(`--h${index + 1}`, `${Number(size)}px`));
     style.setProperty('--line-height', String(preferences.lineHeight || 1.65));
     document.body.classList.toggle('monomark-column-banding', !!preferences.columnBanding);
+    applyPalette(document, preferences.palettes, document.documentElement.style.colorScheme === 'dark');
     configureLayout();
 }
 
@@ -312,6 +314,7 @@ function applyAppearance(mode)
     appearance = ['light', 'dark'].includes(mode) ? mode : 'system';
     const dark = appearance === 'dark' || (appearance === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
     document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+    applyPalette(document, preferences.palettes, dark);
     document.getElementById('monomark-syntax')?.setAttribute('href', dark ? 'highlight-dark.css' : 'highlight-light.css');
     for (const diagram of viewport.querySelectorAll('[data-mermaid]'))
     {

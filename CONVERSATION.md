@@ -1016,3 +1016,13 @@ Added page-layout feature #29 and native sub-issue links to the appropriate feat
 First UX step adds saved-quote navigation, active file rows with ancestor expansion, title-bar path copying, a horizontal settings footer, and richer code token styling. Regression tests pass and the Mac targets compile.
 
 The second UX checkpoint adds collapsible/searchable annotation panels, contextual native note search, installed font families, build-aware About information, and offline Help. Native QA in an isolated bundle confirms JetBrains Mono and Atkinson Hyperlegible, horizontal settings actions, new expanded panels, Collapse All, note input, Command-F, and Command-G. A regression also protects precise offscreen quote scrolling.
+
+## 14 November 2026: Continue toward completion
+
+User: "ok great. so is the app finished?"
+
+Assistant summary: The development build works, but palettes, broader acceptance, physical-device checks, and release work remain.
+
+User: "then please contnue working on the app."
+
+Implementation response: Continue palette customization first, then remaining Mac acceptance work. Keep GitHub evidence current.

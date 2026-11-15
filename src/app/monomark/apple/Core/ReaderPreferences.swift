@@ -13,6 +13,7 @@ import Foundation
 /// Bounded document appearance. Family names are data, never executable CSS.
 struct ReaderPreferences: Codable, Equatable, Sendable
 {
+    var palette = ReaderPalette()
     var fontFamily = "ui-monospace"
     var headingFontFamily = ""
     var codeFontFamily = ""
@@ -36,7 +37,7 @@ struct ReaderPreferences: Codable, Equatable, Sendable
     private enum CodingKeys: String, CodingKey
     {
         case fontFamily, headingFontFamily, codeFontFamily, tableFontFamily, captionFontFamily
-        case paperSize, layoutMode
+        case paperSize, layoutMode, palette
         case bodySize, headingSizes, codeSize, tableSize, captionSize, lineHeight, pageWidth, columnBanding
     }
 
@@ -59,12 +60,14 @@ struct ReaderPreferences: Codable, Equatable, Sendable
         columnBanding = try values.decodeIfPresent(Bool.self, forKey: .columnBanding) ?? false
         paperSize = try values.decodeIfPresent(String.self, forKey: .paperSize) ?? "system"
         layoutMode = try values.decodeIfPresent(String.self, forKey: .layoutMode) ?? "pageless"
+        palette = try values.decodeIfPresent(ReaderPalette.self, forKey: .palette) ?? ReaderPalette()
         normalize()
     }
 
     /// Normalize persisted values before applying them to native or web views.
     mutating func normalize()
     {
+        palette.normalize()
         if !["system", "a4", "letter", "legal"].contains(paperSize)
         {
             paperSize = "system"

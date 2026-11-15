@@ -456,7 +456,9 @@ The owner requested configurable default colors for headings, captions, equation
 and table backgrounds, including alternate row and column colors.
 Provide a palette with sensible light and dark presets, with System selecting the matching default appearance.
 Preserve contrast and allow a reset to defaults. Keep reader overrides distinct from author-defined diagram colors.
-This refinement is queued after the reader and annotations stages.
+Implemented through native named-swatch selectors with separate light/dark overrides and per-mode reset.
+Presets include Default, Neutral, Ocean, and Forest. Text resolves to at least 4.5:1 contrast against selected surfaces.
+Selections persist per document and can become application defaults. Reader colors do not rewrite diagram author colors.
 
 
 ## Reading controls from 14 November 2026

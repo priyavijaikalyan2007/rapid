@@ -59,3 +59,38 @@ body.monomark-paged { background: light-dark(#e6e8eb, #181a1d); }
 .monomark-page { position: relative; box-sizing: border-box; margin: 0 auto; background: Canvas; box-shadow: 0 1px 6px #0004; border-radius: 2px; }
 .monomark-page-label { position: absolute; top: 7px; right: 12px; color: GrayText; font: 11px/1.2 -apple-system, sans-serif; user-select: none; }
 @media print { body.monomark-paged { background: white; color: black; } .monomark-page-label { display: none; } #monomark-document { max-width: none; } }
+/* Reader palette roles do not target SVG diagrams or syntax tokens. */
+:root { --reader-surface: light-dark(#ffffff, #1e1e20); }
+body { background: var(--reader-surface); }
+h1 { color: var(--palette-heading1, CanvasText); }
+h2 { color: var(--palette-heading2, CanvasText); }
+h3 { color: var(--palette-heading3, CanvasText); }
+h4 { color: var(--palette-heading4, CanvasText); }
+h5 { color: var(--palette-heading5, CanvasText); }
+h6 { color: var(--palette-heading6, CanvasText); }
+figcaption, .monomark-caption { color: var(--palette-caption, GrayText); }
+[data-math] { color: var(--palette-equation, CanvasText); }
+blockquote
+{
+    color: var(--palette-calloutText, CanvasText);
+    background: var(--palette-calloutBackground, Canvas);
+    border-color: var(--palette-calloutBorder, GrayText);
+    padding: 12px 18px;
+    border-radius: 4px;
+}
+/* Nested content inherits the callout ink, so its contrast matches the selected callout surface. */
+blockquote :is(h1,h2,h3,h4,h5,h6,[data-math]) { color: inherit; }
+table { color: var(--palette-tableText, CanvasText); }
+td { background: var(--palette-tableBackground, Canvas); }
+th { background: var(--palette-tableHeaderBackground, Canvas); }
+tr:nth-child(even) td { background: var(--palette-rowAlternate, Canvas); }
+.monomark-column-banding tr:nth-child(even) td { background: var(--palette-tableBackground, Canvas); }
+.monomark-column-banding td:nth-child(even) { background: var(--palette-columnAlternate, Canvas); }
+.monomark-page { background: var(--reader-surface); }
+@media print
+{
+    body, blockquote, .monomark-page { background: white; color: black; }
+    h1,h2,h3,h4,h5,h6,figcaption,[data-math],table { color: black; }
+    td { background: white; }
+    th,tr:nth-child(even) td,.monomark-column-banding td:nth-child(even) { background: #eeeeee; }
+}

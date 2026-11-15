@@ -82,7 +82,10 @@ Multi-display behavior and physical mobile devices need direct acceptance tests.
 Selections are limited to mounted blocks, with at most 128 anchors and 16,000 UTF-16 units per quoted block.
 Reading notes support up to 1 MiB of UTF-8 text. Unattached quotations remain visible in the inspector.
 Quote reattachment across extensive external edits needs further acceptance work.
-Palette customization remains planned in the issue tracker.
+Settings > Customize Colors edits separate light and dark palettes for headings, captions, equations, block quotes, and tables.
+Eight named swatches and Default/Neutral/Ocean/Forest presets keep choices bounded and readable.
+Reset affects only the selected palette. Use as Defaults also retains palette choices for new documents.
+Reader text colors use at least 4.5:1 contrast against their selected surfaces. Diagram colors and syntax tokens remain separate.
 
 See the [product specification](../../../specs/monomark.product.md),
 [implementation plan](../../../specs/monomark.implementation.md), and

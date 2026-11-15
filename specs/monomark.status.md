@@ -10,7 +10,7 @@ Created: 2026
 
 # MonoMark status
 
-Updated on 14 November 2026.
+Updated on 15 November 2026.
 
 MonoMark now has native Mac and iPhone/iPad projects under src/app/monomark.
 The first implementation includes document tabs, Files/Contents/Links/History navigation, SQLite reading state,
@@ -26,8 +26,8 @@ Real WebKit smoke evidence shows math, tables, and Mermaid, with 15 mounted bloc
 The [native smoke evidence](monomark.smoke.json) now verifies dark rendering, artifact controls, and successful PNG output.
 Visual inspection confirms that exported diagram labels and connector colors remain readable in dark mode.
 The regression suite uses real Mermaid output and checks label text after sanitization.
-The current renderer suite passes 54 tests, with 97.94% line coverage for loaded renderer modules.
-The native core suite passes 71 tests, with 95.62% line coverage including the autosave controller.
+The current renderer suite passes 57 tests, with 98.15% line coverage for loaded renderer modules.
+The native core suite passes 77 tests, with 94.41% line coverage including the autosave controller.
 
 The synthetic [indexing evidence](monomark.benchmark.json) records about 487 ms for 10 MiB on this 64 GiB development host.
 The Node process RSS after that run was about 264 MB. This is not complete-app or reference-machine performance acceptance.
@@ -82,4 +82,19 @@ Physical printer output, mobile interactions, and release performance remain acc
 The [MonoMark epic](https://github.com/priyavijaikalyan2007/rapid/issues/1) contains eight features and thirty-two task or bug issues.
 The [issue map](monomark.issues.json) records the hierarchy. Implementation and acceptance status remain distinct.
 All twelve UX refinement issues are closed with implementation and test evidence.
-The paper-layout feature #29 is closed. Palette customization and platform acceptance remain open.
+The paper-layout feature #29 is closed. Palette customization is implemented and verified. Remaining platform acceptance stays open.
+
+
+## Palette checkpoint on 15 November
+
+Native Customize Colors provides independent Light and Dark palettes for all six heading levels,
+captions, equations, block-quote text/background/borders, table text/background/header, and alternate rows/columns.
+Eight named swatches and Default/Neutral/Ocean/Forest presets use bounded values and contrast validation.
+Per-mode reset preserves the other mode. Existing per-file and application-default preferences retain choices.
+The renderer accepts only known role names and six-digit RGB values. SVG author colors and syntax token roles remain separate.
+
+Tests cover every swatch/surface combination, light/dark independence, hostile values, reset/presets,
+preference recovery, native bridge appearance commands, and simulated operating-system appearance events.
+All unsigned builds pass. Isolated Mac QA confirms editing a light heading, independent dark choices,
+a Forest dark preset, readable math/tables/diagrams, native dark chrome, and source-view continuity.
+Real operating-system appearance transitions and physical mobile interactions remain acceptance checks.

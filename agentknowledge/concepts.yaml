@@ -375,5 +375,14 @@
       "MonoMark",
       "MonoMarkRenderer"
     ]
+  },
+  {
+    "name": "MonoMarkPalette",
+    "definition": "Independent light/dark named reader swatches with contrast-checked native resolution and a bounded CSS bridge.",
+    "anchor_file": "src/app/monomark/apple/Core/ReaderPalette.swift",
+    "related": [
+      "MonoMark",
+      "MonoMarkRenderer"
+    ]
   }
 ]

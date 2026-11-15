@@ -95,3 +95,20 @@ TextSearch, PaperLayout, syntax.mjs, and page-layout.mjs as focused types or fun
 Keep navigation, search ranges, and page calculations in tested functions or models. Native adapters own platform APIs.
 No new GoF pattern is required. Existing observable state and small functions suffice.
 Keep document rendering bounded. Never change Markdown while navigating, changing fonts, searching, or changing layout.
+
+## Palette implementation and appearance acceptance
+
+Continue issue #25 under feature #7, then verify #18 and remaining Mac acceptance issues.
+Add PaletteRole.swift, PaletteSwatch.swift, ReaderPalette.swift, and PaletteContrast.swift in apple/Core.
+Expose ReaderPalette.resolve(dark:), normalize(), set(role:choice:dark:), reset(dark:), and preset(_:dark:).
+Use typed roles and curated named swatches. Resolve them to validated six-digit RGB colors at the native bridge.
+Keep light and dark overrides separate in ReaderPreferences, with missing older fields inheriting defaults.
+Add ReaderPaletteSettings.swift for native palette controls, presets, reset, and preview appearance commands.
+Update ReaderSettings, ReaderSession+Preferences, ReaderInformation, renderer/src/host.mjs, and reader.css.
+Add renderer/src/palette.mjs to apply only known variables without rewriting authored diagram colors.
+Write failing PaletteTests.swift and palette.test.mjs before implementation. Extend host appearance regressions.
+Native color resolution owns contrast validation. The renderer validates its incoming color values again.
+Retain document/default persistence and source immutability. Register the new native sources in Xcode.
+No pattern required. Small value types and pure functions suffice. Existing observable session state updates the UI.
+Run regression/coverage checks, all unsigned platform builds, and isolated native palette/appearance checks.
+Then inspect remaining Mac lifecycle, export, artifact-copy, large-document, and printing acceptance evidence.

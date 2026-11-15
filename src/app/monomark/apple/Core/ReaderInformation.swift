@@ -82,7 +82,8 @@ struct ReaderInformation: Sendable
             detail:
             """
             Settings offers System, Light, and Dark appearance, installed font families, and sizes for document \
-            elements. Use as Defaults applies to documents without saved preferences. Use File > Print on Mac or \
+            elements. Customize Colors provides separate Light and Dark palettes, presets, and reset controls. \
+            Text colors keep at least 4.5:1 contrast. Diagram colors remain separate. Use as Defaults applies to documents without saved preferences. Use File > Print on Mac or \
             Document Actions > Print on mobile. Printing large documents and large single objects has limits \
             described in the application guide. Pages shows separate paper boxes. Pageless uses continuous \
             scrolling. Choose paper size in Settings and Use as Defaults for new documents. Counts are estimates \

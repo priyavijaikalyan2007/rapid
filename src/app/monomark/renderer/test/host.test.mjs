@@ -16,7 +16,9 @@ globalThis.document = dom.window.document;
 globalThis.SVGElement = dom.window.SVGElement;
 globalThis.CSSStyleSheet = dom.window.CSSStyleSheet;
 globalThis.getComputedStyle = dom.window.getComputedStyle.bind(dom.window);
-globalThis.matchMedia = () => ({ matches: false, addEventListener() {} });
+let systemDark = false;
+const appearanceListeners = [];
+globalThis.matchMedia = () => ({ matches: systemDark, addEventListener(_, callback) { appearanceListeners.push(callback); } });
 globalThis.requestAnimationFrame = callback => callback();
 dom.window.scrollTo = () => {};
 dom.window.SVGElement.prototype.getBBox = () => ({ x: 0, y: 0, width: 120, height: 30 });
@@ -237,4 +239,24 @@ test('print cancellation restores the previous block position', async () => {
         assert.equal(scrolls.at(-1),170);
     } finally { window.HTMLElement.prototype.getBoundingClientRect = original; window.scrollTo = originalScroll; }
     await new Promise(resolve => setTimeout(resolve,300));
+});
+
+
+test('native palettes follow explicit appearance and system changes', () => {
+    window.MonoMark.command({type:'preferences',value:{palettes:{light:{heading1:'#123456'},dark:{heading1:'#abcdef'}}}});
+    window.MonoMark.command({type:'appearance',mode:'light'});
+    assert.equal(document.documentElement.style.getPropertyValue('--palette-heading1'),'#123456');
+    assert.equal(document.getElementById('monomark-syntax').getAttribute('href'),'highlight-light.css');
+    window.MonoMark.command({type:'appearance',mode:'dark'});
+    assert.equal(document.documentElement.style.getPropertyValue('--palette-heading1'),'#abcdef');
+    assert.equal(document.getElementById('monomark-syntax').getAttribute('href'),'highlight-dark.css');
+    systemDark = false;
+    window.MonoMark.command({type:'appearance',mode:'system'});
+    systemDark = true;
+    for (const listener of appearanceListeners) { listener(); }
+    assert.equal(document.documentElement.style.colorScheme,'dark');
+    assert.equal(document.documentElement.style.getPropertyValue('--palette-heading1'),'#abcdef');
+    systemDark = false;
+    for (const listener of appearanceListeners) { listener(); }
+    assert.equal(document.documentElement.style.colorScheme,'light');
 });

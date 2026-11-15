@@ -321,5 +321,15 @@
     "related": [
       "MonoMarkAnnotations"
     ]
+  },
+  {
+    "name": "ReaderPalette",
+    "table": null,
+    "file": "src/app/monomark/apple/Core/ReaderPalette.swift",
+    "description": "Per-document light/dark role-to-swatch overrides inside ReaderPreferences and history payloads. Missing palette fields inherit defaults.",
+    "related": [
+      "MonoMarkPalette",
+      "ReadingState"
+    ]
   }
 ]
