@@ -139,3 +139,12 @@ The fixture contains math, a colored local PNG, and a diagram. The runner record
 PNG dimensions, document-replacement cancellation, and source immutability in machine-readable evidence.
 Use the existing --smoke-test entry point with an --artifact-smoke switch. Keep this harness out of product flows.
 No new pattern required. Small native test adapters and the existing snapshot boundary suffice.
+
+
+## Development package checks
+
+Bundle the complete project license in Renderer/MonoMark-LICENSE.txt and retain dependency notices.
+Anchor generated renderer cleanup to build.mjs rather than the caller's working directory.
+Add actual output tests for the license and obsolete-file removal before changing build.mjs.
+Verify active/universal Mac and mobile builds, exact renderer resource membership, architectures, and ZIP integrity.
+Create an unsigned local development ZIP under the ignored component build folder. Do not publish or notarize it.

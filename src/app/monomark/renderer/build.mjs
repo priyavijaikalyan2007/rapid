@@ -9,10 +9,13 @@
 // FLOW: Validated command -> bounded view update -> native event.
 
 import { build } from 'esbuild';
-import { mkdir, cp, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, cp, readFile, writeFile, rm } from 'node:fs/promises';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
-const output = path.resolve('../build/Renderer');
+const output = fileURLToPath(new URL('../build/Renderer/', import.meta.url));
+// Delete only this component's generated output, so old chunk hashes cannot accumulate in app bundles.
+await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 let revision = 'development';
 try
@@ -26,6 +29,7 @@ await writeFile(output + '/build-info.json', JSON.stringify({ gitSHA: revision, 
 await build({ entryPoints: ['src/host.mjs'], bundle: true, splitting: true, format: 'esm', outdir: output,
     entryNames: 'host', chunkNames: 'chunks/[name]-[hash]', target: 'safari18', minify: true });
 await build({ entryPoints: ['src/worker.mjs'], bundle: true, format: 'iife', outfile: output + '/worker.js', target: 'safari18', minify: true });
+await writeFile(output + '/MonoMark-LICENSE.txt', await readFile(new URL('../../../../LICENSE', import.meta.url)));
 await cp('index.html', output + '/index.html');
 await cp('reader.css', output + '/reader.css');
 await cp('node_modules/katex/dist/katex.min.css', output + '/katex.css');

@@ -26,7 +26,7 @@ Real WebKit smoke evidence shows math, tables, and Mermaid, with 15 mounted bloc
 The [native smoke evidence](monomark.smoke.json) now verifies dark rendering, artifact controls, and successful PNG output.
 Visual inspection confirms that exported diagram labels and connector colors remain readable in dark mode.
 The regression suite uses real Mermaid output and checks label text after sanitization.
-The current renderer suite passes 59 tests, with 97.83% line coverage for loaded renderer modules.
+The current renderer suite passes 61 tests, with 97.84% line coverage for loaded renderer modules.
 The native core suite passes 89 tests, with 94.63% line coverage including the autosave controller.
 
 The synthetic [indexing evidence](monomark.benchmark.json) records about 487 ms for 10 MiB on this 64 GiB development host.
@@ -79,7 +79,7 @@ Physical printer output, mobile interactions, and release performance remain acc
 
 ## GitHub tracking
 
-The [MonoMark epic](https://github.com/priyavijaikalyan2007/rapid/issues/1) contains nine features and thirty-five task or bug issues.
+The [MonoMark epic](https://github.com/priyavijaikalyan2007/rapid/issues/1) contains nine features and thirty-six task or bug issues.
 The [issue map](monomark.issues.json) records the hierarchy. Implementation and acceptance status remain distinct.
 All twelve UX refinement issues are closed with implementation and test evidence.
 The paper-layout feature #29 is closed. Palette customization is implemented and verified. Remaining platform acceptance stays open.
@@ -130,3 +130,13 @@ Document epochs prevent stale copy completion from clearing a newer document's c
 The native harness also verifies cancellation after document replacement and preserves the user's clipboard.
 Visual inspection confirms readable equation output, exact red/blue test-image pixels, and authored diagram colors.
 All unsigned builds, 89 Core tests, and 59 renderer tests pass. Native window-occlusion acceptance remains open under #17.
+
+
+## Development package preparation
+
+The offline bundle now includes the complete project LICENSE alongside third-party notices.
+Each renderer rebuild cleans only its own generated output, so obsolete chunk hashes do not accumulate.
+Output tests reproduce and prevent missing license files and stale generated assets.
+The Mac bundle contains exactly 181 expected renderer files, with no missing or obsolete assets.
+All unsigned platform builds, 89 Core tests, and 61 renderer tests pass.
+The local Mac package remains an unsigned development build. Signing, notarization, and publishing are separate gates.
