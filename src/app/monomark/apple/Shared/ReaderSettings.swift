@@ -42,6 +42,10 @@ struct ReaderSettings: View
             }
             Section("Reading layout")
             {
+                Toggle("Show source line numbers", isOn: $session.preferences.showLineNumbers)
+                Text("The gutter marks each block's starting source line. Hover for its source range.")
+                    .font(.caption).foregroundStyle(.secondary)
+                Toggle("Preserve source line breaks", isOn: $session.preferences.preserveLineBreaks)
                 Picker("View", selection: $session.preferences.layoutMode)
                 {
                     Text("Pageless").tag("pageless")
@@ -193,7 +197,7 @@ struct ReaderSettings: View
     {
         Picker(title, selection: value)
         {
-            Text("Use body font").tag("")
+            Text(title == "Code font" ? "System Monospace" : "Use body font").tag("")
             ForEach(FontChoices.make(installed: InstalledFonts.families, current: value.wrappedValue), id: \.self)
             {
                 Text($0).tag($0)

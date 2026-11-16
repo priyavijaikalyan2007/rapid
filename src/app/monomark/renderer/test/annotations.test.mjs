@@ -13,6 +13,50 @@ function fixture(html = '<section class="monomark-block" id="b"><p>Before a <em>
     return new JSDOM(`<main>${html}</main>`).window;
 }
 
+test('heading selections omit formatting whitespace from the following table', () => {
+    const window = fixture('<section class="monomark-block" id="heading"><h2>Three forms</h2>\n</section>' +
+        '<section class="monomark-block" id="table"><table>\n<thead>\n<tr><th>Form</th></tr>\n</thead></table></section>');
+    const range = window.document.createRange();
+    range.setStart(window.document.querySelector('h2').firstChild, 0);
+    range.setEnd(window.document.querySelector('thead'), 1);
+    window.getSelection().addRange(range);
+    const anchors = captureSelection(window, window.document.querySelector('main'));
+    assert.deepEqual(anchors.map(anchor => anchor.quote), ['Three forms']);
+});
+
+test('legacy whitespace anchors never create marks inside table structure', () => {
+    const window = fixture('<section class="monomark-block" id="h"><h2>Heading</h2>\n</section>' +
+        '<section class="monomark-block" id="t"><table>\n<thead>\n<tr><th>Form</th></tr>\n</thead></table></section>');
+    const root = window.document.querySelector('main');
+    const result = renderAnnotations(window, root, [{ id: 'legacy', anchors: [
+        { blockID: 'h', quote: 'Heading\n', prefix: '', suffix: '' },
+        { blockID: 't', quote: '\n\n', prefix: '', suffix: 'Form' }
+    ] }]);
+    assert.deepEqual(result.attached, ['legacy']);
+    assert.equal(root.querySelector('h2 mark')?.textContent, 'Heading');
+    assert.equal(root.querySelector('table > mark, thead > mark'), null);
+});
+
+test('a known block identity disambiguates matching text in an exported excerpt', () => {
+    const window = fixture('<section class="monomark-block" id="original"><h2>Heading</h2></section>' +
+        '<section class="monomark-block" id="export"><blockquote>Heading</blockquote></section>');
+    const root = window.document.querySelector('main');
+    renderAnnotations(window, root, [{ id: 'one', anchors: [
+        { blockID: 'original', quote: 'Heading', prefix: '', suffix: '' }
+    ] }]);
+    assert.equal(root.querySelector('#original mark')?.textContent, 'Heading');
+    assert.equal(root.querySelector('#export mark'), null);
+});
+
+test('an exported excerpt cannot steal an annotation from a known offscreen block', () => {
+    const window = fixture('<section class="monomark-block" id="export"><blockquote>Heading</blockquote></section>');
+    const result = renderAnnotations(window, window.document.querySelector('main'), [{ id: 'one', anchors: [
+        { blockID: 'original', quote: 'Heading', prefix: '', suffix: '' }
+    ] }], new Set(['original', 'export']));
+    assert.deepEqual(result.unresolved, ['one']);
+    assert.equal(window.document.querySelector('mark'), null);
+});
+
 test('selection captures inline fragments and quote context without changing source', () => {
     const window = fixture();
     const node = window.document.querySelector('em').firstChild;

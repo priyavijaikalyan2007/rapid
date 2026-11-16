@@ -16,12 +16,15 @@ import { cssFontFamily } from './typography.mjs';
 import { paperGeometry, layoutBlocks, pageAt, buildViewport } from './page-layout.mjs';
 import { enhanceContent } from './rich-content.mjs';
 import { applyPalette } from './palette.mjs';
+import { decorateSourceLine } from './source-lines.mjs';
 
 const viewport = document.getElementById('monomark-document');
 const status = document.getElementById('monomark-status');
 const popover = document.getElementById('monomark-preview');
 let worker;
 let metadata = [];
+let knownBlockIDs = new Set();
+let sourceLines = 0;
 let offsets = [];
 let heights = [];
 let outline = [];
@@ -53,7 +56,7 @@ let pendingAnnotation;
 
 function decorateAnnotations()
 {
-    emit('annotationStatus', renderAnnotations(window, viewport, annotations));
+    emit('annotationStatus', renderAnnotations(window, viewport, annotations, knownBlockIDs));
     if (pendingAnnotation && scrollToAnnotation(window, viewport, pendingAnnotation)) { pendingAnnotation = null; }
 }
 
@@ -112,12 +115,16 @@ function mount(message)
 function makeBlock(block, index)
 {
     const element = document.createElement('section');
-    element.className = 'monomark-block'; element.id = block.id; element.dataset.block = String(index);
+    element.className = 'monomark-block';
+    element.id = block.blockID || block.id;
+    element.dataset.anchor = block.id;
+    element.dataset.block = String(index);
     if (block.html.length > 1024 * 1024)
     {
         element.textContent = 'This block exceeds the 1 MiB rendered-object limit. Split the source block to view it.';
     }
     else { element.innerHTML = sanitizeDocument(window, block.html); }
+    if (preferences.showLineNumbers) { decorateSourceLine(document, element, block, sourceLines); }
     return element;
 }
 
@@ -228,7 +235,7 @@ async function load(command)
     pendingAnnotation = null;
     clearTimeout(positionTimer);
     worker?.terminate();
-    metadata = [];
+    metadata = []; knownBlockIDs = new Set(); sourceLines = 0;
     activeRange = '';
     status.textContent = 'Indexing document…';
     const code = await (await fetch('worker.js')).text();
@@ -247,6 +254,9 @@ function onWorker(data, initial)
     if (data.type === 'index')
     {
         metadata = data.blocks;
+        knownBlockIDs = new Set(metadata.flatMap(block => [block.id, block.blockID]));
+        sourceLines = data.sourceLines || 0;
+        document.documentElement.style.setProperty('--line-digits', String(Math.max(2, String(sourceLines).length)));
         outline = data.outline;
         heights = metadata.map(block => block.estimate);
         rebuildOffsets();
@@ -286,7 +296,7 @@ function applyPreferences(value)
     style.setProperty('--reader-font', cssFontFamily(preferences.fontFamily));
     for (const kind of ['heading', 'code', 'table', 'caption'])
     {
-        style.setProperty(`--${kind}-font`, cssFontFamily(preferences[`${kind}FontFamily`] || preferences.fontFamily));
+        style.setProperty(`--${kind}-font`, cssFontFamily(preferences[`${kind}FontFamily`] || (kind === 'code' ? 'ui-monospace' : preferences.fontFamily)));
     }
     for (const [key, property, fallback] of [['bodySize', '--body-size', 15], ['codeSize', '--code-size', 14],
         ['tableSize', '--table-size', 14], ['captionSize', '--caption-size', 13], ['pageWidth', '--page-width', 960]])
@@ -296,6 +306,8 @@ function applyPreferences(value)
     (preferences.headingSizes || [30, 25, 21, 18, 16, 15]).forEach((size, index) => style.setProperty(`--h${index + 1}`, `${Number(size)}px`));
     style.setProperty('--line-height', String(preferences.lineHeight || 1.65));
     document.body.classList.toggle('monomark-column-banding', !!preferences.columnBanding);
+    document.body.classList.toggle('monomark-preserve-breaks', !!preferences.preserveLineBreaks);
+    document.body.classList.toggle('monomark-line-numbers', !!preferences.showLineNumbers);
     applyPalette(document, preferences.palettes, document.documentElement.style.colorScheme === 'dark');
     configureLayout();
 }
@@ -359,7 +371,7 @@ function clearDocument(command)
     loadSequence++; request++;
     worker?.terminate(); worker = null;
     epoch = command.epoch; renderedEpoch = epoch;
-    metadata = []; heights = []; outline = []; annotations = []; matches = [];
+    metadata = []; knownBlockIDs = new Set(); sourceLines = 0; heights = []; outline = []; annotations = []; matches = [];
     pendingAnchor = null; pendingAnnotation = null; activeRange = '';
     printing = false; printBlocks = []; printAnchor = null;
     clearTimeout(positionTimer); clearTimeout(selectionTimer);

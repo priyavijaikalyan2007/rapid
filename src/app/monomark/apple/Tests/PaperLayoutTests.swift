@@ -9,6 +9,17 @@ import Testing
 
 struct PaperLayoutTests
 {
+    @Test func sourceLinePreferencesPersistAndOlderDocumentsKeepStandardMarkdown() throws
+    {
+        let old = try JSONDecoder().decode(ReaderPreferences.self, from: Data("{}".utf8))
+        #expect(!old.showLineNumbers && !old.preserveLineBreaks)
+        var preferences = ReaderPreferences()
+        preferences.showLineNumbers = true
+        preferences.preserveLineBreaks = true
+        let restored = try JSONDecoder().decode(ReaderPreferences.self, from: JSONEncoder().encode(preferences))
+        #expect(restored.showLineNumbers && restored.preserveLineBreaks)
+    }
+
     @Test func standardSizesUsePrinterPoints() throws
     {
         #expect(PaperLayout.resolve("letter").widthPoints == 612)

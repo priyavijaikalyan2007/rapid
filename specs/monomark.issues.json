@@ -362,5 +362,79 @@
         "e40c5c6"
       ]
     }
+  },
+  "review": {
+    "inline-code-font": {
+      "number": 47,
+      "id": 6422600719,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/47",
+      "parent": 3,
+      "category": "bug",
+      "progress": "in progress"
+    },
+    "stable-path-copy": {
+      "number": 48,
+      "id": 6422601225,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/48",
+      "parent": 2,
+      "category": "bug",
+      "progress": "in progress"
+    },
+    "files-new-tab": {
+      "number": 49,
+      "id": 6422601681,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/49",
+      "parent": 2,
+      "category": "enhancement",
+      "progress": "in progress"
+    },
+    "source-soft-breaks": {
+      "number": 50,
+      "id": 6422602158,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/50",
+      "parent": 3,
+      "category": "enhancement",
+      "progress": "in progress"
+    },
+    "heading-highlight": {
+      "number": 51,
+      "id": 6422602624,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/51",
+      "parent": 5,
+      "category": "bug",
+      "progress": "in progress"
+    },
+    "table-after-jump": {
+      "number": 52,
+      "id": 6422603173,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/52",
+      "parent": 3,
+      "category": "bug",
+      "progress": "in progress"
+    },
+    "section-numbering": {
+      "number": 53,
+      "id": 6422603640,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/53",
+      "parent": 2,
+      "category": "enhancement",
+      "progress": "proposal"
+    },
+    "source-line-gutter": {
+      "number": 54,
+      "id": 6422604205,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/54",
+      "parent": 2,
+      "category": "enhancement",
+      "progress": "in progress"
+    },
+    "export-quote-comment": {
+      "number": 55,
+      "id": 6422604689,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/55",
+      "parent": 6,
+      "category": "bug",
+      "progress": "in progress"
+    }
   }
 }

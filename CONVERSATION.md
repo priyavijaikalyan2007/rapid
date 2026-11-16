@@ -1043,3 +1043,23 @@ Implementation summary: Palette checkpoint d55c6d3 is pushed. Workspace implemen
 
 
 15 November continuation summary: Added and pushed adaptive palettes (d55c6d3), persistent folder workspaces and Mac multi-tab verification (da78951), native image-copy/pasteboard fixes (dc5e8bc), and offline package-integrity fixes (32d0b47). Native PNG evidence verifies equation/image/diagram pixels, cancellation, and unchanged source. All unsigned platforms and 89 Core/61 renderer tests pass. Prepared a verified local universal Mac ZIP for trial use. Release acceptance remains open and no publication occurred.
+
+## 15 November 2026: Reader review bugs
+
+The owner reported nine items while reading a local specification: inline code lost its monospace appearance,
+path copying dismissed too early, file clicks reused the current tab, preamble lines joined, heading highlights
+appeared blank, annotation jumps damaged the following table, subsection numbering was absent, source-line
+numbers would help, and exported comments looked like highlighted quotations.
+
+Response: Reproduce the bugs with synthetic fixtures and track all nine items. Keep ordinary file clicks in
+the current tab and offer Command-click plus the existing context menu. Add optional source-line breaks
+and a source-line gutter. Preserve author-controlled numbering and track automatic numbering as a proposal.
+
+Implementation summary: Filed #47–#55. Fixed font fallback, stable path copying, heading/whitespace anchoring, table
+structure, and export presentation. Added Command-click, optional source breaks, and padded block-start source lines.
+Native QA found a modifier timing defect. The current event now supplies flags and two tabs were verified.
+Actual WebKit checks pass before and after annotation navigation. Automatic numbering remains a proposal.
+
+User follow-on requests: Add selectable auto-reload and a Refresh button, section/line references in exports,
+and a monomark command for folders (including dot paths) or multiple files. Then add inline annotation export,
+notes at the file end, and separate-file export for annotations or notes. Complete these after the review checkpoint.

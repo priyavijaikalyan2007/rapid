@@ -103,6 +103,7 @@ struct ReaderView: View
         {
             ToolbarItemGroup
             {
+                DocumentLocationView(session: session)
                 Button
                 {
                     session.showSidebar.toggle()

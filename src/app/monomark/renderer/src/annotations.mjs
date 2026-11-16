@@ -5,7 +5,7 @@
 // PURPOSE: Capture quoted text and decorate only unambiguous visible matches.
 // FLOW: DOM selection -> quote anchors -> native persistence -> viewport decorations.
 
-const excluded = '.monomark-artifact-actions, .katex, svg, script, style';
+const excluded = '.monomark-artifact-actions, .monomark-line-number, .monomark-page-label, .katex, svg, script, style';
 const colors = new Set(['yellow', 'green', 'blue', 'pink', 'purple']);
 
 function textNodes(window, block)
@@ -14,7 +14,9 @@ function textNodes(window, block)
     const nodes = [];
     for (let node = walker.nextNode(); node; node = walker.nextNode())
     {
-        if (!node.parentElement.closest(excluded)) { nodes.push(node); }
+        // Formatting whitespace between table sections must never become a rendered mark.
+        const structural = node.parentElement.matches('section, table, thead, tbody, tfoot, tr');
+        if (!node.parentElement.closest(excluded) && !(structural && !node.textContent.trim())) { nodes.push(node); }
     }
     return nodes;
 }
@@ -43,8 +45,8 @@ export function captureSelection(window, root)
             }
             cursor += node.length;
         }
-        if (start === undefined || end <= start) { continue; }
-        anchors.push({ blockID: block.id, quote: text.slice(start, end), start,
+        if (start === undefined || end <= start || !text.slice(start, end).trim()) { continue; }
+        anchors.push({ blockID: block.dataset.anchor || block.id, quote: text.slice(start, end), start,
             prefix: Array.from(text.slice(0, start)).slice(-32).join(''),
             suffix: Array.from(text.slice(end)).slice(0, 32).join('') });
     }
@@ -52,10 +54,13 @@ export function captureSelection(window, root)
     return anchors;
 }
 
-function locate(blocks, anchor)
+function locate(blocks, anchor, knownBlockIDs)
 {
     const matches = [];
-    for (const block of blocks)
+    const preferred = blocks.filter(block => block.element.id === anchor.blockID ||
+        block.element.dataset.anchor === anchor.blockID);
+    if (!preferred.length && knownBlockIDs?.has(anchor.blockID)) { return null; }
+    for (const block of preferred.length ? preferred : blocks)
     {
         for (let start = block.text.indexOf(anchor.quote); start >= 0; start = block.text.indexOf(anchor.quote, start + 1))
         {
@@ -92,7 +97,7 @@ function decorate(window, match, annotation)
 }
 
 /** Missing or ambiguous quotes remain available in the native sidebar without guessing an attachment. */
-export function renderAnnotations(window, root, annotations)
+export function renderAnnotations(window, root, annotations, knownBlockIDs)
 {
     for (const mark of root.querySelectorAll('mark[data-annotation]'))
     {
@@ -105,8 +110,12 @@ export function renderAnnotations(window, root, annotations)
     const result = { attached: [], unresolved: [] };
     for (const annotation of annotations)
     {
-        const matches = annotation.anchors.map(anchor => locate(blocks, anchor));
-        if (matches.some(match => !match)) { result.unresolved.push(annotation.id); continue; }
+        // Earlier versions saved trailing layout newlines and empty table anchors. Retain their visible quotation.
+        const anchors = annotation.anchors.filter(anchor => anchor.quote.trim());
+        const matches = anchors.map(anchor => locate(blocks, anchor, knownBlockIDs) || locate(blocks, { ...anchor,
+            quote: anchor.quote.replace(/^\n+|\n+$/g, ''), prefix: anchor.prefix.replace(/\n+$/g, ''),
+            suffix: anchor.suffix.replace(/^\n+/g, '') }, knownBlockIDs));
+        if (!matches.length || matches.some(match => !match)) { result.unresolved.push(annotation.id); continue; }
         matches.forEach(match => decorate(window, match, annotation));
         result.attached.push(annotation.id);
     }

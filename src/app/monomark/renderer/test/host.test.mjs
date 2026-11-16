@@ -36,6 +36,44 @@ globalThis.Worker = class {
 await import('../src/host.mjs');
 after(() => dom.window.close());
 
+test('code remains monospace when the body font is proportional', () => {
+    window.MonoMark.command({ type: 'preferences', value: { fontFamily: 'Atkinson Hyperlegible' } });
+    assert.equal(document.documentElement.style.getPropertyValue('--code-font'), 'ui-monospace');
+});
+
+test('source line settings apply to mounted blocks and stay outside selected quotations', async () => {
+    window.MonoMark.command({ type: 'load', epoch: 'source-lines' });
+    await new Promise(resolve => setTimeout(resolve, 20));
+    window.MonoMark.command({ type: 'preferences', value: { showLineNumbers: true, preserveLineBreaks: true } });
+    const worker = workers.at(-1);
+    const block = { id: 'b', blockID: 'block-0', line: 1, endLine: 3, estimate: 80,
+        html: '<p>Status: Draft<span class="monomark-softbreak">\n</span>Date: Today</p>' };
+    worker.onmessage({ data: { type: 'index', outline: [], links: [], sourceLines: 200, blocks: [block] } });
+    worker.onmessage({ data: { type: 'range', request: worker.sent.at(-1).request, start: 0, blocks: [block] } });
+    assert.equal(document.querySelector('.monomark-line-number')?.textContent, '002');
+    assert.equal(document.body.classList.contains('monomark-preserve-breaks'), true);
+    const range = document.createRange();
+    range.selectNodeContents(document.querySelector('.monomark-block'));
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.dispatchEvent(new window.MouseEvent('mouseup', { bubbles: true }));
+    assert.equal(messages.at(-1).anchors[0].quote, 'Status: Draft\nDate: Today');
+    await new Promise(resolve => setTimeout(resolve, 300));
+});
+
+test('heading destinations have one DOM ID and retain their saved annotation alias', async () => {
+    window.MonoMark.command({ type: 'load', epoch: 'unique-heading' });
+    await new Promise(resolve => setTimeout(resolve, 20));
+    const worker = workers.at(-1);
+    const block = { id: 'three-forms', blockID: 'block-2', estimate: 80,
+        html: '<h2 id="three-forms">3. Three forms</h2>\n' };
+    worker.onmessage({ data: { type: 'index', outline: [], links: [], blocks: [block] } });
+    worker.onmessage({ data: { type: 'range', request: worker.sent.at(-1).request, start: 0, blocks: [block] } });
+    assert.equal(document.querySelectorAll('#three-forms').length, 1);
+    assert.equal(document.querySelector('.monomark-block').dataset.anchor, 'three-forms');
+    await new Promise(resolve => setTimeout(resolve, 300));
+});
+
 test('document replacement suppresses stale reading positions', async () => {
     window.MonoMark.command({ type: 'load', epoch: 'first' });
     await new Promise(resolve => setTimeout(resolve, 20));

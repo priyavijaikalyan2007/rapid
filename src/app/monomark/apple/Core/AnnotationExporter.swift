@@ -91,10 +91,11 @@ enum AnnotationExporter
         for (index, annotation) in notes.annotations.enumerated()
         {
             lines += ["### Annotation \(index + 1) (\(annotation.color))", ""]
-            lines += quote(annotation.anchors.map(\.quote).joined(separator: "\n"))
+            lines += ["**Highlighted text:**", ""]
+            lines += quote(literal(annotation.anchors.map(\.quote).joined(separator: "\n")))
             if !annotation.comment.isEmpty
             {
-                lines += ["", "Comment:", ""] + quote(annotation.comment)
+                lines += ["", "**Comment:**", "", literal(annotation.comment)]
             }
             lines.append("")
         }
@@ -103,6 +104,16 @@ enum AnnotationExporter
             lines += ["### Notes", ""] + noteLines(notes) + [""]
         }
         return lines + [end]
+    }
+
+    /// Escape plain annotation text before embedding it in generated Markdown.
+    private static func literal(_ text: String) -> String
+    {
+        let special = Set("\\`*_{}[]<>()#+-.!|>&")
+        return text.replacingOccurrences(of: "\r\n", with: "\n").map
+        { character in
+            special.contains(character) ? "\\" + String(character) : String(character)
+        }.joined().replacingOccurrences(of: "\n", with: "  \n")
     }
 
     private static func quote(_ text: String) -> [String]

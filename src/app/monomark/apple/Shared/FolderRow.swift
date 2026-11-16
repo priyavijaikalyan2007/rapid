@@ -9,6 +9,9 @@
 // FLOW: Native view -> validated session -> document surface.
 
 import SwiftUI
+#if os(macOS)
+import AppKit
+#endif
 
 /// Expand only the selected directory so deep trees do not block document opening.
 struct FolderRow: View
@@ -77,7 +80,7 @@ struct FolderRow: View
         {
             Button
             {
-                session.open(entry.url, folder: session.root)
+                openFile()
             }
             label: {
                 HStack
@@ -98,7 +101,8 @@ struct FolderRow: View
                 .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
-            .help(entry.url.path)
+            .help(entry.url
+                .path + "\nUse Open in New Tab from the context menu. On Mac, Command-click also opens a new tab.")
             .accessibilityValue(DocumentPresentation.isSelected(session.url, file: entry.url) ? "Current document" : "")
             .contextMenu
             {
@@ -108,5 +112,19 @@ struct FolderRow: View
                 }
             }
         }
+    }
+
+    /// Follow Mac file navigation conventions while preserving the ordinary single-tab action.
+    private func openFile()
+    {
+        #if os(macOS)
+        let modifiers = NSApp.currentEvent?.modifierFlags ?? NSEvent.modifierFlags
+        if modifiers.contains(.command), let openNewTab = session.openNewTab
+        {
+            openNewTab(entry.url, session.root)
+            return
+        }
+        #endif
+        session.open(entry.url, folder: session.root)
     }
 }

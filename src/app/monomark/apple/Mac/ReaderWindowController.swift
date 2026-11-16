@@ -74,17 +74,6 @@ final class ReaderWindowController: NSWindowController, NSWindowDelegate
             }
             application?.saveTabs()
         }
-        let accessory = NSTitlebarAccessoryViewController()
-        let copyPath = NSButton(
-            image: NSImage(systemSymbolName: "doc.on.doc", accessibilityDescription: "Copy Document Path")!,
-            target: self,
-            action: #selector(copyDocumentPath(_:))
-        )
-        copyPath.frame = NSRect(x: 0, y: 0, width: 28, height: 24)
-        copyPath.toolTip = "Copy the full document path"
-        accessory.view = copyPath
-        accessory.layoutAttribute = .right
-        window.addTitlebarAccessoryViewController(accessory)
         session.openNewTab = { [weak self, weak application] file, folder in
             application?.createWindow(file: file, folder: folder, tabbedWith: self)
         }

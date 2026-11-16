@@ -73,7 +73,9 @@ struct AnnotationExporterTests
         let result = try AnnotationExporter.render(source: "", notes: ReadingNotes(annotations: [mark]))
         #expect(result.contains("> A quote"))
         #expect(result.contains("green"))
-        #expect(result.contains("> A comment"))
+        #expect(result.contains("**Comment:**\n\nA comment"))
+        #expect(result.contains("**Highlighted text:**\n\n> A quote"))
+        #expect(!result.contains("> A comment"))
         #expect(result.contains("Auto-generated"))
     }
 

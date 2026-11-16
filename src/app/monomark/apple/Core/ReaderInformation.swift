@@ -25,9 +25,9 @@ struct ReaderInformation: Sendable
             detail:
             """
             Open a Markdown file to read it. Open its folder to browse related documents and grant access to local \
-            images and links. Files marks the current document. The title bar shows its path and provides Copy \
-            Document Path. Each folder is a workspace. The menu above Files switches recent workspaces and \
-            resumes the last available document. Other tabs stay open. Forget This Workspace keeps files and notes.
+            images and links. Files marks the current document. The title bar shows its path. Document Location opens a selectable path and Copy Path action. Each folder is a workspace. The menu above Files switches recent workspaces and \
+            resumes the last available document. Click a file to reuse the current tab. On Mac, Command-click opens \
+            a new tab. The context menu also offers Open in New Tab. Other tabs stay open. Forget This Workspace keeps files and notes.
             """
         ),
         ReaderHelpTopic(
@@ -64,7 +64,7 @@ struct ReaderInformation: Sendable
             """
             Notes save automatically inside the app. On Mac, File > Export Notes and Annotations to This File \
             writes a marked, auto-generated Markdown section. Each export replaces that section and preserves the \
-            surrounding source. Export a Copy keeps the original unchanged and is also available on mobile. Save \
+            surrounding source. Highlighted text appears as a labeled quotation. Comments appear separately. Export a Copy keeps the original unchanged and is also available on mobile. Save \
             and Command-S do not write reading notes into the original file.
             """
         ),
@@ -88,7 +88,9 @@ struct ReaderInformation: Sendable
             Document Actions > Print on mobile. Printing large documents and large single objects has limits \
             described in the application guide. Pages shows separate paper boxes. Pageless uses continuous \
             scrolling. Choose paper size in Settings and Use as Defaults for new documents. Counts are estimates \
-            and change with width and typography. Large objects stay on expanded sheets. Printed breaks can differ.
+            and change with width and typography. Optional source line numbers mark block starts, with ranges on hover. \
+            Preserve source line breaks keeps single source newlines visible. Both options are in Reading layout. \
+            Subsection numbering follows the source author. Large objects stay on expanded sheets. Printed breaks can differ.
             """
         )
     ]

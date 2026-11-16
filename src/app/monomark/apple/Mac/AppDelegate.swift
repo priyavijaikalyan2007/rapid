@@ -34,7 +34,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         let arguments = ProcessInfo.processInfo.arguments
         if arguments.contains("--demo") || arguments.contains("--smoke-test")
         {
-            let fixture = arguments.contains("--artifact-smoke") ? try? SmokeFixture.create() : nil
+            let fixture = arguments.contains("--review-smoke") ? try? ReviewSmoke.createFixture() :
+                arguments.contains("--artifact-smoke") ? try? SmokeFixture.create() : nil
             let file = fixture ?? FileManager.default.temporaryDirectory.appendingPathComponent("MonoMark-Demo.md")
             if fixture == nil, let data = Bundle.main.url(forResource: "Welcome", withExtension: "md")
             {
@@ -55,9 +56,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         }
         if let index = arguments.firstIndex(of: "--smoke-test"), arguments.indices.contains(index + 1)
         {
-            if arguments.contains("--artifact-smoke")
+            if arguments.contains("--artifact-smoke") || arguments.contains("--review-smoke")
             {
-                configureArtifactSmoke(output: arguments[index + 1])
+                configureArtifactSmoke(output: arguments[index + 1], review: arguments.contains("--review-smoke"))
             }
             else
             {

@@ -71,6 +71,7 @@ export function parseDocument(source)
     md.utils.assign = Object.assign;
     md.utils.has = (object, key) => Object.hasOwn(object, key);
     md.use(emoji);
+    md.renderer.rules.softbreak = () => '<span class="monomark-softbreak">\n</span>';
     md.inline.ruler.before('html_inline', 'document_comment_inline', state =>
     {
         if (state.src.slice(state.pos, state.pos + 4) !== '<!--') { return false; }
@@ -105,7 +106,7 @@ export function parseDocument(source)
         return `<img id="${escape(token.attrGet('id') || '')}" loading="lazy" data-src="${escape(token.attrGet('src') || '')}" alt="${escape(token.content)}">`;
     };
     const text = source.replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n').replace(/\0/g, '\uFFFD')
-        .replace(/^---\n[\s\S]*?\n---(?:\n|$)/, '');
+        .replace(/^---\n[\s\S]*?\n---(?:\n|$)/, match => match.replace(/[^\n]/g, ''));
     const environment = {};
     // Keep block structure and global references, but release each block's expensive inline token graph after rendering.
     const tokens = [];
@@ -136,7 +137,8 @@ export function parseDocument(source)
         if (tail >= 0) { addBlock(state.tokens.slice(tail), md, environment, context); }
     }
     return { ...context, headings: undefined, used: undefined, counts: undefined,
-        duration: performance.now() - started, sourceBytes: new TextEncoder().encode(source).length };
+        duration: performance.now() - started, sourceBytes: new TextEncoder().encode(source).length,
+        sourceLines: text.split('\n').length };
 }
 
 function uniqueID(title, context)
@@ -212,6 +214,7 @@ function addBlock(tokens, md, environment, context)
     const html = md.renderer.render(tokens, md.options, environment);
     for (const token of tokens) { if (token.type === 'inline') { token.children = null; } }
     context.blocks.push({ id, blockID, html, text, line: tokens.find(token => token.map)?.map?.[0] || 0,
+        endLine: tokens.reduce((end, token) => Math.max(end, token.map?.[1] || 0), 0),
         estimate: Math.min(12000, Math.max(48, Math.ceil(text.length / 90) * 26 + (html.includes('<table') ? 100 : 0))) });
 }
 

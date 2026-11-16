@@ -1,0 +1,53 @@
+{
+  "anchorCount": 1,
+  "beforeJump": {
+    "bodyLefts": [
+      80.15625,
+      151.15625,
+      348.25
+    ],
+    "codeFont": "ui-monospace, monospace",
+    "columnLefts": [
+      80.15625,
+      151.15625,
+      348.25
+    ],
+    "columnsAligned": true,
+    "headingMarked": false,
+    "headingText": "3. Three forms",
+    "monospaceCode": true,
+    "separatePreambleLines": true,
+    "sourceGutter": true,
+    "uniqueIDs": true,
+    "validTableMarks": true
+  },
+  "bodyLefts": [
+    80.15625,
+    151.15625,
+    340.125
+  ],
+  "codeFont": "ui-monospace, monospace",
+  "columnLefts": [
+    80.15625,
+    151.15625,
+    340.125
+  ],
+  "columnsAligned": true,
+  "headingMarked": true,
+  "headingQuote": "3. Three forms",
+  "headingText": "3. Three forms",
+  "monospaceCode": true,
+  "passed": true,
+  "separatePreambleLines": true,
+  "sourceGutter": true,
+  "sourceUnchanged": true,
+  "uniqueIDs": true,
+  "validTableMarks": true,
+  "nativeUI": {
+    "documentLocationPopover": "remained open through Copy Path",
+    "pathClipboardRoundTrip": "pasted exact synthetic path into isolated notes; undo restored empty note",
+    "commandClick": "opened two native document tabs after event-modifier fix",
+    "sourceDisplaySettings": "both switches applied from native Settings",
+    "uiTestRunner": "not executed; existing host signing limitation"
+  }
+}

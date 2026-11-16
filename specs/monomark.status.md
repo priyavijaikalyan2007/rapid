@@ -10,7 +10,7 @@ Created: 2026
 
 # MonoMark status
 
-Updated on 15 November 2026.
+Updated on 16 November 2026.
 
 MonoMark now has native Mac and iPhone/iPad projects under src/app/monomark.
 The first implementation includes document tabs, Files/Contents/Links/History navigation, SQLite reading state,
@@ -26,8 +26,8 @@ Real WebKit smoke evidence shows math, tables, and Mermaid, with 15 mounted bloc
 The [native smoke evidence](monomark.smoke.json) now verifies dark rendering, artifact controls, and successful PNG output.
 Visual inspection confirms that exported diagram labels and connector colors remain readable in dark mode.
 The regression suite uses real Mermaid output and checks label text after sanitization.
-The current renderer suite passes 61 tests, with 97.84% line coverage for loaded renderer modules.
-The native core suite passes 89 tests, with 94.63% line coverage including the autosave controller.
+The current renderer suite passes 71 tests, with 97.92% line coverage for loaded renderer modules.
+The native core suite passes 90 tests, with 94.17% line coverage including the autosave controller.
 
 The synthetic [indexing evidence](monomark.benchmark.json) records about 487 ms for 10 MiB on this 64 GiB development host.
 The Node process RSS after that run was about 264 MB. This is not complete-app or reference-machine performance acceptance.
@@ -152,3 +152,27 @@ Extract the ZIP and copy MonoMark.app to Applications for trial use outside the 
 The package has no distribution signing or notarization. Nothing was published or submitted.
 Remaining acceptance includes large-document resource budgets, large tables/cross-viewport selection,
 window occlusion during copy, broader lifecycle/provider/signed-export cases, and physical mobile/display checks.
+
+
+## Reader review checkpoint on 16 November
+
+Issues #47–#55 track the nine review items. Inline code now uses a separate monospace default and visible styling.
+The native Document Location popover keeps a selectable path and Copy Path action available.
+Plain file clicks reuse the current tab. Command-click and the context action open a new tab.
+Native QA reproduced the modifier bug and confirmed two tabs after using the current event's modifier flags.
+
+Heading selection omits structural whitespace. Legacy empty table anchors are ignored during decoration.
+Marks cannot introduce anonymous table cells, tables retain one grid, and semantic navigation IDs are unique.
+Known offscreen locations prevent exported quotations from stealing an original highlight.
+Export labels highlighted text and comments separately, quotes only the highlighted text, and escapes literal annotation text.
+
+Settings adds optional preserved source line breaks and a padded source-line gutter.
+The gutter shows each block's starting line, with the source range on hover. It is excluded from annotations and print.
+Front matter and hidden comments retain their original source-line offsets. Standard soft-break behavior remains the default.
+Numbering remains author-controlled. Automatic subsection numbering is a proposal under #53.
+
+The [review smoke](monomark.review-smoke.json) measures actual WebKit header/body column geometry before and after
+an offscreen annotation jump. It verifies heading text, one saved anchor, unique IDs, monospace code, preserved preamble
+lines, source numbering, and unchanged fixture source. Native QA confirms path clipboard round-trip and both settings.
+All unsigned platforms compile. Renderer tests pass 71 cases at 97.92% line coverage. Core passes 90 tests at 94.17%.
+Repository and source checks pass. Physical mobile execution and the native UI runner remain unverified.

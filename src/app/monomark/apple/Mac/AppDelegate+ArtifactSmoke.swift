@@ -8,7 +8,7 @@ import Darwin
 
 extension AppDelegate
 {
-    func configureArtifactSmoke(output: String)
+    func configureArtifactSmoke(output: String, review: Bool = false)
     {
         current?.session.smokeRendered = { [weak self] in
             guard let self, !smokeStarted, let session = current?.session
@@ -22,11 +22,22 @@ extension AppDelegate
                 let report: [String: Any]
                 do
                 {
-                    report = try await ArtifactSmoke.run(session: session, output: output)
+                    if review
+                    {
+                        report = try await ReviewSmoke.run(session: session, output: output)
+                    }
+                    else
+                    {
+                        report = try await ArtifactSmoke.run(session: session, output: output)
+                    }
                 }
                 catch
                 {
-                    report = ["passed": false, "error": error.localizedDescription]
+                    report = [
+                        "passed": false,
+                        "error": error.localizedDescription,
+                        "detail": (error as NSError).userInfo.description
+                    ]
                 }
                 if let data = try? JSONSerialization.data(
                     withJSONObject: report,
