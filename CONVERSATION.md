@@ -1040,3 +1040,6 @@ Assistant summary: The current Mac build is available for trial use. Workspace/t
 User: "ok keep going."
 
 Implementation summary: Palette checkpoint d55c6d3 is pushed. Workspace implementation passed native and renderer regressions, all unsigned builds, and isolated Mac navigation/tab/note checks. Continue remaining Mac acceptance after committing the workspace checkpoint.
+
+
+15 November continuation summary: Added and pushed adaptive palettes (d55c6d3), persistent folder workspaces and Mac multi-tab verification (da78951), native image-copy/pasteboard fixes (dc5e8bc), and offline package-integrity fixes (32d0b47). Native PNG evidence verifies equation/image/diagram pixels, cancellation, and unchanged source. All unsigned platforms and 89 Core/61 renderer tests pass. Prepared a verified local universal Mac ZIP for trial use. Release acceptance remains open and no publication occurred.

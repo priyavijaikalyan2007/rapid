@@ -140,3 +140,15 @@ Output tests reproduce and prevent missing license files and stale generated ass
 The Mac bundle contains exactly 181 expected renderer files, with no missing or obsolete assets.
 All unsigned platform builds, 89 Core tests, and 61 renderer tests pass.
 The local Mac package remains an unsigned development build. Signing, notarization, and publishing are separate gates.
+
+
+## Local Mac development package
+
+[Package verification](monomark.package.json) records MonoMark 0.1.0 build 1 from committed source 32d0b475b442.
+The ZIP is src/app/monomark/build/MonoMark-0.1.0-macOS-universal.zip and contains MonoMark.app.
+It supports macOS 15 or later on Apple silicon and Intel. The archive is 3,964,290 bytes and passes ZIP integrity checks.
+A SHA-256 checksum sits beside it. Runtime dependency audit reports zero known vulnerabilities on 15 November 2026.
+Extract the ZIP and copy MonoMark.app to Applications for trial use outside the build directory.
+The package has no distribution signing or notarization. Nothing was published or submitted.
+Remaining acceptance includes large-document resource budgets, large tables/cross-viewport selection,
+window occlusion during copy, broader lifecycle/provider/signed-export cases, and physical mobile/display checks.

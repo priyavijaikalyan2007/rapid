@@ -122,7 +122,8 @@
       "number": 17,
       "id": 6388332092,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/17",
-      "progress": "active"
+      "progress": "needs occlusion verification",
+      "commit": "dc5e8bc"
     },
     "appearance": {
       "number": 18,
@@ -223,7 +224,8 @@
       "number": 46,
       "id": 6414261870,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/46",
-      "progress": "in progress"
+      "progress": "closed",
+      "commit": "32d0b47"
     }
   },
   "refinements": {
