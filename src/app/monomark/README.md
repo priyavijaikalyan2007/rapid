@@ -79,7 +79,8 @@ Local raster images are supported within granted access, with a 20 MiB encoded-f
 Remote image requests are blocked. The Links tab can open their sources in the browser.
 Printing currently supports up to 5,000 blocks and constructs a separate print view.
 Cross-viewport text selection and very large single tables still need further native acceptance work.
-PNG copies fit the full artifact into the available viewport, so large objects may produce reduced-resolution images.
+PNG copies wait for local image decoding and fit the full artifact into the available viewport.
+Large objects may produce reduced-resolution images. Native acceptance verifies copied math, image pixels, and diagrams.
 
 The first implementation does not establish release performance on an untested reference machine.
 Multi-display behavior and physical mobile devices need direct acceptance tests.
@@ -94,3 +95,13 @@ Reader text colors use at least 4.5:1 contrast against their selected surfaces. 
 See the [product specification](../../../specs/monomark.product.md),
 [implementation plan](../../../specs/monomark.implementation.md), and
 [current status](../../../specs/monomark.status.md) for evidence and remaining work.
+
+
+The isolated native artifact test uses a generated local fixture and a separate pasteboard:
+
+```sh
+./build/DerivedData/Build/Products/Release/MonoMark.app/Contents/MacOS/MonoMark --smoke-test /tmp/monomark-artifacts.json --artifact-smoke
+```
+
+Run this command from the component folder after a Mac build. A zero exit code and passed report indicate successful checks.
+The test does not replace the user's clipboard or read private documents.

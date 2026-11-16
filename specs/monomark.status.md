@@ -26,7 +26,7 @@ Real WebKit smoke evidence shows math, tables, and Mermaid, with 15 mounted bloc
 The [native smoke evidence](monomark.smoke.json) now verifies dark rendering, artifact controls, and successful PNG output.
 Visual inspection confirms that exported diagram labels and connector colors remain readable in dark mode.
 The regression suite uses real Mermaid output and checks label text after sanitization.
-The current renderer suite passes 58 tests, with 98.17% line coverage for loaded renderer modules.
+The current renderer suite passes 59 tests, with 97.83% line coverage for loaded renderer modules.
 The native core suite passes 89 tests, with 94.63% line coverage including the autosave controller.
 
 The synthetic [indexing evidence](monomark.benchmark.json) records about 487 ms for 10 MiB on this 64 GiB development host.
@@ -118,3 +118,15 @@ The empty-workspace test found and fixed a native editor that accepted unsaved t
 The repeat check confirmed that the field rejects edits. New Tab and Close returned to the existing workspace correctly.
 The [native regression smoke](monomark.workspaces-smoke.json) confirms note recovery, restored highlights, math, diagrams, and PNG output.
 Physical mobile interactions and signed bookmark/provider recovery remain separate acceptance checks.
+
+
+## Native PNG acceptance checkpoint
+
+The [artifact smoke](monomark.artifacts-smoke.json) verifies equation, local-image, and diagram PNG output
+through an isolated native pasteboard. It verifies copied pixels and positive dimensions, not only message delivery.
+The local-image test reproduced a blank copy caused by capture before the cloned image decoded.
+Image copying now waits for decoding, fails clearly after a deadline/error, and keeps source unchanged.
+Document epochs prevent stale copy completion from clearing a newer document's copy overlay.
+The native harness also verifies cancellation after document replacement and preserves the user's clipboard.
+Visual inspection confirms readable equation output, exact red/blue test-image pixels, and authored diagram colors.
+All unsigned builds, 89 Core tests, and 59 renderer tests pass. Native window-occlusion acceptance remains open under #17.

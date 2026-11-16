@@ -87,3 +87,30 @@ export function installArtifactActions(root, handlers)
         wrapper.append(actions);
     }
 }
+
+/** A cloned image has a separate decode lifecycle, even when its source is already visible. */
+export async function waitForCopyImages(root, timeout = 2000)
+{
+    const images = [...root.querySelectorAll('img')];
+    if (root.tagName === 'IMG') { images.push(root); }
+    if (!images.length) { return true; }
+    let timer;
+    const decode = async () =>
+    {
+        try
+        {
+            await Promise.all(images.map(async image =>
+            {
+                if (typeof image.decode === 'function') { await image.decode(); }
+                else if (!image.complete || !image.naturalWidth) { throw new Error('Image not ready'); }
+            }));
+            return true;
+        }
+        catch { return false; }
+    };
+    try
+    {
+        return await Promise.race([decode(), new Promise(resolve => { timer = setTimeout(() => resolve(false), timeout); })]);
+    }
+    finally { clearTimeout(timer); }
+}

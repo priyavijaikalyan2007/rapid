@@ -103,7 +103,9 @@ test('rich artifacts retain visible diagram labels and copy rendered images', as
     document.querySelector('[title*="PNG"]').click();
     await new Promise(resolve => setTimeout(resolve, 100));
     assert.equal(messages.at(-1).type, 'copyPNG');
-    window.MonoMark.command({ type: 'copyComplete' });
+    window.MonoMark.command({ type: 'copyComplete', epoch: 'previous-document' });
+    assert.ok(document.querySelector('.monomark-copy-overlay'), 'A stale completion must not clear the current copy');
+    window.MonoMark.command({ type: 'copyComplete', epoch: 'rich' });
     assert.equal(document.querySelector('.monomark-copy-overlay'), null);
     await new Promise(resolve => setTimeout(resolve, 300));
 });

@@ -19,6 +19,7 @@ Created: 2026
 
 ### Fixed
 
+- Waited for image decoding before PNG capture and rejected stale copy completions after document changes.
 - Blocked note editing without an open document and cleared note undo state across document changes.
 - Kept new documents on application defaults instead of inheriting the previous file's appearance.
 

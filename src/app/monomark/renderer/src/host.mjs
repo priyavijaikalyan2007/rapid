@@ -10,7 +10,7 @@
 
 import { windowRange } from './viewport.mjs';
 import { sanitizeDocument } from './sanitizer.mjs';
-import { imageBounds } from './artifacts.mjs';
+import { imageBounds, waitForCopyImages } from './artifacts.mjs';
 import { captureSelection, renderAnnotations, scrollToAnnotation } from './annotations.mjs';
 import { cssFontFamily } from './typography.mjs';
 import { paperGeometry, layoutBlocks, pageAt, buildViewport } from './page-layout.mjs';
@@ -137,8 +137,15 @@ async function copyPNG(element)
     clone.style.overflow = 'visible';
     copyOverlay.append(clone);
     document.body.append(copyOverlay);
+    const imagesReady = await waitForCopyImages(clone);
     await Promise.race([document.fonts.ready, new Promise(resolve => setTimeout(resolve, 500))]);
     if (copyEpoch !== epoch || !clone.isConnected) { return; }
+    if (!imagesReady)
+    {
+        copyOverlay.remove();
+        emit('status', { message: 'The image is not ready to copy. Wait for it to load, then try again.' });
+        return;
+    }
     const natural = clone.getBoundingClientRect();
     const bounds = imageBounds(natural.width, natural.height, window.innerWidth - 16, window.innerHeight - 16);
     clone.style.transformOrigin = '0 0';
@@ -373,7 +380,8 @@ window.MonoMark = {
             annotations = command.value || [];
             decorateAnnotations();
         }
-        if (command.type === 'copyComplete') { copyOverlay?.remove(); copyOverlay = null; }
+        if (command.type === 'copyComplete' && (!command.epoch || command.epoch === epoch))
+        { copyOverlay?.remove(); copyOverlay = null; }
         if (command.type === 'jump') { jump(command.id); }
         if (command.type === 'annotation') { navigateAnnotation(command.id); }
         if (command.type === 'find') { worker?.postMessage({ type: 'find', query: command.query, request: ++request }); }

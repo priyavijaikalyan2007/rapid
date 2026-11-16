@@ -128,3 +128,14 @@ The shared recent-workspace menu updates across windows. Existing tabs stay open
 Update native Mac folder commands, mobile folder importing, SidebarView, ReaderView empty state, and title callbacks.
 Write failing SQLite/store and empty-document renderer tests first, then integrate and verify with two folders and tabs.
 No new GoF pattern is required. Existing Observer state, a small actor-owned store, and native adapters suffice.
+
+## Native artifact-copy acceptance
+
+Continue bug #17 with equation and local-image PNG checks through a unique native test pasteboard.
+Update ReaderSession+Clipboard to use the same pasteboard write/read path in smoke mode without changing the user's clipboard.
+Tag copy completion with its document epoch, and reject stale completions before they remove a newer copy overlay.
+Write a failing host regression for stale completion. Add a native ArtifactSmoke runner and SmokeFixture under apple/Mac.
+The fixture contains math, a colored local PNG, and a diagram. The runner records per-artifact pasteboard round trips,
+PNG dimensions, document-replacement cancellation, and source immutability in machine-readable evidence.
+Use the existing --smoke-test entry point with an --artifact-smoke switch. Keep this harness out of product flows.
+No new pattern required. Small native test adapters and the existing snapshot boundary suffice.

@@ -38,7 +38,7 @@ extension ReaderSession
         configuration.afterScreenUpdates = true
         Task
         { @MainActor in
-            defer { command(["type": "copyComplete"]) }
+            defer { command(["type": "copyComplete", "epoch": ticket]) }
             do
             {
                 let image = try await webView.takeSnapshot(configuration: configuration)
@@ -55,14 +55,24 @@ extension ReaderSession
                     return
                 }
                 let arguments = ProcessInfo.processInfo.arguments
-                if let index = arguments.firstIndex(of: "--smoke-test"), arguments.indices.contains(index + 1)
-                {
-                    try png.write(to: URL(fileURLWithPath: arguments[index + 1] + ".artifact.png"))
-                }
+                let smoke = arguments.firstIndex(of: "--smoke-test")
+                let pasteboard = smoke == nil ? NSPasteboard.general : NSPasteboard.withUniqueName()
+                pasteboard.clearContents()
+                guard pasteboard.setData(png, forType: .png)
                 else
                 {
-                    NSPasteboard.general.clearContents()
-                    NSPasteboard.general.setData(png, forType: .png)
+                    throw ReaderFailure.unavailable
+                }
+                if let index = smoke, arguments.indices.contains(index + 1)
+                {
+                    defer { pasteboard.clearContents() }
+                    guard pasteboard.data(forType: .png) == png
+                    else
+                    {
+                        throw ReaderFailure.unavailable
+                    }
+                    lastCopyRequest["pasteboardVerified"] = true
+                    try png.write(to: URL(fileURLWithPath: arguments[index + 1] + ".artifact.png"))
                 }
                 #else
                 if let png = image.pngData()

@@ -44,3 +44,20 @@ test('artifact icons copy structured data and preserve source text', async () =>
     assert.equal(document.querySelectorAll('button').length, buttons.length);
     dom.window.close();
 });
+
+test('image snapshots wait for decoding and stop after errors or a deadline', async () => {
+    const { JSDOM } = await import('jsdom');
+    const { waitForCopyImages } = await import('../src/artifacts.mjs');
+    const dom = new JSDOM('<div><img src="local.png"></div>');
+    const img = dom.window.document.querySelector('img');
+    let decoded = false;
+    img.decode = async () => { await new Promise(resolve => setTimeout(resolve,10)); decoded = true; };
+    assert.equal(await waitForCopyImages(img,100),true);
+    assert.equal(decoded,true);
+    img.decode = async () => { throw new Error('invalid image'); };
+    assert.equal(await waitForCopyImages(dom.window.document.querySelector('div'),100),false);
+    img.decode = () => new Promise(() => {});
+    assert.equal(await waitForCopyImages(img,5),false);
+    assert.equal(await waitForCopyImages(dom.window.document.createElement('span'),5),true);
+    dom.window.close();
+});

@@ -34,8 +34,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         let arguments = ProcessInfo.processInfo.arguments
         if arguments.contains("--demo") || arguments.contains("--smoke-test")
         {
-            let file = FileManager.default.temporaryDirectory.appendingPathComponent("MonoMark-Demo.md")
-            if let data = Bundle.main.url(forResource: "Welcome", withExtension: "md")
+            let fixture = arguments.contains("--artifact-smoke") ? try? SmokeFixture.create() : nil
+            let file = fixture ?? FileManager.default.temporaryDirectory.appendingPathComponent("MonoMark-Demo.md")
+            if fixture == nil, let data = Bundle.main.url(forResource: "Welcome", withExtension: "md")
             {
                 do
                 {
@@ -46,7 +47,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
                     present(error)
                 }
             }
-            createWindow(file: file)
+            createWindow(file: file, folder: fixture == nil ? nil : file.deletingLastPathComponent())
         }
         else if controllers.isEmpty
         {
@@ -54,7 +55,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         }
         if let index = arguments.firstIndex(of: "--smoke-test"), arguments.indices.contains(index + 1)
         {
-            configureSmoke(output: arguments[index + 1])
+            if arguments.contains("--artifact-smoke")
+            {
+                configureArtifactSmoke(output: arguments[index + 1])
+            }
+            else
+            {
+                configureSmoke(output: arguments[index + 1])
+            }
         }
         NSApp.activate(ignoringOtherApps: true)
     }
