@@ -93,6 +93,12 @@ import WebKit
             annotation.anchors.first?.quote == "3. Three forms" && report["sourceUnchanged"] as? Bool == true
         report["passed"] = report["passed"] as? Bool == true && report["exportSourceHash"] as? Bool == true &&
             report["exportSectionAndLine"] as? Bool == true
+        let inline = try await ReviewExportSmoke.run(session: session, source: source, notes: notes)
+        report["inlineAndSelectiveExports"] = inline
+        report["passed"] = report["passed"] as? Bool == true && inline.values.allSatisfy
+        {
+            $0 as? Bool == true
+        }
         let image = try await view.takeSnapshot(configuration: nil)
         if let tiff = image.tiffRepresentation, let bitmap = NSBitmapImageRep(data: tiff),
            let png = bitmap.representation(using: .png, properties: [:])

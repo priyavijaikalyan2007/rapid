@@ -8,6 +8,19 @@ import XCTest
 @MainActor
 final class ReaderUITests: XCTestCase
 {
+    func testExportOptionsShowContentPlacementAndDestination() throws
+    {
+        let app = XCUIApplication()
+        app.launchArguments = ["--demo"]
+        app.launch()
+        XCTAssertTrue(app.buttons["Contents"].waitForExistence(timeout: 15))
+        app.menuBars.menuBarItems["File"].click()
+        app.menuItems["Export Reading Data…"].click()
+        XCTAssertTrue(app.descendants(matching: .any)["Annotations"].firstMatch.waitForExistence(timeout: 5))
+        XCTAssertTrue(app.descendants(matching: .any)["Notes"].firstMatch.exists)
+        XCTAssertTrue(app.popUpButtons["Destination"].exists)
+    }
+
     func testDocumentLocationRemainsOpenForCopy() throws
     {
         let app = XCUIApplication()

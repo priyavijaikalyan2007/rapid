@@ -7,6 +7,7 @@
 
 const excluded = '.monomark-artifact-actions, .monomark-line-number, .monomark-page-label, .katex, svg, script, style';
 const colors = new Set(['yellow', 'green', 'blue', 'pink', 'purple']);
+const blocksSelector = '.monomark-block:not([data-generated="true"])';
 
 function sourceLocation(element)
 {
@@ -37,7 +38,7 @@ export function captureSelection(window, root)
     const range = selection.getRangeAt(0);
     if (!root.contains(range.startContainer) || !root.contains(range.endContainer)) { return []; }
     const anchors = [];
-    for (const block of root.querySelectorAll('.monomark-block'))
+    for (const block of root.querySelectorAll(blocksSelector))
     {
         const nodes = textNodes(window, block);
         const text = nodes.map(node => node.textContent).join('');
@@ -66,7 +67,7 @@ export function captureSelection(window, root)
 /** Resolve saved quotations in detached export blocks. Missing locations remain absent rather than guessed. */
 export function resolveAnnotationLocations(window, root, annotations)
 {
-    const blocks = [...root.querySelectorAll('.monomark-block')].map(element =>
+    const blocks = [...root.querySelectorAll(blocksSelector)].map(element =>
         ({ element, text: textNodes(window, element).map(node => node.textContent).join('') }));
     const known = new Set(blocks.flatMap(block => [block.element.id, block.element.dataset.anchor]));
     return annotations.map(annotation => ({ ...annotation, anchors: annotation.anchors
@@ -130,7 +131,7 @@ export function renderAnnotations(window, root, annotations, knownBlockIDs)
         mark.replaceWith(...mark.childNodes);
         parent.normalize();
     }
-    const blocks = [...root.querySelectorAll('.monomark-block')].map(element =>
+    const blocks = [...root.querySelectorAll(blocksSelector)].map(element =>
         ({ element, text: textNodes(window, element).map(node => node.textContent).join('') }));
     const result = { attached: [], unresolved: [] };
     for (const annotation of annotations)

@@ -80,6 +80,14 @@ final class ReaderWindowController: NSWindowController, NSWindowDelegate
         session.printAction = { [weak self] in
             self?.printDocument()
         }
+        session.exportAction = { [weak session, weak application] options, destination in
+            guard let session
+            else
+            {
+                return
+            }
+            application?.performReadingExport(session, options: options, destination: destination)
+        }
     }
 
     required init?(coder: NSCoder)

@@ -411,6 +411,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         item("Copy Document Path", #selector(copyDocumentPath(_:)), on: file)
         item("Install Command Line Tool…", #selector(installCommandLine(_:)), on: file)
         item("Print…", #selector(printReader(_:)), key: "p", on: file)
+        item("Export Reading Data…", #selector(showExportOptions(_:)), on: file)
         item("Export Notes and Annotations to This File", #selector(exportReadingData(_:)), on: file)
         item("Export a Copy…", #selector(exportReadingCopy(_:)), on: file)
         let edit = submenu("Edit", on: bar)

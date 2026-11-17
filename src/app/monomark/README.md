@@ -121,3 +121,20 @@ The launcher validates every path before opening anything and accepts at most 10
 Annotation exports include section paths and source-line ranges when the quotation resolves. A SHA-256
 stamp verifies that the source still matches the displayed document before a coordinated export write.
 If the source changed, refresh and retry. Missing locations stay absent rather than receiving guessed line numbers.
+
+## Inline and selective exports
+
+Choose File > Export Reading Data on Mac, or Document Actions > Export Reading Data on mobile.
+Select annotations, notes, or both. Choose an annotated document copy or a separate reading-data file.
+Mac also offers the current Markdown file. Mobile exports copies through its file exporter.
+
+For document output, choose a section at the end or inline annotations after highlighted blocks.
+Inline annotations follow the last complete block in each selection. They do not split paragraphs, tables, lists,
+or code fences. Notes appear at the end. Section paths and line references identify the source text.
+Inline references account for inserted generated lines. Repeated exports replace validated marked sections.
+
+Reading data remains in the app. The export does not clear local comments or notes.
+Missing or stale inline locations stop the export before a write. Refresh and check the quotation, then retry.
+A separate reading-data file cannot replace the source through a file alias. Notes-only output remains available
+when the original file has disappeared. Existing direct end-section and Export a Copy actions remain available.
+Generated reading sections display normally but do not become new annotation targets.

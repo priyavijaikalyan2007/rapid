@@ -10,6 +10,17 @@ import Testing
 
 struct AnnotationExporterTests
 {
+    @Test func plainMultilineCommentsKeepCRLFAndLiteralMathAndStrikeCharacters() throws
+    {
+        let mark = ReadingAnnotation(
+            anchors: [TextAnchor(blockID: "b", quote: "Source", prefix: "", suffix: "", start: 0)],
+            comment: "~~Literal~~ $9 =\nNext line"
+        )
+        let result = try AnnotationExporter.render(source: "# CRLF\r\n", notes: ReadingNotes(annotations: [mark]))
+        #expect(result.contains("\\~\\~Literal\\~\\~ \\$9 \\=  \r\nNext line"))
+        #expect(!result.replacingOccurrences(of: "\r\n", with: "").contains("\n"))
+    }
+
     @Test func exportsSectionAndSourceLineRange() throws
     {
         let location = SourceLocation(line: 8, endLine: 11, section: "3. Queries › Operators")

@@ -8,15 +8,28 @@ import WebKit
 
 extension ReaderSession
 {
-    func readingNotesForExport() async throws -> ReadingNotes
+    func readingNotesForExport(includeAnnotations: Bool = true, requireSource: Bool = true) async throws -> ReadingNotes
     {
-        guard let webView, url != nil, await annotations.drain()
+        guard url != nil, await annotations.drain()
         else
         {
             throw ReaderFailure.unavailable
         }
         let ticket = documentEpoch
-        var notes = ReadingNotes(annotations: annotations.records, text: annotations.text, format: annotations.format)
+        var notes = ReadingNotes(
+            annotations: includeAnnotations ? annotations.records : [],
+            text: annotations.text,
+            format: annotations.format
+        )
+        if !requireSource
+        {
+            return notes
+        }
+        guard let webView
+        else
+        {
+            throw ReaderFailure.unavailable
+        }
         let payload = try JSONSerialization.jsonObject(with: JSONEncoder().encode(notes.annotations))
         let result = try await webView.callAsyncJavaScript(
             "return await window.MonoMark.exportLocations(records)",

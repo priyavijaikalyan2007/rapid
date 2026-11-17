@@ -1070,3 +1070,9 @@ and source-stamp protection. Native QA confirms both reload modes, two-file laun
 
 Additional user request: After exports, resolve implicit Markdown file references into new-tab links and fuzzy numbered
 section references into document jumps. Filed #61 and #62. Keep this optional, conservative, and workspace-scoped.
+
+Inline/selective export summary: Added an explicit native content/placement/destination dialog. Core tests cover
+complete-block insertion, source preservation, CRLF and missing final newline, repeat replacement, adjusted line
+references, missing locations, literal markers, and source alias protection. Generated sections keep original
+block IDs stable and cannot steal a highlight. Real WebKit confirms stable repeat export and notes-only output.
+Native UI confirms a separate notes file, current-file notes at the end, and local note retention after export.

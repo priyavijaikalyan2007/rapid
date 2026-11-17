@@ -39,3 +39,21 @@ Use native controls for preferences, refresh, installation, and export. Tests us
 Additional touched files include `Mac/AppDelegate.swift`, `Mac/AppDelegate+Export.swift`,
 `Shared/ReaderView.swift`, `Shared/ReaderSettings.swift`, the Xcode project, renderer build resources,
 `CONVERSATION.md`, status and issue records, and `agentknowledge/concepts.yaml`.
+
+## Inline export construction
+
+New Core files: `ReadingExportLayout.swift`, `ReadingExportOptions.swift`, `ReadingExportDestination.swift`,
+`ReadingDataMarker.swift`, `MarkdownFence.swift`, `GeneratedReadingSection.swift`,
+`GeneratedReadingSectionScanner.swift`, `GeneratedReadingSections.swift`, `CleanReadingSource.swift`,
+`InlineAnnotationExporter.swift`, and inline export tests. New shared UI: `ReadingExportView.swift`.
+Generated blocks use paired, validated markers. Original block IDs remain stable when generated sections appear.
+A one-pass insertion preserves source outside generated ranges. References account for inserted lines.
+Only resolved, complete source blocks can receive inline annotations. Unknown locations fail before a write.
+
+## Optional implicit references
+
+Add `Core/WorkspaceFileIndex.swift` with tests, plus a renderer `implicit-links.mjs` and tests.
+Index only Markdown paths inside the granted workspace, with entry and file limits.
+Resolve unique file names/relative paths and unique numbered headings. Exclude existing links, code fences, and math.
+Support two explicit settings. File links use native new-tab navigation. Section links jump within the document.
+Do not change source files. Keep missing or ambiguous references as text.

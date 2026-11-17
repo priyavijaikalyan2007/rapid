@@ -1,0 +1,61 @@
+{
+  "anchorCount": 1,
+  "beforeJump": {
+    "bodyLefts": [
+      80.15625,
+      151.15625,
+      348.25
+    ],
+    "codeFont": "ui-monospace, monospace",
+    "columnLefts": [
+      80.15625,
+      151.15625,
+      348.25
+    ],
+    "columnsAligned": true,
+    "headingMarked": false,
+    "headingText": "3. Three forms",
+    "monospaceCode": true,
+    "separatePreambleLines": true,
+    "sourceGutter": true,
+    "uniqueIDs": true,
+    "validTableMarks": true
+  },
+  "bodyLefts": [
+    80.15625,
+    151.15625,
+    336.265625
+  ],
+  "codeFont": "ui-monospace, monospace",
+  "columnLefts": [
+    80.15625,
+    151.15625,
+    336.265625
+  ],
+  "columnsAligned": true,
+  "exportSectionAndLine": true,
+  "exportSourceHash": true,
+  "headingMarked": true,
+  "headingQuote": "3. Three forms",
+  "headingText": "3. Three forms",
+  "inlineAndSelectiveExports": {
+    "inlineComment": true,
+    "notesOnlySidecar": true,
+    "onlyOriginalHighlighted": true,
+    "repeatInlineExportStable": true,
+    "sourcePreserved": true
+  },
+  "monospaceCode": true,
+  "passed": true,
+  "separatePreambleLines": true,
+  "sourceGutter": true,
+  "sourceUnchanged": true,
+  "uniqueIDs": true,
+  "validTableMarks": true,
+  "nativeUI": {
+    "readingDataOnly": "Notes-only dialog export omitted the source and annotations; original file stayed unchanged",
+    "inlineNotes": "Current-file inline layout placed notes at the end and retained the original document",
+    "localAutosave": "The note remained in the native editor after coordinated export and file-identity replacement",
+    "uiRunner": "not executed; existing host limitation"
+  }
+}

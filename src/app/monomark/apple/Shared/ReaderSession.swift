@@ -34,6 +34,7 @@ final class ReaderSession: ObservableObject
     @Published var message = "Open a Markdown file or folder to begin."
     @Published var isLoading = false
     @Published var showSettings = false
+    @Published var showExportOptions = false
     @Published var showFind = false
     @Published var query = ""
     @Published var historyQuery = ""
@@ -47,6 +48,7 @@ final class ReaderSession: ObservableObject
     var openNewTab: ((URL, URL?) -> Void)?
     var titleChanged: ((String) -> Void)?
     var printAction: (() -> Void)?
+    var exportAction: ((ReadingExportOptions, ReadingExportDestination) -> Void)?
     var smokeRendered: (() -> Void)?
     var state: ReadingState?
     private var store: HistoryStore?

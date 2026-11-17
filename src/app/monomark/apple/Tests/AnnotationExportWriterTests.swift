@@ -9,6 +9,69 @@ import Testing
 
 struct AnnotationExportWriterTests
 {
+    @Test func readingDataExportCannotUseAHardLinkToTheSource() throws
+    {
+        let source = try document()
+        let link = source.deletingLastPathComponent().appendingPathComponent("hard-link.md")
+        try FileManager.default.linkItem(at: source, to: link)
+        #expect(throws: ReaderFailure.denied)
+        {
+            try AnnotationExportWriter.write(
+                source: source,
+                destination: link,
+                notes: ReadingNotes(text: "Notes"),
+                options: ReadingExportOptions(dataOnly: true)
+            )
+        }
+    }
+
+    @Test func readingDataExportCannotReplaceTheSourceDocument() throws
+    {
+        let source = try document()
+        let options = ReadingExportOptions(dataOnly: true)
+        #expect(throws: ReaderFailure.denied)
+        {
+            try AnnotationExportWriter.write(
+                source: source,
+                destination: source,
+                notes: ReadingNotes(text: "Notes"),
+                options: options
+            )
+        }
+        #expect(try String(contentsOf: source, encoding: .utf8) == "# Original\n")
+    }
+
+    @Test func readingDataExportCannotReplaceASymlinkedSource() throws
+    {
+        let source = try document()
+        let link = source.deletingLastPathComponent().appendingPathComponent("alias.md")
+        try FileManager.default.createSymbolicLink(at: link, withDestinationURL: source)
+        #expect(throws: ReaderFailure.denied)
+        {
+            try AnnotationExportWriter.write(
+                source: source,
+                destination: link,
+                notes: ReadingNotes(text: "Notes"),
+                options: ReadingExportOptions(dataOnly: true)
+            )
+        }
+        #expect(try String(contentsOf: source, encoding: .utf8) == "# Original\n")
+    }
+
+    @Test func notesOnlyCanBeExportedAfterTheSourceDisappears() throws
+    {
+        let source = try document()
+        let destination = source.deletingLastPathComponent().appendingPathComponent("notes.md")
+        try FileManager.default.removeItem(at: source)
+        try AnnotationExportWriter.write(
+            source: source,
+            destination: destination,
+            notes: ReadingNotes(text: "Local notes"),
+            options: ReadingExportOptions(includeAnnotations: false, dataOnly: true)
+        )
+        #expect(try String(contentsOf: destination, encoding: .utf8).contains("Local notes"))
+    }
+
     @Test func staleSnapshotCannotReplaceTheCurrentSource() throws
     {
         let source = try document()

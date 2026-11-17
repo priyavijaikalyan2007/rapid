@@ -39,7 +39,7 @@ self.onmessage = async ({ data }) =>
         if (data.type === 'export-locations')
         {
             const ids = new Set(data.ids.slice(0, 20000));
-            const blocks = documentIndex.blocks.filter(block => ids.has(block.id) || ids.has(block.blockID));
+            const blocks = documentIndex.blocks.filter(block => !block.generated && (ids.has(block.id) || ids.has(block.blockID)));
             const tooLarge = data.ids.length > 20000 || blocks.reduce((sum, block) => sum + block.html.length, 0) > 16 * 1024 * 1024;
             self.postMessage({ type: 'export-locations', exportID: data.exportID,
                 ...(tooLarge ? { error: 'The export exceeds the 16 MiB location-resolution limit. Export fewer annotations.' } :

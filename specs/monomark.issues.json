@@ -232,21 +232,24 @@
       "id": 6423902514,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/56",
       "parent": 2,
-      "progress": "planned"
+      "progress": "closed",
+      "commit": "e551229"
     },
     "export-locations": {
       "number": 57,
       "id": 6423903022,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/57",
       "parent": 6,
-      "progress": "planned"
+      "progress": "closed",
+      "commit": "e551229"
     },
     "command-line": {
       "number": 58,
       "id": 6423903494,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/58",
       "parent": 2,
-      "progress": "planned"
+      "progress": "closed",
+      "commit": "e551229"
     },
     "inline-export": {
       "number": 59,

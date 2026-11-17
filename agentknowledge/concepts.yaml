@@ -420,5 +420,14 @@
       "MonoMark",
       "MonoMarkWorkspaces"
     ]
+  },
+  {
+    "name": "MonoMarkInlineExports",
+    "definition": "Selective native exports write annotations after complete source blocks, notes at the end, or reading data to a separate file. Validated markers, source stamps, alias checks, and line translation protect unowned source.",
+    "anchor_file": "src/app/monomark/apple/Core/InlineAnnotationExporter.swift",
+    "related": [
+      "MonoMarkExportLocations",
+      "MonoMarkAnnotations"
+    ]
   }
 ]

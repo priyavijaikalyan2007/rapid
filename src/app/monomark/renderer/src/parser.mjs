@@ -11,6 +11,7 @@
 import MarkdownIt from 'markdown-it';
 import footnote from 'markdown-it-footnote';
 import { full as emoji } from 'markdown-it-emoji';
+import { recordGeneratedMarker, generatedLine } from './generated-content.mjs';
 
 const escape = new MarkdownIt().utils.escapeHtml;
 
@@ -65,6 +66,7 @@ function mathPlugin(md)
 /** One authoritative parse resolves whole-document references before extracting independently renderable blocks. */
 export function parseDocument(source)
 {
+    const generated = { active: null, ranges: [] };
     const started = performance.now();
     const md = new MarkdownIt({ html: false, linkify: true, maxNesting: 64 }).use(footnote).use(mathPlugin);
     // The emoji plugin still uses the helper removed in Markdown-it 15. Keep the adapter local to this parser.
@@ -80,16 +82,19 @@ export function parseDocument(source)
         state.pos = end + 3;
         return true;
     });
-    md.block.ruler.before('paragraph', 'document_comment', (state, startLine, endLine) =>
+    md.block.ruler.before('paragraph', 'document_comment', (state, startLine, endLine, silent) =>
     {
         const start = state.bMarks[startLine] + state.tShift[startLine];
         if (state.src.slice(start, start + 4) !== '<!--') { return false; }
         let line = startLine;
         while (line < endLine && !state.src.slice(state.bMarks[line], state.eMarks[line]).includes('-->')) { line++; }
         if (line >= endLine) { return false; }
+        if (silent) { return true; }
+        const physicalStart = state.src.lastIndexOf('\n', start - 1) + 1;
+        recordGeneratedMarker(state.src.slice(physicalStart, state.eMarks[startLine]), startLine, generated);
         state.line = line + 1;
         return true;
-    });
+    }, { alt: ['paragraph'] });
     const fence = md.renderer.rules.fence.bind(md.renderer.rules);
     md.renderer.rules.fence = (tokens, index, ...rest) =>
     {
@@ -113,7 +118,8 @@ export function parseDocument(source)
     const footnoteTail = md.core.ruler.getRules('').find(rule => rule.name === 'footnote_tail');
     md.core.ruler.disable('footnote_tail');
     md.block.parse(text, md, environment, tokens);
-    const context = { outline: [], links: [], used: new Map(), headings: [], counts: {}, blocks: [] };
+    const context = { outline: [], links: [], used: new Map(), headings: [], counts: {}, blocks: [],
+        generatedRanges: generated.ranges, sourceBlocks: 0, generatedBlocks: 0 };
     for (let start = 0; start < tokens.length;)
     {
         let end = start + 1;
@@ -137,6 +143,7 @@ export function parseDocument(source)
         if (tail >= 0) { addBlock(state.tokens.slice(tail), md, environment, context); }
     }
     return { ...context, headings: undefined, used: undefined, counts: undefined,
+        generatedRanges: undefined, sourceBlocks: undefined, generatedBlocks: undefined,
         duration: performance.now() - started, sourceBytes: new TextEncoder().encode(source).length,
         sourceLines: text.split('\n').length };
 }
@@ -186,7 +193,9 @@ function addBlock(tokens, md, environment, context)
     {
         if (token.type === 'inline') { token.children = md.parseInline(token.content, environment)[0].children; }
     }
-    const blockID = `block-${context.blocks.length}`;
+    const line = tokens.find(token => token.map)?.map?.[0] || 0;
+    const generated = generatedLine(line, context.generatedRanges);
+    const blockID = generated ? `monomark-generated-${context.generatedBlocks++}` : `block-${context.sourceBlocks++}`;
     let id = blockID;
     for (let index = 0; index < tokens.length; index++)
     {
@@ -213,7 +222,7 @@ function addBlock(tokens, md, environment, context)
     const text = tokens.map(token => token.type === 'inline' || token.type === 'fence' ? token.content : '').join(' ');
     const html = md.renderer.render(tokens, md.options, environment);
     for (const token of tokens) { if (token.type === 'inline') { token.children = null; } }
-    context.blocks.push({ id, blockID, html, text, line: tokens.find(token => token.map)?.map?.[0] || 0,
+    context.blocks.push({ id, blockID, html, text, line, generated,
         section: context.headings.map(heading => heading.title).join(' › ').slice(0, 512),
         endLine: tokens.reduce((end, token) => Math.max(end, token.map?.[1] || 0), 0),
         estimate: Math.min(12000, Math.max(48, Math.ceil(text.length / 90) * 26 + (html.includes('<table') ? 100 : 0))) });

@@ -161,6 +161,7 @@ function makeBlock(block, index)
     element.id = block.blockID || block.id;
     element.dataset.anchor = block.id;
     element.dataset.block = String(index);
+    if (block.generated) { element.dataset.generated = 'true'; }
     if (Number.isInteger(block.line))
     {
         element.dataset.sourceLine = String(block.line + 1);
@@ -307,7 +308,7 @@ function onWorker(data, initial)
     {
         metadata = data.blocks;
         indexed = true;
-        knownBlockIDs = new Set(metadata.flatMap(block => [block.id, block.blockID]));
+        knownBlockIDs = new Set(metadata.filter(block => !block.generated).flatMap(block => [block.id, block.blockID]));
         sourceLines = data.sourceLines || 0;
         document.documentElement.style.setProperty('--line-digits', String(Math.max(2, String(sourceLines).length)));
         outline = data.outline;

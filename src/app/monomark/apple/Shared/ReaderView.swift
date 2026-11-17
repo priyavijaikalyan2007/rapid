@@ -20,9 +20,12 @@ struct ReaderView: View
     @ObservedObject private var annotations: AnnotationController
     @AppStorage("appearance-mode") private var appearance = "system"
     @FocusState private var findFocused: Bool
+    @State private var pendingExport: ReadingExportOptions?
+    @State private var exportDestination = ReadingExportDestination.readingDataFile
     #if os(iOS)
     @State private var exportDocument = MarkdownExportDocument(data: Data())
     @State private var showingExport = false
+    @State private var exportName = "reading-notes"
     #endif
     var openFile: () -> Void
     var openFolder: () -> Void
@@ -140,6 +143,10 @@ struct ReaderView: View
                 #if os(iOS)
                 Menu
                 {
+                    Button("Export Reading Data…")
+                    {
+                        session.showExportOptions = true
+                    }.disabled(!annotations.ready)
                     Button("Export a Copy…")
                     {
                         exportCopy()
@@ -204,13 +211,24 @@ struct ReaderView: View
         {
             ReaderSettings(session: session)
         }
+        .sheet(isPresented: $session.showExportOptions, onDismiss: performPendingExport)
+        {
+            ReadingExportView
+            { options, destination in
+                pendingExport = options
+                exportDestination = destination
+                session.showExportOptions = false
+            }
+            cancel: {
+                session.showExportOptions = false
+            }
+        }
         #if os(iOS)
         .fileExporter(
             isPresented: $showingExport,
             document: exportDocument,
             contentType: MarkdownExportDocument.writableContentTypes[0],
-            defaultFilename: (session.url?.deletingPathExtension().lastPathComponent ?? "Document") +
-                "-reading-notes"
+            defaultFilename: exportName
         )
         { result in
             switch result
@@ -275,8 +293,23 @@ struct ReaderView: View
         }
     }
 
+    private func performPendingExport()
+    {
+        guard let options = pendingExport
+        else
+        {
+            return
+        }
+        pendingExport = nil
+        #if os(macOS)
+        session.exportAction?(options, exportDestination)
+        #else
+        exportCopy(options: options)
+        #endif
+    }
+
     #if os(iOS)
-    private func exportCopy()
+    private func exportCopy(options: ReadingExportOptions = ReadingExportOptions())
     {
         guard let source = session.url
         else
@@ -292,16 +325,19 @@ struct ReaderView: View
             }
             do
             {
-                let notes = try await session.readingNotesForExport()
+                let needsSource = !options.dataOnly || (options.includeAnnotations && !annotations.records.isEmpty)
+                let notes = try await session.readingNotesForExport(
+                    includeAnnotations: options.includeAnnotations,
+                    requireSource: needsSource
+                )
                 let data = try await Task.detached(priority: .userInitiated)
                 {
-                    let bytes = try DocumentAccess.read(source)
-                    return Data(try AnnotationExporter.render(
-                        source: String(decoding: bytes, as: UTF8.self),
-                        notes: notes
-                    ).utf8)
+                    let text = needsSource ? String(decoding: try DocumentAccess.read(source), as: UTF8.self) : ""
+                    return Data(try options.render(source: text, notes: notes).utf8)
                 }.value
                 exportDocument = MarkdownExportDocument(data: data)
+                exportName = source.deletingPathExtension().lastPathComponent +
+                    (options.dataOnly ? "-reading-data" : "-reading-notes")
                 showingExport = true
             }
             catch

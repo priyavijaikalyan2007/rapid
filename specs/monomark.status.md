@@ -196,3 +196,18 @@ Inline/selective exports (#59–#60) and optional implicit file/section links (#
 
 Checkpoint verification: 97 Core tests and 83 renderer tests pass, including an empty-document notes-export regression.
 All unsigned platform builds, repository checks, source style, and launcher shell checks pass.
+
+
+## Inline and selective export checkpoint on 17 November
+
+Tasks #59–#60 add native choices for annotations, notes, or both. Output can be a document copy, a reading-data-only
+file, or the current file on Mac. Document output offers end-section or inline placement. Mobile exports copies.
+Inline annotations follow complete source blocks. Notes appear at the end. Marked ranges are validated before replacement.
+Unowned source bytes survive CRLF files and files without a final newline. Repeated exports remain stable.
+Source-line references account for inserted blocks. Missing and stale inline locations fail before a write.
+
+Generated sections retain original block IDs and remain outside annotation targets. Literal comment text preserves
+math/strike characters and newline conventions. Standalone data cannot overwrite the source through symlinks or file aliases.
+Notes-only export does not require the original file to exist. Local notes remain after export and identity migration.
+The [inline evidence](monomark.inline-smoke.json) records actual WebKit and native dialog checks.
+All unsigned builds, 109 Core tests, and 86 renderer tests pass. Physical mobile and signed-provider checks remain open.
