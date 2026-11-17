@@ -91,6 +91,7 @@ enum AnnotationExporter
         for (index, annotation) in notes.annotations.enumerated()
         {
             lines += ["### Annotation \(index + 1) (\(annotation.color))", ""]
+            lines += references(annotation)
             lines += ["**Highlighted text:**", ""]
             lines += quote(literal(annotation.anchors.map(\.quote).joined(separator: "\n")))
             if !annotation.comment.isEmpty
@@ -107,13 +108,31 @@ enum AnnotationExporter
     }
 
     /// Escape plain annotation text before embedding it in generated Markdown.
-    private static func literal(_ text: String) -> String
+    static func literal(_ text: String) -> String
     {
         let special = Set("\\`*_{}[]<>()#+-.!|>&")
         return text.replacingOccurrences(of: "\r\n", with: "\n").map
         { character in
             special.contains(character) ? "\\" + String(character) : String(character)
         }.joined().replacingOccurrences(of: "\n", with: "  \n")
+    }
+
+    private static func references(_ annotation: ReadingAnnotation) -> [String]
+    {
+        var seen: Set<SourceLocation> = []
+        return annotation.anchors.compactMap(\.location).filter
+        {
+            seen.insert($0).inserted && $0.isValid
+        }.flatMap
+        { location in
+            let range = location.line == location.endLine ? "\(location.line)" : "\(location.line)–\(location.endLine)"
+            return [
+                "**Section:** " + literal(location.section.isEmpty ? "Document preamble" : location.section),
+                "",
+                "**Source lines:** " + range,
+                ""
+            ]
+        }
     }
 
     private static func quote(_ text: String) -> [String]

@@ -42,6 +42,7 @@ struct ReaderSettings: View
             }
             Section("Reading layout")
             {
+                Toggle("Automatically reload changed files", isOn: $session.preferences.autoReload)
                 Toggle("Show source line numbers", isOn: $session.preferences.showLineNumbers)
                 Text("The gutter marks each block's starting source line. Hover for its source range.")
                     .font(.caption).foregroundStyle(.secondary)

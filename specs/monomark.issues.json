@@ -226,6 +226,55 @@
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/46",
       "progress": "closed",
       "commit": "32d0b47"
+    },
+    "reload-controls": {
+      "number": 56,
+      "id": 6423902514,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/56",
+      "parent": 2,
+      "progress": "planned"
+    },
+    "export-locations": {
+      "number": 57,
+      "id": 6423903022,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/57",
+      "parent": 6,
+      "progress": "planned"
+    },
+    "command-line": {
+      "number": 58,
+      "id": 6423903494,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/58",
+      "parent": 2,
+      "progress": "planned"
+    },
+    "inline-export": {
+      "number": 59,
+      "id": 6423903974,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/59",
+      "parent": 6,
+      "progress": "planned"
+    },
+    "selective-export": {
+      "number": 60,
+      "id": 6423904516,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/60",
+      "parent": 6,
+      "progress": "planned"
+    },
+    "implicit-files": {
+      "number": 61,
+      "id": 6425805080,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/61",
+      "parent": 2,
+      "progress": "planned"
+    },
+    "implicit-sections": {
+      "number": 62,
+      "id": 6425805636,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/62",
+      "parent": 2,
+      "progress": "planned"
     }
   },
   "refinements": {
@@ -370,7 +419,8 @@
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/47",
       "parent": 3,
       "category": "bug",
-      "progress": "in progress"
+      "progress": "closed",
+      "commit": "7d0d53e"
     },
     "stable-path-copy": {
       "number": 48,
@@ -378,7 +428,8 @@
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/48",
       "parent": 2,
       "category": "bug",
-      "progress": "in progress"
+      "progress": "closed",
+      "commit": "7d0d53e"
     },
     "files-new-tab": {
       "number": 49,
@@ -386,7 +437,8 @@
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/49",
       "parent": 2,
       "category": "enhancement",
-      "progress": "in progress"
+      "progress": "closed",
+      "commit": "7d0d53e"
     },
     "source-soft-breaks": {
       "number": 50,
@@ -394,7 +446,8 @@
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/50",
       "parent": 3,
       "category": "enhancement",
-      "progress": "in progress"
+      "progress": "closed",
+      "commit": "7d0d53e"
     },
     "heading-highlight": {
       "number": 51,
@@ -402,7 +455,8 @@
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/51",
       "parent": 5,
       "category": "bug",
-      "progress": "in progress"
+      "progress": "closed",
+      "commit": "7d0d53e"
     },
     "table-after-jump": {
       "number": 52,
@@ -410,7 +464,8 @@
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/52",
       "parent": 3,
       "category": "bug",
-      "progress": "in progress"
+      "progress": "closed",
+      "commit": "7d0d53e"
     },
     "section-numbering": {
       "number": 53,
@@ -426,7 +481,8 @@
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/54",
       "parent": 2,
       "category": "enhancement",
-      "progress": "in progress"
+      "progress": "closed",
+      "commit": "7d0d53e"
     },
     "export-quote-comment": {
       "number": 55,
@@ -434,7 +490,8 @@
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/55",
       "parent": 6,
       "category": "bug",
-      "progress": "in progress"
+      "progress": "closed",
+      "commit": "7d0d53e"
     }
   }
 }

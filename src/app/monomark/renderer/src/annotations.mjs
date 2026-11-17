@@ -8,6 +8,14 @@
 const excluded = '.monomark-artifact-actions, .monomark-line-number, .monomark-page-label, .katex, svg, script, style';
 const colors = new Set(['yellow', 'green', 'blue', 'pink', 'purple']);
 
+function sourceLocation(element)
+{
+    const line = Number(element.dataset.sourceLine);
+    const endLine = Number(element.dataset.sourceEndLine);
+    if (!Number.isInteger(line) || line < 1 || !Number.isInteger(endLine) || endLine < line) { return undefined; }
+    return { line, endLine, section: (element.dataset.section || '').slice(0, 512) };
+}
+
 function textNodes(window, block)
 {
     const walker = window.document.createTreeWalker(block, window.NodeFilter.SHOW_TEXT);
@@ -47,11 +55,28 @@ export function captureSelection(window, root)
         }
         if (start === undefined || end <= start || !text.slice(start, end).trim()) { continue; }
         anchors.push({ blockID: block.dataset.anchor || block.id, quote: text.slice(start, end), start,
+            ...(sourceLocation(block) ? { location: sourceLocation(block) } : {}),
             prefix: Array.from(text.slice(0, start)).slice(-32).join(''),
             suffix: Array.from(text.slice(end)).slice(0, 32).join('') });
     }
     if (anchors.length > 128 || anchors.some(anchor => anchor.quote.length > 16000)) { return []; }
     return anchors;
+}
+
+/** Resolve saved quotations in detached export blocks. Missing locations remain absent rather than guessed. */
+export function resolveAnnotationLocations(window, root, annotations)
+{
+    const blocks = [...root.querySelectorAll('.monomark-block')].map(element =>
+        ({ element, text: textNodes(window, element).map(node => node.textContent).join('') }));
+    const known = new Set(blocks.flatMap(block => [block.element.id, block.element.dataset.anchor]));
+    return annotations.map(annotation => ({ ...annotation, anchors: annotation.anchors
+        .filter(anchor => anchor.quote.trim()).map(anchor =>
+        {
+            const match = locate(blocks, anchor, known) || locate(blocks, { ...anchor,
+                quote: anchor.quote.replace(/^\n+|\n+$/g, ''), prefix: anchor.prefix.replace(/\n+$/g, ''),
+                suffix: anchor.suffix.replace(/^\n+/g, '') }, known);
+            return { ...anchor, location: match ? sourceLocation(match.element) : undefined };
+        }) }));
 }
 
 function locate(blocks, anchor, knownBlockIDs)

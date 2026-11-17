@@ -53,15 +53,27 @@ import WebKit
         session.preferences.showLineNumbers = true
         session.preferences.preserveLineBreaks = true
         session.updatePreferences()
-        try await waitFor("!!document.getElementById('3-three-forms') && !!document.querySelector('th')", view: view)
+        try await waitFor(
+            """
+            !!document.getElementById('3-three-forms') && !!document.querySelector('th') && \
+            !!document.querySelector('.monomark-line-number')
+            """,
+            view: view
+        )
+        try await Task.sleep(for: .milliseconds(200))
         let before = try await geometry(view)
         try await selectHeading(view)
         try await Task.sleep(for: .milliseconds(200))
+        let captured = session.annotations.selection.count
         session.annotations.addSelection()
         guard let annotation = session.annotations.records.last, await session.annotations.drain()
         else
         {
-            throw ReaderFailure.unavailable
+            throw NSError(domain: "MonoMarkReview", code: 1, userInfo: [
+                NSLocalizedDescriptionKey: "The heading annotation was not created.",
+                "capturedAnchors": captured, "notesReady": session.annotations.ready,
+                "notesError": session.annotations.error ?? ""
+            ])
         }
         session.command(["type": "jump", "id": "far-location"])
         try await waitFor("!!document.querySelector('#far-location')", view: view)
@@ -72,9 +84,15 @@ import WebKit
         report["headingQuote"] = annotation.anchors.map(\.quote).joined(separator: "\n")
         report["anchorCount"] = annotation.anchors.count
         report["sourceUnchanged"] = try Data(contentsOf: source) == original
+        let notes = try await session.readingNotesForExport()
+        let exported = try AnnotationExporter.render(source: String(decoding: original, as: UTF8.self), notes: notes)
+        report["exportSourceHash"] = notes.sourceHash == DocumentStamp.make(String(decoding: original, as: UTF8.self))
+        report["exportSectionAndLine"] = exported.contains("**Source lines:** 8") && exported.contains("Three forms")
         report["passed"] = checksPass(report, typography: false) && checksPass(before) && annotation.anchors
             .count == 1 &&
             annotation.anchors.first?.quote == "3. Three forms" && report["sourceUnchanged"] as? Bool == true
+        report["passed"] = report["passed"] as? Bool == true && report["exportSourceHash"] as? Bool == true &&
+            report["exportSectionAndLine"] as? Bool == true
         let image = try await view.takeSnapshot(configuration: nil)
         if let tiff = image.tiffRepresentation, let bitmap = NSBitmapImageRep(data: tiff),
            let png = bitmap.representation(using: .png, properties: [:])

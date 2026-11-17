@@ -12,39 +12,36 @@ extension ReaderSession
     func watch(_ file: URL)
     {
         watcher?.cancel()
-        let descriptor = Darwin.open(file.path, O_EVTONLY)
-        guard descriptor >= 0
+        hasExternalChanges = false
+        let ticket = documentEpoch
+        watcher = DocumentWatcher(file: file)
+        { [weak self] in
+            guard let self, self.documentEpoch == ticket
+            else
+            {
+                return
+            }
+            hasExternalChanges = true
+            if preferences.autoReload, FileManager.default.fileExists(atPath: file.path)
+            {
+                refresh()
+            }
+            else
+            {
+                message = "The file changed outside MonoMark. Select Refresh to view the latest content."
+            }
+        }
+    }
+
+    /// Refresh rendering without replacing the local annotation controller or changing the current tab.
+    func refresh()
+    {
+        guard url != nil
         else
         {
             return
         }
-        let source = DispatchSource.makeFileSystemObjectSource(
-            fileDescriptor: descriptor,
-            eventMask: [.write, .rename, .delete],
-            queue: .main
-        )
-        let ticket = documentEpoch
-        source.setEventHandler
-        { [weak self] in
-            Task
-            { @MainActor in
-                guard let self, self.documentEpoch == ticket
-                else
-                {
-                    return
-                }
-                self.message = "The file changed outside MonoMark. Reload to view the latest content."
-                if self.watcher?.data.contains(.write) == true
-                {
-                    self.loadRenderer()
-                }
-            }
-        }
-        source.setCancelHandler
-        {
-            Darwin.close(descriptor)
-        }
-        watcher = source
-        source.resume()
+        hasExternalChanges = false
+        loadRenderer()
     }
 }

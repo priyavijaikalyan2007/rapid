@@ -23,7 +23,8 @@ struct ReadingAnnotation: Codable, Equatable, Identifiable, Sendable
               (updatedAt ?? createdAt).isFinite,
               !anchors.isEmpty, anchors.count <= 128, comment.utf8.count <= 65536,
               anchors.allSatisfy({ !$0.quote.isEmpty && $0.quote.utf8.count <= 65536 &&
-                      $0.prefix.count <= 64 && $0.suffix.count <= 64 && $0.blockID.count <= 512 && $0.start >= 0 })
+                      $0.prefix.count <= 64 && $0.suffix.count <= 64 && $0.blockID.count <= 512 && $0.start >= 0 &&
+                      ($0.location?.isValid ?? true) })
         else
         {
             throw AnnotationFailure.invalidData

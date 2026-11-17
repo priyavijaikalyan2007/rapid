@@ -189,7 +189,7 @@ Keep Source state: planned explicit for absent paths. Do not enable future compo
 ### monomark-tools
 
 - [x] Enabled
-- Source paths: src/app/monomark/build.sh, src/app/monomark/clean.sh
+- Source paths: src/app/monomark/build.sh, src/app/monomark/clean.sh, src/app/monomark/tools
 - Source state: existing
 - Targets: tools
 - Languages: Shell

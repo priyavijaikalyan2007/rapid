@@ -199,7 +199,7 @@ function addBlock(tokens, md, environment, context)
             while (context.headings.at(-1)?.level >= level) { context.headings.pop(); }
             const parent = context.headings.at(-1)?.id || null;
             context.outline.push({ id, title, level, kind: 'heading', parent, blockID });
-            context.headings.push({ id, level });
+            context.headings.push({ id, level, title });
             token.attrSet('id', id);
         }
         if (token.type === 'table_open') { id = addObject('table', '', token, context, blockID); }
@@ -214,6 +214,7 @@ function addBlock(tokens, md, environment, context)
     const html = md.renderer.render(tokens, md.options, environment);
     for (const token of tokens) { if (token.type === 'inline') { token.children = null; } }
     context.blocks.push({ id, blockID, html, text, line: tokens.find(token => token.map)?.map?.[0] || 0,
+        section: context.headings.map(heading => heading.title).join(' › ').slice(0, 512),
         endLine: tokens.reduce((end, token) => Math.max(end, token.map?.[1] || 0), 0),
         estimate: Math.min(12000, Math.max(48, Math.ceil(text.length / 90) * 26 + (html.includes('<table') ? 100 : 0))) });
 }

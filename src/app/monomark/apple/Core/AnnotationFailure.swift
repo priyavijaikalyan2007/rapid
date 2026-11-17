@@ -8,12 +8,14 @@
 import Foundation
 
 /// Errors preserve local drafts and explain the recovery action.
-enum AnnotationFailure: Error, LocalizedError
+enum AnnotationFailure: Error, LocalizedError, Equatable
 {
     case invalidData
     case notesConflict
     case unsupportedVersion
     case invalidMarkers
+    case sourceChanged
+    case unresolvedLocations
 
     var errorDescription: String?
     {
@@ -23,6 +25,8 @@ enum AnnotationFailure: Error, LocalizedError
         case .notesConflict: "Another window changed these notes. Your draft remains visible. Copy it before reloading the saved notes."
         case .unsupportedVersion: "A newer MonoMark version created this notes database. Use that version to open your notes."
         case .invalidMarkers: "The generated-section markers are incomplete or repeated. Repair the markers or export a copy."
+        case .sourceChanged: "The source changed after rendering. Refresh the document, then export again."
+        case .unresolvedLocations: "Some highlighted locations could not be resolved. Check those quotations before inline export."
         }
     }
 }

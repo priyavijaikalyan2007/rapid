@@ -97,11 +97,7 @@ extension AppDelegate
 
     private func writeReadingData(_ session: ReaderSession, source: URL, destination: URL) async throws
     {
-        let notes = ReadingNotes(
-            annotations: session.annotations.records,
-            text: session.annotations.text,
-            format: session.annotations.format
-        )
+        let notes = try await session.readingNotesForExport()
         let accessing = destination.startAccessingSecurityScopedResource()
         defer
         {

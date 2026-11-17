@@ -9,6 +9,25 @@ import Testing
 
 struct AnnotationExportWriterTests
 {
+    @Test func staleSnapshotCannotReplaceTheCurrentSource() throws
+    {
+        let source = try document()
+        let notes = ReadingNotes(text: "My notes", sourceHash: DocumentStamp.make("# Original\n"))
+        let changed = Data("# Changed after reading\n".utf8)
+        try changed.write(to: source)
+        #expect(throws: AnnotationFailure.sourceChanged)
+        {
+            try AnnotationExportWriter.write(source: source, destination: source, notes: notes)
+        }
+        #expect(try Data(contentsOf: source) == changed)
+    }
+
+    @Test func sourceStampUsesTheSameCanonicalTextAsTheRenderer()
+    {
+        #expect(DocumentStamp.make("abc") == "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad")
+        #expect(DocumentStamp.make("\u{FEFF}a\r\nb\r") == DocumentStamp.make("a\nb\n"))
+    }
+
     func document() throws -> URL
     {
         let folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)

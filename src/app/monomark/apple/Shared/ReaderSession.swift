@@ -56,7 +56,8 @@ final class ReaderSession: ObservableObject
     private var locationIndex = -1
     private var forgotten = false
     private let logger = Logger(subsystem: "us.outcrop.MonoMark", category: "Reader")
-    var watcher: DispatchSourceFileSystemObject?
+    var watcher: DocumentWatcher?
+    @Published var hasExternalChanges = false
     var lastCopyRequest: [String: Any] = [:]
     var documentEpoch: String
     {

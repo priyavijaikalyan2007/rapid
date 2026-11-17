@@ -105,3 +105,19 @@ The isolated native artifact test uses a generated local fixture and a separate 
 
 Run this command from the component folder after a Mac build. A zero exit code and passed report indicate successful checks.
 The test does not replace the user's clipboard or read private documents.
+
+## Reload and command-line opening
+
+Settings includes Automatically reload changed files. The default is on. Direct writes and atomic editor
+replacements are coalesced. When the option is off, a notice marks external changes. Refresh reads the latest
+content without replacing local notes. Reading position remains attached to the current document.
+
+On Mac, choose File > Install Command Line Tool and select a directory on your shell's PATH. The command is
+a symlink into MonoMark.app, so keep the app at that location. Existing unrelated files are not replaced.
+Use `monomark .` or `monomark ..` to open a folder workspace. Use `monomark first.md second.md` to open files
+in separate native tabs. Quote paths that contain spaces. `monomark --dry-run <paths>` prints the resolved launch.
+The launcher validates every path before opening anything and accepts at most 100 file arguments.
+
+Annotation exports include section paths and source-line ranges when the quotation resolves. A SHA-256
+stamp verifies that the source still matches the displayed document before a coordinated export write.
+If the source changed, refresh and retry. Missing locations stay absent rather than receiving guessed line numbers.

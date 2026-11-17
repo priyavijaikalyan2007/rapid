@@ -11,7 +11,7 @@
 import { windowRange } from './viewport.mjs';
 import { sanitizeDocument } from './sanitizer.mjs';
 import { imageBounds, waitForCopyImages } from './artifacts.mjs';
-import { captureSelection, renderAnnotations, scrollToAnnotation } from './annotations.mjs';
+import { captureSelection, renderAnnotations, scrollToAnnotation, resolveAnnotationLocations } from './annotations.mjs';
 import { cssFontFamily } from './typography.mjs';
 import { paperGeometry, layoutBlocks, pageAt, buildViewport } from './page-layout.mjs';
 import { enhanceContent } from './rich-content.mjs';
@@ -25,6 +25,7 @@ let worker;
 let metadata = [];
 let knownBlockIDs = new Set();
 let sourceLines = 0;
+let indexed = false;
 let offsets = [];
 let heights = [];
 let outline = [];
@@ -53,6 +54,47 @@ let appearance = 'system';
 let annotations = [];
 let selectionTimer;
 let pendingAnnotation;
+let exportSequence = 0;
+const pendingExports = new Map();
+
+function cancelExports()
+{
+    for (const entry of pendingExports.values())
+    {
+        clearTimeout(entry.timer);
+        entry.reject(new Error('The document changed during export. Try again.'));
+    }
+    pendingExports.clear();
+}
+
+function exportLocations(records)
+{
+    if (!worker || !indexed) { return Promise.reject(new Error('Refresh the document before exporting.')); }
+    return new Promise((resolve, reject) =>
+    {
+        const exportID = ++exportSequence;
+        const timer = setTimeout(() =>
+        {
+            pendingExports.delete(exportID);
+            reject(new Error('The source locations could not be resolved in time. Refresh and try again.'));
+        }, 10000);
+        pendingExports.set(exportID, { resolve, reject, timer, records });
+        worker.postMessage({ type: 'export-locations', exportID,
+            ids: [...new Set(records.flatMap(annotation => annotation.anchors.map(anchor => anchor.blockID)))] });
+    });
+}
+
+function finishExport(data)
+{
+    const pending = pendingExports.get(data.exportID);
+    if (!pending) { return; }
+    pendingExports.delete(data.exportID);
+    clearTimeout(pending.timer);
+    if (data.error) { pending.reject(new Error(data.error)); return; }
+    const root = document.createElement('div');
+    root.replaceChildren(...data.blocks.map((block, index) => makeBlock(block, index)));
+    pending.resolve({ annotations: resolveAnnotationLocations(window, root, pending.records), sourceHash: data.sourceHash });
+}
 
 function decorateAnnotations()
 {
@@ -119,6 +161,12 @@ function makeBlock(block, index)
     element.id = block.blockID || block.id;
     element.dataset.anchor = block.id;
     element.dataset.block = String(index);
+    if (Number.isInteger(block.line))
+    {
+        element.dataset.sourceLine = String(block.line + 1);
+        element.dataset.sourceEndLine = String(block.endLine || block.line + 1);
+        element.dataset.section = block.section || '';
+    }
     if (block.html.length > 1024 * 1024)
     {
         element.textContent = 'This block exceeds the 1 MiB rendered-object limit. Split the source block to view it.';
@@ -224,6 +272,7 @@ function savePosition()
 
 async function load(command)
 {
+    cancelExports();
     const sequence = ++loadSequence;
     popover.hidden = true; currentLink = ''; printAnchor = null; printing = false;
     copyOverlay?.remove();
@@ -236,6 +285,7 @@ async function load(command)
     clearTimeout(positionTimer);
     worker?.terminate();
     metadata = []; knownBlockIDs = new Set(); sourceLines = 0;
+    indexed = false;
     activeRange = '';
     status.textContent = 'Indexing document…';
     const code = await (await fetch('worker.js')).text();
@@ -244,16 +294,19 @@ async function load(command)
     worker = new Worker(workerURL);
     URL.revokeObjectURL(workerURL);
     worker.onmessage = ({ data }) => { if (sequence === loadSequence) { onWorker(data, command); } };
-    const source = await (await fetch(`monomark://document/source?epoch=${encodeURIComponent(epoch)}`)).text();
+    const response = await fetch(`monomark://document/source?epoch=${encodeURIComponent(epoch)}`);
+    const source = await response.text();
     if (sequence !== loadSequence) { return; }
-    worker.postMessage({ type: 'load', source });
+    worker.postMessage({ type: 'load', source, sourceHash: response.headers?.get('X-MonoMark-Source-Hash') || undefined });
 }
 
 function onWorker(data, initial)
 {
+    if (data.type === 'export-locations') { finishExport(data); }
     if (data.type === 'index')
     {
         metadata = data.blocks;
+        indexed = true;
         knownBlockIDs = new Set(metadata.flatMap(block => [block.id, block.blockID]));
         sourceLines = data.sourceLines || 0;
         document.documentElement.style.setProperty('--line-digits', String(Math.max(2, String(sourceLines).length)));
@@ -368,10 +421,12 @@ function preparePrint(data)
 
 function clearDocument(command)
 {
+    cancelExports();
     loadSequence++; request++;
     worker?.terminate(); worker = null;
     epoch = command.epoch; renderedEpoch = epoch;
     metadata = []; knownBlockIDs = new Set(); sourceLines = 0; heights = []; outline = []; annotations = []; matches = [];
+    indexed = false;
     pendingAnchor = null; pendingAnnotation = null; activeRange = '';
     printing = false; printBlocks = []; printAnchor = null;
     clearTimeout(positionTimer); clearTimeout(selectionTimer);
@@ -381,6 +436,7 @@ function clearDocument(command)
 }
 
 window.MonoMark = {
+    exportLocations,
     command(command)
     {
         if (command.type === 'clear') { clearDocument(command); }

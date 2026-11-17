@@ -176,3 +176,23 @@ an offscreen annotation jump. It verifies heading text, one saved anchor, unique
 lines, source numbering, and unchanged fixture source. Native QA confirms path clipboard round-trip and both settings.
 All unsigned platforms compile. Renderer tests pass 71 cases at 97.92% line coverage. Core passes 90 tests at 94.17%.
 Repository and source checks pass. Physical mobile execution and the native UI runner remain unverified.
+
+
+## Reload, invocation, and source-reference checkpoint
+
+Tasks #56–#58 add selectable auto-reload, manual Refresh, section/line export references, and a bundled Mac launcher.
+The watcher observes the file and parent directory, coalesces bursts, rearms after replacement, and filters unrelated writes.
+It uses event notifications rather than a polling timer. Core tests cover direct writes, replacements, filtering, and cancellation.
+
+The launcher validates paths, supports dot/parent folders and multiple files, follows its installed symlink, and preserves spaces.
+The native install action creates the link at a user-selected location. Native QA verifies the installed link, two-file tab opening,
+and `monomark .` workspace opening. Existing tabs remain open. Manual mode retains content until Refresh.
+
+Exports resolve saved quotations in bounded detached blocks. The visible viewport remains unchanged. Section paths and
+one-based block source ranges accompany each resolved annotation. A native source-response SHA-256 stamp is carried through
+the worker and checked against fresh coordinated source before writing. Tests verify stale source remains unchanged.
+The [follow-on evidence](monomark.followon-smoke.json) verifies the real WebKit/native source-stamp contract and references.
+Inline/selective exports (#59–#60) and optional implicit file/section links (#61–#62) remain in progress.
+
+Checkpoint verification: 97 Core tests and 83 renderer tests pass, including an empty-document notes-export regression.
+All unsigned platform builds, repository checks, source style, and launcher shell checks pass.

@@ -70,6 +70,8 @@ final class ResourceHandler: NSObject, WKURLSchemeHandler
                     httpVersion: "HTTP/1.1",
                     headerFields: [
                         "Content-Type": resource.1,
+                        "X-MonoMark-Source-Hash": resource.2 ?? "",
+                        "Access-Control-Expose-Headers": "X-MonoMark-Source-Hash",
                         "Access-Control-Allow-Origin": "*",
                         "Cache-Control": "no-store"
                     ]
@@ -95,7 +97,7 @@ final class ResourceHandler: NSObject, WKURLSchemeHandler
         tasks.removeValue(forKey: key)?.cancel()
     }
 
-    nonisolated private static func read(_ request: URL, source: URL?, root: URL?) throws -> (Data, String)
+    nonisolated private static func read(_ request: URL, source: URL?, root: URL?) throws -> (Data, String, String?)
     {
         if request.host == "bundle"
         {
@@ -110,7 +112,7 @@ final class ResourceHandler: NSObject, WKURLSchemeHandler
             {
                 throw ReaderFailure.denied
             }
-            return (try Data(contentsOf: file), mime(file))
+            return (try Data(contentsOf: file), mime(file), nil)
         }
         guard request.host == "document", let source, let root
         else
@@ -119,7 +121,8 @@ final class ResourceHandler: NSObject, WKURLSchemeHandler
         }
         if request.path == "/source"
         {
-            return (try DocumentAccess.read(source), "text/plain; charset=utf-8")
+            let bytes = try DocumentAccess.read(source)
+            return (bytes, "text/plain; charset=utf-8", DocumentStamp.make(String(decoding: bytes, as: UTF8.self)))
         }
         let raw = URLComponents(url: request, resolvingAgainstBaseURL: false)?.queryItems?
             .first(where: {
@@ -138,7 +141,7 @@ final class ResourceHandler: NSObject, WKURLSchemeHandler
         {
             throw ReaderFailure.oversized
         }
-        return (try Data(contentsOf: file), mime(file))
+        return (try Data(contentsOf: file), mime(file), nil)
     }
 
     nonisolated private static func mime(_ file: URL) -> String

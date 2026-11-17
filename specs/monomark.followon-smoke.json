@@ -1,0 +1,55 @@
+{
+  "anchorCount": 1,
+  "beforeJump": {
+    "bodyLefts": [
+      80.15625,
+      151.15625,
+      348.25
+    ],
+    "codeFont": "ui-monospace, monospace",
+    "columnLefts": [
+      80.15625,
+      151.15625,
+      348.25
+    ],
+    "columnsAligned": true,
+    "headingMarked": false,
+    "headingText": "3. Three forms",
+    "monospaceCode": true,
+    "separatePreambleLines": true,
+    "sourceGutter": true,
+    "uniqueIDs": true,
+    "validTableMarks": true
+  },
+  "bodyLefts": [
+    80.15625,
+    151.15625,
+    336.265625
+  ],
+  "codeFont": "ui-monospace, monospace",
+  "columnLefts": [
+    80.15625,
+    151.15625,
+    336.265625
+  ],
+  "columnsAligned": true,
+  "exportSectionAndLine": true,
+  "exportSourceHash": true,
+  "headingMarked": true,
+  "headingQuote": "3. Three forms",
+  "headingText": "3. Three forms",
+  "monospaceCode": true,
+  "passed": true,
+  "separatePreambleLines": true,
+  "sourceGutter": true,
+  "sourceUnchanged": true,
+  "uniqueIDs": true,
+  "validTableMarks": true,
+  "nativeUI": {
+    "automaticReload": "a direct write changed the visible heading",
+    "manualMode": "atomic replacement kept the old view and showed a changed-file notice; Refresh displayed the replacement",
+    "launcherFiles": "two file arguments opened two additional native tabs",
+    "launcherFolder": "monomark . opened the folder as a workspace in another tab",
+    "launcherInstallation": "native save panel created a working symlink in an isolated temporary folder"
+  }
+}

@@ -1063,3 +1063,10 @@ Actual WebKit checks pass before and after annotation navigation. Automatic numb
 User follow-on requests: Add selectable auto-reload and a Refresh button, section/line references in exports,
 and a monomark command for folders (including dot paths) or multiple files. Then add inline annotation export,
 notes at the file end, and separate-file export for annotations or notes. Complete these after the review checkpoint.
+
+Reload/launcher/source-reference summary: Added event-based replacement-aware observation, the auto-reload setting,
+manual Refresh, a bundled command-line launcher, and a native installation action. Added export section/line references
+and source-stamp protection. Native QA confirms both reload modes, two-file launch, folder launch, and installation.
+
+Additional user request: After exports, resolve implicit Markdown file references into new-tab links and fuzzy numbered
+section references into document jumps. Filed #61 and #62. Keep this optional, conservative, and workspace-scoped.

@@ -106,6 +106,17 @@ struct ReaderView: View
                 DocumentLocationView(session: session)
                 Button
                 {
+                    session.refresh()
+                }
+                label: {
+                    Label("Refresh", systemImage: "arrow.clockwise")
+                }
+                .disabled(session.url == nil)
+                .help(session
+                    .hasExternalChanges ? "The file changed. Refresh to read the latest content." :
+                    "Reload this document")
+                Button
+                {
                     session.showSidebar.toggle()
                 } label: {
                     Label("Sidebar", systemImage: "sidebar.left")
@@ -279,13 +290,9 @@ struct ReaderView: View
             {
                 return
             }
-            let notes = ReadingNotes(
-                annotations: annotations.records,
-                text: annotations.text,
-                format: annotations.format
-            )
             do
             {
+                let notes = try await session.readingNotesForExport()
                 let data = try await Task.detached(priority: .userInitiated)
                 {
                     let bytes = try DocumentAccess.read(source)

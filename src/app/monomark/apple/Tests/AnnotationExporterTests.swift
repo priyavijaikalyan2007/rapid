@@ -10,6 +10,18 @@ import Testing
 
 struct AnnotationExporterTests
 {
+    @Test func exportsSectionAndSourceLineRange() throws
+    {
+        let location = SourceLocation(line: 8, endLine: 11, section: "3. Queries › Operators")
+        let anchor = TextAnchor(blockID: "b", quote: "A quote", prefix: "", suffix: "", start: 0, location: location)
+        let result = try AnnotationExporter.render(
+            source: "",
+            notes: ReadingNotes(annotations: [ReadingAnnotation(anchors: [anchor])])
+        )
+        #expect(result.contains("**Section:** 3\\. Queries › Operators"))
+        #expect(result.contains("**Source lines:** 8–11"))
+    }
+
     let start = "<!-- monomark:reading-data:start -->"
     let end = "<!-- monomark:reading-data:end -->"
 

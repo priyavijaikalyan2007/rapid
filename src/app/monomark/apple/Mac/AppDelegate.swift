@@ -70,17 +70,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
 
     func application(_ sender: NSApplication, openFiles filenames: [String])
     {
+        var parent = current
         for path in filenames
         {
             let file = URL(fileURLWithPath: path)
             if (try? file.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == true
             {
-                createWindow()
+                parent = createWindow(tabbedWith: parent)
                 selectFolder(file)
             }
             else
             {
-                createWindow(file: file)
+                parent = createWindow(file: file, tabbedWith: parent)
             }
         }
         sender.reply(toOpenOrPrint: .success)
@@ -343,7 +344,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
 
     @objc func reload(_ sender: Any?)
     {
-        current?.session.loadRenderer()
+        current?.session.refresh()
     }
 
     @objc func copyDocumentPath(_ sender: Any?)
@@ -408,6 +409,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         item("New Tab", #selector(newTab(_:)), key: "t", on: file)
         item("Close", #selector(NSWindow.performClose(_:)), key: "w", target: nil, on: file)
         item("Copy Document Path", #selector(copyDocumentPath(_:)), on: file)
+        item("Install Command Line Tool…", #selector(installCommandLine(_:)), on: file)
         item("Print…", #selector(printReader(_:)), key: "p", on: file)
         item("Export Notes and Annotations to This File", #selector(exportReadingData(_:)), on: file)
         item("Export a Copy…", #selector(exportReadingCopy(_:)), on: file)

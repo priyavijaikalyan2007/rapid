@@ -12,12 +12,15 @@ struct PaperLayoutTests
     @Test func sourceLinePreferencesPersistAndOlderDocumentsKeepStandardMarkdown() throws
     {
         let old = try JSONDecoder().decode(ReaderPreferences.self, from: Data("{}".utf8))
+        #expect(old.autoReload)
         #expect(!old.showLineNumbers && !old.preserveLineBreaks)
         var preferences = ReaderPreferences()
         preferences.showLineNumbers = true
         preferences.preserveLineBreaks = true
+        preferences.autoReload = false
         let restored = try JSONDecoder().decode(ReaderPreferences.self, from: JSONEncoder().encode(preferences))
         #expect(restored.showLineNumbers && restored.preserveLineBreaks)
+        #expect(!restored.autoReload)
     }
 
     @Test func standardSizesUsePrinterPoints() throws

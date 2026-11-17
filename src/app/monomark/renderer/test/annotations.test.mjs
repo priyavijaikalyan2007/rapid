@@ -8,6 +8,16 @@ import assert from 'node:assert/strict';
 import { JSDOM } from 'jsdom';
 import { captureSelection, renderAnnotations } from '../src/annotations.mjs';
 
+test('export locations resolve legacy heading quotations without mounting a visible document', async () => {
+    const { resolveAnnotationLocations } = await import('../src/annotations.mjs');
+    const window = fixture('<section class="monomark-block" id="block-0" data-anchor="heading" ' +
+        'data-source-line="8" data-source-end-line="8" data-section="3. Queries"><h2>Heading</h2></section>');
+    const notes = [{ id: 'legacy', anchors: [{ blockID: 'heading', quote: 'Heading\n', prefix: '', suffix: '' }] }];
+    const result = resolveAnnotationLocations(window, window.document.querySelector('main'), notes);
+    assert.deepEqual(result[0].anchors[0].location, { line: 8, endLine: 8, section: '3. Queries' });
+    assert.equal(window.document.querySelector('mark'), null);
+});
+
 function fixture(html = '<section class="monomark-block" id="b"><p>Before a <em>chosen sentence</em> after.</p></section>')
 {
     return new JSDOM(`<main>${html}</main>`).window;

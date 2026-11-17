@@ -52,6 +52,10 @@ enum AnnotationExportWriter
     {
         let bytes = try DocumentAccess.boundedRead(source, limit: DocumentAccess.sourceLimit)
         let current = String(decoding: bytes, as: UTF8.self)
+        if let expected = notes.sourceHash, expected != DocumentStamp.make(current)
+        {
+            throw AnnotationFailure.sourceChanged
+        }
         let output = try AnnotationExporter.render(source: current, notes: notes)
         try Data(output.utf8).write(to: destination, options: .atomic)
     }

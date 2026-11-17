@@ -29,6 +29,7 @@ struct ReaderPreferences: Codable, Equatable, Sendable
     var columnBanding = false
     var preserveLineBreaks = false
     var showLineNumbers = false
+    var autoReload = true
     var paperSize = "system"
     var layoutMode = "pageless"
 
@@ -40,7 +41,7 @@ struct ReaderPreferences: Codable, Equatable, Sendable
     {
         case fontFamily, headingFontFamily, codeFontFamily, tableFontFamily, captionFontFamily
         case paperSize, layoutMode, palette
-        case preserveLineBreaks, showLineNumbers
+        case preserveLineBreaks, showLineNumbers, autoReload
         case bodySize, headingSizes, codeSize, tableSize, captionSize, lineHeight, pageWidth, columnBanding
     }
 
@@ -63,6 +64,7 @@ struct ReaderPreferences: Codable, Equatable, Sendable
         columnBanding = try values.decodeIfPresent(Bool.self, forKey: .columnBanding) ?? false
         preserveLineBreaks = try values.decodeIfPresent(Bool.self, forKey: .preserveLineBreaks) ?? false
         showLineNumbers = try values.decodeIfPresent(Bool.self, forKey: .showLineNumbers) ?? false
+        autoReload = try values.decodeIfPresent(Bool.self, forKey: .autoReload) ?? true
         paperSize = try values.decodeIfPresent(String.self, forKey: .paperSize) ?? "system"
         layoutMode = try values.decodeIfPresent(String.self, forKey: .layoutMode) ?? "pageless"
         palette = try values.decodeIfPresent(ReaderPalette.self, forKey: .palette) ?? ReaderPalette()

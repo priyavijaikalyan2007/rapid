@@ -15,4 +15,5 @@ struct TextAnchor: Codable, Equatable, Sendable
     var prefix: String
     var suffix: String
     var start: Int
+    var location: SourceLocation? = nil
 }

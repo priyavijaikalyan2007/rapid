@@ -14,6 +14,17 @@ test('source locations include front matter and hidden comment lines', () => {
     assert.equal(result.sourceLines, 7);
 });
 
+test('block locations include the current heading hierarchy', () => {
+    const result = parseDocument('# Document\n\n## 3. Queries\n\n### Operators\n\nA paragraph.');
+    assert.equal(result.blocks.at(-1).section, 'Document › 3. Queries › Operators');
+});
+
+test('source stamps use canonical UTF-8 text', async () => {
+    const { documentStamp } = await import('../src/document-stamp.mjs');
+    assert.equal(await documentStamp('abc'), 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad');
+    assert.equal(await documentStamp('\uFEFFa\r\nb\r'), await documentStamp('a\nb\n'));
+});
+
 test('soft breaks are identifiable without converting intentional hard breaks or code', () => {
     const result = parseDocument('**Status:** Draft\n**Date:** Today  \nDone\n\n`and`, `or`, `not`\n\n```text\na\nb\n```');
     assert.match(result.blocks[0].html, /Draft<span class="monomark-softbreak">\n<\/span>/);

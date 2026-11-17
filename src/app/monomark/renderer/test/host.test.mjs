@@ -36,6 +36,48 @@ globalThis.Worker = class {
 await import('../src/host.mjs');
 after(() => dom.window.close());
 
+test('export resolution returns source locations without changing the viewport', async () => {
+    window.MonoMark.command({ type: 'load', epoch: 'export-resolution' });
+    await new Promise(resolve => setTimeout(resolve, 20));
+    const worker = workers.at(-1);
+    worker.onmessage({ data: { type: 'index', outline: [], links: [], blocks: [{ id: 'visible', blockID: 'block-0', estimate: 80 }] } });
+    worker.onmessage({ data: { type: 'range', request: worker.sent.at(-1).request, start: 0,
+        blocks: [{ id: 'visible', html: '<p>Visible document</p>' }] } });
+    const before = document.getElementById('monomark-document').innerHTML;
+    const records = [{ id: 'saved', anchors: [{ blockID: 'heading', quote: 'Heading', prefix: '', suffix: '' }] }];
+    const pending = window.MonoMark.exportLocations(records);
+    const request = worker.sent.at(-1);
+    assert.equal(request.type, 'export-locations');
+    worker.onmessage({ data: { type: 'export-locations', exportID: request.exportID, sourceHash: 'a'.repeat(64), blocks: [
+        { id: 'heading', blockID: 'block-4', line: 8, endLine: 9, section: 'Document › Heading', html: '<h2 id="heading">Heading</h2>' }
+    ] } });
+    const result = await pending;
+    assert.deepEqual(result.annotations[0].anchors[0].location, { line: 9, endLine: 9, section: 'Document › Heading' });
+    assert.equal(document.getElementById('monomark-document').innerHTML, before);
+    assert.equal(result.sourceHash, 'a'.repeat(64));
+    await new Promise(resolve => setTimeout(resolve, 300));
+});
+
+test('document replacement cancels a pending export instead of returning stale locations', async () => {
+    const pending = window.MonoMark.exportLocations([]);
+    const rejected = assert.rejects(pending, /document changed/);
+    window.MonoMark.command({ type: 'load', epoch: 'cancel-export' });
+    await rejected;
+    await new Promise(resolve => setTimeout(resolve, 20));
+});
+
+test('an empty indexed document can still export its reading notes', async () => {
+    window.MonoMark.command({ type: 'load', epoch: 'empty-export' });
+    await new Promise(resolve => setTimeout(resolve, 20));
+    const worker = workers.at(-1);
+    worker.onmessage({ data: { type: 'index', outline: [], links: [], blocks: [] } });
+    const pending = window.MonoMark.exportLocations([]);
+    const request = worker.sent.at(-1);
+    worker.onmessage({ data: { type: 'export-locations', exportID: request.exportID,
+        sourceHash: 'b'.repeat(64), blocks: [] } });
+    assert.deepEqual(await pending, { annotations: [], sourceHash: 'b'.repeat(64) });
+});
+
 test('code remains monospace when the body font is proportional', () => {
     window.MonoMark.command({ type: 'preferences', value: { fontFamily: 'Atkinson Hyperlegible' } });
     assert.equal(document.documentElement.style.getPropertyValue('--code-font'), 'ui-monospace');

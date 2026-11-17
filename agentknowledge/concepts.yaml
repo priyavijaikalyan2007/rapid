@@ -394,5 +394,31 @@
       "MonoMarkHistory",
       "MonoMarkAnnotations"
     ]
+  },
+  {
+    "name": "MonoMarkReload",
+    "definition": "Coalesced file and directory notifications detect in-place writes and atomic replacement. Native settings choose automatic reload or a changed-file notice with Refresh.",
+    "anchor_file": "src/app/monomark/apple/Core/DocumentWatcher.swift",
+    "related": [
+      "MonoMark"
+    ]
+  },
+  {
+    "name": "MonoMarkExportLocations",
+    "definition": "Detached quote resolution supplies section/source-line references and a canonical source stamp checked before coordinated export writes.",
+    "anchor_file": "src/app/monomark/apple/Shared/ReaderSession+Export.swift",
+    "related": [
+      "MonoMarkAnnotations",
+      "MonoMarkRenderer"
+    ]
+  },
+  {
+    "name": "MonoMarkCommandLine",
+    "definition": "A bundled symlink-aware launcher opens dot/parent workspaces or multiple Markdown files through native open-file handling.",
+    "anchor_file": "src/app/monomark/tools/monomark",
+    "related": [
+      "MonoMark",
+      "MonoMarkWorkspaces"
+    ]
   }
 ]

@@ -1,0 +1,76 @@
+#!/bin/bash
+# SPDX-FileCopyrightText: 2026 Outcrop Inc
+# SPDX-License-Identifier: GPL-3.0-or-later
+# File GUID: b3187d9e-ac92-471d-8498-eb8e89fec38a
+# COMPONENT: Native command-line launcher
+# PURPOSE: Resolve user paths and open a workspace or Markdown documents in the installed app.
+set -euo pipefail
+
+usage()
+{
+    printf '%s\n' 'Usage: monomark [--dry-run] <folder | file.md ...>'
+    printf '%s\n' 'Folders may be . or .. . Quote paths that contain spaces. Use -- before a path beginning with -.'
+}
+if [[ ${1:-} == --help || ${1:-} == -h ]]; then
+    usage
+    exit 0
+fi
+dry_run=false
+if [[ ${1:-} == --dry-run ]]; then
+    dry_run=true
+    shift
+fi
+if [[ ${1:-} == -- ]]; then shift; fi
+if [[ $# -lt 1 || $# -gt 100 ]]; then
+    usage >&2
+    exit 2
+fi
+
+# Follow the installed symlink to its application bundle. Limit traversal to reject cycles.
+launcher="$0"
+if [[ $launcher != /* ]]; then launcher="$PWD/$launcher"; fi
+depth=0
+while [[ -L $launcher ]]; do
+    if [[ $depth -ge 32 ]]; then
+        printf '%s\n' 'The launcher symlink is cyclic.' >&2
+        exit 2
+    fi
+    link="$(readlink "$launcher")"
+    if [[ $link == /* ]]; then launcher="$link"; else launcher="$(dirname "$launcher")/$link"; fi
+    depth=$((depth + 1))
+done
+bundle="$(cd -P -- "$(dirname "$launcher")/../../.." && pwd)"
+if [[ ! -f $bundle/Contents/MacOS/MonoMark ]]; then
+    printf '%s\n' 'MonoMark.app is unavailable. Reinstall the command-line tool from MonoMark.' >&2
+    exit 2
+fi
+
+# Validate every argument before opening any document. Arrays preserve spaces and shell metacharacters.
+targets=()
+for target in "$@"; do
+    if [[ -d $target ]]; then
+        if [[ $# -ne 1 ]]; then
+            printf '%s\n' 'Open a folder by itself, or supply only Markdown files.' >&2
+            exit 2
+        fi
+        targets+=("$(cd -P -- "$target" && pwd)")
+    elif [[ -f $target ]]; then
+        case "$target" in
+            *.[mM][dD] | *.[mM][aA][rR][kK][dD][oO][wW][nN] | *.[mM][dD][oO][wW][nN]) ;;
+            *)
+                printf 'Not a Markdown file: %s\n' "$target" >&2
+                exit 2
+                ;;
+        esac
+        targets+=("$(cd -P -- "$(dirname "$target")" && pwd)/$(basename "$target")")
+    else
+        printf 'Path does not exist: %s\n' "$target" >&2
+        exit 2
+    fi
+done
+if $dry_run; then
+    printf '%q ' /usr/bin/open -a "$bundle" -- "${targets[@]}"
+    printf '\n'
+    exit 0
+fi
+exec /usr/bin/open -a "$bundle" -- "${targets[@]}"

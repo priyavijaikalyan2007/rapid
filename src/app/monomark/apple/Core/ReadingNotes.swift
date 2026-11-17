@@ -13,4 +13,5 @@ struct ReadingNotes: Codable, Equatable, Sendable
     var annotations: [ReadingAnnotation] = []
     var text = ""
     var format = "markdown"
+    var sourceHash: String? = nil
 }
