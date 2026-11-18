@@ -16,6 +16,7 @@ struct ReadingState: Codable, Equatable, Identifiable, Sendable
     var id: String
     var path: String
     var accessedAt: Double
+    var updatedAt: Double? = nil
     var anchor = ""
     var offset = 0.0
     var progress = 0.0

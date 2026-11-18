@@ -29,6 +29,7 @@ final class ResourceHandler: NSObject, WKURLSchemeHandler
         let key = ObjectIdentifier(urlSchemeTask)
         let request = urlSchemeTask.request.url
         let source = session?.url
+        let epoch = session?.documentEpoch
         let root = session?.root
         if request?.host == "document", request?.path == "/source"
         {
@@ -64,6 +65,10 @@ final class ResourceHandler: NSObject, WKURLSchemeHandler
                 {
                     return
                 }
+                if let identity = resource.3, let source, let epoch
+                {
+                    session?.reconcileSourceIdentity(identity, file: source, epoch: epoch)
+                }
                 let response = HTTPURLResponse(
                     url: request,
                     statusCode: 200,
@@ -97,7 +102,11 @@ final class ResourceHandler: NSObject, WKURLSchemeHandler
         tasks.removeValue(forKey: key)?.cancel()
     }
 
-    nonisolated private static func read(_ request: URL, source: URL?, root: URL?) throws -> (Data, String, String?)
+    nonisolated private static func read(
+        _ request: URL,
+        source: URL?,
+        root: URL?
+    ) throws -> (Data, String, String?, String?)
     {
         if request.host == "bundle"
         {
@@ -112,7 +121,7 @@ final class ResourceHandler: NSObject, WKURLSchemeHandler
             {
                 throw ReaderFailure.denied
             }
-            return (try Data(contentsOf: file), mime(file), nil)
+            return (try Data(contentsOf: file), mime(file), nil, nil)
         }
         guard request.host == "document", let source, let root
         else
@@ -121,8 +130,13 @@ final class ResourceHandler: NSObject, WKURLSchemeHandler
         }
         if request.path == "/source"
         {
-            let bytes = try DocumentAccess.read(source)
-            return (bytes, "text/plain; charset=utf-8", DocumentStamp.make(String(decoding: bytes, as: UTF8.self)))
+            let snapshot = try DocumentAccess.snapshot(source)
+            return (
+                snapshot.data,
+                "text/plain; charset=utf-8",
+                DocumentStamp.make(String(decoding: snapshot.data, as: UTF8.self)),
+                snapshot.identity
+            )
         }
         let raw = URLComponents(url: request, resolvingAgainstBaseURL: false)?.queryItems?
             .first(where: {
@@ -141,7 +155,7 @@ final class ResourceHandler: NSObject, WKURLSchemeHandler
         {
             throw ReaderFailure.oversized
         }
-        return (try Data(contentsOf: file), mime(file), nil)
+        return (try Data(contentsOf: file), mime(file), nil, nil)
     }
 
     nonisolated private static func mime(_ file: URL) -> String

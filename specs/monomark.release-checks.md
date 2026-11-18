@@ -96,3 +96,8 @@ Print jobs reject more than 5,000 blocks, 16 MiB of rendered HTML, or 100,000 re
 The [native reattachment report](monomark.reattachment-smoke.json) verifies full-index quote recovery past 600 inserted paragraphs. Navigation and export use the current section and line. Duplicate and deleted quotes remain unattached. This closes #20, including ambiguity across unloaded blocks. The original saved anchor remains unchanged. Recovery reuses canonical worker text and caps its quote cache at 256 entries.
 
 The native/browser automation host was retried and remains unavailable. The native pipe failed to start, and the browser host returned unavailable. This prevents interactive acceptance and store screenshots through the supported automation surface. Provider grants, accessibility/focus, physical displays/devices, reference-machine resource budgets, and signed distribution remain separate open gates. Existing signed archive/export evidence still concerns the earlier 0.1.0 build. It does not establish a signed 1.0.0 release.
+
+
+## Lifecycle checkpoint on 18 November
+
+The [native lifecycle report](monomark.lifecycle-smoke.json) passes tab restoration, renderer release/reactivation, Find focus, duplicate filenames, reload choices, rename/deletion recovery, and workspaces. Regression fixes preserve drafts after replacement/rename and prevent stale history writes after deletion. The new history migration preserves old records and rejects future schemas. Current Core coverage is 94.43%, with 136 Core and 137 renderer tests passing. Signed provider grants, physical displays, performance budgets, appearance/accessibility, and distribution checks remain separate.

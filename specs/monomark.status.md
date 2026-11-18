@@ -315,3 +315,14 @@ Recovery yields between small batches, cancels obsolete revisions, and keeps a b
 The [native recovery evidence](monomark.reattachment-smoke.json) verifies navigation after 600 inserted paragraphs, the current section and line 1203, unloaded duplicate rejection, deleted-quote handling, original anchor preservation, and bounded mounting. The combined selection, table, PDF, export, and link harness also passes. 125 Core tests, 137 renderer tests, and unsigned Apple builds pass. The new recovery module has 100% line/function coverage and 96.08% branch coverage.
 
 Native automation was retried after these fixes. The host still reports a native pipe startup failure and unavailable browser access. Interactive accessibility/focus, real provider grants, screenshots, physical displays/devices, reference-machine resource acceptance, and signed distribution checks remain open. Version 1.0.0 remains the release target. No upload or submission occurred.
+
+
+## Lifecycle acceptance on 18 November
+
+The owner requested completion of the remaining release checks in sequence. Native acceptance now verifies tab grouping, saved-snapshot restoration, inactive renderer release/reactivation, duplicate filenames, Find-menu focus, automatic/manual reload, rename/deletion recovery, and workspace switching. The [lifecycle report](monomark.lifecycle-smoke.json) passes every executed case. This Mac has one display.
+
+Regression tests first exposed history deletion and checkpoint-ordering races. Transactional deletion cutoffs now reject older visits, including writes from other connections. An explicit later open remains eligible. Only opaque identity/path hashes persist for individual cutoffs. Clear removes those individual hashes and retains one global cutoff. A version-2 migration preserves existing records and rejects unsupported future schemas.
+
+Coordinated source snapshots refresh current filesystem identity. Annotation metadata follows that identity without clearing drafts or queued writes. Refresh starts a new renderer epoch and rearms observation. Checkpoint update timestamps prevent same-visit writes from rewinding state. Restored tabs consume their saved snapshot even without history. Tab-selection observation also releases inactive renderers when no key-window notification occurs.
+
+136 Core tests, 137 renderer tests, unsigned Apple builds, source checks, and repository checks pass. Core line coverage is 94.43%. The combined native annotation/export/selection/table/PDF harness passes after the lifecycle changes. Signed user-selected/provider grants remain open under #11/#24. They are the next stage.

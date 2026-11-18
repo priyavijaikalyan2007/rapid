@@ -1116,3 +1116,8 @@ Continued native release checks after #15. Hidden-window artifact PNG checks pas
 
 
 Completed full-document quote recovery for #20. Tests first reproduced reused block identifiers, hidden duplicates, stale recovery responses, and missing visible portions of multi-block highlights. The worker now resolves unique quote contexts across the full index. Navigation and export share temporary current locations. Original stored anchors remain unchanged. Actual WebKit acceptance follows a highlight past 600 inserted paragraphs, exports line 1203, and rejects duplicate/deleted quotes. 125 Core and 137 renderer tests, unsigned platform builds, and the combined native review harness pass. Native/browser automation still fails to start. Remaining interactive, provider, reference-hardware, signed-distribution, and physical-device checks stay open.
+
+
+## Complete release checks in sequence — 18 November 2026
+
+User: "go ahead and finish these off one by one." Started with lifecycle acceptance. Failing SQLite and native regressions exposed deleted-history resurrection, out-of-order same-visit checkpoints, lost restored-tab state, unreliable tab activation/cleanup, and notes stranded after replacement followed by rename. These cases now pass. History schema version 2 migrates existing data and rejects future schemas. The native harness verifies tabs, Find focus, renderer release/reactivation, reload options, rename/deletion recovery, and workspace switching. Signed provider grants remain next. No upload or submission occurred.

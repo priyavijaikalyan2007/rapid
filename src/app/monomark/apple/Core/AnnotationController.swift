@@ -89,6 +89,25 @@ final class AnnotationController: ObservableObject
         reload()
     }
 
+    /// Keep drafts, selection, and pending edits while an atomic replacement changes filesystem identity.
+    func adoptIdentity(_ identity: String, path: String)
+    {
+        guard document != identity, self.path == path, !document.isEmpty
+        else
+        {
+            return
+        }
+        noteTimer?.cancel()
+        queueNotes()
+        let loading = loading
+        enqueue
+        {
+            await loading?.value
+            try await $0.identify(document: identity, path: path)
+        }
+        document = identity
+    }
+
     /// Call only after drain succeeds, so an empty workspace cannot display or edit the previous file's notes.
     func detach()
     {

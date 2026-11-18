@@ -144,4 +144,23 @@ struct DocumentAccessTests
     {
         #expect((failure.errorDescription?.count ?? 0) > 30)
     }
+
+    @Test func sourceSnapshotPairsBoundedBytesWithCurrentIdentity() throws
+    {
+        let file = try folder().appendingPathComponent("snapshot.md")
+        try Data("# Before".utf8).write(to: file, options: .atomic)
+        try Data("# After".utf8).write(to: file, options: .atomic)
+
+        let snapshot = try DocumentAccess.snapshot(file)
+
+        #expect(snapshot.data == Data("# After".utf8))
+        #expect(try snapshot.identity == DocumentAccess.identity(file))
+    }
+
+    @Test func sourceSnapshotsRejectOversizedInput() throws
+    {
+        let file = try folder().appendingPathComponent("snapshot.md")
+        try Data(repeating: 65, count: 200).write(to: file)
+        #expect(throws: (any Error).self) { _ = try DocumentAccess.snapshot(file, limit: 100) }
+    }
 }

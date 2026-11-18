@@ -8,6 +8,7 @@
 // RELATES: MonoMarkCoreTests
 // FLOW: Validated input -> local processing -> typed result.
 
+import CryptoKit
 import Foundation
 import SQLite3
 
@@ -33,16 +34,7 @@ final class HistoryStore: @unchecked Sendable
         sqlite3_busy_timeout(database, 3000)
         do
         {
-            try execute("PRAGMA journal_mode=WAL")
-            try execute(
-                """
-                CREATE TABLE IF NOT EXISTS history(id TEXT PRIMARY KEY, path TEXT NOT NULL, accessed REAL NOT \
-                NULL, payload TEXT NOT NULL)
-                """
-            )
-            try execute("CREATE INDEX IF NOT EXISTS history_recent ON history(accessed DESC)")
-            try execute("CREATE INDEX IF NOT EXISTS history_path ON history(path,accessed DESC)")
-            try execute("PRAGMA user_version=1")
+            try configure()
         }
         catch
         {
@@ -54,9 +46,32 @@ final class HistoryStore: @unchecked Sendable
 
     deinit { sqlite3_close(database) }
 
+    private func configure() throws
+    {
+        guard (try scalar("PRAGMA user_version") ?? 0) <= 2
+        else
+        {
+            throw ReaderFailure.invalidStore
+        }
+        try execute("PRAGMA journal_mode=WAL")
+        try transaction
+        {
+            try execute(
+                """
+                CREATE TABLE IF NOT EXISTS history(id TEXT PRIMARY KEY, path TEXT NOT NULL, accessed REAL NOT \
+                NULL, payload TEXT NOT NULL)
+                """
+            )
+            try execute("CREATE INDEX IF NOT EXISTS history_recent ON history(accessed DESC)")
+            try execute("CREATE INDEX IF NOT EXISTS history_path ON history(path,accessed DESC)")
+            try execute("CREATE TABLE IF NOT EXISTS history_barriers(key TEXT PRIMARY KEY, cutoff REAL NOT NULL)")
+            try execute("PRAGMA user_version=2")
+        }
+    }
+
     func record(_ state: ReadingState) throws
     {
-        guard state.accessedAt.isFinite
+        guard state.accessedAt.isFinite, state.updatedAt?.isFinite ?? true
         else
         {
             throw ReaderFailure.invalidStore
@@ -98,7 +113,10 @@ final class HistoryStore: @unchecked Sendable
         try execute("BEGIN IMMEDIATE")
         do
         {
-            try replaceLatest(state, payload: payload)
+            if try !wasDeleted(state)
+            {
+                try replaceLatest(state, payload: payload)
+            }
             try execute("COMMIT")
         }
         catch
@@ -114,7 +132,7 @@ final class HistoryStore: @unchecked Sendable
             "SELECT payload FROM history WHERE id=? OR path=? ORDER BY accessed DESC LIMIT 1",
             arguments: [state.id, state.path]
         ).first
-        guard latest?.accessedAt ?? -.infinity <= state.accessedAt
+        guard canReplace(latest, with: state)
         else
         {
             return
@@ -125,6 +143,20 @@ final class HistoryStore: @unchecked Sendable
             accessed=excluded.accessed, payload=excluded.payload WHERE excluded.accessed>=history.accessed
             """
         try execute(sql, arguments: [state.id, state.path, String(state.accessedAt), payload])
+    }
+
+    private func canReplace(_ latest: ReadingState?, with state: ReadingState) -> Bool
+    {
+        guard let latest
+        else
+        {
+            return true
+        }
+        if latest.accessedAt != state.accessedAt
+        {
+            return latest.accessedAt < state.accessedAt
+        }
+        return (latest.updatedAt ?? latest.accessedAt) <= (state.updatedAt ?? state.accessedAt)
     }
 
     func page(query: String, offset: Int, limit: Int) throws -> [ReadingState]
@@ -145,7 +177,17 @@ final class HistoryStore: @unchecked Sendable
     {
         try lock.withLock
         {
-            try execute("DELETE FROM history WHERE id=?", arguments: [id])
+            try transaction
+            {
+                let saved = try rows("SELECT payload FROM history WHERE id=?", arguments: [id]).first
+                let cutoff = Date().timeIntervalSince1970
+                try barrier(key("id", id), at: cutoff)
+                if let saved
+                {
+                    try barrier(key("path", saved.path), at: cutoff)
+                }
+                try execute("DELETE FROM history WHERE id=?", arguments: [id])
+            }
         }
     }
 
@@ -153,7 +195,72 @@ final class HistoryStore: @unchecked Sendable
     {
         try lock.withLock
         {
-            try execute("DELETE FROM history")
+            try transaction
+            {
+                try barrier("all", at: Date().timeIntervalSince1970)
+                try execute("DELETE FROM history")
+                try execute("DELETE FROM history_barriers WHERE key<>'all'")
+            }
+        }
+    }
+
+    /// Only opaque exact-byte hashes remain after forgetting a visit. Source paths and payloads are removed.
+    private func key(_ scope: String, _ value: String) -> String
+    {
+        scope + ":" + Data(SHA256.hash(data: Data(value.utf8))).base64EncodedString()
+    }
+
+    private func barrier(_ key: String, at cutoff: Double) throws
+    {
+        try execute(
+            """
+            INSERT INTO history_barriers VALUES(?,?) ON CONFLICT(key) DO UPDATE SET \
+            cutoff=MAX(cutoff,excluded.cutoff)
+            """,
+            arguments: [key, String(cutoff)]
+        )
+    }
+
+    private func wasDeleted(_ state: ReadingState) throws -> Bool
+    {
+        let cutoff = try scalar(
+            "SELECT MAX(cutoff) FROM history_barriers WHERE key IN(?,?,?)",
+            arguments: ["all", key("id", state.id), key("path", state.path)]
+        )
+        return cutoff.map
+        {
+            state.accessedAt <= $0
+        } ?? false
+    }
+
+    private func scalar(_ sql: String, arguments: [String] = []) throws -> Double?
+    {
+        let statement = try prepare(sql, arguments: arguments)
+        defer { sqlite3_finalize(statement) }
+        guard sqlite3_step(statement) == SQLITE_ROW
+        else
+        {
+            throw ReaderFailure.invalidStore
+        }
+        if sqlite3_column_type(statement, 0) == SQLITE_NULL
+        {
+            return nil
+        }
+        return sqlite3_column_double(statement, 0)
+    }
+
+    private func transaction(_ operation: () throws -> Void) throws
+    {
+        try execute("BEGIN IMMEDIATE")
+        do
+        {
+            try operation()
+            try execute("COMMIT")
+        }
+        catch
+        {
+            try? execute("ROLLBACK")
+            throw error
         }
     }
 

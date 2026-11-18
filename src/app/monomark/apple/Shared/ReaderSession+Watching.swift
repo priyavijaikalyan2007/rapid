@@ -50,6 +50,12 @@ extension ReaderSession
             }
             return
         }
+        generation = UUID()
+        isLoading = true
+        if let url
+        {
+            watch(url)
+        }
         if reindexReferences, preferences.implicitFileLinks
         {
             reparseReferences(force: true)
@@ -58,5 +64,19 @@ extension ReaderSession
         {
             loadRenderer()
         }
+    }
+
+    func reconcileSourceIdentity(_ identity: String, file: URL, epoch: String)
+    {
+        guard documentEpoch == epoch, url == file, state != nil, state?.id != identity
+        else
+        {
+            return
+        }
+        annotations.adoptIdentity(identity, path: file.standardizedFileURL.path)
+        state?.id = identity
+        state?.bookmark = bookmark(file)
+        checkpoint()
+        rememberWorkspace()
     }
 }

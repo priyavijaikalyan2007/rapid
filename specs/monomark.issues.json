@@ -83,7 +83,9 @@
       "number": 11,
       "id": 6388330712,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/11",
-      "progress": "pending"
+      "progress": "in progress",
+      "evidence": "specs/monomark.lifecycle-smoke.json",
+      "remaining": "Signed user-selected/provider reopening and export grants."
     },
     "formats": {
       "number": 12,

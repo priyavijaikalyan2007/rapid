@@ -24,6 +24,9 @@ final class ReaderWindowController: NSWindowController, NSWindowDelegate
     private var savedLevel: NSWindow.Level?
     private var allowClose = false
     private var printJob: ReaderPrintJob?
+    private weak var observedTabGroup: NSWindowTabGroup?
+    private var tabSelectionObservation: NSKeyValueObservation?
+    private var suspensionTask: Task<Void, Never>?
 
     init(application: AppDelegate)
     {
@@ -165,6 +168,8 @@ final class ReaderWindowController: NSWindowController, NSWindowDelegate
 
     func windowWillClose(_ notification: Notification)
     {
+        suspensionTask?.cancel()
+        tabSelectionObservation = nil
         session.close()
         application?.controllers.removeAll
         {
@@ -172,8 +177,29 @@ final class ReaderWindowController: NSWindowController, NSWindowDelegate
         }
     }
 
+    override func showWindow(_ sender: Any?)
+    {
+        super.showWindow(sender)
+        // Showing a restored tab must select and load it even without a new key-window notification.
+        if let window, let group = window.tabGroup
+        {
+            group.selectedWindow = window
+        }
+        application?.controllers.forEach
+        {
+            $0.trackTabGroup()
+        }
+        activateSession()
+    }
+
     func windowDidBecomeKey(_ notification: Notification)
     {
+        activateSession()
+    }
+
+    private func activateSession()
+    {
+        suspensionTask?.cancel()
         session.isSuspended = false
         if let pendingRecord
         {
@@ -184,10 +210,66 @@ final class ReaderWindowController: NSWindowController, NSWindowDelegate
 
     func windowDidResignKey(_ notification: Notification)
     {
-        Task
+        trackTabGroup()
+        scheduleSuspension()
+    }
+
+    func windowDidUpdate(_ notification: Notification)
+    {
+        trackTabGroup()
+    }
+
+    private func trackTabGroup()
+    {
+        guard let group = window?.tabGroup
+        else
+        {
+            tabSelectionObservation = nil
+            observedTabGroup = nil
+            return
+        }
+        guard group !== observedTabGroup
+        else
+        {
+            return
+        }
+        observedTabGroup = group
+        tabSelectionObservation = group.observe(\.selectedWindow, options: [.new])
+        { [weak self] _, _ in
+            Task
+            { @MainActor [weak self] in
+                self?.tabSelectionChanged()
+            }
+        }
+        tabSelectionChanged()
+    }
+
+    private func tabSelectionChanged()
+    {
+        if window?.tabGroup?.selectedWindow === window
+        {
+            activateSession()
+        }
+        else
+        {
+            scheduleSuspension()
+        }
+    }
+
+    private func scheduleSuspension()
+    {
+        suspensionTask?.cancel()
+        suspensionTask = Task
         { @MainActor [weak self] in
-            try? await Task.sleep(for: .seconds(1))
-            guard let self, let window, !window.isKeyWindow,
+            do
+            {
+                try await Task.sleep(for: .seconds(1))
+            }
+            catch
+            {
+                return
+            }
+            guard let self, let window,
                   let group = window.tabGroup, group.selectedWindow !== window
             else
             {

@@ -22,7 +22,11 @@ extension AppDelegate
                 let report: [String: Any]
                 do
                 {
-                    if review
+                    if ProcessInfo.processInfo.arguments.contains("--lifecycle-smoke")
+                    {
+                        report = try await ReviewLifecycleSmoke.run(application: self)
+                    }
+                    else if review
                     {
                         report = try await ReviewSmoke.run(session: session, output: output)
                     }

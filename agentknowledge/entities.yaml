@@ -22,21 +22,29 @@
     "table": null,
     "file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/CoachingProfile.swift",
     "description": "Eight bounded user-selected behavior weights, executive restraint, and cue preferences. No scores or inferred participant traits.",
-    "related": ["ComposurePreferences", "ComposureOnboarding"]
+    "related": [
+      "ComposurePreferences",
+      "ComposureOnboarding"
+    ]
   },
   {
     "name": "AppPreferences",
     "table": null,
     "file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/AppPreferences.swift",
     "description": "The only typed persistence payload: coaching profile, default session style, supported language, and onboarding completion.",
-    "related": ["ComposurePreferences", "ComposureOnboarding"]
+    "related": [
+      "ComposurePreferences",
+      "ComposureOnboarding"
+    ]
   },
   {
     "name": "CoachSessionState",
     "table": null,
     "file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/CoachSessionState.swift",
     "description": "Sendable lifecycle states and fixed typed failures. No meeting content or persistent session record.",
-    "related": ["ComposureSessionLifecycle"]
+    "related": [
+      "ComposureSessionLifecycle"
+    ]
   },
   {
     "name": "PrintSettings",
@@ -308,7 +316,7 @@
     "name": "ReadingState",
     "table": null,
     "file": "src/app/monomark/apple/Core/ReadingState.swift",
-    "description": "Serialized per-file identity, bookmark, appearance override, and reading checkpoint stored in a native SQLite payload.",
+    "description": "Serialized per-file identity, bookmark, appearance override, and reading checkpoint. Optional update timestamps order same-visit writes. Version-2 history deletion cutoffs reject writes from visits opened before deletion.",
     "related": [
       "MonoMarkHistory"
     ]

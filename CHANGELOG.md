@@ -10,6 +10,14 @@ Created: 2026
 
 # Changelog
 
+## 18 November 2026
+
+### Fixed
+
+- Prevented deleted MonoMark history from returning through queued writes and stopped older checkpoints from rewinding positions.
+- Preserved MonoMark notes, preferences, and identity across atomic replacement followed by rename.
+- Restored saved tab snapshots and released inactive renderers when tab selection changes without a key-window event.
+
 ## 17 November 2026
 
 ### Changed

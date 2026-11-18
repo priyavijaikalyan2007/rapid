@@ -152,4 +152,104 @@ struct HistoryStoreTests
 
         #expect(try store.state(id: "unseen", path: "/tmp/unseen.md") == nil)
     }
+
+    @Test func forgottenVisitsCannotReturnFromAnotherWindow() throws
+    {
+        let url = try database()
+        let first = try HistoryStore(url: url)
+        let other = try HistoryStore(url: url)
+        let saved = record(time: Date().timeIntervalSince1970 - 10)
+        try first.record(saved)
+        try first.forget(saved.id)
+
+        try other.record(saved)
+
+        #expect(try first.page(query: "", offset: 0, limit: 20).isEmpty)
+    }
+
+    @Test func clearRejectsPreviouslyQueuedWritesAfterReopeningTheStore() throws
+    {
+        let url = try database()
+        let store = try HistoryStore(url: url)
+        let saved = record(time: Date().timeIntervalSince1970 - 10)
+        try store.record(saved)
+        try store.clear()
+
+        try HistoryStore(url: url).record(saved)
+
+        #expect(try store.page(query: "", offset: 0, limit: 20).isEmpty)
+    }
+
+    @Test func replacementIdentityCannotReviveADeletedPath() throws
+    {
+        let store = try HistoryStore(url: database())
+        var old = record("old", time: Date().timeIntervalSince1970 - 20)
+        let latest = record("new", time: Date().timeIntervalSince1970 - 10)
+        old.path = latest.path
+        try store.record(latest)
+        try store.forget(latest.id)
+
+        try store.record(old)
+
+        #expect(try store.page(query: "", offset: 0, limit: 20).isEmpty)
+    }
+
+    @Test func explicitLaterVisitsCanReenterHistoryAfterDeletion() throws
+    {
+        let store = try HistoryStore(url: database())
+        let old = record(time: Date().timeIntervalSince1970 - 10)
+        try store.record(old)
+        try store.forget(old.id)
+        let newer = record(time: Date().timeIntervalSince1970 + 1)
+
+        try store.record(newer)
+
+        #expect(try store.state(id: newer.id) == newer)
+    }
+
+    @Test func checkpointsWithinOneVisitCannotRewindSavedPosition() throws
+    {
+        let store = try HistoryStore(url: database())
+        let stale = try stampedRecord(anchor: "older", stamp: 100)
+        let latest = try stampedRecord(anchor: "latest", stamp: 200)
+        try store.record(latest)
+
+        try store.record(stale)
+
+        #expect(try store.state(id: latest.id)?.anchor == "latest")
+    }
+
+    private func stampedRecord(anchor: String, stamp: Double) throws -> ReadingState
+    {
+        var saved = record()
+        saved.anchor = anchor
+        var json = try #require(JSONSerialization.jsonObject(with: JSONEncoder().encode(saved)) as? [String: Any])
+        json["updatedAt"] = stamp
+        return try JSONDecoder().decode(ReadingState.self, from: JSONSerialization.data(withJSONObject: json))
+    }
+
+    @Test func additiveHistoryMigrationPreservesSavedPositions() throws
+    {
+        let url = try database()
+        let saved = record()
+        try HistoryStore(url: url).record(saved)
+        let db = try SQLiteDatabase(url: url)
+        try db.execute("DROP TABLE history_barriers")
+        try db.execute("PRAGMA user_version=1")
+
+        let migrated = try HistoryStore(url: url)
+
+        #expect(try migrated.state(id: saved.id) == saved)
+        #expect(try db.execute("PRAGMA user_version").first?.first == "2")
+    }
+
+    @Test func futureHistorySchemaIsRejectedWithoutChangingItsVersion() throws
+    {
+        let url = try database()
+        let db = try SQLiteDatabase(url: url)
+        try db.execute("PRAGMA user_version=99")
+
+        #expect(throws: ReaderFailure.self) { _ = try HistoryStore(url: url) }
+        #expect(try db.execute("PRAGMA user_version").first?.first == "99")
+    }
 }

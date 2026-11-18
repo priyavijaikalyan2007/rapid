@@ -40,6 +40,15 @@ actor AnnotationStore
         database = db
     }
 
+    /// Rekey metadata and its cascading annotation rows without reading or replacing note content.
+    func identify(document: String, path: String) throws
+    {
+        try database.transaction
+        {
+            try ensure(document, path)
+        }
+    }
+
     func load(document: String, path: String) throws -> ReadingNotes
     {
         try database.transaction

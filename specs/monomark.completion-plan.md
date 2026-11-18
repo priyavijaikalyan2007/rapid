@@ -39,3 +39,15 @@ Commit verified stages separately and keep GitHub issue evidence current.
 External insertions can reuse an old block identifier for unrelated text. Resolve quote/context matches against worker-owned canonical text. Require one match across the complete document, including unloaded blocks. Keep original anchors in local storage. Use temporary resolved block IDs for decoration, navigation, and current export locations. Yield between small batches, cancel obsolete annotation revisions, and cap the quote cache.
 
 Add renderer/src/anchor-resolution.mjs and its tests. Update worker.mjs, host.mjs, annotations.mjs and their regression tests. Add Mac/ReviewReattachmentSmoke.swift and its project membership. Test block shifts, distant duplicates, deleted text, legacy whitespace, visible subsets, cancellation, and current source references. No pattern required. Pure recovery functions and existing worker/native adapters suffice.
+
+
+## Release sequence on 18 November
+
+Finish lifecycle, signed provider access, native performance, appearance/accessibility, physical displays, then signing and store materials. Keep mobile hardware outside the first Mac submission. Record exact unavailable cases without marking their parent gates complete.
+
+Lifecycle files: Core/HistoryStore.swift, Tests/HistoryStoreTests.swift, Shared/ReaderSession.swift, Mac/AppDelegate.swift, Mac/AppDelegate+ArtifactSmoke.swift, new Mac/ReviewLifecycleSmoke.swift, and project.pbxproj. Tests cover deleted-history writes, tab restoration, watcher changes, missing files, duplicate filenames, workspace switching, and inactive renderer release.
+
+Keep HistoryStore's existing record/forget/clear interfaces. Add transactional deletion cutoffs keyed by exact identity/path hashes. Reject checkpoints from visits before deletion, including other connections. A new explicit visit remains eligible. Clear removes individual hash barriers and retains only its global cutoff. No pattern required. Existing SQLite transactions and native adapters suffice. Native acceptance entry points remain test-only and use synthetic files.
+
+
+Lifecycle regressions also cover same-visit checkpoint ordering, source identity reconciliation after coordinated reads, and pending notes during replacement followed by rename. Add an optional ReadingState.updatedAt for write ordering without changing the visit timestamp. Add DocumentAccess.snapshot, AnnotationController.adoptIdentity, and AnnotationStore.identify. ResourceHandler applies the snapshot identity only for the current epoch. Refresh creates a new rendering epoch and rearms its watcher. Preserve note drafts and queued writes while rekeying metadata. Additional files: Core/ReadingState.swift, Core/DocumentAccess.swift, Core/AnnotationController.swift, Core/AnnotationStore.swift, Shared/ResourceHandler.swift, Shared/ReaderSession+Watching.swift, and related Core tests.

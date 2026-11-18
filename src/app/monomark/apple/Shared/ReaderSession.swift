@@ -331,6 +331,7 @@ final class ReaderSession: ObservableObject
             return
         }
         saved.preferences = preferences
+        saved.updatedAt = Date().timeIntervalSince1970
         state = saved
         Task
         {
@@ -397,7 +398,7 @@ final class ReaderSession: ObservableObject
         {
             URL(fileURLWithPath: $0)
         }
-        open(file, folder: folder)
+        open(file, folder: folder, resume: record)
     }
 
     func forget(_ record: ReadingState)
@@ -448,6 +449,7 @@ final class ReaderSession: ObservableObject
         if var saved = state, !forgotten
         {
             saved.preferences = preferences
+            saved.updatedAt = Date().timeIntervalSince1970
             do
             {
                 try store?.record(saved)

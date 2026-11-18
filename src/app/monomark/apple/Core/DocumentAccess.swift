@@ -55,6 +55,25 @@ enum DocumentAccess
         return try result.get()
     }
 
+    /// Read bytes and filesystem identity inside the same provider coordination boundary.
+    static func snapshot(_ file: URL, limit: Int = sourceLimit) throws -> (data: Data, identity: String)
+    {
+        var error: NSError?
+        var result: Result<(Data, String), Error> = .failure(ReaderFailure.unavailable)
+        NSFileCoordinator().coordinate(readingItemAt: file, options: .withoutChanges, error: &error)
+        { url in
+            result = Result
+            {
+                (try boundedRead(url, limit: limit), try identity(url))
+            }
+        }
+        if let error
+        {
+            throw error
+        }
+        return try result.get()
+    }
+
     static func boundedRead(_ file: URL, limit: Int) throws -> Data
     {
         let size = try file.resourceValues(forKeys: [.fileSizeKey, .isRegularFileKey])

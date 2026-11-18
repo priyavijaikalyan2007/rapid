@@ -140,4 +140,36 @@ struct AnnotationControllerTests
         let saved = try await AnnotationStore(url: url).load(document: "one", path: "/book.md")
         #expect(saved.text == "Edit during closure")
     }
+
+    @Test func identityRefreshPreservesPendingNotesBeforeRename() async throws
+    {
+        let model = await controller(database())
+        let token = model.documentToken
+        model.editNotes("Notes survive replacement and rename.")
+
+        model.adoptIdentity("replacement", path: "/book.md")
+        #expect(await model.drain())
+        #expect(model.documentToken == token)
+        model.open(document: "replacement", path: "/renamed.md")
+        await model.waitForLoad()
+
+        #expect(model.text == "Notes survive replacement and rename.")
+    }
+
+    @Test func identityRefreshKeepsQueuedAnnotationsAndCurrentSelection() async throws
+    {
+        let model = await controller(database())
+        let anchor = TextAnchor(blockID: "heading", quote: "Selected", prefix: "", suffix: "", start: 0)
+        model.selection = [anchor]
+        model.addSelection()
+        model.selection = [anchor]
+
+        model.adoptIdentity("replacement", path: "/book.md")
+        #expect(await model.drain())
+        #expect(model.selection == [anchor])
+        model.open(document: "replacement", path: "/renamed.md")
+        await model.waitForLoad()
+
+        #expect(model.records.count == 1)
+    }
 }

@@ -11,7 +11,7 @@ This matrix records the remaining distinctions before submission.
 
 | Area | Implemented behavior | Remaining work or acceptance |
 | --- | --- | --- |
-| Reader navigation | Files/Contents/Links/History, native document tabs, workspaces, local link previews, and optional implicit references | Broader lifecycle, renamed/provider files, and multi-display acceptance (#11, #28) |
+| Reader navigation | Files/Contents/Links/History, native document tabs, workspaces, local link previews, and optional implicit references | Native tab/reload/rename/deletion/workspace/focus checks pass. Signed provider grants and physical displays remain (#11, #28). |
 | Typography and appearance | Installed fonts, element sizes, separate light/dark palettes, and System mode | Broader actual OS appearance/accessibility checks (#18) |
 | Rich Markdown | Tables, syntax highlighting, LaTeX, Mermaid, emoji, local images, and hidden HTML comments | Native resource budgets and large-document workloads (#14) |
 | Artifact clipboard | Table formats, code/source text, equation/diagram/image PNG, plus content Copy | Visible and hidden-window PNG pixels, clipboard round trips, and copy ordering pass (#17) |
@@ -28,6 +28,6 @@ The reader caps source size at 100 MiB and individual rendered blocks at 1 MiB. 
 Printing constructs a separate view for up to 5,000 blocks, 16 MiB of rendered HTML, and 100,000 expanded elements. Estimated page counts can differ from printed output.
 These limits must match the final help and store listing.
 
-Current passing evidence includes 125 Core tests, 137 renderer tests, native clipboard/navigation checks, and actual artifact PNG pixels.
+Current passing evidence includes 136 Core tests, 137 renderer tests, native clipboard/navigation checks, and actual artifact PNG pixels.
 The [release issue](https://github.com/priyavijaikalyan2007/rapid/issues/65) tracks distribution separately from feature acceptance.
 Mac App Store submission remains pending until its selected acceptance gates and account/material checks pass.
