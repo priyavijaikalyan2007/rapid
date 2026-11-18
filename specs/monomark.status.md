@@ -225,3 +225,13 @@ Native UI checks confirm new tabs for Other.md and My File.md and a jump to sect
 Actual Command-C selection copied a sentence from the rendered document. Command-V pasted the same sentence into
 both an annotation comment and Notes. The checks used synthetic files in an isolated QA application.
 The owner authorized release checks after these features. Distribution signing and publication remain separate gates.
+
+## First release checks on 17 November
+
+The owner selected Mac App Store and downloadable builds. GitHub #65 tracks the two routes and remaining release gates.
+Release checks reproduced duplicate history rows after atomic file replacement (#63). A path fallback now recovers reading
+metadata after access is granted. One SQLite transaction retains the latest row and rejects stale windows.
+Tests cover real replacement, preferences, position, rename, reopen, and unrelated paths.
+Shared privacy declarations now cover app-only preferences and selected/app-owned file metadata (#64).
+Resource tests failed before implementation and pass afterward. Mac, iOS simulator, and device bundles contain the manifest.
+No source or reading-data upload occurs. Both signing certificate types are present. No signed archive or upload is claimed.

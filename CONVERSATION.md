@@ -1080,3 +1080,5 @@ Native UI confirms a separate notes file, current-file notes at the end, and loc
 ## MonoMark reference links and clipboard checks — 17 November 2026
 
 The owner asked whether content Copy and comment/annotation Paste work and authorized release checks after features. Native QA copied a selected rendered sentence with Command-C, then pasted its exact text into an annotation comment and Notes with Command-V. Optional implicit references passed actual native tab opening and section jumps. All unsigned platforms compile, with 112 Core and 96 renderer tests passing. Release checks follow. No distribution signing, upload, or publication occurred.
+
+The owner selected Mac App Store, then asked whether both store and downloadable builds are possible. Both routes are planned under #65, with shared code and separate signing. Release checks reproduced and fixed history recovery after replacement (#63), then added tested privacy resources (#64). Available certificates were inspected read-only. No upload or publication occurred.

@@ -272,14 +272,37 @@
       "id": 6425805080,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/61",
       "parent": 2,
-      "progress": "implemented and verified"
+      "progress": "closed",
+      "commit": "7b0232c"
     },
     "implicit-sections": {
       "number": 62,
       "id": 6425805636,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/62",
       "parent": 2,
+      "progress": "closed",
+      "commit": "7b0232c"
+    },
+    "replacement-state": {
+      "number": 63,
+      "id": 6458831101,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/63",
+      "parent": 2,
       "progress": "implemented and verified"
+    },
+    "privacy-manifest": {
+      "number": 64,
+      "id": 6458831260,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/64",
+      "parent": 8,
+      "progress": "implemented and verified"
+    },
+    "dual-distribution": {
+      "number": 65,
+      "id": 6458831458,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/65",
+      "parent": 8,
+      "progress": "release validation"
     }
   },
   "refinements": {

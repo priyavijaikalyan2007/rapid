@@ -19,6 +19,8 @@ Created: 2026
 
 ### Fixed
 
+- Recovered MonoMark per-file reading state after atomic replacement and prevented duplicate history entries.
+- Bundled MonoMark privacy declarations for local preferences and file metadata on all Apple targets.
 - Preserved MonoMark heading highlights, table alignment after jumps, path copying, monospace code, and distinct exported comments.
 
 ## 15 November 2026
