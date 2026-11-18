@@ -1,0 +1,70 @@
+{
+  "anchorCount" : 1,
+  "beforeJump" : {
+    "bodyLefts" : [
+      80.15625,
+      151.15625,
+      348.25
+    ],
+    "codeFont" : "ui-monospace, monospace",
+    "columnLefts" : [
+      80.15625,
+      151.15625,
+      348.25
+    ],
+    "columnsAligned" : true,
+    "headingMarked" : false,
+    "headingText" : "3. Three forms",
+    "monospaceCode" : true,
+    "separatePreambleLines" : true,
+    "sourceGutter" : true,
+    "uniqueIDs" : true,
+    "validTableMarks" : true
+  },
+  "bodyLefts" : [
+    80.15625,
+    151.15625,
+    348.25
+  ],
+  "codeFont" : "ui-monospace, monospace",
+  "columnLefts" : [
+    80.15625,
+    151.15625,
+    348.25
+  ],
+  "columnsAligned" : true,
+  "exportSectionAndLine" : true,
+  "exportSourceHash" : true,
+  "headingMarked" : true,
+  "headingQuote" : "3. Three forms",
+  "headingText" : "3. Three forms",
+  "implicitLinks" : {
+    "boundedViewport" : true,
+    "fileNewTabDispatch" : true,
+    "numberedSectionJump" : true,
+    "sourceUnchanged" : true,
+    "spaceFilename" : true
+  },
+  "inlineAndSelectiveExports" : {
+    "inlineComment" : true,
+    "notesOnlySidecar" : true,
+    "onlyOriginalHighlighted" : true,
+    "repeatInlineExportStable" : true,
+    "sourcePreserved" : true
+  },
+  "longSelection" : {
+    "boundedViewport" : true,
+    "copyBeyondFourMiB" : true,
+    "fullDocumentCopy" : true,
+    "partialCopy" : true,
+    "sourceUnchanged" : true,
+    "unloadedAnchors" : true
+  },
+  "monospaceCode" : true,
+  "passed" : true,
+  "separatePreambleLines" : true,
+  "sourceGutter" : true,
+  "sourceUnchanged" : true,
+  "uniqueIDs" : true,
+  "validTableMarks" : true
+}

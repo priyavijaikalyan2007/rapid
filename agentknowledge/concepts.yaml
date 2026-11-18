@@ -454,5 +454,14 @@
   "related": [
     "MonoMark"
   ]
+},
+{
+  "name": "MonoMarkDocumentSelection",
+  "definition": "Logical block/UTF-16 selection endpoints survive bounded viewport replacement. Worker-backed clipboard and quote resolution include unloaded content, with explicit byte and annotation limits.",
+  "anchor_file": "src/app/monomark/renderer/src/selection-controller.mjs",
+  "related": [
+    "MonoMarkRenderer",
+    "MonoMarkAnnotations"
+  ]
 }
 ]

@@ -274,9 +274,13 @@ final class ReaderSession: ObservableObject
         case "preview": preview(message["href"] as? String ?? "")
         case "copy": copy(message["href"] as? String ?? "")
         case "copyText":
-            if let text = message["text"] as? String, text.utf8.count <= 4 * 1024 * 1024
+            if let text = message["text"] as? String, ClipboardText.accepts(text)
             {
                 copy(text)
+            }
+            else
+            {
+                self.message = "The selection is too large to copy. Select a smaller section."
             }
         case "copyPNG": copyPNG(message)
         case "selection": receiveSelection(message)

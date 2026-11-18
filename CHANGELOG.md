@@ -25,6 +25,7 @@ Created: 2026
 
 ### Fixed
 
+- Preserved MonoMark selections and Copy across unloaded content, including full-index Select All and bounded quote anchors.
 - Enabled sandboxed MonoMark WebKit startup and bounded automatic renderer recovery.
 - Recovered MonoMark per-file reading state after atomic replacement and prevented duplicate history entries.
 - Bundled MonoMark privacy declarations for local preferences and file metadata on all Apple targets.

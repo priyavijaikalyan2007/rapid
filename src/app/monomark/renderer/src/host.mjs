@@ -11,12 +11,13 @@
 import { windowRange } from './viewport.mjs';
 import { sanitizeDocument } from './sanitizer.mjs';
 import { imageBounds, waitForCopyImages } from './artifacts.mjs';
-import { captureSelection, renderAnnotations, scrollToAnnotation, resolveAnnotationLocations } from './annotations.mjs';
+import { renderAnnotations, scrollToAnnotation, resolveAnnotationLocations } from './annotations.mjs';
 import { cssFontFamily } from './typography.mjs';
 import { paperGeometry, layoutBlocks, pageAt, buildViewport } from './page-layout.mjs';
 import { enhanceContent } from './rich-content.mjs';
 import { applyPalette } from './palette.mjs';
 import { decorateSourceLine } from './source-lines.mjs';
+import { createDocumentSelection } from './selection-controller.mjs';
 
 const viewport = document.getElementById('monomark-document');
 const status = document.getElementById('monomark-status');
@@ -57,6 +58,9 @@ let selectionTimer;
 let pendingAnnotation;
 let exportSequence = 0;
 const pendingExports = new Map();
+let mountSequence = 0;
+const documentSelection = createDocumentSelection(window, viewport,
+    { blocks: () => metadata, send: message => worker?.postMessage(message), emit });
 
 function cancelExports()
 {
@@ -128,6 +132,8 @@ function requestRange(force = false)
 function mount(message)
 {
     if (message.request !== request || printing) { return; }
+    documentSelection.beginMount();
+    const mountedSequence = ++mountSequence;
     viewport.replaceChildren(buildViewport(document, message, plan, paper, makeBlock));
     renderedEpoch = epoch;
     const visible = [...viewport.querySelectorAll('.monomark-block')];
@@ -140,7 +146,8 @@ function mount(message)
     const mountedEpoch = epoch;
     Promise.all(enhancements).then(() =>
     {
-        if (mountedEpoch === epoch) { decorateAnnotations(); }
+        if (mountedEpoch === epoch && mountedSequence === mountSequence)
+        { decorateAnnotations(); documentSelection.afterMount(); }
     });
     rebuildOffsets();
     if (pendingAnchor)
@@ -151,6 +158,7 @@ function mount(message)
         if (target) { window.scrollTo(0, target.getBoundingClientRect().top + window.scrollY + saved.offset); }
     }
     decorateAnnotations();
+    documentSelection.afterChange();
     emit('visible', { mounted: visible.length });
     savePosition();
 }
@@ -274,11 +282,14 @@ function savePosition()
 
 async function load(command)
 {
+    documentSelection.reset();
     cancelExports();
     const sequence = ++loadSequence;
     popover.hidden = true; currentLink = ''; printAnchor = null; printing = false;
     copyOverlay?.remove();
     epoch = command.epoch;
+    viewport.replaceChildren();
+    emit('selection', { anchors: [] });
     zoom = Math.min(3, Math.max(0.5, Number(command.zoom) || 1));
     document.body.style.zoom = String(zoom);
     renderedEpoch = '';
@@ -305,6 +316,7 @@ async function load(command)
 
 function onWorker(data, initial)
 {
+    if (data.type === 'selection-result') { documentSelection.receive(data); }
     if (data.type === 'export-locations') { finishExport(data); }
     if (data.type === 'index')
     {
@@ -425,6 +437,7 @@ function preparePrint(data)
 
 function clearDocument(command)
 {
+    documentSelection.reset();
     cancelExports();
     loadSequence++; request++;
     worker?.terminate(); worker = null;
@@ -449,8 +462,10 @@ window.MonoMark = {
         if (command.type === 'appearance') { applyAppearance(command.mode); }
         if (command.type === 'annotations')
         {
+            documentSelection.beforeChange();
             annotations = command.value || [];
             decorateAnnotations();
+            documentSelection.afterChange();
         }
         if (command.type === 'copyComplete' && (!command.epoch || command.epoch === epoch))
         { copyOverlay?.remove(); copyOverlay = null; }
@@ -506,16 +521,10 @@ document.addEventListener('click', event =>
     event.preventDefault();
     emit('navigate', { href: anchor.getAttribute('href'), newTab: event.metaKey || anchor.dataset.newTab === 'true' });
 });
-function reportSelection()
-{
-    emit('selection', { anchors: captureSelection(window, viewport) });
-}
-document.addEventListener('mouseup', reportSelection);
-document.addEventListener('keyup', reportSelection);
 document.addEventListener('selectionchange', () =>
 {
     clearTimeout(selectionTimer);
-    selectionTimer = setTimeout(reportSelection, 120);
+    selectionTimer = setTimeout(() => documentSelection.selectionChanged(), 120);
 });
 document.addEventListener('pointerover', event =>
 {

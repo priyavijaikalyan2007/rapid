@@ -105,6 +105,12 @@ import WebKit
         {
             $0 as? Bool == true
         }
+        let selection = try await ReviewSelectionSmoke.run(session: session)
+        report["longSelection"] = selection
+        report["passed"] = report["passed"] as? Bool == true && selection.values.allSatisfy
+        {
+            $0
+        }
         let image = try await view.takeSnapshot(configuration: nil)
         if let tiff = image.tiffRepresentation, let bitmap = NSBitmapImageRep(data: tiff),
            let png = bitmap.representation(using: .png, properties: [:])

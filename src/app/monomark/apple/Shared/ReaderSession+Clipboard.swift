@@ -92,8 +92,17 @@ extension ReaderSession
     func copy(_ text: String)
     {
         #if os(macOS)
-        NSPasteboard.general.clearContents()
-        NSPasteboard.general.setString(text, forType: .string)
+        let smoke = ProcessInfo.processInfo.arguments.contains("--smoke-test")
+        let pasteboard = smoke ? NSPasteboard.withUniqueName() : NSPasteboard.general
+        pasteboard.clearContents()
+        let written = pasteboard.setString(text, forType: .string)
+        if smoke
+        {
+            lastCopyRequest["textPasteboardVerified"] = written && pasteboard.string(forType: .string) == text
+            lastCopyRequest["textBytes"] = text.utf8.count
+            lastCopyRequest["textHash"] = DocumentStamp.make(text)
+            pasteboard.clearContents()
+        }
         #else
         UIPasteboard.general.string = text
         #endif

@@ -10,6 +10,7 @@
 
 import { parseDocument, findBlocks } from './parser.mjs';
 import { documentStamp } from './document-stamp.mjs';
+import { selectionResult } from './selection-text.mjs';
 let documentIndex;
 self.onmessage = async ({ data }) =>
 {
@@ -21,7 +22,7 @@ self.onmessage = async ({ data }) =>
             documentIndex = parseDocument(data.source, data.references);
             documentIndex.sourceHash = sourceHash;
             const { blocks, ...index } = documentIndex;
-            self.postMessage({ type: 'index', ...index, blocks: blocks.map(({ html, text, ...block }) => block) });
+            self.postMessage({ type: 'index', ...index, blocks: blocks.map(({ html, text, copyBreaks, artifactText, ...block }) => block) });
         }
         if (data.type === 'range')
         {
@@ -35,6 +36,11 @@ self.onmessage = async ({ data }) =>
         if (data.type === 'print')
         {
             self.postMessage({ type: 'print-page', blocks: documentIndex.blocks.slice(data.start, data.start + 100), start: data.start });
+        }
+        if (data.type === 'selection')
+        {
+            self.postMessage({ type: 'selection-result', selectionID: data.selectionID, purpose: data.purpose,
+                ...selectionResult(documentIndex.blocks, data.range, data.purpose) });
         }
         if (data.type === 'export-locations')
         {

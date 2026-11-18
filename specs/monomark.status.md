@@ -280,3 +280,9 @@ Final repository checks now include 48 passing shell cases. No archive upload, A
 ## Version 1.0 and remaining functionality
 
 The owner requested completion before submission and selected version 1.0.0 plus build/revision. Both native products, renderer metadata, and store draft now target 1.0.0. Build commands use a positive numeric BUILD_NUMBER or Git commit count. About retains the source revision separately. New version and invalid-input tests passed after their recorded failures. All unsigned Apple builds, 121 Core tests, and 96 renderer tests pass. The [completion plan](monomark.completion-plan.md) orders the remaining selection, table/print, lifecycle, and resource work. No submission is authorized by this version change.
+
+## Logical document selection checkpoint
+
+Selections now retain block/UTF-16 endpoints across virtualized mounts, Shift extension, long drags, and native menu/keyboard Select All. Copy and quote anchors resolve through the full worker index. Clipboard limits are explicit, and stale document replies cannot replace the clipboard. New loads remove old selectable content immediately. Native text-copy smoke tests use isolated pasteboards.
+
+The [selection evidence](monomark.selection-smoke.json) verifies real WebKit resolution of 60 offscreen anchors, exact partial copy, full-document copy beyond 4 MiB, source preservation, and at most 80 mounted blocks. The existing heading/table/export/link smoke also passes. 125 Core tests and 110 renderer tests pass, alongside unsigned Apple builds. Large-table and print work under #15 continues.

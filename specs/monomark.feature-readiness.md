@@ -17,13 +17,13 @@ This matrix records the remaining distinctions before submission.
 | Artifact clipboard | Table formats, code/source text, equation/diagram/image PNG, plus content Copy | Obscured-window PNG behavior remains unverified (#17) |
 | Highlights and comments | Local storage, quote jumps, colors, search, expansion controls, comment Paste | Wider selection and quote reattachment after external edits (#20) |
 | Notes and exports | Local Markdown/plain Notes, search/Paste, inline/end-section export, separate reading-data files, section/line references | Signed source/provider grants and broader external-edit cases (#24) |
-| Pages and printing | Paper sizes, estimated page progress, Pages/Pageless, and native print action | Large single tables, print fidelity, and selection across unloaded content (#15) |
+| Pages and printing | Paper sizes, estimated page progress, Pages/Pageless, and native print action | Large single tables and print fidelity (#15) |
 | Reload and command line | Selectable auto-reload, manual Refresh, folder invocation, and multiple file arguments | Signed user-selected-file lifecycle coverage remains open (#11) |
 | Window input | Standard Mac menus, shortcuts, independent windows, and native full screen | Physical multi-display acceptance (#28) |
 | Secondary mobile app | Shared implementation and unsigned simulator/device builds | Physical iPhone/iPad testing, mobile icon, and platform-specific release preparation (#28) |
 | Optional numbering | Existing author-written numbers and numbered-reference links | Automatic subsection numbering remains a proposal (#53) |
 
-The mounted viewport currently limits continuous text selection. Do not describe selection across arbitrary unloaded blocks as complete.
+Logical selections now survive unloaded blocks. Native WebKit acceptance verifies 60 offscreen anchors and full-document clipboard text beyond 4 MiB without a full-document DOM. Highlights retain their separate bounded storage limits.
 The reader caps source size at 100 MiB and individual rendered blocks at 1 MiB. Remote images remain blocked.
 Printing constructs a separate view for up to 5,000 blocks. Estimated page counts can differ from printed output.
 These limits must match the final help and store listing.

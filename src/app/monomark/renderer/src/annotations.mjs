@@ -6,7 +6,7 @@
 // FLOW: DOM selection -> quote anchors -> native persistence -> viewport decorations.
 
 import { boundedLabel } from './navigation-label.mjs';
-const excluded = '.monomark-artifact-actions, .monomark-line-number, .monomark-page-label, .katex, svg, script, style';
+import { readableNodes as textNodes } from './document-selection.mjs';
 const colors = new Set(['yellow', 'green', 'blue', 'pink', 'purple']);
 const blocksSelector = '.monomark-block:not([data-generated="true"])';
 
@@ -16,19 +16,6 @@ function sourceLocation(element)
     const endLine = Number(element.dataset.sourceEndLine);
     if (!Number.isInteger(line) || line < 1 || !Number.isInteger(endLine) || endLine < line) { return undefined; }
     return { line, endLine, section: boundedLabel(element.dataset.section || '') };
-}
-
-function textNodes(window, block)
-{
-    const walker = window.document.createTreeWalker(block, window.NodeFilter.SHOW_TEXT);
-    const nodes = [];
-    for (let node = walker.nextNode(); node; node = walker.nextNode())
-    {
-        // Formatting whitespace between table sections must never become a rendered mark.
-        const structural = node.parentElement.matches('section, table, thead, tbody, tfoot, tr');
-        if (!node.parentElement.closest(excluded) && !(structural && !node.textContent.trim())) { nodes.push(node); }
-    }
-    return nodes;
 }
 
 /** A selection may span mounted blocks. Equations and diagram internals are separate artifacts. */

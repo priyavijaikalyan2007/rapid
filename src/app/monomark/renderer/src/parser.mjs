@@ -14,6 +14,7 @@ import { full as emoji } from 'markdown-it-emoji';
 import { recordGeneratedMarker, generatedLine } from './generated-content.mjs';
 import { fileResolver, headingTargets, implicitTokens } from './implicit-links.mjs';
 import { boundedLabel } from './navigation-label.mjs';
+import { blockSelectionText } from './selection-text.mjs';
 
 const escape = new MarkdownIt().utils.escapeHtml;
 
@@ -245,10 +246,10 @@ function addBlock(tokens, md, environment, context)
         }
         if (token.type === 'inline') { indexInline(token, context, blockID); }
     }
-    const text = tokens.map(token => token.type === 'inline' || token.type === 'fence' ? token.content : '').join(' ');
+    const { text, copyBreaks, artifactText } = blockSelectionText(tokens);
     const html = md.renderer.render(tokens, md.options, environment);
     for (const token of tokens) { if (token.type === 'inline') { token.children = null; } }
-    context.blocks.push({ id, blockID, html, text, line, generated,
+    context.blocks.push({ id, blockID, html, text, textLength: text.length, copyBreaks, artifactText, line, generated,
         section: boundedLabel(context.headings.map(heading => heading.title).join(' › ')),
         endLine: tokens.reduce((end, token) => Math.max(end, token.map?.[1] || 0), 0),
         estimate: Math.min(12000, Math.max(48, Math.ceil(text.length / 90) * 26 + (html.includes('<table') ? 100 : 0))) });

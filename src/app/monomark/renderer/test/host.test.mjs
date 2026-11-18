@@ -36,6 +36,59 @@ globalThis.Worker = class {
 await import('../src/host.mjs');
 after(() => dom.window.close());
 
+test('a new load removes old selectable content before its worker is ready',async()=>{
+    document.getElementById('monomark-document').innerHTML='<section class="monomark-block"><p>Old source</p></section>';
+    window.MonoMark.command({type:'load',epoch:'no-stale-selection'});
+    assert.doesNotMatch(document.getElementById('monomark-document').textContent,/Old source/);
+    await new Promise(resolve=>setTimeout(resolve,20));
+});
+
+test('virtualized mounts preserve selection endpoints and Copy uses the full indexed range', async () => {
+    window.MonoMark.command({type:'load',epoch:'long-selection'});
+    await new Promise(resolve=>setTimeout(resolve,20));
+    const worker=workers.at(-1);
+    const blocks=Array.from({length:50},(_,i)=>({id:`s-${i}`,blockID:`s-${i}`,estimate:80,textLength:15,
+        html:`<p>Paragraph ${i}.</p>`}));
+    worker.onmessage({data:{type:'index',outline:[],links:[],blocks}});
+    const rangeRequest=()=>worker.sent.findLast(item=>item.type==='range').request;
+    worker.onmessage({data:{type:'range',request:rangeRequest(),start:0,blocks:blocks.slice(0,3)}});
+    const paragraphs=document.querySelectorAll('.monomark-block p');
+    window.getSelection().setBaseAndExtent(paragraphs[0].firstChild,2,paragraphs[2].firstChild,5);
+    document.dispatchEvent(new window.MouseEvent('mouseup',{bubbles:true}));
+    worker.onmessage({data:{type:'range',request:rangeRequest(),start:1,blocks:blocks.slice(1,4)}});
+    const event=new window.Event('copy',{bubbles:true,cancelable:true});
+    document.getElementById('monomark-document').dispatchEvent(event);
+    assert.equal(event.defaultPrevented,true);
+    const request=worker.sent.at(-1);
+    assert.equal(request.type,'selection');
+    assert.deepEqual(request.range.anchor,{index:0,offset:2});
+    worker.onmessage({data:{type:'selection-result',purpose:'copy',selectionID:request.selectionID,text:'Full selection'}});
+    assert.equal(messages.at(-1).type,'copyText');
+    assert.equal(messages.at(-1).text,'Full selection');
+    assert.equal(document.querySelectorAll('.monomark-block').length,3);
+    await new Promise(resolve=>setTimeout(resolve,300));
+});
+
+test('Select All covers the full index and document replacement cancels pending clipboard data', async () => {
+    window.MonoMark.command({type:'load',epoch:'all-selection'});
+    await new Promise(resolve=>setTimeout(resolve,20));
+    const worker=workers.at(-1);
+    const blocks=Array.from({length:1000},(_,i)=>({id:`all-${i}`,blockID:`all-${i}`,estimate:80,textLength:20}));
+    worker.onmessage({data:{type:'index',outline:[],links:[],blocks}});
+    worker.onmessage({data:{type:'range',request:worker.sent.at(-1).request,start:0,
+        blocks:[{...blocks[0],html:'<p>Visible paragraph.</p>'}]}});
+    const root=document.getElementById('monomark-document');
+    root.dispatchEvent(new window.KeyboardEvent('keydown',{key:'a',metaKey:true,bubbles:true,cancelable:true}));
+    root.dispatchEvent(new window.Event('copy',{bubbles:true,cancelable:true}));
+    const request=worker.sent.at(-1);
+    assert.deepEqual(request.range.focus,{index:999,offset:20});
+    window.MonoMark.command({type:'load',epoch:'replacement-selection'});
+    const count=messages.length;
+    worker.onmessage({data:{type:'selection-result',purpose:'copy',selectionID:request.selectionID,text:'Stale content'}});
+    assert.equal(messages.length,count);
+    await new Promise(resolve=>setTimeout(resolve,20));
+});
+
 test('reference indexes are sent only with a new document parse', async () => {
     window.MonoMark.command({ type: 'load', epoch: 'reference-options', references: {
         implicitFileLinks: true, implicitSectionLinks: true, documentPath: 'Reader.md', linkPaths: ['Other.md']

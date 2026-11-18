@@ -29,3 +29,14 @@ test('the worker still supports bounded viewport, full search, and print request
     await self.onmessage({ data: { type: 'print', start: 0 } });
     assert.equal(messages.at(-1).type, 'print-page');
 });
+
+test('selection copy and anchors include blocks outside the mounted range', async () => {
+    await self.onmessage({data:{type:'load',source:'First **paragraph**.\n\nMiddle paragraph.\n\nLast paragraph.'}});
+    const range = {anchor:{index:0,offset:6},focus:{index:2,offset:4}};
+    await self.onmessage({data:{type:'selection',selectionID:71,purpose:'copy',range}});
+    assert.equal(messages.at(-1).type,'selection-result');
+    assert.equal(messages.at(-1).text,'paragraph.\n\nMiddle paragraph.\n\nLast');
+    await self.onmessage({data:{type:'selection',selectionID:72,purpose:'anchors',range}});
+    assert.equal(messages.at(-1).anchors.length,3);
+    assert.equal(messages.at(-1).selectionID,72);
+});

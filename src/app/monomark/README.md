@@ -78,13 +78,13 @@ Code highlighting is bounded to 100,000 characters per block. Mermaid and math s
 Local raster images are supported within granted access, with a 20 MiB encoded-file limit.
 Remote image requests are blocked. The Links tab can open their sources in the browser.
 Printing currently supports up to 5,000 blocks and constructs a separate print view.
-Cross-viewport text selection and very large single tables still need further native acceptance work.
+Selections retain logical positions across unloaded content. Very large single tables remain under active optimization.
 PNG copies wait for local image decoding and fit the full artifact into the available viewport.
 Large objects may produce reduced-resolution images. Native acceptance verifies copied math, image pixels, and diagrams.
 
 The first implementation does not establish release performance on an untested reference machine.
 Multi-display behavior and physical mobile devices need direct acceptance tests.
-Selections are limited to mounted blocks, with at most 128 anchors and 16,000 UTF-16 units per quoted block.
+Selections span unloaded blocks without mounting them. Clipboard text has a 128 MiB UTF-8 limit. Highlights retain at most 128 anchors and 16,000 UTF-16 units per quoted block.
 Reading notes support up to 1 MiB of UTF-8 text. Unattached quotations remain visible in the inspector.
 Quote reattachment across extensive external edits needs further acceptance work.
 Settings > Customize Colors edits separate light and dark palettes for headings, captions, equations, block quotes, and tables.
