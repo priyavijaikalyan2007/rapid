@@ -30,7 +30,7 @@ tr:nth-child(even) td { background: color-mix(in srgb, CanvasText 5%, Canvas); }
 #monomark-preview { position: fixed; z-index: 10; width: 310px; max-height: 200px; overflow: auto; padding: 14px; background: Canvas; border: 1px solid GrayText; border-radius: 8px; box-shadow: 0 5px 20px #0003; font: 13px/1.5 -apple-system, sans-serif; }
 #monomark-preview-address { overflow-wrap: anywhere; font-weight: 600; } #monomark-preview button { font: inherit; }
 @media (prefers-contrast: more) { th, td, pre { border-width: 2px; } }
-@media print { body { padding: 0; zoom: 1 !important; } #monomark-preview,#monomark-status { display: none; } .monomark-block { break-inside: avoid; } table { display: table; width: 100%; } pre,code { white-space: pre-wrap; overflow-wrap: anywhere; } }
+@media print { body { padding: 0; zoom: 1 !important; } #monomark-preview,#monomark-status { display: none; } .monomark-block { break-inside: auto; } table { display: table; width: 100%; overflow: visible; } thead { display: table-header-group; } tr { break-inside: avoid; } pre,code { white-space: pre-wrap; overflow-wrap: anywhere; } }
 h1,h2,h3,h4,h5,h6 { font-family: var(--heading-font, var(--reader-font)), monospace; }
 code,pre { font-family: var(--code-font, ui-monospace), monospace; }
 :not(pre) > code { font-size: var(--code-size); padding: 0.08em 0.3em; border-radius: 3px; background: color-mix(in srgb, CanvasText 8%, Canvas); box-decoration-break: clone; white-space: break-spaces; }
@@ -93,10 +93,19 @@ tr:nth-child(even) td { background: var(--palette-rowAlternate, Canvas); }
 .monomark-column-banding tr:nth-child(even) td { background: var(--palette-tableBackground, Canvas); }
 .monomark-column-banding td:nth-child(even) { background: var(--palette-columnAlternate, Canvas); }
 .monomark-page { background: var(--reader-surface); }
+/* Global row parity survives character/cell-budget boundaries between table groups. */
+table[data-table-key] tr[data-row-alternate="false"] td { background: var(--palette-tableBackground, Canvas); }
+table[data-table-key] tr[data-row-alternate="true"] td { background: var(--palette-rowAlternate, Canvas); }
+.monomark-column-banding table[data-table-key] tr td { background: var(--palette-tableBackground, Canvas); }
+.monomark-column-banding table[data-table-key] tr td:nth-child(even) { background: var(--palette-columnAlternate, Canvas); }
 @media print
 {
     body, blockquote, .monomark-page { background: white; color: black; }
     h1,h2,h3,h4,h5,h6,figcaption,[data-math],table { color: black; }
     td { background: white; }
     th,tr:nth-child(even) td,.monomark-column-banding td:nth-child(even) { background: #eeeeee; }
+    table[data-table-key] tr[data-row-alternate="false"] td { background: white; }
+    table[data-table-key] tr[data-row-alternate="true"] td { background: #eeeeee; }
+    .monomark-column-banding table[data-table-key] tr td { background: white; }
+    .monomark-column-banding table[data-table-key] tr td:nth-child(even) { background: #eeeeee; }
 }

@@ -8,10 +8,11 @@ import { boundedLabel } from './navigation-label.mjs';
 const separators = { paragraph_close: '\n\n', heading_close: '\n\n', list_item_close: '\n',
     tr_close: '\n', th_close: '\t', td_close: '\t' };
 
-function inlineText(token)
+export function inlineText(token, includeMath = false)
 {
-    if (token.type === 'image' || token.type.startsWith('math_')) { return ''; }
-    if (token.children) { return token.children.map(inlineText).join(''); }
+    if (token.type === 'image') { return ''; }
+    if (token.type.startsWith('math_')) { return includeMath ? token.content : ''; }
+    if (token.children) { return token.children.map(child => inlineText(child, includeMath)).join(''); }
     if (['text', 'code_inline', 'emoji'].includes(token.type)) { return token.content; }
     if (['softbreak', 'hardbreak'].includes(token.type)) { return '\n'; }
     if (token.type === 'footnote_ref')
@@ -84,6 +85,7 @@ export function selectionResult(blocks, range, mode, byteLimit = 128 * 1024 * 10
     const parts = [];
     const anchors = [];
     let bytes = 0;
+    let previousTable;
     for (let index = first.index; index <= last.index; index++)
     {
         const block = blocks[index];
@@ -91,10 +93,12 @@ export function selectionResult(blocks, range, mode, byteLimit = 128 * 1024 * 10
         const end = index === last.index ? Math.min(last.offset, block.text.length) : block.text.length;
         if (mode === 'copy')
         {
-            const text = copyPart(block, start, end);
-            bytes += new TextEncoder().encode(text).length + (parts.length ? 2 : 0);
+            const from = block.tableContinuation && index > first.index ? Math.max(start, block.tableHeaderLength) : start;
+            const text = copyPart(block, from, end);
+            const separator = parts.length ? block.tableKey && block.tableKey === previousTable ? '\n' : '\n\n' : '';
+            bytes += new TextEncoder().encode(text).length + separator.length;
             if (bytes > byteLimit) { return { error: 'The selection is too large to copy. Select a smaller section.' }; }
-            if (text) { parts.push(text); }
+            if (text) { parts.push(separator, text); previousTable = block.tableKey; }
         }
         else if (!block.generated && block.text.slice(start, end).trim())
         {
@@ -105,5 +109,5 @@ export function selectionResult(blocks, range, mode, byteLimit = 128 * 1024 * 10
             anchors.push(anchor);
         }
     }
-    return mode === 'copy' ? { text: parts.join('\n\n') } : { anchors };
+    return mode === 'copy' ? { text: parts.join('') } : { anchors };
 }

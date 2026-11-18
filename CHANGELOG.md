@@ -25,6 +25,8 @@ Created: 2026
 
 ### Fixed
 
+- Bounded MonoMark large-table layout and preserved whole-grid Copy. Kept print content until native completion and rejected oversized jobs explicitly.
+
 - Preserved MonoMark selections and Copy across unloaded content, including full-index Select All and bounded quote anchors.
 - Enabled sandboxed MonoMark WebKit startup and bounded automatic renderer recovery.
 - Recovered MonoMark per-file reading state after atomic replacement and prevented duplicate history entries.

@@ -61,3 +61,17 @@ test('image snapshots wait for decoding and stop after errors or a deadline', as
     assert.equal(await waitForCopyImages(dom.window.document.createElement('span'),5),true);
     dom.window.close();
 });
+
+test('continuation-table copy requests the whole worker grid instead of visible rows',async()=>{
+    const {JSDOM}=await import('jsdom');
+    const {installArtifactActions}=await import('../src/artifacts.mjs');
+    const dom=new JSDOM('<main><table data-table-key="monomark-table-1"><tr><td>Visible subset</td></tr></table></main>');
+    globalThis.document=dom.window.document;
+    const requested=[];
+    installArtifactActions(document.querySelector('main'),{text(){throw new Error('Partial copy');},png(){},
+        table:(key,format)=>requested.push([key,format])});
+    const button=document.querySelector('button');
+    assert.match(button.title,/entire table/i);button.click();
+    assert.deepEqual(requested,[['monomark-table-1','CSV']]);
+    dom.window.close();
+});

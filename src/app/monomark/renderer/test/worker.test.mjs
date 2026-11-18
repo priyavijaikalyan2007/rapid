@@ -40,3 +40,25 @@ test('selection copy and anchors include blocks outside the mounted range', asyn
     assert.equal(messages.at(-1).anchors.length,3);
     assert.equal(messages.at(-1).selectionID,72);
 });
+
+test('table copy from a continuation returns the entire original grid',async()=>{
+    const rows=Array.from({length:200},(_,index)=>`| ${index} | Value ${index} |`);
+    await self.onmessage({data:{type:'load',source:'| Index | Value |\n|---|---|\n'+rows.join('\n')}});
+    const index=messages.at(-1);
+    assert.equal(index.tables,undefined);
+    await self.onmessage({data:{type:'table-copy',tableKey:'monomark-table-1',format:'CSV',copyID:7}});
+    assert.equal(messages.at(-1).type,'table-copy');
+    assert.equal(messages.at(-1).text.split('\n').length,201);
+    assert.ok(messages.at(-1).text.endsWith('199,Value 199'));
+});
+
+
+test('print responses preserve a generation token and reject an oversized DOM before transfer',async()=>{
+    await self.onmessage({data:{type:'load',source:'Small paragraph.'}});
+    await self.onmessage({data:{type:'print',start:0,printID:81}});
+    assert.equal(messages.at(-1).printID,81);
+    await self.onmessage({data:{type:'load',source:Array.from({length:5001},()=> 'Paragraph.').join('\n\n')}});
+    await self.onmessage({data:{type:'print',start:0,printID:82}});
+    assert.match(messages.at(-1).error,/5,000 blocks/);
+    assert.equal(messages.at(-1).blocks,undefined);
+});

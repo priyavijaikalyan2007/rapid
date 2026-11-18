@@ -286,3 +286,14 @@ The owner requested completion before submission and selected version 1.0.0 plus
 Selections now retain block/UTF-16 endpoints across virtualized mounts, Shift extension, long drags, and native menu/keyboard Select All. Copy and quote anchors resolve through the full worker index. Clipboard limits are explicit, and stale document replies cannot replace the clipboard. New loads remove old selectable content immediately. Native text-copy smoke tests use isolated pasteboards.
 
 The [selection evidence](monomark.selection-smoke.json) verifies real WebKit resolution of 60 offscreen anchors, exact partial copy, full-document copy beyond 4 MiB, source preservation, and at most 80 mounted blocks. The existing heading/table/export/link smoke also passes. 125 Core tests and 110 renderer tests pass, alongside unsigned Apple builds. Large-table and print work under #15 continues.
+
+
+## Large tables and printing checkpoint
+
+Large tables now split at complete rows into bounded groups, with shared column widths, global row parity, stable semantic destinations, and whole-source table ranges. Each table Copy button resolves the entire grid through the worker. Explicit column and clipboard limits reject unsupported data without truncation.
+
+Print requests carry generation tokens and reject excessive block, HTML, or element counts. Enhancement runs sequentially and checks expanded elements. A cancelled or replaced document ignores late print replies. Native printing retains its complete DOM until AppKit reports completion. The synchronous no-panel test first exposed WebKit's asynchronous pagination requirement. The same completion path now drives production and test jobs.
+
+The [native evidence](monomark.table-print-smoke.json) verifies a 20,000-row table with only 288 mounted rows at the distant search result, exact whole-grid clipboard data, aligned columns, unique IDs, and unchanged source. A 240-row table prints to 12 PDF pages with all rows present, then restores the reader. Rendered first, middle, and final pages were visually inspected. WebKit may divide row borders at page boundaries and does not repeat headers on every physical page. Physical printer and arbitrary paper checks remain separate.
+
+125 Core tests, 123 renderer tests, unsigned Mac/mobile builds, repository checks, and source checks pass at this checkpoint. Wider lifecycle, resource, appearance, provider, and physical-device acceptance continues.

@@ -111,6 +111,9 @@ import WebKit
         {
             $0
         }
+        let tables = try await ReviewTableSmoke.run(session: session)
+        report["largeTableAndPrint"] = tables
+        report["passed"] = report["passed"] as? Bool == true && tables["passed"] as? Bool == true
         let image = try await view.takeSnapshot(configuration: nil)
         if let tiff = image.tiffRepresentation, let bitmap = NSBitmapImageRep(data: tiff),
            let png = bitmap.representation(using: .png, properties: [:])

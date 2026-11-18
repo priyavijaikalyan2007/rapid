@@ -109,7 +109,8 @@
       "number": 15,
       "id": 6388331615,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/15",
-      "progress": "pending"
+      "progress": "closed",
+      "evidence": "specs/monomark.table-print-smoke.json"
     },
     "copy-formats": {
       "number": 16,

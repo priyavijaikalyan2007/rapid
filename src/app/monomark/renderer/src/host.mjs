@@ -8,6 +8,7 @@
 // RELATES: worker.mjs, ReaderWebView.swift
 // FLOW: Validated command -> bounded view update -> native event.
 
+import { printNodeLimit } from './print-budget.mjs';
 import { windowRange } from './viewport.mjs';
 import { sanitizeDocument } from './sanitizer.mjs';
 import { imageBounds, waitForCopyImages } from './artifacts.mjs';
@@ -44,6 +45,8 @@ let preferences = {};
 let printing = false;
 let printAnchor;
 let printBlocks = [];
+let printSequence = 0;
+let printID = 0;
 let epoch = '';
 let loadSequence = 0;
 let paper = paperGeometry();
@@ -59,6 +62,8 @@ let pendingAnnotation;
 let exportSequence = 0;
 const pendingExports = new Map();
 let mountSequence = 0;
+let tableCopySequence = 0;
+let tableCopyID = 0;
 const documentSelection = createDocumentSelection(window, viewport,
     { blocks: () => metadata, send: message => worker?.postMessage(message), emit });
 
@@ -179,14 +184,22 @@ function makeBlock(block, index)
     }
     if (block.html.length > 1024 * 1024)
     {
+        element.dataset.generated = 'true';
         element.textContent = 'This block exceeds the 1 MiB rendered-object limit. Split the source block to view it.';
     }
     else { element.innerHTML = sanitizeDocument(window, block.html); }
-    if (preferences.showLineNumbers) { decorateSourceLine(document, element, block, sourceLines); }
+    if (preferences.showLineNumbers)
+    { decorateSourceLine(document, element, { ...block, line: block.displayLine ?? block.line }, sourceLines); }
     return element;
 }
 
-const enhance = element => enhanceContent(element, { measure, emit, copyPNG });
+const enhance = element => enhanceContent(element, { measure, emit, copyPNG, copyTable });
+
+function copyTable(tableKey, format)
+{
+    tableCopyID = ++tableCopySequence;
+    worker?.postMessage({ type: 'table-copy', tableKey, format, copyID: tableCopyID });
+}
 
 async function copyPNG(element)
 {
@@ -283,9 +296,10 @@ function savePosition()
 async function load(command)
 {
     documentSelection.reset();
+    tableCopyID = 0;
     cancelExports();
     const sequence = ++loadSequence;
-    popover.hidden = true; currentLink = ''; printAnchor = null; printing = false;
+    popover.hidden = true; currentLink = ''; printAnchor = null; printing = false; printID = 0; printBlocks = [];
     copyOverlay?.remove();
     epoch = command.epoch;
     viewport.replaceChildren();
@@ -316,6 +330,12 @@ async function load(command)
 
 function onWorker(data, initial)
 {
+    if (data.type === 'table-copy' && data.copyID === tableCopyID)
+    {
+        tableCopyID = 0;
+        if (data.error) { emit('status', { message: data.error }); }
+        else { emit('copyText', { text: data.text }); }
+    }
     if (data.type === 'selection-result') { documentSelection.receive(data); }
     if (data.type === 'export-locations') { finishExport(data); }
     if (data.type === 'index')
@@ -422,22 +442,60 @@ function showLink(link, rect, newTab = false)
     emit('preview', { href: link });
 }
 
+function finishPrint()
+{
+    printing = false; printID = 0; printBlocks = [];
+    pendingAnchor = printAnchor; printAnchor = null; activeRange = '';
+    requestRange(true);
+}
+
 function preparePrint(data)
 {
+    if (!printing || data.printID !== printID) { return; }
+    if (data.error) { finishPrint(); emit('status', { message: data.error }); return; }
     printBlocks.push(...data.blocks);
-    if (data.blocks.length === 100 && data.start + 100 < metadata.length)
+    const next = data.start + data.blocks.length;
+    if (next < metadata.length && data.blocks.length)
     {
-        worker.postMessage({ type: 'print', start: data.start + 100 });
+        worker.postMessage({ type: 'print', printID, start: next });
         return;
     }
-    // A bounded print limit prevents a huge print DOM. The UI reports this limit before starting a job.
-    viewport.innerHTML = sanitizeDocument(window, printBlocks.map(block => block.html).join(''));
-    Promise.all([...viewport.children].map(element => enhance(element))).then(() => emit('printReady'));
+    mountPrint(printID).catch(() =>
+    {
+        if (printID !== data.printID) { return; }
+        finishPrint(); emit('status', { message: 'The print view could not be prepared. Refresh and try again.' });
+    });
+}
+
+async function mountPrint(generation)
+{
+    ++mountSequence;
+    documentSelection.beforeChange();
+    viewport.replaceChildren();
+    let nodes = 0;
+    for (let index = 0; index < printBlocks.length; index++)
+    {
+        if (!printing || generation !== printID) { return; }
+        const element = makeBlock(printBlocks[index], index);
+        viewport.append(element);
+        await enhance(element);
+        if (!printing || generation !== printID) { return; }
+        nodes += 1 + element.querySelectorAll('*').length;
+        if (nodes > printNodeLimit)
+        {
+            finishPrint();
+            emit('status', { message: 'Printing is limited to 100,000 rendered elements after diagrams and equations expand. Print a smaller document.' });
+            return;
+        }
+    }
+    decorateAnnotations();
+    emit('printReady');
 }
 
 function clearDocument(command)
 {
     documentSelection.reset();
+    tableCopyID = 0;
     cancelExports();
     loadSequence++; request++;
     worker?.terminate(); worker = null;
@@ -445,7 +503,7 @@ function clearDocument(command)
     metadata = []; knownBlockIDs = new Set(); sourceLines = 0; heights = []; outline = []; annotations = []; matches = [];
     indexed = false;
     pendingAnchor = null; pendingAnnotation = null; activeRange = '';
-    printing = false; printBlocks = []; printAnchor = null;
+    printing = false; printID = 0; printBlocks = []; printAnchor = null;
     clearTimeout(positionTimer); clearTimeout(selectionTimer);
     copyOverlay?.remove(); popover.hidden = true;
     viewport.replaceChildren(); status.textContent = '';
@@ -485,14 +543,16 @@ window.MonoMark = {
         }
         if (command.type === 'print')
         {
+            if (!worker || !indexed || printing) { return; }
             if (metadata.length > 5000) { emit('status', { message: 'Printing is limited to 5,000 blocks in this build.' }); return; }
             const reading = [...viewport.querySelectorAll('.monomark-block')].find(item => item.getBoundingClientRect().bottom > 0);
             printAnchor = reading ? { id: reading.id, offset: -reading.getBoundingClientRect().top } : null;
             printing = true;
+            printID = ++printSequence;
             printBlocks = [];
-            worker.postMessage({ type: 'print', start: 0 });
+            worker.postMessage({ type: 'print', printID, start: 0 });
         }
-        if (command.type === 'afterPrint') { printing = false; pendingAnchor = printAnchor; printAnchor = null; activeRange = ''; requestRange(true); }
+        if (command.type === 'afterPrint') { finishPrint(); }
     },
     metrics() { return { layout: paged ? 'pages' : 'pageless', pages: plan.totalPages, blocks: metadata.length, mounted: viewport.querySelectorAll('.monomark-block').length, outline: outline.length }; }
 };

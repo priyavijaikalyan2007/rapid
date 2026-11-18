@@ -6,7 +6,7 @@
 import { sanitizeDocument, sanitizeDiagram, localImageURL } from './sanitizer.mjs';
 import { installArtifactActions } from './artifacts.mjs';
 let diagramSequence = 0;
-export async function enhanceContent(element, { measure, emit, copyPNG })
+export async function enhanceContent(element, { measure, emit, copyPNG, copyTable })
 {
     for (const image of element.querySelectorAll('img[data-src]'))
     {
@@ -54,7 +54,7 @@ export async function enhanceContent(element, { measure, emit, copyPNG })
         }
         catch { diagram.textContent = 'Diagram could not be rendered. Its syntax or complexity exceeds this viewer’s limits.'; }
     }
-    installArtifactActions(element, { text: text => emit('copyText', { text }), png: copyPNG });
+    installArtifactActions(element, { text: text => emit('copyText', { text }), png: copyPNG, table: copyTable });
     measure(element);
 }
 

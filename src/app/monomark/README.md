@@ -77,8 +77,13 @@ The source limit is 100 MiB. A rendered block larger than 1 MiB receives an expl
 Code highlighting is bounded to 100,000 characters per block. Mermaid and math source are bounded to 16,384 characters.
 Local raster images are supported within granted access, with a 20 MiB encoded-file limit.
 Remote image requests are blocked. The Links tab can open their sources in the browser.
-Printing currently supports up to 5,000 blocks and constructs a separate print view.
-Selections retain logical positions across unloaded content. Very large single tables remain under active optimization.
+Printing supports up to 5,000 blocks, 16 MiB of rendered HTML, and 100,000 rendered elements.
+The element count includes expanded equations and diagrams. Each block must fit the 1 MiB rendered-object limit.
+A larger job reports its limit instead of printing incomplete content.
+AppKit completion restores the reading view after printing or cancellation.
+
+Large tables split at complete rows, with at most 64 rows and a 2,048-cell target per group. A single row stays intact. Tables above 1,024 columns report an explicit limit. Continuation groups repeat the header and share column widths. Copy controls export the entire table, including unloaded rows.
+Selections retain logical positions across unloaded content.
 PNG copies wait for local image decoding and fit the full artifact into the available viewport.
 Large objects may produce reduced-resolution images. Native acceptance verifies copied math, image pixels, and diagrams.
 

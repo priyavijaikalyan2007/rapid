@@ -71,13 +71,16 @@ export function installArtifactActions(root, handlers)
         {
             const button = document.createElement('button');
             button.type = 'button';
-            button.title = kind === 'equation' && format === 'Source' ? 'Copy equation as LaTeX' : `Copy ${kind} as ${format}`;
+            button.title = element.dataset.tableKey ? `Copy entire table as ${format}` :
+                kind === 'equation' && format === 'Source' ? 'Copy equation as LaTeX' : `Copy ${kind} as ${format}`;
             button.setAttribute('aria-label', button.title);
             button.innerHTML = icon(format);
             button.onclick = event =>
             {
                 event.stopPropagation();
                 if (format === 'PNG') { handlers.png(element); return; }
+                if (kind === 'table' && element.dataset.tableKey)
+                { handlers.table(element.dataset.tableKey, format); return; }
                 const text = kind === 'table' ? serializeRows(tableRows(element), { CSV: ',', TSV: '\t', PSV: '|' }[format])
                     : artifactSource(kind, element.dataset, element.textContent);
                 handlers.text(text);

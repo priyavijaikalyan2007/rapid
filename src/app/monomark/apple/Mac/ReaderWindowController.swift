@@ -23,6 +23,7 @@ final class ReaderWindowController: NSWindowController, NSWindowDelegate
     private var savedStyle: NSWindow.StyleMask?
     private var savedLevel: NSWindow.Level?
     private var allowClose = false
+    private var printJob: ReaderPrintJob?
 
     init(application: AppDelegate)
     {
@@ -205,10 +206,35 @@ final class ReaderWindowController: NSWindowController, NSWindowDelegate
         {
             return
         }
-        guard let info = NSPrintInfo.shared.copy() as? NSPrintInfo
+        guard let info = printInformation()
         else
         {
             return
+        }
+        let operation = view.printOperation(with: info)
+        let ticket = session.documentEpoch
+        printJob = ReaderPrintJob(operation: operation)
+        { [weak self] _ in
+            guard let self
+            else
+            {
+                return
+            }
+            if session.documentEpoch == ticket
+            {
+                session.command(["type": "afterPrint"])
+            }
+            printJob = nil
+        }
+        printJob?.start(window: window)
+    }
+
+    private func printInformation() -> NSPrintInfo?
+    {
+        guard let info = NSPrintInfo.shared.copy() as? NSPrintInfo
+        else
+        {
+            return nil
         }
         let paper = session.paperLayout
         if session.preferences.paperSize != "system"
@@ -220,9 +246,7 @@ final class ReaderWindowController: NSWindowController, NSWindowDelegate
         info.bottomMargin = paper.marginPoints
         info.leftMargin = paper.marginPoints
         info.rightMargin = paper.marginPoints
-        let operation = view.printOperation(with: info)
-        operation.runModal(for: window, delegate: nil, didRun: nil, contextInfo: nil)
-        session.command(["type": "afterPrint"])
+        return info
     }
 }
 

@@ -80,3 +80,12 @@ The [package record](monomark.package.json) contains its SHA-256 checksum.
 The [final artifact test](monomark.final-artifact-smoke.json) verifies actual equation, image, and diagram PNG pixels
 through an isolated pasteboard. It also verifies cancellation after document replacement and unchanged fixture source.
 This package has no distribution signature or notarization and remains a local trial artifact.
+
+
+## Bounded tables and native print acceptance
+
+The [current native evidence](monomark.table-print-smoke.json) verifies bounded viewing of 20,000 rows and exact whole-table clipboard text. A 240-row fixture prints to 12 PDF pages. PDF text contains every row. First, middle, and final pages were rendered and inspected. The source stays unchanged, and the reading view returns afterward. Physical printer and arbitrary paper acceptance remains separate.
+
+A synchronous test without panels first produced an excessive temporary PDF. WebKit computes print page ranges asynchronously. The native test and application now retain the print DOM until AppKit's completion callback. This follows Apple's [print operation contract](https://developer.apple.com/documentation/appkit/nsprintoperation) and the asynchronous pagination behavior in [WebKit's printing view](https://github.com/WebKit/WebKit/blob/main/Source/WebKit/UIProcess/mac/WKPrintingView.mm). The failed temporary PDF was removed.
+
+Print jobs reject more than 5,000 blocks, 16 MiB of rendered HTML, or 100,000 rendered elements. Individual blocks retain the 1 MiB rendered-object limit. Unsupported jobs report their limit rather than print incomplete content. Worker replies carry generation tokens, and cancelled jobs cannot replace the current document.

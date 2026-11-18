@@ -227,7 +227,7 @@ test('native commands preserve document context and expose link actions', async 
     window.MonoMark.command({ type: 'zoom', value: 0 });
     assert.equal(document.body.style.zoom, '1');
     window.MonoMark.command({ type: 'print' });
-    worker.onmessage({ data: { type: 'print-page', start: 0, blocks: [{ html: '<p>Printable</p>' }] } });
+    worker.onmessage({ data: { type: 'print-page', printID: worker.sent.at(-1).printID, start: 0, blocks: [{ html: '<p>Printable</p>' }] } });
     await new Promise(resolve => setTimeout(resolve, 10));
     assert.equal(messages.at(-1).type, 'printReady');
     window.MonoMark.command({ type: 'afterPrint' });
@@ -387,7 +387,7 @@ test('print cancellation restores the previous block position', async () => {
     window.scrollTo = (_,top) => scrolls.push(top);
     try {
         window.MonoMark.command({type:'print'});
-        worker.onmessage({data:{type:'print-page',start:0,blocks:[{html:'<p>Print view.</p>'}]}});
+        worker.onmessage({data:{type:'print-page',printID:worker.sent.at(-1).printID,start:0,blocks:[{html:'<p>Print view.</p>'}]}});
         await new Promise(resolve => setTimeout(resolve,20));
         window.HTMLElement.prototype.getBoundingClientRect = () => ({top:50,left:0,width:400,height:200,bottom:250});
         window.MonoMark.command({type:'afterPrint'});
@@ -432,4 +432,44 @@ test('an empty workspace clears stale document content and navigation', async ()
     worker.onmessage({data:{type:'index',outline:[],links:[],blocks:[{id:'late',blockID:'late',estimate:80}]}});
     assert.equal(window.MonoMark.metrics().blocks,0);
     await new Promise(resolve => setTimeout(resolve,300));
+});
+
+
+test('a cancelled print reply cannot replace the reading document',async()=>{
+    window.MonoMark.command({type:'load',epoch:'cancelled-print'});
+    await new Promise(resolve=>setTimeout(resolve,20));
+    const worker=workers.at(-1);
+    const block={id:'reading',blockID:'reading',estimate:80,html:'<p>Reading document.</p>'};
+    worker.onmessage({data:{type:'index',outline:[],links:[],blocks:[block]}});
+    worker.onmessage({data:{type:'range',request:worker.sent.at(-1).request,start:0,blocks:[block]}});
+    window.MonoMark.command({type:'print'});
+    const printID=worker.sent.at(-1).printID;
+    window.MonoMark.command({type:'afterPrint'});
+    const readyBefore=messages.filter(x=>x.type==='printReady').length;
+    worker.onmessage({data:{type:'print-page',printID,start:0,blocks:[{html:'<p>Stale print.</p>'}]}});
+    await new Promise(resolve=>setTimeout(resolve,20));
+    assert.equal(document.getElementById('monomark-document').textContent.includes('Stale print.'),false);
+    assert.equal(messages.filter(x=>x.type==='printReady').length,readyBefore);
+});
+
+test('table buttons request the complete grid and ignore replies after document replacement',async()=>{
+    window.MonoMark.command({type:'load',epoch:'table-actions'});
+    await new Promise(resolve=>setTimeout(resolve,20));
+    const worker=workers.at(-1);
+    const block={id:'table',blockID:'block-0',estimate:80,
+        html:'<table data-table-key="full-grid"><thead><tr><th>A</th></tr></thead><tbody><tr><td>Visible</td></tr></tbody></table>'};
+    worker.onmessage({data:{type:'index',outline:[],links:[],blocks:[block]}});
+    worker.onmessage({data:{type:'range',request:worker.sent.at(-1).request,start:0,blocks:[block]}});
+    await new Promise(resolve=>setTimeout(resolve,20));
+    document.querySelector('[title="Copy entire table as CSV"]').click();
+    const action=worker.sent.at(-1);
+    assert.equal(action.tableKey,'full-grid');
+    worker.onmessage({data:{type:'table-copy',copyID:action.copyID,text:'A\nVisible\nUnloaded'}});
+    assert.equal(messages.at(-1).text,'A\nVisible\nUnloaded');
+    document.querySelector('[title="Copy entire table as CSV"]').click();
+    const stale=worker.sent.at(-1);
+    window.MonoMark.command({type:'clear',epoch:'new-table-document'});
+    const count=messages.filter(x=>x.type==='copyText').length;
+    worker.onmessage({data:{type:'table-copy',copyID:stale.copyID,text:'Stale'}});
+    assert.equal(messages.filter(x=>x.type==='copyText').length,count);
 });

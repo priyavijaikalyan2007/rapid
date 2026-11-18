@@ -101,31 +101,48 @@
     "name": "Composure",
     "definition": "Private conversation coach targeting macOS V1 with native onboarding, saved preferences, Prepare, and explicit remote live capture. Model usefulness remains unaccepted. Existing mobile source is deferred.",
     "anchor_file": "src/composure/README.md",
-    "related": ["ComposureSessionLifecycle", "ComposureDiagnostics", "ComposurePreferences", "ComposureOnboarding"]
+    "related": [
+      "ComposureSessionLifecycle",
+      "ComposureDiagnostics",
+      "ComposurePreferences",
+      "ComposureOnboarding"
+    ]
   },
   {
     "name": "ComposureOnboarding",
     "definition": "Four privacy and profile steps before ordinary navigation. Finish saves completion and choices together. Recovery preserves unreadable records until explicit reset.",
     "anchor_file": "src/composure/Apps/Shared/PreferencesRootView.swift",
-    "related": ["Composure", "ComposurePreferences"]
+    "related": [
+      "Composure",
+      "ComposurePreferences"
+    ]
   },
   {
     "name": "ComposurePreferences",
     "definition": "Typed coaching choices and onboarding state in a bounded, versioned app-only preference record. Drafts survive navigation, and failed reads block normal writes.",
     "anchor_file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/PreferencesCoordinator.swift",
-    "related": ["Composure", "ComposureDiagnostics", "ComposureOnboarding"]
+    "related": [
+      "Composure",
+      "ComposureDiagnostics",
+      "ComposureOnboarding"
+    ]
   },
   {
     "name": "ComposureSessionLifecycle",
     "definition": "Pure session transition policy that requires readiness, ordered startup, and cleanup before reuse. It does not own capture resources.",
     "anchor_file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/SessionLifecycle.swift",
-    "related": ["Composure", "ComposureDiagnostics"]
+    "related": [
+      "Composure",
+      "ComposureDiagnostics"
+    ]
   },
   {
     "name": "ComposureDiagnostics",
     "definition": "Content-safe logging facade limited to approved event identifiers and bounded numeric counts, with a native unified-log sink.",
     "anchor_file": "src/composure/Packages/ComposureCore/Sources/ComposureCore/DiagnosticLogger.swift",
-    "related": ["Composure"]
+    "related": [
+      "Composure"
+    ]
   },
   {
     "name": "RepositoryConfiguration",
@@ -430,38 +447,47 @@
       "MonoMarkAnnotations"
     ]
   },
-{
-  "name": "MonoMarkImplicitReferences",
-  "definition": "Optional unique Markdown filenames and numbered section references become view-only links. A bounded shared metadata cache coalesces folder scans. File references create native tabs.",
-  "anchor_file": "src/app/monomark/renderer/src/implicit-links.mjs",
-  "related": [
-    "MonoMarkWorkspaces",
-    "MonoMarkRenderer"
-  ]
-},
-{
-  "name": "MonoMarkRendererRecovery",
-  "definition": "A bounded crash budget prevents repeated WebKit helper failures from creating an automatic restart loop. Explicit Refresh restarts the offline shell.",
-  "anchor_file": "src/app/monomark/apple/Core/RendererRecovery.swift",
-  "related": [
-    "MonoMarkRenderer"
-  ]
-},
-{
-  "name": "MonoMarkSubmission",
-  "definition": "Mac-first App Store listing, private contact reuse, synthetic review fixtures, clean-source local archive/export, and separate upload/submission gates under Outcrop Inc.",
-  "anchor_file": "src/app/monomark/AppStore/README.md",
-  "related": [
-    "MonoMark"
-  ]
-},
-{
-  "name": "MonoMarkDocumentSelection",
-  "definition": "Logical block/UTF-16 selection endpoints survive bounded viewport replacement. Worker-backed clipboard and quote resolution include unloaded content, with explicit byte and annotation limits.",
-  "anchor_file": "src/app/monomark/renderer/src/selection-controller.mjs",
-  "related": [
-    "MonoMarkRenderer",
-    "MonoMarkAnnotations"
-  ]
-}
+  {
+    "name": "MonoMarkImplicitReferences",
+    "definition": "Optional unique Markdown filenames and numbered section references become view-only links. A bounded shared metadata cache coalesces folder scans. File references create native tabs.",
+    "anchor_file": "src/app/monomark/renderer/src/implicit-links.mjs",
+    "related": [
+      "MonoMarkWorkspaces",
+      "MonoMarkRenderer"
+    ]
+  },
+  {
+    "name": "MonoMarkRendererRecovery",
+    "definition": "A bounded crash budget prevents repeated WebKit helper failures from creating an automatic restart loop. Explicit Refresh restarts the offline shell.",
+    "anchor_file": "src/app/monomark/apple/Core/RendererRecovery.swift",
+    "related": [
+      "MonoMarkRenderer"
+    ]
+  },
+  {
+    "name": "MonoMarkSubmission",
+    "definition": "Mac-first App Store listing, private contact reuse, synthetic review fixtures, clean-source local archive/export, and separate upload/submission gates under Outcrop Inc.",
+    "anchor_file": "src/app/monomark/AppStore/README.md",
+    "related": [
+      "MonoMark"
+    ]
+  },
+  {
+    "name": "MonoMarkDocumentSelection",
+    "definition": "Logical block/UTF-16 selection endpoints survive bounded viewport replacement. Worker-backed clipboard and quote resolution include unloaded content, with explicit byte and annotation limits.",
+    "anchor_file": "src/app/monomark/renderer/src/selection-controller.mjs",
+    "related": [
+      "MonoMarkRenderer",
+      "MonoMarkAnnotations"
+    ]
+  },
+  {
+    "name": "MonoMarkBoundedTables",
+    "definition": "Complete-row table groups retain shared widths, stable destinations and source ranges. Worker-owned grids support whole-table copy. Print budgets reject incomplete jobs and AppKit completion restores the reader.",
+    "anchor_file": "src/app/monomark/renderer/src/table-groups.mjs",
+    "related": [
+      "MonoMarkRenderer",
+      "MonoMarkDocumentSelection"
+    ]
+  }
 ]

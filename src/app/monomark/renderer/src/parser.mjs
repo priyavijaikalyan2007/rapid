@@ -15,6 +15,7 @@ import { recordGeneratedMarker, generatedLine } from './generated-content.mjs';
 import { fileResolver, headingTargets, implicitTokens } from './implicit-links.mjs';
 import { boundedLabel } from './navigation-label.mjs';
 import { blockSelectionText } from './selection-text.mjs';
+import { tableGroups, tableCopyRows, tableColumns } from './table-groups.mjs';
 
 const escape = new MarkdownIt().utils.escapeHtml;
 
@@ -111,7 +112,8 @@ export function parseDocument(source, referenceOptions = {})
     md.renderer.rules.image = (tokens, index) =>
     {
         const token = tokens[index];
-        return `<img id="${escape(token.attrGet('id') || '')}" loading="lazy" data-src="${escape(token.attrGet('src') || '')}" alt="${escape(token.content)}">`;
+        const id = token.attrGet('id');
+        return `<img${id ? ` id="${escape(id)}"` : ''} loading="lazy" data-src="${escape(token.attrGet('src') || '')}" alt="${escape(token.content)}">`;
     };
     const text = source.replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n').replace(/\0/g, '\uFFFD')
         .replace(/^---\n[\s\S]*?\n---(?:\n|$)/, match => match.replace(/[^\n]/g, ''));
@@ -121,7 +123,7 @@ export function parseDocument(source, referenceOptions = {})
     const footnoteTail = md.core.ruler.getRules('').find(rule => rule.name === 'footnote_tail');
     md.core.ruler.disable('footnote_tail');
     md.block.parse(text, md, environment, tokens);
-    const context = { outline: [], links: [], used: new Map(), headings: [], counts: {}, blocks: [],
+    const context = { outline: [], links: [], used: new Map(), headings: [], counts: {}, blocks: [], tables: new Map(),
         generatedRanges: generated.ranges, sourceBlocks: 0, generatedBlocks: 0 };
     context.references = { ...referenceOptions,
         file: fileResolver(referenceOptions.linkPaths, referenceOptions.documentPath),
@@ -214,6 +216,23 @@ function addBlock(tokens, md, environment, context)
 {
     const line = tokens.find(token => token.map)?.map?.[0] || 0;
     const generated = generatedLine(line, context.generatedRanges);
+    const blockID = generated ? `monomark-generated-${context.generatedBlocks++}` : `block-${context.sourceBlocks++}`;
+    const groups = tableGroups(tokens);
+    if (!groups || groups.unsupported)
+    {
+        renderBlock(tokens, md, environment, context, { blockID, generated, unsupported: groups?.unsupported });
+        return;
+    }
+    const tableKey = `monomark-table-${(context.counts.table || 0) + 1}`;
+    context.tables.set(tableKey, []);
+    groups.groups.forEach((group, part) => renderBlock(group.tokens, md, environment, context,
+        { blockID: part ? `${blockID}-part-${part}` : blockID, generated,
+            table: { key: tableKey, part, rowStart: group.rowStart, totalRows: groups.rows, rows: group.rows,
+                widths: groups.widths } }));
+}
+
+function parseInlines(tokens, md, environment, context, generated)
+{
     for (const token of tokens)
     {
         if (token.type === 'inline')
@@ -222,34 +241,77 @@ function addBlock(tokens, md, environment, context)
             token.children = generated ? children : implicitTokens(children, context.references);
         }
     }
-    const blockID = generated ? `monomark-generated-${context.generatedBlocks++}` : `block-${context.sourceBlocks++}`;
+}
+
+function indexHeading(tokens, index, context, blockID)
+{
+    const token = tokens[index];
+    const title = boundedLabel(tokens[index + 1]?.content || 'Heading');
+    const id = token.attrGet('id') || uniqueID(title, context);
+    const level = Number(token.tag.slice(1));
+    while (context.headings.at(-1)?.level >= level) { context.headings.pop(); }
+    const parent = context.headings.at(-1)?.id || null;
+    context.outline.push({ id, title, level, kind: 'heading', parent, blockID });
+    context.headings.push({ id, level, title });
+    token.attrSet('id', id);
+    return id;
+}
+
+function indexTable(token, context, blockID, table)
+{
+    const id = table?.part ? `${table.key}-part-${table.part}` : addObject('table', '', token, context, blockID);
+    token.attrSet('id', id);
+    if (table)
+    {
+        token.attrSet('data-table-key', table.key);
+        token.attrSet('style', 'table-layout:fixed;width:100%');
+        token.attrSet('aria-label', `Table, rows ${table.rowStart + 1}–${table.rowStart + table.rows} of ${table.totalRows}`);
+    }
+    return id;
+}
+
+function indexTokens(tokens, context, blockID, table)
+{
     let id = blockID;
     for (let index = 0; index < tokens.length; index++)
     {
         const token = tokens[index];
         if (token.type === 'heading_open')
         {
-            const title = boundedLabel(tokens[index + 1]?.content || 'Heading');
-            id = token.attrGet('id') || uniqueID(title, context);
-            const level = Number(token.tag.slice(1));
-            while (context.headings.at(-1)?.level >= level) { context.headings.pop(); }
-            const parent = context.headings.at(-1)?.id || null;
-            context.outline.push({ id, title, level, kind: 'heading', parent, blockID });
-            context.headings.push({ id, level, title });
-            token.attrSet('id', id);
+            id = indexHeading(tokens, index, context, blockID);
         }
-        if (token.type === 'table_open') { id = addObject('table', '', token, context, blockID); }
+        if (token.type === 'table_open') { id = indexTable(token, context, blockID, table); }
         if (token.type === 'math_block') { id = addObject('equation', '', token, context, blockID); }
         if (token.type === 'fence' && token.info.trim() === 'mermaid')
         {
             id = addObject('diagram', '', token, context, blockID);
         }
-        if (token.type === 'inline') { indexInline(token, context, blockID); }
+        if (token.type === 'inline' && !token.meta?.repeatedTableHeader) { indexInline(token, context, blockID); }
     }
+    return id;
+}
+
+function renderBlock(tokens, md, environment, context, { blockID, generated, table, unsupported })
+{
+    if (!unsupported) { parseInlines(tokens, md, environment, context, generated); }
+    const id = indexTokens(tokens, context, blockID, table);
     const { text, copyBreaks, artifactText } = blockSelectionText(tokens);
-    const html = md.renderer.render(tokens, md.options, environment);
+    let html = unsupported ? '<p>This table exceeds the supported limit of 1,024 columns.</p>' :
+        md.renderer.render(tokens, md.options, environment);
+    const line = tokens.find(token => token.map)?.map?.[0] || 0;
+    let tableHeaderLength = 0;
+    if (table)
+    {
+        html = html.replace(/(<table[^>]*>)/, '$1' + tableColumns(table.widths));
+        const rows = tableCopyRows(tokens);
+        context.tables.get(table.key).push(...rows.slice(table.part ? 1 : 0));
+        tableHeaderLength = blockSelectionText(tokens.slice(0, tokens.findIndex(token => token.type === 'tbody_open'))).text.length;
+    }
     for (const token of tokens) { if (token.type === 'inline') { token.children = null; } }
-    context.blocks.push({ id, blockID, html, text, textLength: text.length, copyBreaks, artifactText, line, generated,
+    context.blocks.push({ id, blockID, html, text, textLength: text.length, copyBreaks, artifactText, line,
+        generated: generated || !!unsupported,
+        ...(table ? { tableKey: table.key, tableContinuation: table.part > 0, tableHeaderLength,
+            displayLine: table.part ? line + 2 + table.rowStart : line } : {}),
         section: boundedLabel(context.headings.map(heading => heading.title).join(' › ')),
         endLine: tokens.reduce((end, token) => Math.max(end, token.map?.[1] || 0), 0),
         estimate: Math.min(12000, Math.max(48, Math.ceil(text.length / 90) * 26 + (html.includes('<table') ? 100 : 0))) });
