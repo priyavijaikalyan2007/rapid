@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-18",
+  "version": "1.0.0",
+  "build": 84,
+  "sourceRevision": "be10919e49f1",
+  "cleanSource": true,
+  "macArchitectures": [
+    "arm64",
+    "x86_64"
+  ],
+  "appStoreExportPassed": true,
+  "appStoreInstallerSignature": "3rd Party Mac Developer Installer: Outcrop Inc (4JD5A6Q2HL)",
+  "appStorePackageBytes": 6752937,
+  "appStorePackageSHA256": "e7ebe31dcb2c8d43662253cabb9d65a9c09803b1832cedccd2be1377c1efd9c8",
+  "developerIDExportPassed": true,
+  "developerIDSignature": "Developer ID Application: Outcrop Inc (4JD5A6Q2HL)",
+  "developerIDHasSecureTimestamp": true,
+  "notarized": false,
+  "uploaded": false,
+  "submitted": false,
+  "limitations": "This preflight archive predates diagnostics-only changes in 345e980 and current presentation tests. Rebuild final candidate from the next verified clean revision."
+}

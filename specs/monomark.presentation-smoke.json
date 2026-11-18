@@ -1,0 +1,24 @@
+{
+  "dark": true,
+  "dark-fileRowContrast": true,
+  "displayCount": 1,
+  "documentSemantics": true,
+  "enlargedTypography": true,
+  "increaseContrastEnabled": true,
+  "light": true,
+  "light-fileRowContrast": true,
+  "nativeAccessibilityAcceptance": "External AX/VoiceOver acceptance remains pending.",
+  "passed": true,
+  "reduceMotionEnabled": true,
+  "reloadRetainsMode": true,
+  "singleDisplayPresentation": true,
+  "system-dark": true,
+  "system-light": true,
+  "provenance": {
+    "date": "2026-11-18",
+    "baseRevision": "345e980",
+    "workingTreeChanges": true,
+    "capture": "ScreenCaptureKit currentProcess, app-owned windows only",
+    "systemMode": "App-local AppKit appearance changes; OS global preferences unchanged"
+  }
+}

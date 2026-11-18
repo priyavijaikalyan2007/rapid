@@ -62,9 +62,16 @@ Capture actual current Mac UI from the synthetic files in Fixtures. Keep private
 Use one accepted 16:10 size, preferably 2560 × 1600 pixels, without an alpha channel.
 Capture the reader with Files, rendered math/diagram/table content, annotations and Notes, and appearance controls.
 Inspect each screenshot before adding it to the store. Do not substitute a document-only WebKit snapshot for the full app UI.
-The native/browser automation host is unavailable, so final screenshot capture remains open.
+The native/browser automation host is unavailable. An app-owned ScreenCaptureKit capture now produces four full-window drafts without general Screen Recording access. See Screenshots for the inspected RGB images and manifest.
 
 Apple lists the accepted Mac sizes in its [screenshot specification](https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications).
 The [release tracker](https://github.com/priyavijaikalyan2007/rapid/issues/65) retains the open acceptance checks.
 Keep provider-file access, native resource budgets, selection across unloaded content, large-table printing, and display checks open.
 Do not submit for review until the selected release gates pass and the listing matches the supported behavior.
+
+
+## Verified local distribution preflight
+
+Version 1.0.0 build 84 from clean be10919e49f1 exports through both channels. The Mac Store installer signature and Developer ID app signature verify. The Developer ID app includes hardened runtime and a secure timestamp. Its notarization remains pending. See specs/monomark.distribution-preflight.json for exact evidence. Nothing was uploaded or submitted. Rebuild from the final verified checkpoint before selecting the submission build.
+
+The owner signed into Xcode and accepted Apple's latest Program License Agreement. Xcode created the matching Mac Store profile. The earlier account/agreement blockers are resolved. Store-record and final privacy/export-compliance checks remain separate. The manual checks are in specs/monomark.manual-release-checks.md.

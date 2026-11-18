@@ -230,3 +230,10 @@ Created: 2026
 - Keep signed acceptance artifacts in app-owned temporary storage and return JSON through stdout.
 - Add repeatable 1/10 MiB native rich-document workloads and separate app-only resource counters from all-WebKit upper bounds.
 - Preserve current-document index timing and source-size metrics for profiling.
+
+
+### MonoMark native release acceptance
+
+- Verify actual native appearance, single-display presentation/restoration, enlarged text, and document semantics.
+- Capture opaque RGB full-app screenshot drafts from synthetic fixtures through an app-owned compositor capture.
+- Record successful Mac App Store and Developer ID local exports, signed review/lifecycle evidence, and exact remaining manual checks.

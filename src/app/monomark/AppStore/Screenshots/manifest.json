@@ -1,0 +1,38 @@
+{
+  "status": "draft; visually inspected; not uploaded",
+  "date": "2026-11-18",
+  "baseRevision": "345e980",
+  "workingTreeChanges": true,
+  "content": "Checked-in public fixtures and synthetic comments/notes only. No private user documents.",
+  "capture": "Actual app-owned compositor windows. RGB PNG, no alpha.",
+  "files": [
+    {
+      "file": "01-reader.png",
+      "width": 2560,
+      "height": 1600,
+      "alpha": false,
+      "sha256": "089c70c8081cbb4141d54e14d3e05d077259bd00bc0f09cbb856cf9b92a97bcc"
+    },
+    {
+      "file": "02-rich-dark.png",
+      "width": 2560,
+      "height": 1600,
+      "alpha": false,
+      "sha256": "de22391551b6e82e9082d23bceaf3b92bd6c5a1f91ed86a890ef0b2ba453ce65"
+    },
+    {
+      "file": "03-comments.png",
+      "width": 2560,
+      "height": 1600,
+      "alpha": false,
+      "sha256": "3b91c305c9c272eef4d8b12be0b760a67c48b028afa74aff03989527b52d2247"
+    },
+    {
+      "file": "04-notes.png",
+      "width": 2560,
+      "height": 1600,
+      "alpha": false,
+      "sha256": "2a5dad97f6597e099e2de5f86f36fd06352e98e49044a207ed5440e13b00211d"
+    }
+  ]
+}

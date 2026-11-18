@@ -55,8 +55,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         }
         if let index = arguments.firstIndex(of: "--smoke-test"), arguments.indices.contains(index + 1)
         {
-            if arguments.contains("--artifact-smoke") || arguments.contains("--review-smoke") || arguments
-                .contains("--lifecycle-smoke") || arguments.contains("--performance-smoke")
+            let nativeChecks = [
+                "--artifact-smoke",
+                "--presentation-smoke",
+                "--review-smoke",
+                "--lifecycle-smoke",
+                "--performance-smoke",
+                "--store-screenshots"
+            ]
+            if nativeChecks.contains(where: {
+                arguments.contains($0)
+            })
             {
                 configureArtifactSmoke(output: arguments[index + 1], review: arguments.contains("--review-smoke"))
             }
@@ -70,6 +79,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
 
     private func nativeFixture(_ arguments: [String]) -> URL?
     {
+        if arguments.contains("--store-screenshots")
+        {
+            return try? ReviewStoreScreenshots.initialFile()
+        }
         if arguments.contains("--performance-smoke")
         {
             return try? ReviewPerformanceSmoke.initialFile()
@@ -77,6 +90,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         if arguments.contains("--review-smoke") || arguments.contains("--lifecycle-smoke")
         {
             return try? ReviewSmoke.createFixture()
+        }
+        if arguments.contains("--presentation-smoke")
+        {
+            return try? ReviewPresentationSmoke.initialFile()
         }
         if arguments.contains("--artifact-smoke")
         {

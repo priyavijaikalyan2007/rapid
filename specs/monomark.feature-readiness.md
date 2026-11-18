@@ -12,7 +12,7 @@ This matrix records the remaining distinctions before submission.
 | Area | Implemented behavior | Remaining work or acceptance |
 | --- | --- | --- |
 | Reader navigation | Files/Contents/Links/History, native document tabs, workspaces, local link previews, and optional implicit references | Native tab/reload/rename/deletion/workspace/focus checks pass. Signed provider grants and physical displays remain (#11, #28). |
-| Typography and appearance | Installed fonts, element sizes, separate light/dark palettes, and System mode | Broader actual OS appearance/accessibility checks (#18) |
+| Typography and appearance | Installed fonts, element sizes, separate light/dark palettes, and System mode | Native Light/Dark/System propagation, rich colors, reload retention and large type pass (#18). VoiceOver remains in #28. |
 | Rich Markdown | Tables, syntax highlighting, LaTeX, Mermaid, emoji, local images, and hidden HTML comments | Mixed 1/10 MiB native workloads and sampler pass. Slower-machine budgets and calibrated energy remain (#14). |
 | Artifact clipboard | Table formats, code/source text, equation/diagram/image PNG, plus content Copy | Visible and hidden-window PNG pixels, clipboard round trips, and copy ordering pass (#17) |
 | Highlights and comments | Local storage, quote jumps, colors, search, expansion controls, comment Paste | Native recovery past 600 inserted paragraphs, distant ambiguity, deletion, and current export references pass (#20) |
@@ -31,3 +31,5 @@ These limits must match the final help and store listing.
 Current passing evidence includes 138 Core tests, 138 renderer tests, native clipboard/navigation checks, and actual artifact PNG pixels.
 The [release issue](https://github.com/priyavijaikalyan2007/rapid/issues/65) tracks distribution separately from feature acceptance.
 Mac App Store submission remains pending until its selected acceptance gates and account/material checks pass.
+
+Full-app compositor screenshots now have four synthetic drafts. The [manual release checks](monomark.manual-release-checks.md) list the remaining interactive and physical acceptance.

@@ -23,7 +23,15 @@ extension AppDelegate
                 let report: [String: Any]
                 do
                 {
-                    if ProcessInfo.processInfo.arguments.contains("--performance-smoke")
+                    if ProcessInfo.processInfo.arguments.contains("--store-screenshots")
+                    {
+                        report = try await ReviewStoreScreenshots.run(application: self, output: output)
+                    }
+                    else if ProcessInfo.processInfo.arguments.contains("--presentation-smoke")
+                    {
+                        report = try await ReviewPresentationSmoke.run(application: self, output: output)
+                    }
+                    else if ProcessInfo.processInfo.arguments.contains("--performance-smoke")
                     {
                         report = try await ReviewPerformanceSmoke.run(session: session)
                     }

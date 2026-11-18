@@ -15,7 +15,7 @@ The Markdown document remains a source file. MonoMark keeps your reading data se
 
 | Element | Copy options | Reading task |
 | :--- | :--- | :--- |
-| Table | CSV, TSV, Markdown | Compare rows |
+| Table | CSV, TSV, pipe-separated | Compare rows |
 | Code | Plain text | Inspect a sample |
 | Equation | LaTeX, PNG | Check a formula |
 | Diagram | Mermaid source, PNG | Follow a flow |

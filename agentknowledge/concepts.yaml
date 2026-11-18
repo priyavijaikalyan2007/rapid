@@ -517,5 +517,14 @@
       "MonoMark",
       "MonoMarkRenderer"
     ]
+  },
+  {
+    "name": "MonoMarkWindowCapture",
+    "definition": "Test-only own-process ScreenCaptureKit window capture for opaque RGB Mac screenshots and native presentation acceptance. External accessibility and physical displays remain separate.",
+    "anchor_file": "src/app/monomark/apple/Mac/ReviewWindowCapture.swift",
+    "related": [
+      "MonoMark",
+      "MonoMarkNativeProfile"
+    ]
   }
 ]

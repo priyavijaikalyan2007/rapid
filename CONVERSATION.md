@@ -1126,3 +1126,8 @@ User: "go ahead and finish these off one by one." Started with lifecycle accepta
 ## 18 November 2026: Sequential release checks
 
 The owner requested completion of remaining checks one by one. The owner signed into Xcode and authorized the Keychain request. Native mixed-document profiling and signed artifact checks pass. Complete resource attribution and slower hardware remain separate. The UI runner now has matching development signing but stalls before main. Local App Store export now reaches Apple and requires the latest Program License Agreement. The owner was asked to accept that agreement directly. No upload or submission occurred.
+
+
+## 18 November 2026: Signed exports, native appearance, and screenshots
+
+The owner accepted Apple's agreement and requested continued release work. Both local signed distribution exports now succeed. Signed review and lifecycle checks pass. Native appearance and one-display presentation pass through actual compositor captures. A view-cache false result was investigated, and all proposed UI changes were removed. Four full-app screenshot drafts use public examples and synthetic reading data. Provider grants, VoiceOver, multiple displays, reference hardware, final store-account review, and publication gates remain explicit.

@@ -135,7 +135,8 @@
       "number": 18,
       "id": 6388332339,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/18",
-      "progress": "active"
+      "progress": "closed",
+      "evidence": "specs/monomark.presentation-smoke.json"
     },
     "annotation-store": {
       "number": 19,
@@ -337,7 +338,7 @@
       "parent": 65,
       "progress": "archive verified; local App Store export awaiting Xcode account/profile",
       "commit": "9fbcc90",
-      "remaining": "Latest Apple Program License Agreement acceptance, Mac App Store profile/export, store screenshots and final account/listing checks."
+      "remaining": "Final verified candidate rebuild, store record/listing/privacy/export-compliance review, screenshot upload, and remaining selected manual acceptance. Local App Store export and Developer ID export pass."
     }
   },
   "refinements": {
