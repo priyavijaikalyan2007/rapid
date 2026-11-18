@@ -1,0 +1,20 @@
+{
+  "date": "2026-11-18",
+  "status": "prepared and validated locally; not deployed",
+  "supportURL": "https://outcrop.us/support/",
+  "privacyURL": "https://outcrop.us/privacy/",
+  "liveSupportHTTPStatus": 200,
+  "livePrivacyHTTPStatus": 200,
+  "livePagesNameMonoMark": false,
+  "preparedPagesNameMonoMark": true,
+  "websiteTestsPassed": true,
+  "generatedHTMLFilesValidated": 6,
+  "wranglerVersion": "4.152.0",
+  "deploymentDryRunPassed": true,
+  "deployed": false,
+  "sourceFiles": [
+    "src/web/site/support/index.html",
+    "src/web/site/privacy/index.html"
+  ],
+  "remaining": "Explicit website deployment request required by ADDITIONAL.md."
+}

@@ -1136,3 +1136,8 @@ The owner accepted Apple's agreement and requested continued release work. Both 
 ## 18 November 2026: Exact signed local candidate
 
 The owner requested continued work. The exact 1.0.0 build 86 candidate now exports through both channels from clean 89853dba9ca7. Its signed review, lifecycle, presentation, and artifact checks pass. The direct ZIP passes integrity checks. Local artifacts and checksums are recorded. The working tree's unrelated Xcode scheme edit stays untouched. The remaining real-provider check was presented to the owner because the native interaction host still cannot start. Other manual and publication gates remain explicit.
+
+
+## 18 November 2026: Remaining release preparation
+
+The owner requested completion of the remaining work. Native/browser CUA remains unavailable. The macOS accessibility fallback reports disabled UI automation, so the owner was asked to enable Codex Accessibility or perform the manual checks. No notarization profile appeared in the default Keychain lookup, and no notarization credential environment variables are present. The owner was asked to create the Outcrop profile directly in Terminal. Live support/privacy URLs return HTTP 200 but omit MonoMark. Prepared public copy passes website checks and a deployment dry run. Proposed store questionnaire answers now cite Apple's current definitions. No deployment or notarization submission occurred.

@@ -80,3 +80,10 @@ The owner signed into Xcode and accepted Apple's latest Program License Agreemen
 ## Exact local candidate
 
 The current candidate is 1.0.0 build 86 from clean source 89853dba9ca7. Both signed exports and the exact Developer ID app's review, lifecycle, presentation, and artifact checks pass. The checked-in candidate report at specs/monomark.release-candidate.json records artifacts, checksums, and manual gates. The local app is under src/app/monomark/build/ReleaseCandidate/1.0.0-86/DeveloperID/MonoMark.app. The App Store package and direct ZIP are in sibling AppStore and Download folders. The ZIP is not notarized and is not approved for public distribution.
+
+
+## Final store answers and public pages
+
+STORE-ANSWERS.md records proposed privacy, age-rating, encryption, and listing answers for build 86. It cites Apple's current definitions and the implementation evidence. Nothing was entered in App Store Connect. Apple requires initial app-record creation through its website.
+
+The live support and privacy pages return HTTP 200 but do not yet name MonoMark. The repository now includes the prepared MonoMark support section and local-reading-data policy text. Website tests, generated HTML/link validation, and Wrangler's local deployment preview pass. Publication requires the explicit deployment request in ADDITIONAL.md. This documentation work does not change the signed app candidate.

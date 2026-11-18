@@ -73,3 +73,7 @@ The view-cache capture first produced false dark text because it omitted composi
 ## Store screenshot capture
 
 Add Mac/ReviewStoreScreenshots.swift and project membership. Route `--store-screenshots` with an explicit `--screenshots-input` folder. Copy only the checked-in synthetic store fixtures into an app-owned temporary workspace. Use normal session commands and annotation APIs to show Files, rich Markdown in Dark mode, highlighted comments, and Notes. Capture the actual full app through ReviewWindowCapture. Validate RGB dimensions, unchanged source hashes, and restored appearance preferences. Keep generated images in ignored build output until visual review. No pattern required. Existing native session and capture adapters suffice.
+
+## Final public support and privacy copy
+
+Update src/web/site/support/index.html with the prepared MonoMark reading-data, reload, export and public-support instructions. Update src/web/site/privacy/index.html to include MonoMark explicitly and describe its device-local reading data. Keep existing site URLs and product availability unchanged. This is a documentation-only copy change. Validate the existing website build, generated markup, links, and tests. No new GoF pattern or processing interface is required. Publish only after the explicit deployment request required by ADDITIONAL.md.
