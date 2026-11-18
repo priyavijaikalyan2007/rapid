@@ -473,3 +473,26 @@ test('table buttons request the complete grid and ignore replies after document 
     worker.onmessage({data:{type:'table-copy',copyID:stale.copyID,text:'Stale'}});
     assert.equal(messages.filter(x=>x.type==='copyText').length,count);
 });
+
+test('an old PNG completion cannot dismiss a newer artifact copy',async()=>{
+    window.MonoMark.command({type:'load',epoch:'png-ordering'});
+    await new Promise(resolve=>setTimeout(resolve,20));
+    const worker=workers.at(-1);
+    const block={id:'equation',blockID:'block-0',estimate:80,html:'<p><span data-math="x"></span></p>'};
+    worker.onmessage({data:{type:'index',outline:[],links:[],blocks:[block]}});
+    worker.onmessage({data:{type:'range',request:worker.sent.at(-1).request,start:0,blocks:[block]}});
+    await new Promise(resolve=>setTimeout(resolve,30));
+    const button=document.querySelector('button[title*=PNG]');
+    button.click();
+    await new Promise(resolve=>setTimeout(resolve,100));
+    const previous=messages.filter(x=>x.type==='copyPNG').at(-1);
+    assert.ok(Number.isSafeInteger(previous.copyID));
+    button.click();
+    window.MonoMark.command({type:'copyComplete',epoch:'png-ordering',copyID:previous.copyID});
+    assert.ok(document.querySelector('.monomark-copy-overlay'));
+    await new Promise(resolve=>setTimeout(resolve,100));
+    const latest=messages.filter(x=>x.type==='copyPNG').at(-1);
+    assert.ok(latest.copyID>previous.copyID);
+    window.MonoMark.command({type:'copyComplete',epoch:'png-ordering',copyID:latest.copyID});
+    assert.equal(document.querySelector('.monomark-copy-overlay'),null);
+});

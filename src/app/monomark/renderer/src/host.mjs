@@ -55,6 +55,7 @@ let plan = layoutBlocks([], paper, false);
 let measureQueued = false;
 let renderedEpoch = '';
 let copyOverlay;
+let pngCopySequence = 0;
 let appearance = 'system';
 let annotations = [];
 let selectionTimer;
@@ -204,6 +205,7 @@ function copyTable(tableKey, format)
 async function copyPNG(element)
 {
     const copyEpoch = epoch;
+    const copyID = ++pngCopySequence;
     copyOverlay?.remove();
     const clone = element.cloneNode(true);
     clone.querySelectorAll('.monomark-artifact-actions').forEach(node => node.remove());
@@ -233,7 +235,7 @@ async function copyPNG(element)
     {
         if (copyEpoch !== epoch || !clone.isConnected) { return; }
         const rect = clone.getBoundingClientRect();
-        emit('copyPNG', { x: rect.left, y: rect.top, width: bounds.width, height: bounds.height });
+        emit('copyPNG', { copyID, x: rect.left, y: rect.top, width: bounds.width, height: bounds.height });
     }, 50);
 }
 
@@ -525,7 +527,8 @@ window.MonoMark = {
             decorateAnnotations();
             documentSelection.afterChange();
         }
-        if (command.type === 'copyComplete' && (!command.epoch || command.epoch === epoch))
+        if (command.type === 'copyComplete' && (!command.epoch || command.epoch === epoch) &&
+            (command.copyID === undefined || command.copyID === pngCopySequence))
         { copyOverlay?.remove(); copyOverlay = null; }
         if (command.type === 'jump') { jump(command.id); }
         if (command.type === 'annotation') { navigateAnnotation(command.id); }

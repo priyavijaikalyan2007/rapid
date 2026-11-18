@@ -297,3 +297,10 @@ Print requests carry generation tokens and reject excessive block, HTML, or elem
 The [native evidence](monomark.table-print-smoke.json) verifies a 20,000-row table with only 288 mounted rows at the distant search result, exact whole-grid clipboard data, aligned columns, unique IDs, and unchanged source. A 240-row table prints to 12 PDF pages with all rows present, then restores the reader. Rendered first, middle, and final pages were visually inspected. WebKit may divide row borders at page boundaries and does not repeat headers on every physical page. Physical printer and arbitrary paper checks remain separate.
 
 125 Core tests, 123 renderer tests, unsigned Mac/mobile builds, repository checks, and source checks pass at this checkpoint. Wider lifecycle, resource, appearance, provider, and physical-device acceptance continues.
+
+
+## Hidden-window artifact and copy ordering checkpoint
+
+Real native acceptance passes equation, image, and diagram PNG pixel checks while the reader window stays hidden. Test copies use isolated pasteboards. A new native regression first reproduced an older PNG request completing after a newer text copy. Native request generations now cancel that stale completion. The system clipboard change count also protects newer copies outside the session. Renderer PNG request identifiers keep an older completion from dismissing a newer copy overlay. A failing bridge regression verifies that case.
+
+The [clipboard evidence](monomark.clipboard-smoke.json) passes visible/hidden artifact pixels, isolated clipboard round trips, newer text ordering, document-replacement cancellation, and source preservation. All unsigned platform builds, 125 Core tests, 124 renderer tests, source checks, repository checks, and the full native review/print harness pass. #17 is complete. Annotation reattachment after source edits remains next.

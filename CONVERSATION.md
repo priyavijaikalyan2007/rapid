@@ -1110,3 +1110,6 @@ Completed the logical selection stage before submission. New failing regressions
 
 
 User: "continue." Continued the remaining MonoMark 1.0 work before submission. Bounded large tables now preserve full-grid Copy and source ranges. Print jobs enforce explicit limits, ignore cancelled replies, and restore reading content on AppKit completion. Native synthetic tests verify 20,000-row viewing and exact Copy, plus all 240 rows in a 12-page PDF. Remaining release gates stay open.
+
+
+Continued native release checks after #15. Hidden-window artifact PNG checks pass. A new native test reproduced pending PNG output overwriting a later text action. Request generations now cancel that output. Renderer completion identifiers preserve a newer copy overlay. All scoped builds, 125 Core tests, 124 renderer tests, and native review/artifact regressions pass. Next work addresses annotation reattachment after external edits.

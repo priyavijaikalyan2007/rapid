@@ -33,16 +33,35 @@ extension ReaderSession
             return
         }
         let ticket = documentEpoch
+        let pasteboardVersion = systemClipboardVersion
+        let copyGeneration = UUID()
+        clipboardGeneration = copyGeneration
         let configuration = WKSnapshotConfiguration()
         configuration.rect = CGRect(x: x, y: y, width: width, height: height).intersection(webView.bounds)
         configuration.afterScreenUpdates = true
         Task
         { @MainActor in
-            defer { command(["type": "copyComplete", "epoch": ticket]) }
+            defer
+            {
+                if let copyID = message["copyID"] as? Int
+                {
+                    command(["type": "copyComplete", "epoch": ticket, "copyID": copyID])
+                }
+                else if clipboardGeneration == copyGeneration
+                {
+                    command(["type": "copyComplete", "epoch": ticket])
+                }
+            }
+            guard ticket == documentEpoch, clipboardGeneration == copyGeneration
+            else
+            {
+                return
+            }
             do
             {
                 let image = try await webView.takeSnapshot(configuration: configuration)
-                guard ticket == documentEpoch
+                guard ticket == documentEpoch, clipboardGeneration == copyGeneration,
+                      pasteboardVersion == systemClipboardVersion
                 else
                 {
                     return
@@ -84,13 +103,27 @@ extension ReaderSession
             }
             catch
             {
-                self.message = "The rendering could not be copied. Try a smaller view or copy its source."
+                if ticket == documentEpoch, clipboardGeneration == copyGeneration
+                {
+                    self.message = "The rendering could not be copied. Try a smaller view or copy its source."
+                }
             }
         }
     }
 
+    private var systemClipboardVersion: Int
+    {
+        #if os(macOS)
+        NSPasteboard.general.changeCount
+        #else
+        UIPasteboard.general.changeCount
+        #endif
+    }
+
     func copy(_ text: String)
     {
+        clipboardGeneration = UUID()
+        command(["type": "copyComplete", "epoch": documentEpoch])
         #if os(macOS)
         let smoke = ProcessInfo.processInfo.arguments.contains("--smoke-test")
         let pasteboard = smoke ? NSPasteboard.withUniqueName() : NSPasteboard.general

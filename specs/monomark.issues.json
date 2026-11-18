@@ -123,8 +123,9 @@
       "number": 17,
       "id": 6388332092,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/17",
-      "progress": "needs occlusion verification",
-      "commit": "dc5e8bc"
+      "progress": "closed",
+      "commit": "dc5e8bc",
+      "evidence": "specs/monomark.clipboard-smoke.json"
     },
     "appearance": {
       "number": 18,

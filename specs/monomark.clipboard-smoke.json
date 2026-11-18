@@ -1,0 +1,53 @@
+{
+  "artifacts" : {
+    "diagram" : {
+      "bytes" : 14874,
+      "height" : 132,
+      "pasteboardRoundTrip" : true,
+      "pixelsVerified" : true,
+      "width" : 1552
+    },
+    "equation" : {
+      "bytes" : 5786,
+      "height" : 90,
+      "pasteboardRoundTrip" : true,
+      "pixelsVerified" : true,
+      "width" : 214
+    },
+    "image" : {
+      "bytes" : 726,
+      "height" : 80,
+      "pasteboardRoundTrip" : true,
+      "pixelsVerified" : true,
+      "width" : 160
+    }
+  },
+  "hiddenWindowArtifacts" : {
+    "diagram" : {
+      "bytes" : 14874,
+      "height" : 132,
+      "pasteboardRoundTrip" : true,
+      "pixelsVerified" : true,
+      "width" : 1552
+    },
+    "equation" : {
+      "bytes" : 5786,
+      "height" : 90,
+      "pasteboardRoundTrip" : true,
+      "pixelsVerified" : true,
+      "width" : 214
+    },
+    "image" : {
+      "bytes" : 726,
+      "height" : 80,
+      "pasteboardRoundTrip" : true,
+      "pixelsVerified" : true,
+      "width" : 160
+    },
+    "windowStayedHidden" : true
+  },
+  "newerTextWins" : true,
+  "passed" : true,
+  "replacementCancelledCopy" : true,
+  "sourceUnchanged" : true
+}

@@ -48,6 +48,7 @@ final class ReaderSession: ObservableObject
     var openNewTab: ((URL, URL?) -> Void)?
     var titleChanged: ((String) -> Void)?
     var printAction: (() -> Void)?
+    var clipboardGeneration = UUID()
     var exportAction: ((ReadingExportOptions, ReadingExportDestination) -> Void)?
     var smokeRendered: (() -> Void)?
     var state: ReadingState?

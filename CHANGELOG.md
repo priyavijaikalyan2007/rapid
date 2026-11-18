@@ -25,6 +25,8 @@ Created: 2026
 
 ### Fixed
 
+- Prevented older MonoMark PNG requests from replacing a later text copy or dismissing a newer artifact copy.
+
 - Bounded MonoMark large-table layout and preserved whole-grid Copy. Kept print content until native completion and rejected oversized jobs explicitly.
 
 - Preserved MonoMark selections and Copy across unloaded content, including full-index Select All and bounded quote anchors.

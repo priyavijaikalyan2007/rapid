@@ -24,6 +24,8 @@ import WebKit
         {
             artifacts[kind] = try await capture(kind, session: session, view: view, output: output)
         }
+        let textWins = try await newerTextWins(session)
+        let hidden = try await hiddenCaptures(session: session, view: view, output: output)
         session.lastCopyRequest = [:]
         session.copyPNG(["x": 0.0, "y": 0.0, "width": 80.0, "height": 40.0])
         session.open(
@@ -34,11 +36,46 @@ import WebKit
         let cancelled = session.lastCopyRequest["pasteboardVerified"] as? Bool != true
         let unchanged = try Data(contentsOf: source) == original
         return [
-            "passed": cancelled && unchanged,
+            "passed": cancelled && unchanged && textWins && hidden["windowStayedHidden"] as? Bool == true,
+            "hiddenWindowArtifacts": hidden,
+            "newerTextWins": textWins,
             "artifacts": artifacts,
             "replacementCancelledCopy": cancelled,
             "sourceUnchanged": unchanged
         ]
+    }
+
+    private static func newerTextWins(_ session: ReaderSession) async throws -> Bool
+    {
+        session.lastCopyRequest = [:]
+        session.copyPNG(["x": 0.0, "y": 0.0, "width": 80.0, "height": 40.0])
+        session.copy("A newer text copy wins.")
+        try await Task.sleep(for: .seconds(1))
+        return session.lastCopyRequest["textHash"] as? String == DocumentStamp.make("A newer text copy wins.") &&
+            session.lastCopyRequest["pasteboardVerified"] as? Bool != true
+    }
+
+    private static func hiddenCaptures(
+        session: ReaderSession,
+        view: WKWebView,
+        output: String
+    ) async throws -> [String: Any]
+    {
+        guard let window = view.window
+        else
+        {
+            throw ReaderFailure.unavailable
+        }
+        window.orderOut(nil)
+        defer { window.makeKeyAndOrderFront(nil) }
+        try await Task.sleep(for: .milliseconds(250))
+        var report: [String: Any] = [:]
+        for kind in ["equation", "image", "diagram"]
+        {
+            report[kind] = try await capture(kind, session: session, view: view, output: output + ".hidden")
+        }
+        report["windowStayedHidden"] = !window.isVisible
+        return report
     }
 
     private static func waitForRichContent(_ view: WKWebView) async throws
@@ -73,7 +110,13 @@ import WebKit
         {
             if session.lastCopyRequest["pasteboardVerified"] as? Bool == true
             {
-                let png = try Data(contentsOf: URL(fileURLWithPath: output + ".artifact.png"))
+                let arguments = ProcessInfo.processInfo.arguments
+                guard let index = arguments.firstIndex(of: "--smoke-test")
+                else
+                {
+                    throw ReaderFailure.unavailable
+                }
+                let png = try Data(contentsOf: URL(fileURLWithPath: arguments[index + 1] + ".artifact.png"))
                 guard let bitmap = NSBitmapImageRep(data: png)
                 else
                 {
