@@ -12,6 +12,10 @@ Created: 2026
 
 ## 17 November 2026
 
+### Changed
+
+- Set MonoMark native and renderer release metadata to 1.0.0, with a numeric build and separate source revision.
+
 ### Added
 
 - Added MonoMark Mac App Store listing drafts, reviewer examples, local archive/export tooling, and release metadata checks.

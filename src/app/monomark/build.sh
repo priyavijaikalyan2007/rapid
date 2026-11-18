@@ -27,6 +27,14 @@ case "$mode" in
         ;;
 esac
 component_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+build_number="${BUILD_NUMBER:-}"
+if [[ -z "$build_number" ]]; then
+    build_number="$(git -C "$component_root" rev-list --count HEAD 2>/dev/null || printf '1')"
+fi
+if [[ ! "$build_number" =~ ^[1-9][0-9]*$ ]]; then
+    printf '%s\n' 'The build number must be a positive integer. Set BUILD_NUMBER or use a committed checkout.' >&2
+    exit 2
+fi
 export DEVELOPER_DIR="${DEVELOPER_DIR:-/Applications/Xcode.app/Contents/Developer}"
 if [[ ! -d "$component_root/renderer/node_modules" ]]; then
     printf '%s\n' 'Install locked renderer tools with npm ci --prefix src/app/monomark/renderer --ignore-scripts.' >&2
@@ -41,7 +49,7 @@ build_target()
 {
     xcodebuild build -quiet -project "$component_root/apple/MonoMark.xcodeproj" -scheme "$1" \
         -configuration Release -destination "$2" -derivedDataPath "$component_root/build/DerivedData" \
-        CODE_SIGNING_ALLOWED=NO "${@:3}"
+        CODE_SIGNING_ALLOWED=NO CURRENT_PROJECT_VERSION="$build_number" "${@:3}"
 }
 if [[ "$mode" == macos || "$mode" == all ]]; then
     build_target MonoMark 'platform=macOS,arch=arm64' ARCHS=arm64 ONLY_ACTIVE_ARCH=YES

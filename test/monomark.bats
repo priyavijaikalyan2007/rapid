@@ -14,6 +14,15 @@ setup() { repository_root="$(cd "$BATS_TEST_DIRNAME/.." && pwd)"; }
     run "$repository_root/src/app/monomark/build.sh" macos extra
     [ "$status" -eq 2 ]
 }
+@test "MonoMark rejects invalid build numbers before starting tools" {
+    fake_bin="$BATS_TEST_TMPDIR/build-number-bin"
+    mkdir -p "$fake_bin"
+    printf '#!/bin/sh\nexit 91\n' > "$fake_bin/npm"
+    chmod +x "$fake_bin/npm"
+    run env BUILD_NUMBER=invalid PATH="$fake_bin:$PATH" "$repository_root/src/app/monomark/build.sh" macos
+    [ "$status" -eq 2 ]
+    [[ "$output" == *"build number"* ]]
+}
 @test "MonoMark web mode does not run native tools" {
     run "$repository_root/src/app/monomark/build.sh" web
     [ "$status" -eq 0 ]

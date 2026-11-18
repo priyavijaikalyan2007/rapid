@@ -7,7 +7,7 @@
 
 This folder contains a draft listing, reviewer instructions, and synthetic review documents.
 The owner selected Free and confirmed Outcrop Inc as publisher for all repository applications.
-The initial candidate is version 0.1.0 for macOS 15 or later, on Apple silicon and Intel.
+The release target is version 1.0.0 for macOS 15 or later, on Apple silicon and Intel.
 The bundle identifier remains `us.outcrop.MonoMark`. The secondary iPhone/iPad product is not part of this first submission.
 The listing is a draft until the owner checks it and App Store Connect accepts the chosen name and settings.
 
@@ -31,7 +31,7 @@ Expected archive: `build/AppStore/MonoMark-macOS.xcarchive`.
 Expected local package: `build/AppStore/Export/`.
 A failed signing operation is not an archive or upload success. Keep the Xcode error in the release evidence.
 
-The first candidate archived successfully as version 0.1.0, build 77, from source 9fbcc9004bbb.
+An earlier 0.1 development candidate archived successfully as version 0.1.0, build 77, from source 9fbcc9004bbb.
 Its development signature belongs to Outcrop team 4JD5A6Q2HL. Both Mac architectures and matching debug symbols were verified.
 App Store export failed with `No Accounts` and no matching Mac App Store provisioning profile.
 Sign in through Xcode Settings > Accounts using an account that can access Outcrop Inc, then repeat the local export workflow.

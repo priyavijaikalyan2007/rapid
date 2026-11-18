@@ -276,3 +276,7 @@ Local App Store export failed with exit 70: Xcode reports No Accounts and no mat
 The owner was asked to sign in through Xcode Settings > Accounts. Task #68 remains open for export and account follow-through.
 The archive command also passes a regression for the Mac's system Bash without optional API credentials.
 Final repository checks now include 48 passing shell cases. No archive upload, App Review submission, or public release occurred.
+
+## Version 1.0 and remaining functionality
+
+The owner requested completion before submission and selected version 1.0.0 plus build/revision. Both native products, renderer metadata, and store draft now target 1.0.0. Build commands use a positive numeric BUILD_NUMBER or Git commit count. About retains the source revision separately. New version and invalid-input tests passed after their recorded failures. All unsigned Apple builds, 121 Core tests, and 96 renderer tests pass. The [completion plan](monomark.completion-plan.md) orders the remaining selection, table/print, lifecycle, and resource work. No submission is authorized by this version change.

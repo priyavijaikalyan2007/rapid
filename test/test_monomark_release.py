@@ -19,6 +19,28 @@ APPLE = Path(__file__).resolve().parents[1] / "src/app/monomark/apple"
 class MonoMarkReleaseTests(unittest.TestCase):
     """Verify authored release resources, without claiming signed-build acceptance."""
 
+    def test_all_native_products_target_version_one_with_numeric_builds(self):
+        project = subprocess.run(
+            ["plutil", "-convert", "json", "-o", "-", str(APPLE / "MonoMark.xcodeproj/project.pbxproj")],
+            capture_output=True, text=True, check=True,
+        )
+        objects = json.loads(project.stdout)["objects"]
+        for target_name in ["MonoMark", "MonoMarkMobile"]:
+            target = next(x for x in objects.values() if x.get("isa") == "PBXNativeTarget"
+                          and x.get("name") == target_name)
+            for ref in objects[target["buildConfigurationList"]]["buildConfigurations"]:
+                settings = objects[ref]["buildSettings"]
+                self.assertEqual(settings["MARKETING_VERSION"], "1.0.0")
+                self.assertRegex(settings["CURRENT_PROJECT_VERSION"], r"^[1-9][0-9]*$")
+        mobile = plistlib.loads((APPLE / "Mobile/Info.plist").read_bytes())
+        self.assertEqual(mobile["CFBundleShortVersionString"], "$(MARKETING_VERSION)")
+        self.assertEqual(mobile["CFBundleVersion"], "$(CURRENT_PROJECT_VERSION)")
+
+    def test_listing_and_renderer_match_version_one(self):
+        draft = json.loads((APPLE.parent / "AppStore/metadata.json").read_text())
+        renderer = json.loads((APPLE.parent / "renderer/package.json").read_text())
+        self.assertEqual([draft["version"], renderer["version"]], ["1.0.0", "1.0.0"])
+
     def test_mac_release_metadata_uses_build_settings(self):
         info = plistlib.loads((APPLE / "Mac/Info.plist").read_bytes())
         self.assertEqual(info["CFBundleShortVersionString"], "$(MARKETING_VERSION)")
