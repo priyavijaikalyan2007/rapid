@@ -256,28 +256,30 @@
       "id": 6423903974,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/59",
       "parent": 6,
-      "progress": "planned"
+      "progress": "closed",
+      "commit": "f1127c6"
     },
     "selective-export": {
       "number": 60,
       "id": 6423904516,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/60",
       "parent": 6,
-      "progress": "planned"
+      "progress": "closed",
+      "commit": "f1127c6"
     },
     "implicit-files": {
       "number": 61,
       "id": 6425805080,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/61",
       "parent": 2,
-      "progress": "planned"
+      "progress": "implemented and verified"
     },
     "implicit-sections": {
       "number": 62,
       "id": 6425805636,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/62",
       "parent": 2,
-      "progress": "planned"
+      "progress": "implemented and verified"
     }
   },
   "refinements": {

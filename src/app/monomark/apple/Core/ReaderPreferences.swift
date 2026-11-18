@@ -30,6 +30,8 @@ struct ReaderPreferences: Codable, Equatable, Sendable
     var preserveLineBreaks = false
     var showLineNumbers = false
     var autoReload = true
+    var implicitFileLinks = false
+    var implicitSectionLinks = false
     var paperSize = "system"
     var layoutMode = "pageless"
 
@@ -42,6 +44,7 @@ struct ReaderPreferences: Codable, Equatable, Sendable
         case fontFamily, headingFontFamily, codeFontFamily, tableFontFamily, captionFontFamily
         case paperSize, layoutMode, palette
         case preserveLineBreaks, showLineNumbers, autoReload
+        case implicitFileLinks, implicitSectionLinks
         case bodySize, headingSizes, codeSize, tableSize, captionSize, lineHeight, pageWidth, columnBanding
     }
 
@@ -65,6 +68,8 @@ struct ReaderPreferences: Codable, Equatable, Sendable
         preserveLineBreaks = try values.decodeIfPresent(Bool.self, forKey: .preserveLineBreaks) ?? false
         showLineNumbers = try values.decodeIfPresent(Bool.self, forKey: .showLineNumbers) ?? false
         autoReload = try values.decodeIfPresent(Bool.self, forKey: .autoReload) ?? true
+        implicitFileLinks = try values.decodeIfPresent(Bool.self, forKey: .implicitFileLinks) ?? false
+        implicitSectionLinks = try values.decodeIfPresent(Bool.self, forKey: .implicitSectionLinks) ?? false
         paperSize = try values.decodeIfPresent(String.self, forKey: .paperSize) ?? "system"
         layoutMode = try values.decodeIfPresent(String.self, forKey: .layoutMode) ?? "pageless"
         palette = try values.decodeIfPresent(ReaderPalette.self, forKey: .palette) ?? ReaderPalette()

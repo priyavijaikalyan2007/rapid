@@ -96,6 +96,30 @@ struct ReaderSettings: View
                     Text("Document width")
                 }
             }
+            Section("Navigation")
+            {
+                Toggle("Resolve Markdown file references", isOn: $session.preferences.implicitFileLinks)
+                Toggle("Link numbered section references", isOn: $session.preferences.implicitSectionLinks)
+                Text(
+                    """
+                    Unique .md/.markdown names and relative paths open in new tabs. Open a folder to enable file \
+                    lookup. Refresh updates the index.
+                    """
+                )
+                .font(.caption).foregroundStyle(.secondary)
+                Text(
+                    """
+                    Section references such as §9, #9, or $9 link only when one numbered heading matches. Code and \
+                    math remain literal.
+                    """
+                )
+                .font(.caption).foregroundStyle(.secondary)
+                if session.referenceIndexTruncated
+                {
+                    Text("The workspace reference index reached its limit. Use explicit links for missing files.")
+                        .font(.caption).foregroundStyle(.secondary)
+                }
+            }
             Section("Tables")
             {
                 Toggle("Band columns instead of rows", isOn: $session.preferences.columnBanding)

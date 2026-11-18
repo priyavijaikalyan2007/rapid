@@ -5,6 +5,7 @@
 // PURPOSE: Capture quoted text and decorate only unambiguous visible matches.
 // FLOW: DOM selection -> quote anchors -> native persistence -> viewport decorations.
 
+import { boundedLabel } from './navigation-label.mjs';
 const excluded = '.monomark-artifact-actions, .monomark-line-number, .monomark-page-label, .katex, svg, script, style';
 const colors = new Set(['yellow', 'green', 'blue', 'pink', 'purple']);
 const blocksSelector = '.monomark-block:not([data-generated="true"])';
@@ -14,7 +15,7 @@ function sourceLocation(element)
     const line = Number(element.dataset.sourceLine);
     const endLine = Number(element.dataset.sourceEndLine);
     if (!Number.isInteger(line) || line < 1 || !Number.isInteger(endLine) || endLine < line) { return undefined; }
-    return { line, endLine, section: (element.dataset.section || '').slice(0, 512) };
+    return { line, endLine, section: boundedLabel(element.dataset.section || '') };
 }
 
 function textNodes(window, block)

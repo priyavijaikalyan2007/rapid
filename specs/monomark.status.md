@@ -211,3 +211,17 @@ math/strike characters and newline conventions. Standalone data cannot overwrite
 Notes-only export does not require the original file to exist. Local notes remain after export and identity migration.
 The [inline evidence](monomark.inline-smoke.json) records actual WebKit and native dialog checks.
 All unsigned builds, 109 Core tests, and 86 renderer tests pass. Physical mobile and signed-provider checks remain open.
+
+## Reference navigation and clipboard checkpoint on 17 November
+
+Tasks #61–#62 add optional implicit file and numbered-section links. Both settings default to off.
+A bounded shared metadata index coalesces folder scans across tabs. It excludes hidden paths, packages, and symlinks.
+Unique Markdown filenames and relative paths open new tabs. Unique numbered headings accept §, #, and $ references.
+Missing and ambiguous references remain literal. The view preserves code, math, authored links, and source files.
+
+All unsigned platform builds, 112 Core tests, and 96 renderer tests pass. Renderer line coverage is 97.65%.
+The [reference evidence](monomark.references-smoke.json) records WebKit dispatch, section jumps, and bounded mounting.
+Native UI checks confirm new tabs for Other.md and My File.md and a jump to section 9.
+Actual Command-C selection copied a sentence from the rendered document. Command-V pasted the same sentence into
+both an annotation comment and Notes. The checks used synthetic files in an isolated QA application.
+The owner authorized release checks after these features. Distribution signing and publication remain separate gates.

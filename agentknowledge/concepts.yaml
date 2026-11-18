@@ -429,5 +429,14 @@
       "MonoMarkExportLocations",
       "MonoMarkAnnotations"
     ]
-  }
+  },
+{
+  "name": "MonoMarkImplicitReferences",
+  "definition": "Optional unique Markdown filenames and numbered section references become view-only links. A bounded shared metadata cache coalesces folder scans. File references create native tabs.",
+  "anchor_file": "src/app/monomark/renderer/src/implicit-links.mjs",
+  "related": [
+    "MonoMarkWorkspaces",
+    "MonoMarkRenderer"
+  ]
+}
 ]

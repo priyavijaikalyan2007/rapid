@@ -138,3 +138,14 @@ Missing or stale inline locations stop the export before a write. Refresh and ch
 A separate reading-data file cannot replace the source through a file alias. Notes-only output remains available
 when the original file has disappeared. Existing direct end-section and Export a Copy actions remain available.
 Generated reading sections display normally but do not become new annotation targets.
+
+## Optional reference links
+
+Settings > Navigation offers Markdown file references and numbered section references. Both default to off.
+Open a folder to resolve unique `.md` or `.markdown` filenames and relative paths, including inline-code filenames.
+File references open new tabs. Refresh updates the shared folder index. The index reads paths, not document contents.
+Ambiguous, missing, and escaping references stay unchanged. Numbered references such as `§9`, `#9.1`, and `$9`
+jump only when one numbered heading matches. Authored links, code blocks, and math remain unchanged.
+These links affect the view only. MonoMark does not rewrite the Markdown source.
+
+Use the standard Copy command on selected document text. Comments and Notes accept the standard Paste command.

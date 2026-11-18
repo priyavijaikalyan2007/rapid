@@ -13,14 +13,18 @@ struct PaperLayoutTests
     {
         let old = try JSONDecoder().decode(ReaderPreferences.self, from: Data("{}".utf8))
         #expect(old.autoReload)
+        #expect(!old.implicitFileLinks && !old.implicitSectionLinks)
         #expect(!old.showLineNumbers && !old.preserveLineBreaks)
         var preferences = ReaderPreferences()
         preferences.showLineNumbers = true
         preferences.preserveLineBreaks = true
         preferences.autoReload = false
+        preferences.implicitFileLinks = true
+        preferences.implicitSectionLinks = true
         let restored = try JSONDecoder().decode(ReaderPreferences.self, from: JSONEncoder().encode(preferences))
         #expect(restored.showLineNumbers && restored.preserveLineBreaks)
         #expect(!restored.autoReload)
+        #expect(restored.implicitFileLinks && restored.implicitSectionLinks)
     }
 
     @Test func standardSizesUsePrinterPoints() throws

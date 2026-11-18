@@ -60,6 +60,11 @@ final class ReaderSession: ObservableObject
     private let logger = Logger(subsystem: "us.outcrop.MonoMark", category: "Reader")
     var watcher: DocumentWatcher?
     @Published var hasExternalChanges = false
+    @Published var referenceIndexTruncated = false
+    var referenceIndex: WorkspaceFileIndex?
+    var referenceTask: Task<Void, Never>?
+    var appliedFileLinks = false
+    var appliedSectionLinks = false
     var lastCopyRequest: [String: Any] = [:]
     var documentEpoch: String
     {
@@ -178,6 +183,12 @@ final class ReaderSession: ObservableObject
                 {
                     await loadFolder(root!)
                 }
+                await prepareImplicitReferences()
+                guard ticket == generation
+                else
+                {
+                    return
+                }
                 if rendererReady
                 {
                     loadRenderer()
@@ -207,9 +218,12 @@ final class ReaderSession: ObservableObject
         {
             return
         }
+        appliedFileLinks = preferences.implicitFileLinks
+        appliedSectionLinks = preferences.implicitSectionLinks
         command(["type": "preferences", "value": rendererPreferences()])
         command([
             "type": "load",
+            "references": rendererReferences(),
             "anchor": state?.anchor ?? "",
             "offset": state?.offset ?? 0,
             "progress": state?.progress ?? 0,
@@ -440,6 +454,8 @@ final class ReaderSession: ObservableObject
         }
         watcher?.cancel()
         watcher = nil
+        referenceTask?.cancel()
+        referenceTask = nil
         for scope in scopes
         {
             scope.stopAccessingSecurityScopedResource()

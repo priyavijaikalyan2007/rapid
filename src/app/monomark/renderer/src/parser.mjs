@@ -12,6 +12,8 @@ import MarkdownIt from 'markdown-it';
 import footnote from 'markdown-it-footnote';
 import { full as emoji } from 'markdown-it-emoji';
 import { recordGeneratedMarker, generatedLine } from './generated-content.mjs';
+import { fileResolver, headingTargets, implicitTokens } from './implicit-links.mjs';
+import { boundedLabel } from './navigation-label.mjs';
 
 const escape = new MarkdownIt().utils.escapeHtml;
 
@@ -64,7 +66,7 @@ function mathPlugin(md)
 }
 
 /** One authoritative parse resolves whole-document references before extracting independently renderable blocks. */
-export function parseDocument(source)
+export function parseDocument(source, referenceOptions = {})
 {
     const generated = { active: null, ranges: [] };
     const started = performance.now();
@@ -120,6 +122,9 @@ export function parseDocument(source)
     md.block.parse(text, md, environment, tokens);
     const context = { outline: [], links: [], used: new Map(), headings: [], counts: {}, blocks: [],
         generatedRanges: generated.ranges, sourceBlocks: 0, generatedBlocks: 0 };
+    context.references = { ...referenceOptions,
+        file: fileResolver(referenceOptions.linkPaths, referenceOptions.documentPath),
+        sections: headingTargets(tokens, context, referenceOptions, uniqueID) };
     for (let start = 0; start < tokens.length;)
     {
         let end = start + 1;
@@ -144,13 +149,14 @@ export function parseDocument(source)
     }
     return { ...context, headings: undefined, used: undefined, counts: undefined,
         generatedRanges: undefined, sourceBlocks: undefined, generatedBlocks: undefined,
+        references: undefined,
         duration: performance.now() - started, sourceBytes: new TextEncoder().encode(source).length,
         sourceLines: text.split('\n').length };
 }
 
 function uniqueID(title, context)
 {
-    const base = title.toLowerCase().trim().replace(/[^\p{L}\p{N}\s_-]/gu, '').replace(/\s+/g, '-') || 'section';
+    const base = boundedLabel(title, 480).toLowerCase().trim().replace(/[^\p{L}\p{N}\s_-]/gu, '').replace(/\s+/g, '-') || 'section';
     const count = context.used.get(base) || 0;
     context.used.set(base, count + 1);
     return count ? `${base}-${count}` : base;
@@ -181,20 +187,40 @@ function indexInline(token, context, blockID)
         }
         if (child.type === 'link_open')
         {
-            const title = children.slice(index + 1).find(item => item.type === 'text')?.content || child.attrGet('href');
-            context.links.push({ href: child.attrGet('href'), title, kind: 'link', blockID });
+            const title = linkTitle(children, index) || child.attrGet('href');
+            context.links.push({ href: child.attrGet('href'), title, kind: 'link', blockID,
+                newTab: child.attrGet('data-new-tab') === 'true' });
         }
     }
 }
 
+function linkTitle(children, start)
+{
+    let title = '';
+    for (let index = start + 1; index < children.length && title.length < 1024; index++)
+    {
+        const child = children[index];
+        if (child.type === 'link_close') { break; }
+        if (['text', 'code_inline', 'emoji', 'image'].includes(child.type))
+        {
+            title += child.content.slice(0, 1024 - title.length);
+        }
+    }
+    return boundedLabel(title);
+}
+
 function addBlock(tokens, md, environment, context)
 {
-    for (const token of tokens)
-    {
-        if (token.type === 'inline') { token.children = md.parseInline(token.content, environment)[0].children; }
-    }
     const line = tokens.find(token => token.map)?.map?.[0] || 0;
     const generated = generatedLine(line, context.generatedRanges);
+    for (const token of tokens)
+    {
+        if (token.type === 'inline')
+        {
+            const children = md.parseInline(token.content, environment)[0].children;
+            token.children = generated ? children : implicitTokens(children, context.references);
+        }
+    }
     const blockID = generated ? `monomark-generated-${context.generatedBlocks++}` : `block-${context.sourceBlocks++}`;
     let id = blockID;
     for (let index = 0; index < tokens.length; index++)
@@ -202,8 +228,8 @@ function addBlock(tokens, md, environment, context)
         const token = tokens[index];
         if (token.type === 'heading_open')
         {
-            const title = tokens[index + 1]?.content || 'Heading';
-            id = uniqueID(title, context);
+            const title = boundedLabel(tokens[index + 1]?.content || 'Heading');
+            id = token.attrGet('id') || uniqueID(title, context);
             const level = Number(token.tag.slice(1));
             while (context.headings.at(-1)?.level >= level) { context.headings.pop(); }
             const parent = context.headings.at(-1)?.id || null;
@@ -223,7 +249,7 @@ function addBlock(tokens, md, environment, context)
     const html = md.renderer.render(tokens, md.options, environment);
     for (const token of tokens) { if (token.type === 'inline') { token.children = null; } }
     context.blocks.push({ id, blockID, html, text, line, generated,
-        section: context.headings.map(heading => heading.title).join(' › ').slice(0, 512),
+        section: boundedLabel(context.headings.map(heading => heading.title).join(' › ')),
         endLine: tokens.reduce((end, token) => Math.max(end, token.map?.[1] || 0), 0),
         estimate: Math.min(12000, Math.max(48, Math.ceil(text.length / 90) * 26 + (html.includes('<table') ? 100 : 0))) });
 }

@@ -142,6 +142,10 @@ extension ReaderSession
         totalPages = 1
         watcher?.cancel()
         watcher = nil
+        referenceTask?.cancel()
+        referenceTask = nil
+        referenceIndex = nil
+        referenceIndexTruncated = false
         annotations.detach()
         titleChanged?(folder.lastPathComponent)
         command(["type": "clear", "epoch": documentEpoch])

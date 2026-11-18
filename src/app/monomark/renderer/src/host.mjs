@@ -36,6 +36,7 @@ let zoom = 1;
 let matches = [];
 let matchIndex = -1;
 let currentLink = '';
+let currentLinkNewTab = false;
 let scrollFrame = false;
 let positionTimer;
 let preferences = {};
@@ -298,7 +299,8 @@ async function load(command)
     const response = await fetch(`monomark://document/source?epoch=${encodeURIComponent(epoch)}`);
     const source = await response.text();
     if (sequence !== loadSequence) { return; }
-    worker.postMessage({ type: 'load', source, sourceHash: response.headers?.get('X-MonoMark-Source-Hash') || undefined });
+    worker.postMessage({ type: 'load', source, sourceHash: response.headers?.get('X-MonoMark-Source-Hash') || undefined,
+        references: command.references || {} });
 }
 
 function onWorker(data, initial)
@@ -396,9 +398,10 @@ function applyAppearance(mode)
     }
 }
 
-function showLink(link, rect)
+function showLink(link, rect, newTab = false)
 {
     currentLink = link;
+    currentLinkNewTab = newTab;
     popover.hidden = false;
     popover.style.left = `${Math.min(rect.left, window.innerWidth - 350)}px`;
     popover.style.top = `${Math.min(rect.bottom + 6, window.innerHeight - 230)}px`;
@@ -501,7 +504,7 @@ document.addEventListener('click', event =>
     const anchor = event.target.closest('a');
     if (!anchor) { return; }
     event.preventDefault();
-    emit('navigate', { href: anchor.getAttribute('href'), newTab: event.metaKey });
+    emit('navigate', { href: anchor.getAttribute('href'), newTab: event.metaKey || anchor.dataset.newTab === 'true' });
 });
 function reportSelection()
 {
@@ -517,12 +520,12 @@ document.addEventListener('selectionchange', () =>
 document.addEventListener('pointerover', event =>
 {
     const anchor = event.target.closest('a');
-    if (anchor) { showLink(anchor.getAttribute('href'), anchor.getBoundingClientRect()); }
+    if (anchor) { showLink(anchor.getAttribute('href'), anchor.getBoundingClientRect(), anchor.dataset.newTab === 'true'); }
 });
 document.addEventListener('focusin', event =>
 {
     const anchor = event.target.closest('a');
-    if (anchor) { showLink(anchor.getAttribute('href'), anchor.getBoundingClientRect()); }
+    if (anchor) { showLink(anchor.getAttribute('href'), anchor.getBoundingClientRect(), anchor.dataset.newTab === 'true'); }
 });
 document.addEventListener('keydown', event =>
 {
@@ -536,7 +539,11 @@ document.addEventListener('keydown', event =>
 });
 for (const [id, type] of [['monomark-open', 'navigate'], ['monomark-open-tab', 'navigate'], ['monomark-copy', 'copy']])
 {
-    document.getElementById(id).onclick = () => { emit(type, { href: currentLink, newTab: id === 'monomark-open-tab' }); popover.hidden = true; };
+    document.getElementById(id).onclick = () =>
+    {
+        emit(type, { href: currentLink, newTab: id === 'monomark-open-tab' || (type === 'navigate' && currentLinkNewTab) });
+        popover.hidden = true;
+    };
 }
 emit('ready');
 if (typeof matchMedia === 'function')

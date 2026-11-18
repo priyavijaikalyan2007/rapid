@@ -18,7 +18,7 @@ self.onmessage = async ({ data }) =>
         if (data.type === 'load')
         {
             const sourceHash = data.sourceHash || await documentStamp(data.source);
-            documentIndex = parseDocument(data.source);
+            documentIndex = parseDocument(data.source, data.references);
             documentIndex.sourceHash = sourceHash;
             const { blocks, ...index } = documentIndex;
             self.postMessage({ type: 'index', ...index, blocks: blocks.map(({ html, text, ...block }) => block) });

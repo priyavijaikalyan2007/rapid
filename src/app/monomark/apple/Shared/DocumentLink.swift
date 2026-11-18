@@ -17,6 +17,7 @@ struct DocumentLink: Identifiable, Decodable
     var title: String
     var kind: String
     var blockID: String
+    var newTab: Bool? = nil
     var id: String
     {
         blockID + href + title

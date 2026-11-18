@@ -84,7 +84,7 @@ struct SidebarView: View
                 {
                     Button(link.title)
                     {
-                        session.navigate(link.href)
+                        session.navigate(link.href, newTab: link.newTab == true)
                     }
                     Text(link.href).font(.caption).foregroundStyle(.secondary).textSelection(.enabled)
                 }
@@ -92,7 +92,7 @@ struct SidebarView: View
                 {
                     Button("Open")
                     {
-                        session.navigate(link.href)
+                        session.navigate(link.href, newTab: link.newTab == true)
                     }
                     Button("Open in New Tab")
                     {

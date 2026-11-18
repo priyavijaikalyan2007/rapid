@@ -36,6 +36,27 @@ globalThis.Worker = class {
 await import('../src/host.mjs');
 after(() => dom.window.close());
 
+test('reference indexes are sent only with a new document parse', async () => {
+    window.MonoMark.command({ type: 'load', epoch: 'reference-options', references: {
+        implicitFileLinks: true, implicitSectionLinks: true, documentPath: 'Reader.md', linkPaths: ['Other.md']
+    } });
+    await new Promise(resolve => setTimeout(resolve, 20));
+    assert.equal(workers.at(-1).sent.at(-1).references.implicitFileLinks, true);
+    assert.deepEqual(workers.at(-1).sent.at(-1).references.linkPaths, ['Other.md']);
+});
+
+test('implicit document links request a new native tab on ordinary click', async () => {
+    window.MonoMark.command({ type: 'load', epoch: 'implicit-click' });
+    await new Promise(resolve => setTimeout(resolve, 20));
+    const worker = workers.at(-1);
+    worker.onmessage({ data: { type: 'index', outline: [], links: [], blocks: [{ id: 'b', blockID: 'b', estimate: 80 }] } });
+    worker.onmessage({ data: { type: 'range', request: worker.sent.at(-1).request, start: 0,
+        blocks: [{ id: 'b', html: '<p><a href="Other.md" data-new-tab="true">Other.md</a></p>' }] } });
+    document.querySelector('a').dispatchEvent(new window.MouseEvent('click', { bubbles: true, cancelable: true }));
+    assert.equal(messages.at(-1).newTab, true);
+    await new Promise(resolve => setTimeout(resolve, 300));
+});
+
 test('export resolution returns source locations without changing the viewport', async () => {
     window.MonoMark.command({ type: 'load', epoch: 'export-resolution' });
     await new Promise(resolve => setTimeout(resolve, 20));

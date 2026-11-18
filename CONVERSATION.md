@@ -1076,3 +1076,7 @@ complete-block insertion, source preservation, CRLF and missing final newline, r
 references, missing locations, literal markers, and source alias protection. Generated sections keep original
 block IDs stable and cannot steal a highlight. Real WebKit confirms stable repeat export and notes-only output.
 Native UI confirms a separate notes file, current-file notes at the end, and local note retention after export.
+
+## MonoMark reference links and clipboard checks — 17 November 2026
+
+The owner asked whether content Copy and comment/annotation Paste work and authorized release checks after features. Native QA copied a selected rendered sentence with Command-C, then pasted its exact text into an annotation comment and Notes with Command-V. Optional implicit references passed actual native tab opening and section jumps. All unsigned platforms compile, with 112 Core and 96 renderer tests passing. Release checks follow. No distribution signing, upload, or publication occurred.

@@ -99,6 +99,12 @@ import WebKit
         {
             $0 as? Bool == true
         }
+        let links = try await ReviewLinkSmoke.run(session: session)
+        report["implicitLinks"] = links
+        report["passed"] = report["passed"] as? Bool == true && links.values.allSatisfy
+        {
+            $0 as? Bool == true
+        }
         let image = try await view.takeSnapshot(configuration: nil)
         if let tiff = image.tiffRepresentation, let bitmap = NSBitmapImageRep(data: tiff),
            let png = bitmap.representation(using: .png, properties: [:])

@@ -24,7 +24,7 @@ extension ReaderSession
             hasExternalChanges = true
             if preferences.autoReload, FileManager.default.fileExists(atPath: file.path)
             {
-                refresh()
+                refresh(reindexReferences: false)
             }
             else
             {
@@ -34,7 +34,7 @@ extension ReaderSession
     }
 
     /// Refresh rendering without replacing the local annotation controller or changing the current tab.
-    func refresh()
+    func refresh(reindexReferences: Bool = true)
     {
         guard url != nil
         else
@@ -42,6 +42,13 @@ extension ReaderSession
             return
         }
         hasExternalChanges = false
-        loadRenderer()
+        if reindexReferences, preferences.implicitFileLinks
+        {
+            reparseReferences(force: true)
+        }
+        else
+        {
+            loadRenderer()
+        }
     }
 }

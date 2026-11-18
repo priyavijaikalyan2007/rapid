@@ -19,6 +19,13 @@ test('block locations include the current heading hierarchy', () => {
     assert.equal(result.blocks.at(-1).section, 'Document › 3. Queries › Operators');
 });
 
+test('source section labels retain whole Unicode characters at the length boundary', () => {
+    const title = 'a'.repeat(511) + '😀' + 'tail';
+    const result = parseDocument('# ' + title + '\n\nText.');
+    assert.equal(Array.from(result.blocks.at(-1).section).length, 512);
+    assert.equal(result.blocks.at(-1).section.endsWith('😀'), true);
+});
+
 test('source stamps use canonical UTF-8 text', async () => {
     const { documentStamp } = await import('../src/document-stamp.mjs');
     assert.equal(await documentStamp('abc'), 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad');

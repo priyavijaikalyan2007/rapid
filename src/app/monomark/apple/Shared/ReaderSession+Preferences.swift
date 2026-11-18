@@ -39,11 +39,33 @@ extension ReaderSession
         return value
     }
 
+    /// Workspace paths are transferred only for parsing, rather than on every typography update.
+    func rendererReferences() -> [String: Any]
+    {
+        var value: [String: Any] = [
+            "implicitFileLinks": preferences.implicitFileLinks,
+            "implicitSectionLinks": preferences.implicitSectionLinks
+        ]
+        if preferences.implicitFileLinks, let referenceIndex, let url,
+           let path = referenceIndex.relativePath(for: url)
+        {
+            value["linkPaths"] = referenceIndex.paths
+            value["documentPath"] = path
+        }
+        return value
+    }
+
     func updatePreferences()
     {
         preferences.normalize()
+        let reparse = appliedFileLinks != preferences.implicitFileLinks ||
+            appliedSectionLinks != preferences.implicitSectionLinks
         command(["type": "preferences", "value": rendererPreferences()])
         checkpoint()
+        if reparse
+        {
+            reparseReferences()
+        }
     }
 
     func setLayout(_ mode: String)
