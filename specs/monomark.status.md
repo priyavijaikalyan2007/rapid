@@ -248,3 +248,8 @@ Core line coverage is 94.33%, including 100% for the recovery policy. Renderer l
 Full and runtime-only MonoMark dependency audits report zero known vulnerabilities. The three repository alerts
 concern separate website and Composure dependencies. Native automation is currently unavailable.
 The [release check record](monomark.release-checks.md) distinguishes local evidence from open release gates.
+
+The refreshed local trial ZIP now uses source a37978c1e9f2, includes the Mac icon, and contains 5,957,866 bytes.
+Its checksum and exact resource verification appear in [the package record](monomark.package.json).
+The [final artifact evidence](monomark.final-artifact-smoke.json) passes equation, image, and diagram pixel/clipboard
+checks, stale-copy cancellation, and unchanged source. The trial ZIP remains unsigned and unnotarized.

@@ -311,14 +311,16 @@
       "id": 6459026824,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/66",
       "parent": 8,
-      "progress": "implemented; final checks in progress"
+      "progress": "closed",
+      "commit": "a37978c"
     },
     "sandbox-startup": {
       "number": 67,
       "id": 6459224517,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/67",
       "parent": 8,
-      "progress": "implemented; final checks in progress"
+      "progress": "closed",
+      "commit": "a37978c"
     }
   },
   "refinements": {

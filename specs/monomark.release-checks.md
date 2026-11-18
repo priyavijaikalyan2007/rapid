@@ -70,3 +70,13 @@ capture, multiple displays, and physical mobile acceptance remain open in the li
 The 10 MiB synthetic Node benchmark indexed 30,979 blocks in 527 ms and found its final search target in 14 ms.
 Node RSS reached about 258 MiB. These figures come from the 64 GiB development host and exclude native/WebKit memory.
 They do not satisfy the native performance release gate.
+
+## Trial package checkpoint
+
+The refreshed unsigned trial ZIP uses committed source a37978c1e9f2 and includes the compiled Mac icon and privacy manifest.
+It supports macOS 15 or later on Apple silicon and Intel. The archive contains 5,957,866 bytes.
+ZIP integrity, exact renderer resources, license, launcher executable permission, architecture, and revision checks pass.
+The [package record](monomark.package.json) contains its SHA-256 checksum.
+The [final artifact test](monomark.final-artifact-smoke.json) verifies actual equation, image, and diagram PNG pixels
+through an isolated pasteboard. It also verifies cancellation after document replacement and unchanged fixture source.
+This package has no distribution signature or notarization and remains a local trial artifact.
