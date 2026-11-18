@@ -1,20 +1,21 @@
 {
   "date": "2026-11-18",
-  "status": "prepared and validated locally; not deployed",
+  "status": "published and verified",
   "supportURL": "https://outcrop.us/support/",
   "privacyURL": "https://outcrop.us/privacy/",
   "liveSupportHTTPStatus": 200,
   "livePrivacyHTTPStatus": 200,
-  "livePagesNameMonoMark": false,
+  "livePagesNameMonoMark": true,
   "preparedPagesNameMonoMark": true,
   "websiteTestsPassed": true,
   "generatedHTMLFilesValidated": 6,
   "wranglerVersion": "4.152.0",
   "deploymentDryRunPassed": true,
-  "deployed": false,
+  "deployed": true,
   "sourceFiles": [
     "src/web/site/support/index.html",
     "src/web/site/privacy/index.html"
   ],
-  "remaining": "Explicit website deployment request required by ADDITIONAL.md."
+  "sourceRevision": "6565781",
+  "cloudflareVersionID": "00961c20-a617-4d5f-94b2-9542583eaf3d"
 }

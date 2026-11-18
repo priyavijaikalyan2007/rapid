@@ -43,7 +43,7 @@ The website's disclosed analytics are separate from the native app and do not ru
 
 Evidence includes Shared/PrivacyInfo.xcprivacy, the renderer's restrictive resource policy, native navigation, and the bundled library audit.
 Apple defines collection in its [App Privacy Details guidance](https://developer.apple.com/app-store/app-privacy-details/).
-The proposed public policy now names MonoMark and explains its local reading data. Publication is still pending.
+The published public policy names MonoMark and explains its local reading data.
 
 ## Age-rating questionnaire
 

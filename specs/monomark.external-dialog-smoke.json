@@ -1,0 +1,12 @@
+{
+  "nativeFolderGrantOpened": true,
+  "nativeSavePanelExportedCopy": true,
+  "copyContainsNotes": true,
+  "originalSourcesUnchanged": true,
+  "nativeSaveCancellationPreservesSource": true,
+  "version": "1.0.0",
+  "build": 86,
+  "mode": "isolated demo; real NSOpenPanel and NSSavePanel, synthetic folder outside app container",
+  "crossProcessRecoveryVerified": false,
+  "providerCloudRecoveryVerified": false
+}

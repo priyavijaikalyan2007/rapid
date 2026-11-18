@@ -317,7 +317,7 @@
       "parent": 8,
       "progress": "release validation",
       "evidence": "specs/monomark.release-candidate.json",
-      "remaining": "Direct-download notarization and selected manual acceptance before public distribution. App Store upload/submission and public release remain separate actions."
+      "remaining": "Notarized Developer ID app and download package verify. Settings bug 69 and selected interactive/hardware checks remain. Public download publication and App Store upload/submission remain separate."
     },
     "mac-icon": {
       "number": 66,
@@ -343,6 +343,13 @@
       "progress": "archive verified; local App Store export awaiting Xcode account/profile",
       "commit": "9fbcc90",
       "remaining": "Exact build 86 archive/export and signed checks pass. Final store record/listing/privacy/export-compliance review, screenshot upload, and selected manual acceptance remain."
+    },
+    "settings-persistence": {
+      "number": 69,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/69",
+      "progress": "in progress",
+      "parent": 2,
+      "releaseBlocker": true
     }
   },
   "refinements": {

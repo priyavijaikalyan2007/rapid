@@ -87,3 +87,10 @@ The current candidate is 1.0.0 build 86 from clean source 89853dba9ca7. Both sig
 STORE-ANSWERS.md records proposed privacy, age-rating, encryption, and listing answers for build 86. It cites Apple's current definitions and the implementation evidence. Nothing was entered in App Store Connect. Apple requires initial app-record creation through its website.
 
 The live support and privacy pages return HTTP 200 but do not yet name MonoMark. The repository now includes the prepared MonoMark support section and local-reading-data policy text. Website tests, generated HTML/link validation, and Wrangler's local deployment preview pass. Publication requires the explicit deployment request in ADDITIONAL.md. This documentation work does not change the signed app candidate.
+
+
+## Notarization complete; settings defect under investigation
+
+The owner approved the notary upload. Xcode's existing Outcrop account session completed notarization for build 86. The exported app's ticket, signature, distribution policy, source revision, and universal executable UUIDs verify. The notarized app and ZIP are under build/ReleaseCandidate/1.0.0-86/Notarized and Download. The candidate JSON records the ZIP checksum. Nothing was uploaded to the Mac App Store or submitted for review.
+
+The owner approved publication of the MonoMark public-page additions. Both canonical URLs now return the updated content. The new settings-persistence report is tracked as release-blocking bug #69. Do not submit or publish the app until the defect is resolved and the selected acceptance checks pass.
