@@ -1,0 +1,56 @@
+{
+  "date": "2026-11-18",
+  "status": "local signed candidate; manual acceptance incomplete",
+  "version": "1.0.0",
+  "build": 86,
+  "sourceRevision": "89853dba9ca7",
+  "cleanSource": true,
+  "macArchitectures": [
+    "arm64",
+    "x86_64"
+  ],
+  "appStoreExportPassed": true,
+  "appStoreInstallerSignatureVerified": true,
+  "developerIDExportPassed": true,
+  "developerIDSignatureVerified": true,
+  "hardenedRuntime": true,
+  "secureTimestamp": true,
+  "nativeChecks": {
+    "review": true,
+    "lifecycle": true,
+    "presentation": true,
+    "artifacts": true
+  },
+  "screenshots": "src/app/monomark/AppStore/Screenshots/manifest.json",
+  "files": [
+    {
+      "file": "src/app/monomark/build/ReleaseCandidate/1.0.0-86/AppStore/MonoMark.pkg",
+      "bytes": 6920969,
+      "sha256": "028e49c6c5cae1f7485409fab648eae5b5b070f4fe6cfe26776b7607c86e2a04"
+    },
+    {
+      "file": "src/app/monomark/build/ReleaseCandidate/1.0.0-86/Download/MonoMark-1.0.0-86-macOS.zip",
+      "bytes": 5729602,
+      "sha256": "46504b391092753aa263442c3a3b733217e55416751a530158fe0109f49e2344"
+    }
+  ],
+  "app": "src/app/monomark/build/ReleaseCandidate/1.0.0-86/DeveloperID/MonoMark.app",
+  "notarized": false,
+  "uploaded": false,
+  "submitted": false,
+  "remaining": [
+    "External user-selected/provider reopening and export grants",
+    "VoiceOver acceptance",
+    "Physical multi-display and display removal",
+    "Slower-machine resource budgets and calibrated energy",
+    "Final App Store record/listing/privacy/export-compliance review",
+    "Direct download notarization before public distribution"
+  ],
+  "runtimeEnvironment": {
+    "hardware": "Apple M5 Pro, 64 GiB",
+    "macOS": "27.2.1",
+    "architecture": "arm64",
+    "intelRuntimeVerified": false,
+    "minimumMacOSRuntimeVerified": false
+  }
+}

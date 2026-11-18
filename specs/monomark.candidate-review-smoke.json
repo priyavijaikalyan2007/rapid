@@ -1,0 +1,105 @@
+{
+  "anchorCount": 1,
+  "beforeJump": {
+    "bodyLefts": [
+      80.15625,
+      151.15625,
+      348.25
+    ],
+    "codeFont": "ui-monospace, monospace",
+    "columnLefts": [
+      80.15625,
+      151.15625,
+      348.25
+    ],
+    "columnsAligned": true,
+    "headingMarked": false,
+    "headingText": "3. Three forms",
+    "monospaceCode": true,
+    "separatePreambleLines": true,
+    "sourceGutter": true,
+    "uniqueIDs": true,
+    "validTableMarks": true
+  },
+  "bodyLefts": [
+    80.15625,
+    151.15625,
+    335.71875
+  ],
+  "codeFont": "ui-monospace, monospace",
+  "columnLefts": [
+    80.15625,
+    151.15625,
+    335.71875
+  ],
+  "columnsAligned": true,
+  "exportSectionAndLine": true,
+  "exportSourceHash": true,
+  "externalEditReattachment": {
+    "ambiguousQuoteUnattached": true,
+    "boundedViewport": true,
+    "deletedQuoteUnattached": true,
+    "exportUsesCurrentSectionAndLine": true,
+    "reattachedBeyondViewport": true,
+    "savedAnchorPreserved": true
+  },
+  "headingMarked": true,
+  "headingQuote": "3. Three forms",
+  "headingText": "3. Three forms",
+  "implicitLinks": {
+    "boundedViewport": true,
+    "fileNewTabDispatch": true,
+    "numberedSectionJump": true,
+    "sourceUnchanged": true,
+    "spaceFilename": true
+  },
+  "inlineAndSelectiveExports": {
+    "inlineComment": true,
+    "notesOnlySidecar": true,
+    "onlyOriginalHighlighted": true,
+    "repeatInlineExportStable": true,
+    "sourcePreserved": true
+  },
+  "largeTableAndPrint": {
+    "boundedRows": true,
+    "columnsAligned": true,
+    "completeGridCopy": true,
+    "consistentWidths": true,
+    "mountedRows": 288,
+    "passed": true,
+    "print": {
+      "allRowsPresent": true,
+      "pages": 12,
+      "passed": true,
+      "restoredDocument": true,
+      "sourceUnchanged": true
+    },
+    "rows": 20000,
+    "sourceUnchanged": true,
+    "uniqueIDs": true
+  },
+  "longSelection": {
+    "boundedViewport": true,
+    "copyBeyondFourMiB": true,
+    "fullDocumentCopy": true,
+    "partialCopy": true,
+    "sourceUnchanged": true,
+    "unloadedAnchors": true
+  },
+  "monospaceCode": true,
+  "passed": true,
+  "separatePreambleLines": true,
+  "sourceGutter": true,
+  "sourceUnchanged": true,
+  "uniqueIDs": true,
+  "validTableMarks": true,
+  "provenance": {
+    "date": "2026-11-18",
+    "version": "1.0.0",
+    "build": 86,
+    "sourceRevision": "89853dba9ca7",
+    "cleanSource": true,
+    "signature": "Outcrop Developer ID, hardened runtime, secure timestamp",
+    "notarized": false
+  }
+}

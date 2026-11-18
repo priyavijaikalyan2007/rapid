@@ -21,7 +21,8 @@
       "number": 4,
       "id": 6388328916,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/4",
-      "progress": "in progress"
+      "progress": "closed",
+      "commit": "89853db"
     },
     "annotations": {
       "number": 5,
@@ -136,7 +137,8 @@
       "id": 6388332339,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/18",
       "progress": "closed",
-      "evidence": "specs/monomark.presentation-smoke.json"
+      "evidence": "specs/monomark.presentation-smoke.json",
+      "commit": "89853db"
     },
     "annotation-store": {
       "number": 19,
@@ -313,7 +315,9 @@
       "id": 6458831458,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/65",
       "parent": 8,
-      "progress": "release validation"
+      "progress": "release validation",
+      "evidence": "specs/monomark.release-candidate.json",
+      "remaining": "Direct-download notarization and selected manual acceptance before public distribution. App Store upload/submission and public release remain separate actions."
     },
     "mac-icon": {
       "number": 66,
@@ -338,7 +342,7 @@
       "parent": 65,
       "progress": "archive verified; local App Store export awaiting Xcode account/profile",
       "commit": "9fbcc90",
-      "remaining": "Final verified candidate rebuild, store record/listing/privacy/export-compliance review, screenshot upload, and remaining selected manual acceptance. Local App Store export and Developer ID export pass."
+      "remaining": "Exact build 86 archive/export and signed checks pass. Final store record/listing/privacy/export-compliance review, screenshot upload, and selected manual acceptance remain."
     }
   },
   "refinements": {

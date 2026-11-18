@@ -6,7 +6,7 @@
 # MonoMark manual Mac release checks
 
 The requested Mac feature set is implemented. These checks require access that the current automated host does not provide.
-Use the exact signed candidate recorded in monomark.distribution-preflight.json or its successor. Record its version, build, and source revision.
+Use the exact signed candidate recorded in monomark.release-candidate.json. Record its version, build, and source revision.
 Use copies of the public AppStore/Fixtures documents. Do not use private source documents for destructive export tests.
 Do not mark an unchecked item complete from a compilation result or an app-owned fixture test.
 
@@ -57,7 +57,7 @@ Record results under #28. Programmatic document-focus and semantic checks alread
 8. Disconnect that display during presentation.
 9. Confirm that the document remains reachable on the remaining display.
 
-Record display arrangement and results under #28. One-display presentation, Escape, and independent-window preservation already pass.
+Record display arrangement and results under #28. Test the minimum supported macOS and Intel runtime when that hardware is available. One-display presentation, Escape, and independent-window preservation already pass.
 
 ## Reference hardware and store account
 

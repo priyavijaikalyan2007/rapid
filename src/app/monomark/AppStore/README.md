@@ -75,3 +75,8 @@ Do not submit for review until the selected release gates pass and the listing m
 Version 1.0.0 build 84 from clean be10919e49f1 exports through both channels. The Mac Store installer signature and Developer ID app signature verify. The Developer ID app includes hardened runtime and a secure timestamp. Its notarization remains pending. See specs/monomark.distribution-preflight.json for exact evidence. Nothing was uploaded or submitted. Rebuild from the final verified checkpoint before selecting the submission build.
 
 The owner signed into Xcode and accepted Apple's latest Program License Agreement. Xcode created the matching Mac Store profile. The earlier account/agreement blockers are resolved. Store-record and final privacy/export-compliance checks remain separate. The manual checks are in specs/monomark.manual-release-checks.md.
+
+
+## Exact local candidate
+
+The current candidate is 1.0.0 build 86 from clean source 89853dba9ca7. Both signed exports and the exact Developer ID app's review, lifecycle, presentation, and artifact checks pass. The checked-in candidate report at specs/monomark.release-candidate.json records artifacts, checksums, and manual gates. The local app is under src/app/monomark/build/ReleaseCandidate/1.0.0-86/DeveloperID/MonoMark.app. The App Store package and direct ZIP are in sibling AppStore and Download folders. The ZIP is not notarized and is not approved for public distribution.

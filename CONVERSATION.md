@@ -1131,3 +1131,8 @@ The owner requested completion of remaining checks one by one. The owner signed 
 ## 18 November 2026: Signed exports, native appearance, and screenshots
 
 The owner accepted Apple's agreement and requested continued release work. Both local signed distribution exports now succeed. Signed review and lifecycle checks pass. Native appearance and one-display presentation pass through actual compositor captures. A view-cache false result was investigated, and all proposed UI changes were removed. Four full-app screenshot drafts use public examples and synthetic reading data. Provider grants, VoiceOver, multiple displays, reference hardware, final store-account review, and publication gates remain explicit.
+
+
+## 18 November 2026: Exact signed local candidate
+
+The owner requested continued work. The exact 1.0.0 build 86 candidate now exports through both channels from clean 89853dba9ca7. Its signed review, lifecycle, presentation, and artifact checks pass. The direct ZIP passes integrity checks. Local artifacts and checksums are recorded. The working tree's unrelated Xcode scheme edit stays untouched. The remaining real-provider check was presented to the owner because the native interaction host still cannot start. Other manual and publication gates remain explicit.

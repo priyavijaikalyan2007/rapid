@@ -28,3 +28,6 @@ Created: 2026
 Keep existing source and specification locations. This index does not move application files.
 Record future verified results in the owning status file.
 Use [agent knowledge](../agentknowledge/README.md) for code navigation and recorded constraints.
+
+
+MonoMark's current local candidate is recorded in [monomark.release-candidate.json](monomark.release-candidate.json). Remaining interactive and physical checks are in [monomark.manual-release-checks.md](monomark.manual-release-checks.md).
