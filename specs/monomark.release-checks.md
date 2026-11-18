@@ -89,3 +89,10 @@ The [current native evidence](monomark.table-print-smoke.json) verifies bounded 
 A synchronous test without panels first produced an excessive temporary PDF. WebKit computes print page ranges asynchronously. The native test and application now retain the print DOM until AppKit's completion callback. This follows Apple's [print operation contract](https://developer.apple.com/documentation/appkit/nsprintoperation) and the asynchronous pagination behavior in [WebKit's printing view](https://github.com/WebKit/WebKit/blob/main/Source/WebKit/UIProcess/mac/WKPrintingView.mm). The failed temporary PDF was removed.
 
 Print jobs reject more than 5,000 blocks, 16 MiB of rendered HTML, or 100,000 rendered elements. Individual blocks retain the 1 MiB rendered-object limit. Unsupported jobs report their limit rather than print incomplete content. Worker replies carry generation tokens, and cancelled jobs cannot replace the current document.
+
+
+## External-edit and automation checkpoint
+
+The [native reattachment report](monomark.reattachment-smoke.json) verifies full-index quote recovery past 600 inserted paragraphs. Navigation and export use the current section and line. Duplicate and deleted quotes remain unattached. This closes #20, including ambiguity across unloaded blocks. The original saved anchor remains unchanged. Recovery reuses canonical worker text and caps its quote cache at 256 entries.
+
+The native/browser automation host was retried and remains unavailable. The native pipe failed to start, and the browser host returned unavailable. This prevents interactive acceptance and store screenshots through the supported automation surface. Provider grants, accessibility/focus, physical displays/devices, reference-machine resource budgets, and signed distribution remain separate open gates. Existing signed archive/export evidence still concerns the earlier 0.1.0 build. It does not establish a signed 1.0.0 release.

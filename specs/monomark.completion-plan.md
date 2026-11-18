@@ -32,3 +32,10 @@ whole-table source ranges so inline reading-data export never splits a source ta
 No new GoF pattern is required. Pure selection/range helpers and existing worker/native adapters suffice.
 Keep processing in testable helpers, use bounded requests, and record failing regression tests before implementation.
 Commit verified stages separately and keep GitHub issue evidence current.
+
+
+## Whole-index quote recovery
+
+External insertions can reuse an old block identifier for unrelated text. Resolve quote/context matches against worker-owned canonical text. Require one match across the complete document, including unloaded blocks. Keep original anchors in local storage. Use temporary resolved block IDs for decoration, navigation, and current export locations. Yield between small batches, cancel obsolete annotation revisions, and cap the quote cache.
+
+Add renderer/src/anchor-resolution.mjs and its tests. Update worker.mjs, host.mjs, annotations.mjs and their regression tests. Add Mac/ReviewReattachmentSmoke.swift and its project membership. Test block shifts, distant duplicates, deleted text, legacy whitespace, visible subsets, cancellation, and current source references. No pattern required. Pure recovery functions and existing worker/native adapters suffice.

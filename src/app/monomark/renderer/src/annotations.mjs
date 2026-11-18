@@ -70,10 +70,12 @@ export function resolveAnnotationLocations(window, root, annotations)
 
 function locate(blocks, anchor, knownBlockIDs)
 {
+    if (anchor.resolvedBlockID === null) { return null; }
+    const blockID = anchor.resolvedBlockID || anchor.blockID;
     const matches = [];
-    const preferred = blocks.filter(block => block.element.id === anchor.blockID ||
-        block.element.dataset.anchor === anchor.blockID);
-    if (!preferred.length && knownBlockIDs?.has(anchor.blockID)) { return null; }
+    const preferred = blocks.filter(block => block.element.id === blockID ||
+        block.element.dataset.anchor === blockID);
+    if (!preferred.length && knownBlockIDs?.has(blockID)) { return null; }
     for (const block of preferred.length ? preferred : blocks)
     {
         for (let start = block.text.indexOf(anchor.quote); start >= 0; start = block.text.indexOf(anchor.quote, start + 1))
@@ -129,8 +131,9 @@ export function renderAnnotations(window, root, annotations, knownBlockIDs)
         const matches = anchors.map(anchor => locate(blocks, anchor, knownBlockIDs) || locate(blocks, { ...anchor,
             quote: anchor.quote.replace(/^\n+|\n+$/g, ''), prefix: anchor.prefix.replace(/\n+$/g, ''),
             suffix: anchor.suffix.replace(/^\n+/g, '') }, knownBlockIDs));
-        if (!matches.length || matches.some(match => !match)) { result.unresolved.push(annotation.id); continue; }
-        matches.forEach(match => decorate(window, match, annotation));
+        const visible = anchors.every(anchor => typeof anchor.resolvedBlockID === 'string') ? matches.filter(Boolean) : matches;
+        if (!visible.length || visible.some(match => !match)) { result.unresolved.push(annotation.id); continue; }
+        visible.forEach(match => decorate(window, match, annotation));
         result.attached.push(annotation.id);
     }
     return result;

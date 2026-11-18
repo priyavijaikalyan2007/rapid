@@ -58,6 +58,7 @@ let copyOverlay;
 let pngCopySequence = 0;
 let appearance = 'system';
 let annotations = [];
+let annotationID = 0;
 let selectionTimer;
 let pendingAnnotation;
 let exportSequence = 0;
@@ -90,7 +91,7 @@ function exportLocations(records)
             reject(new Error('The source locations could not be resolved in time. Refresh and try again.'));
         }, 10000);
         pendingExports.set(exportID, { resolve, reject, timer, records });
-        worker.postMessage({ type: 'export-locations', exportID,
+        worker.postMessage({ type: 'export-locations', exportID, annotations: records,
             ids: [...new Set(records.flatMap(annotation => annotation.anchors.map(anchor => anchor.blockID)))] });
     });
 }
@@ -104,7 +105,12 @@ function finishExport(data)
     if (data.error) { pending.reject(new Error(data.error)); return; }
     const root = document.createElement('div');
     root.replaceChildren(...data.blocks.map((block, index) => makeBlock(block, index)));
-    pending.resolve({ annotations: resolveAnnotationLocations(window, root, pending.records), sourceHash: data.sourceHash });
+    pending.resolve({ annotations: resolveAnnotationLocations(window, root, data.annotations || pending.records), sourceHash: data.sourceHash });
+}
+
+function requestAnnotationResolution()
+{
+    worker?.postMessage({ type: 'resolve-annotations', annotationID, annotations });
 }
 
 function decorateAnnotations()
@@ -272,7 +278,15 @@ function navigateAnnotation(id)
     if (scrollToAnnotation(window, viewport, id)) { pendingAnnotation = null; return; }
     const annotation = annotations.find(item => item.id === id);
     const anchor = annotation?.anchors[0];
-    if (!anchor) { return; }
+    if (!anchor || anchor.resolution === 'pending') { return; }
+    if (anchor.resolvedBlockID === null)
+    {
+        pendingAnnotation = null;
+        emit('status', { message: anchor.resolution === 'ambiguous' ? 'This quotation has more than one matching location. The highlight remains in the sidebar.' :
+            'The quotation no longer matches the document. The highlight remains in the sidebar.' });
+        return;
+    }
+    if (anchor.resolvedBlockID) { jump(anchor.resolvedBlockID); return; }
     if (metadata.some(block => block.id === anchor.blockID || block.blockID === anchor.blockID)) { jump(anchor.blockID); }
     else
     {
@@ -338,12 +352,20 @@ function onWorker(data, initial)
         if (data.error) { emit('status', { message: data.error }); }
         else { emit('copyText', { text: data.text }); }
     }
+    if (data.type === 'annotations-resolved' && data.annotationID === annotationID)
+    {
+        documentSelection.beforeChange();
+        annotations = data.annotations;
+        decorateAnnotations(); documentSelection.afterChange();
+        if (pendingAnnotation) { navigateAnnotation(pendingAnnotation); }
+    }
     if (data.type === 'selection-result') { documentSelection.receive(data); }
     if (data.type === 'export-locations') { finishExport(data); }
     if (data.type === 'index')
     {
         metadata = data.blocks;
         indexed = true;
+        if (annotations.length) { requestAnnotationResolution(); }
         knownBlockIDs = new Set(metadata.filter(block => !block.generated).flatMap(block => [block.id, block.blockID]));
         sourceLines = data.sourceLines || 0;
         document.documentElement.style.setProperty('--line-digits', String(Math.max(2, String(sourceLines).length)));
@@ -523,9 +545,11 @@ window.MonoMark = {
         if (command.type === 'annotations')
         {
             documentSelection.beforeChange();
-            annotations = command.value || [];
-            decorateAnnotations();
-            documentSelection.afterChange();
+            annotations = (command.value || []).map(note => ({ ...note, anchors: note.anchors.map(anchor =>
+                ({ ...anchor, resolvedBlockID: null, resolution: 'pending' })) }));
+            annotationID++;
+            if (indexed) { requestAnnotationResolution(); }
+            decorateAnnotations(); documentSelection.afterChange();
         }
         if (command.type === 'copyComplete' && (!command.epoch || command.epoch === epoch) &&
             (command.copyID === undefined || command.copyID === pngCopySequence))

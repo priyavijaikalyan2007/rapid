@@ -144,8 +144,9 @@
       "number": 20,
       "id": 6388332883,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/20",
-      "progress": "needs verification",
-      "commit": "639ab63"
+      "progress": "closed",
+      "commit": "639ab63",
+      "evidence": "specs/monomark.reattachment-smoke.json"
     },
     "annotation-sidebar": {
       "number": 21,

@@ -1113,3 +1113,6 @@ User: "continue." Continued the remaining MonoMark 1.0 work before submission. B
 
 
 Continued native release checks after #15. Hidden-window artifact PNG checks pass. A new native test reproduced pending PNG output overwriting a later text action. Request generations now cancel that output. Renderer completion identifiers preserve a newer copy overlay. All scoped builds, 125 Core tests, 124 renderer tests, and native review/artifact regressions pass. Next work addresses annotation reattachment after external edits.
+
+
+Completed full-document quote recovery for #20. Tests first reproduced reused block identifiers, hidden duplicates, stale recovery responses, and missing visible portions of multi-block highlights. The worker now resolves unique quote contexts across the full index. Navigation and export share temporary current locations. Original stored anchors remain unchanged. Actual WebKit acceptance follows a highlight past 600 inserted paragraphs, exports line 1203, and rejects duplicate/deleted quotes. 125 Core and 137 renderer tests, unsigned platform builds, and the combined native review harness pass. Native/browser automation still fails to start. Remaining interactive, provider, reference-hardware, signed-distribution, and physical-device checks stay open.

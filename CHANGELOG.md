@@ -25,6 +25,8 @@ Created: 2026
 
 ### Fixed
 
+- Reattached MonoMark highlights across external block changes and kept navigation/export references current without guessing among duplicate quotes.
+
 - Prevented older MonoMark PNG requests from replacing a later text copy or dismissing a newer artifact copy.
 
 - Bounded MonoMark large-table layout and preserved whole-grid Copy. Kept print content until native completion and rejected oversized jobs explicitly.

@@ -304,3 +304,14 @@ The [native evidence](monomark.table-print-smoke.json) verifies a 20,000-row tab
 Real native acceptance passes equation, image, and diagram PNG pixel checks while the reader window stays hidden. Test copies use isolated pasteboards. A new native regression first reproduced an older PNG request completing after a newer text copy. Native request generations now cancel that stale completion. The system clipboard change count also protects newer copies outside the session. Renderer PNG request identifiers keep an older completion from dismissing a newer copy overlay. A failing bridge regression verifies that case.
 
 The [clipboard evidence](monomark.clipboard-smoke.json) passes visible/hidden artifact pixels, isolated clipboard round trips, newer text ordering, document-replacement cancellation, and source preservation. All unsigned platform builds, 125 Core tests, 124 renderer tests, source checks, repository checks, and the full native review/print harness pass. #17 is complete. Annotation reattachment after source edits remains next.
+
+
+## Full-document quote recovery checkpoint
+
+Highlight recovery now checks quote context across the worker's complete document index. A reused block identifier cannot capture unrelated text. One matching location attaches the quote. Ambiguous and deleted quotes remain in the sidebar. The original stored anchor stays unchanged. Temporary resolved locations drive decoration, navigation, and current section/line export references. Multi-block highlights decorate their visible portions.
+
+Recovery yields between small batches, cancels obsolete revisions, and keeps a bounded quote cache. Document replacement clears the cache. Export uses the same recovery policy, so an outdated block ID cannot produce an incorrect source reference. New failing regressions cover shifted blocks, unloaded duplicates, stale replies, and visible subsets.
+
+The [native recovery evidence](monomark.reattachment-smoke.json) verifies navigation after 600 inserted paragraphs, the current section and line 1203, unloaded duplicate rejection, deleted-quote handling, original anchor preservation, and bounded mounting. The combined selection, table, PDF, export, and link harness also passes. 125 Core tests, 137 renderer tests, and unsigned Apple builds pass. The new recovery module has 100% line/function coverage and 96.08% branch coverage.
+
+Native automation was retried after these fixes. The host still reports a native pipe startup failure and unavailable browser access. Interactive accessibility/focus, real provider grants, screenshots, physical displays/devices, reference-machine resource acceptance, and signed distribution checks remain open. Version 1.0.0 remains the release target. No upload or submission occurred.

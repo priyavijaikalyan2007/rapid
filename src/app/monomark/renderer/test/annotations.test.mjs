@@ -138,3 +138,19 @@ test('annotation navigation scrolls to the marked line within a block', async ()
     assert.ok(position > 0 && position < 600);
     assert.equal(scrollToAnnotation(window, root, 'missing'), false);
 });
+
+
+test('global ambiguity cannot fall back to a unique visible duplicate',()=>{
+    const window=fixture('<section class="monomark-block" id="b">Before chosen phrase after.</section>');
+    const note={id:'ambiguous',anchors:[{blockID:'old',resolvedBlockID:null,quote:'chosen phrase',prefix:'Before ',suffix:' after.'}]};
+    assert.deepEqual(renderAnnotations(window,window.document.querySelector('main'),[note]).unresolved,['ambiguous']);
+    assert.equal(window.document.querySelector('mark'),null);
+});
+
+test('globally resolved multi-block annotations decorate their visible subset',()=>{
+    const window=fixture('<section class="monomark-block" id="visible">Visible quote.</section>');
+    const note={id:'spanning',anchors:[
+        {blockID:'old-a',resolvedBlockID:'visible',quote:'Visible quote.',prefix:'',suffix:''},
+        {blockID:'old-b',resolvedBlockID:'unloaded',quote:'Unloaded quote.',prefix:'',suffix:''}]};
+    assert.deepEqual(renderAnnotations(window,window.document.querySelector('main'),[note],new Set(['visible','unloaded'])).attached,['spanning']);
+});

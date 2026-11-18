@@ -62,3 +62,23 @@ test('print responses preserve a generation token and reject an oversized DOM be
     assert.match(messages.at(-1).error,/5,000 blocks/);
     assert.equal(messages.at(-1).blocks,undefined);
 });
+
+test('full-index annotation recovery and export agree after block positions change',async()=>{
+    await self.onmessage({data:{type:'load',source:'Inserted.\n\n## Reading section\n\nBefore chosen phrase after.'}});
+    const annotations=[{id:'changed',anchors:[{blockID:'block-0',quote:'chosen phrase',prefix:'Before ',suffix:' after.',start:7}]}];
+    await self.onmessage({data:{type:'resolve-annotations',annotationID:92,annotations}});
+    assert.equal(messages.at(-1).annotations[0].anchors[0].resolvedBlockID,'block-2');
+    await self.onmessage({data:{type:'export-locations',exportID:93,ids:['block-0'],annotations}});
+    assert.equal(messages.at(-1).blocks[0].blockID,'block-2');
+    assert.equal(messages.at(-1).blocks[0].section,'Reading section');
+});
+
+test('document replacement clears cached quote resolutions',async()=>{
+    const annotations=[{id:'cached',anchors:[{blockID:'old',quote:'Unique quote.',prefix:'',suffix:''}]}];
+    await self.onmessage({data:{type:'load',source:'Unique quote.'}});
+    await self.onmessage({data:{type:'resolve-annotations',annotationID:94,annotations}});
+    assert.equal(messages.at(-1).annotations[0].anchors[0].resolution,'unique');
+    await self.onmessage({data:{type:'load',source:'Unique quote.\n\nUnique quote.'}});
+    await self.onmessage({data:{type:'resolve-annotations',annotationID:95,annotations}});
+    assert.equal(messages.at(-1).annotations[0].anchors[0].resolution,'ambiguous');
+});

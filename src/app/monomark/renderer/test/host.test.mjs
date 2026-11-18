@@ -280,6 +280,7 @@ test('native annotations decorate remounted prose and selection reaches the insp
     assert.equal(selection.type, 'selection');
     assert.equal(selection.anchors[0].quote, 'Remember this sentence.');
     window.MonoMark.command({ type: 'annotations', value: [{ id: 'note-one', color: 'yellow', anchors: selection.anchors }] });
+    resolveCurrentAnnotations(worker);
     const mark = document.querySelector('mark');
     assert.equal(mark.textContent, 'Remember this sentence.');
     assert.deepEqual(messages.at(-1).attached, ['note-one']);
@@ -306,6 +307,7 @@ test('an offscreen annotation finishes at the quote rather than the block start'
             { id: 'a', blockID: 'a', estimate: 80 }, { id: 'b', blockID: 'b', estimate: 160 }] } });
         window.MonoMark.command({ type: 'annotations', value: [{ id: 'offscreen', color: 'yellow', anchors: [
             { blockID: 'b', quote: 'Target', prefix: 'Intro. ', suffix: ' text.', start: 7 }] }] });
+        resolveCurrentAnnotations(worker);
         window.MonoMark.command({ type: 'annotation', id: 'offscreen' });
         worker.onmessage({ data: { type: 'range', request: worker.sent.at(-1).request, start: 1,
             blocks: [{ id: 'b', html: '<p>Intro. Target text.</p>' }] } });
@@ -495,4 +497,30 @@ test('an old PNG completion cannot dismiss a newer artifact copy',async()=>{
     assert.ok(latest.copyID>previous.copyID);
     window.MonoMark.command({type:'copyComplete',epoch:'png-ordering',copyID:latest.copyID});
     assert.equal(document.querySelector('.monomark-copy-overlay'),null);
+});
+
+
+function resolveCurrentAnnotations(worker)
+{
+    const request=worker.sent.filter(x=>x.type==='resolve-annotations').at(-1);
+    worker.onmessage({data:{type:'annotations-resolved',annotationID:request.annotationID,
+        annotations:request.annotations.map(note=>({...note,anchors:note.anchors.map(anchor=>({...anchor,resolvedBlockID:anchor.blockID,resolution:'unique'}))}))}});
+}
+
+test('annotation revisions reject old recovery results before decorating the current document',async()=>{
+    window.MonoMark.command({type:'load',epoch:'annotation-revisions'});
+    await new Promise(resolve=>setTimeout(resolve,20));
+    const worker=workers.at(-1);
+    const block={id:'b',blockID:'b',estimate:80,html:'<p>Before chosen phrase after.</p>'};
+    worker.onmessage({data:{type:'index',outline:[],links:[],blocks:[block]}});
+    worker.onmessage({data:{type:'range',request:worker.sent.at(-1).request,start:0,blocks:[block]}});
+    const annotations=[{id:'stale',anchors:[{blockID:'b',quote:'chosen phrase',prefix:'Before ',suffix:' after.'}]}];
+    window.MonoMark.command({type:'annotations',value:annotations});
+    const previous=worker.sent.at(-1);
+    assert.equal(previous.type,'resolve-annotations');
+    assert.equal(document.querySelector('mark'),null);
+    window.MonoMark.command({type:'annotations',value:[]});
+    worker.onmessage({data:{type:'annotations-resolved',annotationID:previous.annotationID,
+        annotations:annotations.map(note=>({...note,anchors:note.anchors.map(anchor=>({...anchor,resolvedBlockID:'b'}))}))}});
+    assert.equal(document.querySelector('mark'),null);
 });

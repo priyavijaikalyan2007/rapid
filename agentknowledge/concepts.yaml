@@ -489,5 +489,14 @@
       "MonoMarkRenderer",
       "MonoMarkDocumentSelection"
     ]
+  },
+  {
+    "name": "MonoMarkQuoteRecovery",
+    "definition": "Worker-owned canonical text resolves unique quote context across unloaded blocks. Temporary destinations drive highlights, navigation, and current export locations without mutating saved anchors. Obsolete revisions cancel and quote cache entries stay bounded.",
+    "anchor_file": "src/app/monomark/renderer/src/anchor-resolution.mjs",
+    "related": [
+      "MonoMarkAnnotations",
+      "MonoMarkDocumentSelection"
+    ]
   }
 ]
