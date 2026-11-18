@@ -446,5 +446,13 @@
   "related": [
     "MonoMarkRenderer"
   ]
+},
+{
+  "name": "MonoMarkSubmission",
+  "definition": "Mac-first App Store listing, private contact reuse, synthetic review fixtures, clean-source local archive/export, and separate upload/submission gates under Outcrop Inc.",
+  "anchor_file": "src/app/monomark/AppStore/README.md",
+  "related": [
+    "MonoMark"
+  ]
 }
 ]

@@ -44,3 +44,34 @@ setup() { repository_root="$(cd "$BATS_TEST_DIRNAME/.." && pwd)"; }
     [ "$status" -eq 0 ]
     [[ "$output" == *"monomark tests"* ]]
 }
+
+@test "MonoMark archive rejects unsupported arguments before signing" {
+    run "$repository_root/src/app/monomark/tools/archive-app-store" upload
+    [ "$status" -eq 2 ]
+}
+
+@test "MonoMark archive rejects extra arguments before signing" {
+    run "$repository_root/src/app/monomark/tools/archive-app-store" --dry-run extra
+    [ "$status" -eq 2 ]
+}
+
+@test "MonoMark archive dry run describes local Mac export only" {
+    run "$repository_root/src/app/monomark/tools/archive-app-store" --dry-run
+    [ "$status" -eq 0 ]
+    [[ "$output" == *"MonoMark.xcodeproj"* ]]
+    [[ "$output" == *"-exportArchive"* ]]
+    [[ "$output" != *"CropPrint"* ]]
+    [[ "$output" != *"-upload"* ]]
+}
+
+@test "MonoMark archive rejects an uncommitted source tree" {
+    fixture="$BATS_TEST_TMPDIR/archive-fixture"
+    mkdir -p "$fixture/src/app/monomark/tools" "$fixture/config"
+    cp "$repository_root/src/app/monomark/tools/archive-app-store" "$fixture/src/app/monomark/tools/"
+    cp "$repository_root/config/apple-developer.env" "$fixture/config/"
+    git -C "$fixture" init -q
+    git -C "$fixture" -c user.name=Fixture -c user.email=fixture@example.invalid commit --allow-empty -qm baseline
+    run "$fixture/src/app/monomark/tools/archive-app-store"
+    [ "$status" -ne 0 ]
+    [[ "$output" == *"clean Git commit"* ]]
+}

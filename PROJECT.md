@@ -16,6 +16,7 @@ Created: 2026
 | --- | --- |
 | Project | rapid |
 | Owner | Outcrop Inc, WA, USA. |
+| Application publisher | Outcrop Inc for all applications in this repository. The owner confirmed this release identity on 17 November 2026. |
 | Repository | https://github.com/priyavijaikalyan2007/rapid |
 | Purpose | Utility applications for iOS, iPadOS and macOS users for specialized or niche capabilities. A simple static website for information about the applications and other products the company provides. |
 | Intended users | All users. |

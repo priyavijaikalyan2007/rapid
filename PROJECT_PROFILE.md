@@ -107,7 +107,7 @@ Keep Source state: planned explicit for absent paths. Do not enable future compo
 ### documentation
 
 - [x] Enabled
-- Source paths: docs, specs, agentknowledge, src/composure
+- Source paths: docs, specs, agentknowledge, src/composure, src/app/monomark/AppStore
 - Targets: documentation
 - Languages: none
 - Platforms: none
@@ -189,7 +189,7 @@ Keep Source state: planned explicit for absent paths. Do not enable future compo
 ### monomark-tools
 
 - [x] Enabled
-- Source paths: src/app/monomark/build.sh, src/app/monomark/clean.sh, src/app/monomark/tools
+- Source paths: src/app/monomark/build.sh, src/app/monomark/clean.sh, src/app/monomark/tools, src/app/monomark/AppStore/ExportOptions.plist
 - Source state: existing
 - Targets: tools
 - Languages: Shell

@@ -253,3 +253,18 @@ The refreshed local trial ZIP now uses source a37978c1e9f2, includes the Mac ico
 Its checksum and exact resource verification appear in [the package record](monomark.package.json).
 The [final artifact evidence](monomark.final-artifact-smoke.json) passes equation, image, and diagram pixel/clipboard
 checks, stale-copy cancellation, and unchanged source. The trial ZIP remains unsigned and unnotarized.
+
+## Mac App Store preparation on 17 November
+
+The owner selected Free, authorized reuse of CropPrint's private review contact, and confirmed Outcrop Inc as publisher
+for every repository application. Submission task #68 is a child of release issue #65.
+The [submission guide](../src/app/monomark/AppStore/README.md) contains a draft listing, reviewer instructions, synthetic
+documents, and a local-only archive/export command. Version/build fields now use Xcode settings. The Mac category is
+Productivity, and the team setting uses the existing Outcrop configuration. Contact details remain outside source.
+
+New tests first reproduced missing release metadata and archive safeguards. All 87 repository Python tests, 47 shell
+tests, 121 Core tests, 96 renderer tests, source checks, and unsigned platform builds pass.
+The full root test command still fails in unchanged ComposureModelsTests with signal 5. This is separate from MonoMark.
+Public privacy and support pages returned HTTP 200. MonoMark support copy is prepared locally and not published.
+The native/browser automation host remains unavailable for final screenshots and App Store account checks.
+The [feature readiness matrix](monomark.feature-readiness.md) lists incomplete acceptance without claiming all features are finished.

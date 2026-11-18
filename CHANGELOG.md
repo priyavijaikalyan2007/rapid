@@ -14,6 +14,7 @@ Created: 2026
 
 ### Added
 
+- Added MonoMark Mac App Store listing drafts, reviewer examples, local archive/export tooling, and release metadata checks.
 - Added a generated MonoMark Mac application icon and all required icon sizes.
 - Added MonoMark optional file and numbered-section reference links, new-tab navigation, and a bounded shared folder index.
 - Added MonoMark reload controls, a command-line launcher, source-line references, and inline or selective reading-data exports.

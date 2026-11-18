@@ -1,5 +1,8 @@
 # Publishing CropPrint
 
+MonoMark has a separate [Mac App Store preparation guide](src/app/monomark/AppStore/README.md).
+Use its bundle identifier, export options, and archive command. The CropPrint commands below do not package MonoMark.
+
 This guide describes how to publish CropPrint for macOS, iPhone, and iPad. Complete the steps in order.
 
 ## Current release setup

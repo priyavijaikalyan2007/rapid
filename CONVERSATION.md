@@ -1086,3 +1086,15 @@ The owner selected Mac App Store, then asked whether both store and downloadable
 The owner requested a generated icon. The built-in image generation tool produced the graphite/ivory Markdown icon. All ten Mac sizes were added and compiled. Signed sandbox testing exposed missing WebKit helper permission. After the entitlement correction, the signed review harness exited successfully. The container report remains inaccessible to the host, and native automation is unavailable. A tested two-retry limit prevents repeated helper crashes from looping. No uploads or publication occurred.
 
 Final checkpoint: generated icon integrated and previewed at small sizes. Refreshed universal Mac trial ZIP from committed a37978c1e9f2, 5,957,866 bytes, with checksum, revision, architecture, resource, license, privacy, launcher, and ZIP checks. Final native artifact tests verify PNG pixels and isolated pasteboard round trips. 121 Core and 96 renderer tests pass. Copy from rendered content and Paste into comments and Notes were verified earlier through the native UI. Open release gates remain under #65. Trial artifact is unsigned and unnotarized.
+
+## MonoMark submission preparation — 17 November 2026
+
+User: "cool. keep going - let's prepare for release and submission to the app store. are all features completed?"
+The owner selected Free, authorized reuse of CropPrint's private App Review contact, and stated:
+"yes all apps in this repo are being released under Outcrop Inc."
+
+Prepared a Mac-only listing draft, reviewer instructions, synthetic fixtures, support copy, safe local archive/export tooling,
+and version/build/category/team metadata. The feature readiness matrix distinguishes implemented Mac behavior from remaining
+selection, large-table/printing, provider, performance, display, and mobile acceptance. Native/browser automation is unavailable.
+All scoped builds/tests pass. The full repository command still fails in unchanged ComposureModelsTests with signal 5.
+The signed archive attempt follows a clean source commit. No upload or App Review submission is implied by local export.

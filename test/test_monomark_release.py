@@ -19,6 +19,28 @@ APPLE = Path(__file__).resolve().parents[1] / "src/app/monomark/apple"
 class MonoMarkReleaseTests(unittest.TestCase):
     """Verify authored release resources, without claiming signed-build acceptance."""
 
+    def test_mac_release_metadata_uses_build_settings(self):
+        info = plistlib.loads((APPLE / "Mac/Info.plist").read_bytes())
+        self.assertEqual(info["CFBundleShortVersionString"], "$(MARKETING_VERSION)")
+        self.assertEqual(info["CFBundleVersion"], "$(CURRENT_PROJECT_VERSION)")
+        self.assertEqual(info["LSApplicationCategoryType"], "public.app-category.productivity")
+        self.assertIs(info["ITSAppUsesNonExemptEncryption"], False)
+
+    def test_app_store_export_stays_local(self):
+        options = plistlib.loads((APPLE.parent / "AppStore/ExportOptions.plist").read_bytes())
+        self.assertEqual(options["method"], "app-store-connect")
+        self.assertEqual(options["destination"], "export")
+        self.assertIs(options["manageAppVersionAndBuildNumber"], False)
+
+    def test_store_draft_respects_field_limits_and_supported_platform(self):
+        draft = json.loads((APPLE.parent / "AppStore/metadata.json").read_text())
+        limits = {"name": 30, "subtitle": 30, "keywords": 100, "description": 4000, "promotionalText": 170}
+        for field, limit in limits.items():
+            self.assertTrue(0 < len(draft[field]) <= limit, field)
+        self.assertEqual(draft["platforms"], ["macOS"])
+        self.assertEqual(draft["bundleIdentifier"], "us.outcrop.MonoMark")
+        self.assertEqual(draft["privacy"]["dataCollected"], False)
+
     def test_mac_sandbox_supports_webkit_without_remote_content(self):
         entitlements = plistlib.loads((APPLE / "Mac/MonoMark.entitlements").read_bytes())
         self.assertIs(entitlements.get("com.apple.security.network.client"), True)

@@ -321,6 +321,13 @@
       "parent": 8,
       "progress": "closed",
       "commit": "a37978c"
+    },
+    "app-store-preparation": {
+      "number": 68,
+      "id": 6459611916,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/68",
+      "parent": 65,
+      "progress": "listing and tooling verified; signed archive pending"
     }
   },
   "refinements": {
