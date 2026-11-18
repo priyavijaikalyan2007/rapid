@@ -1,0 +1,43 @@
+{
+  "checkedOn": "2026-11-17",
+  "scope": "Local release checks; no upload or publication",
+  "coreTests": 121,
+  "coreLineCoveragePercent": 94.33,
+  "rendererTests": 96,
+  "rendererLineCoveragePercent": 97.65,
+  "unsignedBuilds": [
+    "active arm64 Mac",
+    "universal Mac",
+    "generic iOS simulator",
+    "generic iOS device"
+  ],
+  "repositoryChecks": "passed",
+  "sourceChecks": "passed",
+  "fullRendererAuditVulnerabilities": 0,
+  "macIcon": {
+    "slots": 10,
+    "compiledICNS": true,
+    "compiledAssetCatalog": true,
+    "scope": "Mac icon only"
+  },
+  "signedQA": {
+    "signatureVerification": "passed with system trust access",
+    "initialFailure": "WebKit helpers denied network permission",
+    "correctedReviewHarnessExitCode": 0,
+    "reportRead": "denied by container protection",
+    "secureTimestamp": false,
+    "distributionReady": false,
+    "scope": "Isolated QA bundle, app-owned synthetic files"
+  },
+  "nativeAutomation": "host unavailable after earlier clipboard/navigation checks",
+  "pending": [
+    "Mac App Store team, provisioning and app record",
+    "Store metadata and screenshots",
+    "Verified public support/privacy pages",
+    "Notarization and direct-download distribution validation",
+    "Signed user-selected/provider-file acceptance",
+    "Native performance budgets and large-document acceptance",
+    "Cross-viewport selection and large-table printing",
+    "Multiple display and physical mobile acceptance"
+  ]
+}

@@ -42,6 +42,14 @@ extension ReaderSession
             return
         }
         hasExternalChanges = false
+        if !rendererReady
+        {
+            if reindexReferences, let view = webView
+            {
+                (view.navigationDelegate as? WebCoordinator)?.retryReader(view)
+            }
+            return
+        }
         if reindexReferences, preferences.implicitFileLinks
         {
             reparseReferences(force: true)

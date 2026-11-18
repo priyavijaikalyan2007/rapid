@@ -235,3 +235,16 @@ Tests cover real replacement, preferences, position, rename, reopen, and unrelat
 Shared privacy declarations now cover app-only preferences and selected/app-owned file metadata (#64).
 Resource tests failed before implementation and pass afterward. Mac, iOS simulator, and device bundles contain the manifest.
 No source or reading-data upload occurs. Both signing certificate types are present. No signed archive or upload is claimed.
+
+## Icon and signed-sandbox checkpoint on 17 November
+
+The generated Mac icon includes all ten required sizes and compiles into AppIcon.icns and Assets.car (#66).
+Signed QA reproduced missing WebKit helper permission (#67). The corrected outgoing client entitlement preserves
+the strict bundled-only renderer policy. The signed review harness exited zero. Its container report remains protected
+from host reads. Signature validation passed. This was a local untimestamped QA signature, not a distribution package.
+Repeated renderer crashes now stop after two automatic retries in 60 seconds. Refresh explicitly restarts the reader.
+All unsigned Apple builds, 121 Core tests, 96 renderer tests, repository checks, and source checks pass.
+Core line coverage is 94.33%, including 100% for the recovery policy. Renderer line coverage is 97.65%.
+Full and runtime-only MonoMark dependency audits report zero known vulnerabilities. The three repository alerts
+concern separate website and Composure dependencies. Native automation is currently unavailable.
+The [release check record](monomark.release-checks.md) distinguishes local evidence from open release gates.

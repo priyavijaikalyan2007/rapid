@@ -43,3 +43,30 @@ No pattern required - a shared resource and bundle contract checks suffice.
 Reason definitions were checked against [Apple's required-reason API documentation](https://developer.apple.com/documentation/bundleresources/app-privacy-configuration/nsprivacyaccessedapitypes/nsprivacyaccessedapitype).
 The [distribution guide](https://developer.apple.com/macos/distribution) describes both channels.
 Direct builds need [Developer ID signing and notarization](https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution).
+
+## Signed sandbox finding
+
+A local Developer ID QA copy used the app sandbox and hardened runtime. Signature verification passed.
+Its first run failed to start WebKit helpers. System logs specifically reported missing network permission.
+The Mac entitlement now permits WebKit's outgoing client helper. The renderer still accepts bundled resources only.
+The release contract checks the entitlement alongside the strict script, connection, and image content policies.
+The same signed synthetic review harness then exited successfully. Its container report could not be read because
+the host denied access. This result establishes the harness outcome, not full signed-provider acceptance.
+
+The failure also exposed unlimited renderer restarts. A tested recovery policy now permits two retries in 60 seconds.
+Further failures stop automatic retries and offer Refresh. Explicit Refresh resets the budget and reloads the reader.
+The unsigned platform builds and Core recovery tests verify the new policy. Native failure/retry UI acceptance remains open.
+
+## Distribution gates
+
+The local keychain contains Apple Distribution and Developer ID identities for Outcrop.
+The isolated QA signature uses no secure timestamp and is not a distributable download.
+MonoMark still needs its team/provisioning setup, an App Store record, screenshots, listing metadata, and verified public
+support/privacy pages. No store record, agreement, credential, upload, notarization submission, or release was changed.
+The new Mac icon is documented in [the icon brief](monomark.icon.md).
+
+Large-document native resource budgets, cross-viewport selection, large-table printing, provider grants, obscured PNG
+capture, multiple displays, and physical mobile acceptance remain open in the linked tracker.
+The 10 MiB synthetic Node benchmark indexed 30,979 blocks in 527 ms and found its final search target in 14 ms.
+Node RSS reached about 258 MiB. These figures come from the 64 GiB development host and exclude native/WebKit memory.
+They do not satisfy the native performance release gate.

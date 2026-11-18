@@ -1,0 +1,33 @@
+{
+  "measuredAt": "2026-11-18T02:49:03.495Z",
+  "platform": "darwin",
+  "arch": "arm64",
+  "release": "27.2.0",
+  "node": "v26.12.1",
+  "hostMemoryBytes": 68719476736,
+  "scope": "Synthetic Node indexing only. Not native paint, idle CPU, or reference-device acceptance.",
+  "results": [
+    {
+      "sourceBytes": 1048690,
+      "sha256": "3a18a7081571d8574745711f81d2795f7925bc916b4a768c205afb5b5a55610d",
+      "parseMs": 90,
+      "blocks": 3099,
+      "searchMs": 2,
+      "lastTargetFound": true,
+      "maximumRequestedBlocks": 7,
+      "rssBeforeBytes": 21269216,
+      "rssAfterBytes": 79570088
+    },
+    {
+      "sourceBytes": 10486070,
+      "sha256": "dfa1ba7fbe5558fc7a98c9661fc89b08935dbcdfffd083119f87969221774147",
+      "parseMs": 527,
+      "blocks": 30979,
+      "searchMs": 14,
+      "lastTargetFound": true,
+      "maximumRequestedBlocks": 7,
+      "rssBeforeBytes": 79586472,
+      "rssAfterBytes": 270594320
+    }
+  ]
+}

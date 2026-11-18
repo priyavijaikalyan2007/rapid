@@ -5,6 +5,9 @@
 <dict>
 	<key>com.apple.security.app-sandbox</key>
 	<true/>
+	<!-- WebKit requires its networking helper even for the bundled custom URL scheme. -->
+	<key>com.apple.security.network.client</key>
+	<true/>
 	<key>com.apple.security.files.bookmarks.app-scope</key>
 	<true/>
 	<key>com.apple.security.files.user-selected.read-write</key>

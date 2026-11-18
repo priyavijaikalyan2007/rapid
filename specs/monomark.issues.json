@@ -288,14 +288,16 @@
       "id": 6458831101,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/63",
       "parent": 2,
-      "progress": "implemented and verified"
+      "progress": "closed",
+      "commit": "5f4a400"
     },
     "privacy-manifest": {
       "number": 64,
       "id": 6458831260,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/64",
       "parent": 8,
-      "progress": "implemented and verified"
+      "progress": "closed",
+      "commit": "2d9e12b"
     },
     "dual-distribution": {
       "number": 65,
@@ -303,6 +305,20 @@
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/65",
       "parent": 8,
       "progress": "release validation"
+    },
+    "mac-icon": {
+      "number": 66,
+      "id": 6459026824,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/66",
+      "parent": 8,
+      "progress": "implemented; final checks in progress"
+    },
+    "sandbox-startup": {
+      "number": 67,
+      "id": 6459224517,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/67",
+      "parent": 8,
+      "progress": "implemented; final checks in progress"
     }
   },
   "refinements": {

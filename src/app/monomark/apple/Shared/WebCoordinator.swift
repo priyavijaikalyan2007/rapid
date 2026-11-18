@@ -16,6 +16,7 @@ import WebKit
 final class WebCoordinator: NSObject, WKScriptMessageHandler, WKNavigationDelegate
 {
     weak var session: ReaderSession?
+    private var recovery = RendererRecovery()
     init(session: ReaderSession)
     {
         self.session = session
@@ -57,14 +58,30 @@ final class WebCoordinator: NSObject, WKScriptMessageHandler, WKNavigationDelega
 
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error)
     {
-        session?.message = "The offline reader could not load. Rebuild MonoMark’s bundled renderer and reopen the app."
+        session?.rendererReady = false
+        session?.message = "The reader could not load. Select Refresh to retry."
         session?.isLoading = false
     }
 
     func webViewWebContentProcessDidTerminate(_ webView: WKWebView)
     {
         session?.rendererReady = false
+        guard recovery.permitsReload(at: Date().timeIntervalSince1970)
+        else
+        {
+            session?.message = "The reader stopped repeatedly. Select Refresh to retry."
+            session?.isLoading = false
+            return
+        }
         session?.message = "The renderer stopped. Reload the document to continue."
         webView.reload()
+    }
+
+    func retryReader(_ webView: WKWebView)
+    {
+        recovery.reset()
+        session?.rendererReady = false
+        session?.isLoading = true
+        webView.load(URLRequest(url: URL(string: "monomark://bundle/index.html")!))
     }
 }

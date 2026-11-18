@@ -438,5 +438,13 @@
     "MonoMarkWorkspaces",
     "MonoMarkRenderer"
   ]
+},
+{
+  "name": "MonoMarkRendererRecovery",
+  "definition": "A bounded crash budget prevents repeated WebKit helper failures from creating an automatic restart loop. Explicit Refresh restarts the offline shell.",
+  "anchor_file": "src/app/monomark/apple/Core/RendererRecovery.swift",
+  "related": [
+    "MonoMarkRenderer"
+  ]
 }
 ]

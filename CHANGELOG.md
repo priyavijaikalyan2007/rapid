@@ -14,11 +14,13 @@ Created: 2026
 
 ### Added
 
+- Added a generated MonoMark Mac application icon and all required icon sizes.
 - Added MonoMark optional file and numbered-section reference links, new-tab navigation, and a bounded shared folder index.
 - Added MonoMark reload controls, a command-line launcher, source-line references, and inline or selective reading-data exports.
 
 ### Fixed
 
+- Enabled sandboxed MonoMark WebKit startup and bounded automatic renderer recovery.
 - Recovered MonoMark per-file reading state after atomic replacement and prevented duplicate history entries.
 - Bundled MonoMark privacy declarations for local preferences and file metadata on all Apple targets.
 - Preserved MonoMark heading highlights, table alignment after jumps, path copying, monospace code, and distinct exported comments.
