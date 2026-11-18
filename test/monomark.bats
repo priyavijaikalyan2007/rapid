@@ -75,3 +75,20 @@ setup() { repository_root="$(cd "$BATS_TEST_DIRNAME/.." && pwd)"; }
     [ "$status" -ne 0 ]
     [[ "$output" == *"clean Git commit"* ]]
 }
+
+@test "MonoMark archive supports system Bash without API credentials" {
+    fixture="$BATS_TEST_TMPDIR/system-bash-fixture"
+    fake_bin="$BATS_TEST_TMPDIR/fake-xcode-bin"
+    mkdir -p "$fixture/src/app/monomark/tools" "$fixture/config" "$fake_bin"
+    cp "$repository_root/src/app/monomark/tools/archive-app-store" "$fixture/src/app/monomark/tools/"
+    cp "$repository_root/config/apple-developer.env" "$fixture/config/"
+    git -C "$fixture" init -q
+    git -C "$fixture" add .
+    git -C "$fixture" -c user.name=Fixture -c user.email=fixture@example.invalid commit -qm baseline
+    printf '#!/bin/sh\nprintf "reached-xcodebuild\\n"\nexit 42\n' > "$fake_bin/xcodebuild"
+    chmod +x "$fake_bin/xcodebuild"
+    run env -u APP_STORE_CONNECT_API_KEY_PATH -u APP_STORE_CONNECT_API_KEY_ID -u APP_STORE_CONNECT_API_ISSUER_ID \
+        PATH="$fake_bin:$PATH" /bin/bash "$fixture/src/app/monomark/tools/archive-app-store"
+    [ "$status" -eq 42 ]
+    [[ "$output" == *"reached-xcodebuild"* ]]
+}

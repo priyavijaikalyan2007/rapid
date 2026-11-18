@@ -31,6 +31,12 @@ Expected archive: `build/AppStore/MonoMark-macOS.xcarchive`.
 Expected local package: `build/AppStore/Export/`.
 A failed signing operation is not an archive or upload success. Keep the Xcode error in the release evidence.
 
+The first candidate archived successfully as version 0.1.0, build 77, from source 9fbcc9004bbb.
+Its development signature belongs to Outcrop team 4JD5A6Q2HL. Both Mac architectures and matching debug symbols were verified.
+App Store export failed with `No Accounts` and no matching Mac App Store provisioning profile.
+Sign in through Xcode Settings > Accounts using an account that can access Outcrop Inc, then repeat the local export workflow.
+The signed development archive is not an App Store distribution package.
+
 ## Store record and review
 
 Use the draft fields in [metadata.json](metadata.json) and the procedures in [REVIEW.md](REVIEW.md).

@@ -1098,3 +1098,5 @@ and version/build/category/team metadata. The feature readiness matrix distingui
 selection, large-table/printing, provider, performance, display, and mobile acceptance. Native/browser automation is unavailable.
 All scoped builds/tests pass. The full repository command still fails in unchanged ComposureModelsTests with signal 5.
 The signed archive attempt follows a clean source commit. No upload or App Review submission is implied by local export.
+
+The clean-commit Mac archive succeeded: version 0.1.0, build 77, source 9fbcc9004bbb. Strict signature checks confirm the Outcrop team. Binary architectures, debug symbol UUIDs, privacy/icon/license/category, and build provenance were verified. Local App Store export failed with No Accounts and no matching provisioning profile. The owner was asked to sign in through Xcode Settings > Accounts. The native/browser host remains unavailable. A separate regression reproduced and fixed empty optional-authentication arrays on system Bash. No upload, App Review submission, or release occurred.

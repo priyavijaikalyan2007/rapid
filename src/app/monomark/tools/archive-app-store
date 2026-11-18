@@ -52,6 +52,16 @@ if [[ -n "${APP_STORE_CONNECT_API_KEY_PATH:-}${APP_STORE_CONNECT_API_KEY_ID:-}${
     authentication_arguments=(-authenticationKeyPath "$APP_STORE_CONNECT_API_KEY_PATH"
         -authenticationKeyID "$APP_STORE_CONNECT_API_KEY_ID" -authenticationKeyIssuerID "$APP_STORE_CONNECT_API_ISSUER_ID")
 fi
+# System Bash treats an empty array expansion as unset under nounset.
+run_xcodebuild()
+{
+    if ((${#authentication_arguments[@]} > 0)); then
+        xcodebuild "$@" "${authentication_arguments[@]}"
+    else
+        xcodebuild "$@"
+    fi
+}
+
 if [[ "${1:-}" == --dry-run ]]; then
     printf '%s\n' 'Local archive and export only. No upload or App Review submission.'
     printf '%q ' xcodebuild "${archive_arguments[@]}"
@@ -61,7 +71,7 @@ if [[ "${1:-}" == --dry-run ]]; then
     exit 0
 fi
 mkdir -p "$archive_root"
-xcodebuild "${archive_arguments[@]}" "${authentication_arguments[@]}"
+run_xcodebuild "${archive_arguments[@]}"
 
 # An archive without matching debug symbols cannot enter the export path.
 binary="$archive_path/Products/Applications/MonoMark.app/Contents/MacOS/MonoMark"
@@ -77,5 +87,5 @@ if [[ -z "$binary_uuids" || "$binary_uuids" != "$symbol_uuids" ]]; then
     exit 1
 fi
 codesign --verify --deep --strict "$archive_path/Products/Applications/MonoMark.app"
-xcodebuild "${export_arguments[@]}" "${authentication_arguments[@]}"
+run_xcodebuild "${export_arguments[@]}"
 printf '%s\n' "Local App Store export: $archive_root/Export. No upload or submission performed."

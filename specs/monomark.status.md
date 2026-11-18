@@ -268,3 +268,11 @@ The full root test command still fails in unchanged ComposureModelsTests with si
 Public privacy and support pages returned HTTP 200. MonoMark support copy is prepared locally and not published.
 The native/browser automation host remains unavailable for final screenshots and App Store account checks.
 The [feature readiness matrix](monomark.feature-readiness.md) lists incomplete acceptance without claiming all features are finished.
+
+The clean-commit archive succeeded from 9fbcc9004bbb as version 0.1.0, build 77.
+Its Apple Development signature belongs to Outcrop team 4JD5A6Q2HL and passes strict verification.
+Both Mac architectures, matching debug symbols, category, icon, privacy manifest, license, and source stamp were verified.
+Local App Store export failed with exit 70: Xcode reports No Accounts and no matching Mac App Store provisioning profile.
+The owner was asked to sign in through Xcode Settings > Accounts. Task #68 remains open for export and account follow-through.
+The archive command also passes a regression for the Mac's system Bash without optional API credentials.
+Final repository checks now include 48 passing shell cases. No archive upload, App Review submission, or public release occurred.

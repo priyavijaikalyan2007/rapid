@@ -327,7 +327,8 @@
       "id": 6459611916,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/68",
       "parent": 65,
-      "progress": "listing and tooling verified; signed archive pending"
+      "progress": "archive verified; local App Store export awaiting Xcode account/profile",
+      "commit": "9fbcc90"
     }
   },
   "refinements": {

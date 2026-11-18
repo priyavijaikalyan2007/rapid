@@ -1,0 +1,54 @@
+{
+  "checkedOn": "2026-11-17",
+  "timeZone": "America/Los_Angeles",
+  "publisher": "Outcrop Inc",
+  "price": "Free",
+  "platform": "macOS",
+  "bundleIdentifier": "us.outcrop.MonoMark",
+  "version": "0.1.0",
+  "build": "77",
+  "sourceRevision": "9fbcc9004bbb7dde64e44314dd4bc349ccc6aa1b",
+  "buildRevision": "9fbcc9004bbb",
+  "archive": "src/app/monomark/build/AppStore/MonoMark-macOS.xcarchive",
+  "archiveResult": "succeeded",
+  "signingTeam": "4JD5A6Q2HL",
+  "archiveSignature": "Apple Development; valid on disk and satisfies designated requirement",
+  "hardenedRuntime": true,
+  "architectures": [
+    "x86_64",
+    "arm64"
+  ],
+  "matchingDebugSymbolUUIDs": [
+    "9615AEB9-7F6A-31D6-871E-319AF88A0D35",
+    "F622350A-29CB-34E6-84CA-17BE4544106C"
+  ],
+  "binarySHA256": "27e77060d027d464e54fcb61e71e3ab1d7e22e431de5367f10268d6c716d003f",
+  "privacyManifest": "present",
+  "appIcon": "compiled",
+  "projectLicense": "exact bundled match",
+  "appStoreExport": "failed; exit 70",
+  "exportErrors": [
+    "No Accounts: add an account in Xcode Accounts settings",
+    "No Mac App Store provisioning profile found for us.outcrop.MonoMark"
+  ],
+  "upload": "not performed",
+  "appReviewSubmission": "not performed",
+  "publicRelease": "not performed",
+  "listing": "draft prepared",
+  "reviewContact": "owner authorized reuse of existing CropPrint contact; actual values kept outside source",
+  "screenshots": "pending; native/browser automation host unavailable",
+  "publicURLs": {
+    "privacy": "HTTP 200",
+    "support": "HTTP 200; MonoMark support copy still pending publication"
+  },
+  "verification": {
+    "coreTests": 121,
+    "rendererTests": 96,
+    "repositoryPythonTests": 87,
+    "repositoryShellTests": 48,
+    "sourceChecks": "passed",
+    "unsignedPlatformBuilds": "passed",
+    "fullRepositoryValidation": "failed in unchanged ComposureModelsTests with unexpected signal 5"
+  },
+  "archiveToolSystemBashRegression": "passed after reproducing an empty-array/nounset failure"
+}
