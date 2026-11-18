@@ -223,3 +223,10 @@ Created: 2026
 - Applied GPL-3.0-or-later to project-owned material and updated CropPrint's displayed license and local store metadata.
 - Directed website security contacts to private GitHub reporting and admin+security@outcrop.us.
 - Added repository checks to the existing build workflow and corrected Composure specification links.
+
+
+### MonoMark native release diagnostics
+
+- Keep signed acceptance artifacts in app-owned temporary storage and return JSON through stdout.
+- Add repeatable 1/10 MiB native rich-document workloads and separate app-only resource counters from all-WebKit upper bounds.
+- Preserve current-document index timing and source-size metrics for profiling.

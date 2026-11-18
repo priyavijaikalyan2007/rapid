@@ -349,5 +349,14 @@
       "MonoMarkWorkspaces",
       "ReadingState"
     ]
+  },
+  {
+    "name": "MonoMarkSmokeOutput",
+    "table": null,
+    "file": "src/app/monomark/apple/Core/SmokeOutput.swift",
+    "description": "Resolves stdout diagnostics to app-owned temporary artifact paths for signed sandbox acceptance.",
+    "related": [
+      "MonoMark"
+    ]
   }
 ]

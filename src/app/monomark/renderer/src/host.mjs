@@ -28,6 +28,8 @@ let metadata = [];
 let knownBlockIDs = new Set();
 let sourceLines = 0;
 let indexed = false;
+let indexMilliseconds = 0;
+let indexSourceBytes = 0;
 let offsets = [];
 let heights = [];
 let outline = [];
@@ -328,7 +330,7 @@ async function load(command)
     clearTimeout(positionTimer);
     worker?.terminate();
     metadata = []; knownBlockIDs = new Set(); sourceLines = 0;
-    indexed = false;
+    indexed = false; indexMilliseconds = 0; indexSourceBytes = 0;
     activeRange = '';
     status.textContent = 'Indexing document…';
     const code = await (await fetch('worker.js')).text();
@@ -365,6 +367,8 @@ function onWorker(data, initial)
     {
         metadata = data.blocks;
         indexed = true;
+        indexMilliseconds = data.duration || 0;
+        indexSourceBytes = data.sourceBytes || 0;
         if (annotations.length) { requestAnnotationResolution(); }
         knownBlockIDs = new Set(metadata.filter(block => !block.generated).flatMap(block => [block.id, block.blockID]));
         sourceLines = data.sourceLines || 0;
@@ -525,7 +529,7 @@ function clearDocument(command)
     worker?.terminate(); worker = null;
     epoch = command.epoch; renderedEpoch = epoch;
     metadata = []; knownBlockIDs = new Set(); sourceLines = 0; heights = []; outline = []; annotations = []; matches = [];
-    indexed = false;
+    indexed = false; indexMilliseconds = 0; indexSourceBytes = 0;
     pendingAnchor = null; pendingAnnotation = null; activeRange = '';
     printing = false; printID = 0; printBlocks = []; printAnchor = null;
     clearTimeout(positionTimer); clearTimeout(selectionTimer);
@@ -581,7 +585,7 @@ window.MonoMark = {
         }
         if (command.type === 'afterPrint') { finishPrint(); }
     },
-    metrics() { return { layout: paged ? 'pages' : 'pageless', pages: plan.totalPages, blocks: metadata.length, mounted: viewport.querySelectorAll('.monomark-block').length, outline: outline.length }; }
+    metrics() { return { indexed, indexMilliseconds, sourceBytes: indexSourceBytes, layout: paged ? 'pages' : 'pageless', pages: plan.totalPages, blocks: metadata.length, mounted: viewport.querySelectorAll('.monomark-block').length, outline: outline.length }; }
 };
 
 window.addEventListener('scroll', () =>

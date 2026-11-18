@@ -10,8 +10,9 @@ import WebKit
 
 extension AppDelegate
 {
-    func configureSmoke(output: String)
+    func configureSmoke(output requested: String)
     {
+        let output = SmokeOutput.resolve(requested)
         current?.session.smokeRendered = { [weak self] in
             guard let self, !smokeStarted, let view = current?.session.webView
             else
@@ -92,6 +93,10 @@ extension AppDelegate
                 )
                 {
                     try? data.write(to: URL(fileURLWithPath: output))
+                    if requested == "-"
+                    {
+                        FileHandle.standardOutput.write(data)
+                    }
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2)
                 {

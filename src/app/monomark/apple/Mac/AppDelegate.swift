@@ -34,9 +34,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         let arguments = ProcessInfo.processInfo.arguments
         if arguments.contains("--demo") || arguments.contains("--smoke-test")
         {
-            let fixture = (arguments.contains("--review-smoke") || arguments.contains("--lifecycle-smoke")) ?
-                try? ReviewSmoke.createFixture() :
-                arguments.contains("--artifact-smoke") ? try? SmokeFixture.create() : nil
+            let fixture = nativeFixture(arguments)
             let file = fixture ?? FileManager.default.temporaryDirectory.appendingPathComponent("MonoMark-Demo.md")
             if fixture == nil, let data = Bundle.main.url(forResource: "Welcome", withExtension: "md")
             {
@@ -58,7 +56,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         if let index = arguments.firstIndex(of: "--smoke-test"), arguments.indices.contains(index + 1)
         {
             if arguments.contains("--artifact-smoke") || arguments.contains("--review-smoke") || arguments
-                .contains("--lifecycle-smoke")
+                .contains("--lifecycle-smoke") || arguments.contains("--performance-smoke")
             {
                 configureArtifactSmoke(output: arguments[index + 1], review: arguments.contains("--review-smoke"))
             }
@@ -68,6 +66,23 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
             }
         }
         NSApp.activate(ignoringOtherApps: true)
+    }
+
+    private func nativeFixture(_ arguments: [String]) -> URL?
+    {
+        if arguments.contains("--performance-smoke")
+        {
+            return try? ReviewPerformanceSmoke.initialFile()
+        }
+        if arguments.contains("--review-smoke") || arguments.contains("--lifecycle-smoke")
+        {
+            return try? ReviewSmoke.createFixture()
+        }
+        if arguments.contains("--artifact-smoke")
+        {
+            return try? SmokeFixture.create()
+        }
+        return nil
     }
 
     func application(_ sender: NSApplication, openFiles filenames: [String])

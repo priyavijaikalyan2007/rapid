@@ -326,3 +326,16 @@ Regression tests first exposed history deletion and checkpoint-ordering races. T
 Coordinated source snapshots refresh current filesystem identity. Annotation metadata follows that identity without clearing drafts or queued writes. Refresh starts a new renderer epoch and rearms observation. Checkpoint update timestamps prevent same-visit writes from rewinding state. Restored tabs consume their saved snapshot even without history. Tab-selection observation also releases inactive renderers when no key-window notification occurs.
 
 136 Core tests, 137 renderer tests, unsigned Apple builds, source checks, and repository checks pass. Core line coverage is 94.43%. The combined native annotation/export/selection/table/PDF harness passes after the lifecycle changes. Signed user-selected/provider grants remain open under #11/#24. They are the next stage.
+
+
+## Native diagnostics and performance checkpoint on 18 November
+
+The [native performance report](monomark.native-performance.json) records actual WebKit workloads on the 64 GiB M5 Pro. Both mixed 1 MiB and 10 MiB documents render math, Mermaid, syntax highlighting, and a local image. Full-index search and distant navigation pass. Source hashes remain unchanged. The sampler keeps the main process separate from an explicit main-plus-all-WebKit upper bound. Other applications contribute to that upper bound. These development-host results do not establish slower-machine or calibrated energy acceptance.
+
+The 1 MiB workload reached a captured frame in about 0.2 seconds. The 10 MiB workload took about 1.2 seconds. The main process peaked at about 92 MB and 130 MB, respectively. These app-only figures exclude WebKit. Idle main-process CPU measured 0–0.4% of one core across five-second samples. The report retains complete timings, combined upper bounds, and sampling limits. A process-exit counter regression and stream-phase regression were corrected before accepting the sampler result.
+
+The new `--smoke-test -` output keeps images in app-owned temporary storage and sends JSON through stdout. The [signed artifact report](monomark.signed-artifact-smoke.json) passes visible/hidden PNG pixels, clipboard round trips, copy ordering, and source preservation. It uses a separate sandboxed Developer ID QA copy without a secure timestamp. The combined signed review still needs investigation. It must not be counted as passing from artifact-only evidence.
+
+The 1.0.0 build 84 archive from clean revision be10919 passes signature and matching-symbol checks. After the owner signed into Xcode, local export reached Apple's membership service. Apple now requires acceptance of the latest Program License Agreement before it can create the missing Mac App Store profile. No upload, notarization submission, or App Review submission occurred.
+
+The development-signed UI app and runner now share Outcrop's Team ID. The former mismatch is no longer the observed blocker. The runner stalls before main during app-sandbox initialization, so no UI cases executed. The supported native/browser automation host was retried and remains unavailable. Real provider panels, VoiceOver, store screenshots, physical multi-display cases, and slower-machine resource acceptance remain open. Current passing suites contain 138 Core and 138 renderer tests. Repository checks and source style checks pass.

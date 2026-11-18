@@ -91,7 +91,7 @@ extension ReaderSession
                         throw ReaderFailure.unavailable
                     }
                     lastCopyRequest["pasteboardVerified"] = true
-                    try png.write(to: URL(fileURLWithPath: arguments[index + 1] + ".artifact.png"))
+                    try png.write(to: URL(fileURLWithPath: SmokeOutput.resolve(arguments[index + 1]) + ".artifact.png"))
                 }
                 #else
                 if let png = image.pngData()

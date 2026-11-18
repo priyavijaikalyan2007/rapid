@@ -51,3 +51,15 @@ Keep HistoryStore's existing record/forget/clear interfaces. Add transactional d
 
 
 Lifecycle regressions also cover same-visit checkpoint ordering, source identity reconciliation after coordinated reads, and pending notes during replacement followed by rename. Add an optional ReadingState.updatedAt for write ordering without changing the visit timestamp. Add DocumentAccess.snapshot, AnnotationController.adoptIdentity, and AnnotationStore.identify. ResourceHandler applies the snapshot identity only for the current epoch. Refresh creates a new rendering epoch and rearms its watcher. Preserve note drafts and queued writes while rekeying metadata. Additional files: Core/ReadingState.swift, Core/DocumentAccess.swift, Core/AnnotationController.swift, Core/AnnotationStore.swift, Shared/ResourceHandler.swift, Shared/ReaderSession+Watching.swift, and related Core tests.
+
+
+## Signed test output
+
+The signed app must not depend on host reads of its protected container. Add Core/SmokeOutput.swift and Tests/SmokeOutputTests.swift. The existing `--smoke-test -` argument sends JSON through stdout and keeps PNG artifacts in the app's temporary directory. Update Mac/AppDelegate+ArtifactSmoke.swift, Mac/AppDelegate+Smoke.swift, Mac/ArtifactSmoke.swift, Shared/ReaderSession+Clipboard.swift, and project membership. Preserve explicit output paths. No pattern required. One pure path resolver and existing test-only adapters suffice.
+
+
+## Native performance measurement
+
+Add Mac/ReviewPerformanceSmoke.swift, renderer metrics, and the corresponding host regression. External Python tools create 1 MiB and 10 MiB mixed Markdown fixtures before launch. Native events measure mounted-content readiness, a captured first frame, rich rendering, complete search, and distant navigation. The external sampler reads ps and public proc_pid_rusage counters. Report main-process data and main plus all WebKit helpers as an explicit upper bound. This includes other applications' WebKit helpers and must not be presented as exact per-app attribution.
+
+Add scripts/monomark_native_profile.py, scripts/monomark_profile_metrics.py, scripts/monomark_profile_usage.py and test/test_monomark_profile.py. Update AppDelegate.swift, AppDelegate+ArtifactSmoke.swift, project membership, renderer/src/host.mjs and its tests. Keep generated fixtures, raw captures and stderr in ignored output or temporary storage. Do not record unrelated process arguments or memory contents. Idle CPU uses cumulative CPU deltas. Energy counters remain in opaque OS units. No pattern required. Small OS adapters and pure report parsers suffice.

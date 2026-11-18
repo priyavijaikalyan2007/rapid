@@ -116,7 +116,9 @@ import WebKit
                 {
                     throw ReaderFailure.unavailable
                 }
-                let png = try Data(contentsOf: URL(fileURLWithPath: arguments[index + 1] + ".artifact.png"))
+                let png =
+                    try Data(contentsOf: URL(fileURLWithPath: SmokeOutput
+                            .resolve(arguments[index + 1]) + ".artifact.png"))
                 guard let bitmap = NSBitmapImageRep(data: png)
                 else
                 {

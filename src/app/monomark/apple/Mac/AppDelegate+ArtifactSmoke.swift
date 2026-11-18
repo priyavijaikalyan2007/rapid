@@ -8,8 +8,9 @@ import Darwin
 
 extension AppDelegate
 {
-    func configureArtifactSmoke(output: String, review: Bool = false)
+    func configureArtifactSmoke(output requested: String, review: Bool = false)
     {
+        let output = SmokeOutput.resolve(requested)
         current?.session.smokeRendered = { [weak self] in
             guard let self, !smokeStarted, let session = current?.session
             else
@@ -22,7 +23,11 @@ extension AppDelegate
                 let report: [String: Any]
                 do
                 {
-                    if ProcessInfo.processInfo.arguments.contains("--lifecycle-smoke")
+                    if ProcessInfo.processInfo.arguments.contains("--performance-smoke")
+                    {
+                        report = try await ReviewPerformanceSmoke.run(session: session)
+                    }
+                    else if ProcessInfo.processInfo.arguments.contains("--lifecycle-smoke")
                     {
                         report = try await ReviewLifecycleSmoke.run(application: self)
                     }
@@ -49,6 +54,11 @@ extension AppDelegate
                 )
                 {
                     try? data.write(to: URL(fileURLWithPath: output))
+                    if requested == "-"
+                    {
+                        FileHandle.standardOutput.write(data)
+                        FileHandle.standardOutput.write(Data("\n".utf8))
+                    }
                 }
                 // This isolated CLI harness has no user documents. Flush its fixture notes before returning a test exit
                 // code.

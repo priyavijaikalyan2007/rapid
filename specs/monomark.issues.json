@@ -105,7 +105,9 @@
       "number": 14,
       "id": 6388331466,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/14",
-      "progress": "pending"
+      "progress": "pending",
+      "evidence": "specs/monomark.native-performance.json",
+      "remaining": "Slower-machine resource budgets and calibrated energy. Main process and conservative all-WebKit measurements are separate."
     },
     "large-print-selection": {
       "number": 15,
@@ -196,7 +198,8 @@
       "number": 27,
       "id": 6388334675,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/27",
-      "progress": "blocked"
+      "progress": "blocked",
+      "remaining": "Matching Outcrop development signatures now verify. Runner stalls before main in app-sandbox initialization. Native/browser automation hosts unavailable. No XCTest UI cases executed."
     },
     "device-display": {
       "number": 28,
@@ -333,7 +336,8 @@
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/68",
       "parent": 65,
       "progress": "archive verified; local App Store export awaiting Xcode account/profile",
-      "commit": "9fbcc90"
+      "commit": "9fbcc90",
+      "remaining": "Latest Apple Program License Agreement acceptance, Mac App Store profile/export, store screenshots and final account/listing checks."
     }
   },
   "refinements": {

@@ -61,7 +61,9 @@ import WebKit
             view: view
         )
         try await Task.sleep(for: .milliseconds(200))
+        trace("initial geometry")
         let before = try await geometry(view)
+        trace("heading selection")
         try await selectHeading(view)
         try await Task.sleep(for: .milliseconds(200))
         let captured = session.annotations.selection.count
@@ -75,6 +77,7 @@ import WebKit
                 "notesError": session.annotations.error ?? ""
             ])
         }
+        trace("annotation navigation")
         session.command(["type": "jump", "id": "far-location"])
         try await waitFor("!!document.querySelector('#far-location')", view: view)
         session.command(["type": "annotation", "id": annotation.id])
@@ -84,6 +87,7 @@ import WebKit
         report["headingQuote"] = annotation.anchors.map(\.quote).joined(separator: "\n")
         report["anchorCount"] = annotation.anchors.count
         report["sourceUnchanged"] = try Data(contentsOf: source) == original
+        trace("annotation export")
         let notes = try await session.readingNotesForExport()
         let exported = try AnnotationExporter.render(source: String(decoding: original, as: UTF8.self), notes: notes)
         report["exportSourceHash"] = notes.sourceHash == DocumentStamp.make(String(decoding: original, as: UTF8.self))
@@ -93,27 +97,32 @@ import WebKit
             annotation.anchors.first?.quote == "3. Three forms" && report["sourceUnchanged"] as? Bool == true
         report["passed"] = report["passed"] as? Bool == true && report["exportSourceHash"] as? Bool == true &&
             report["exportSectionAndLine"] as? Bool == true
+        trace("inline export")
         let inline = try await ReviewExportSmoke.run(session: session, source: source, notes: notes)
         report["inlineAndSelectiveExports"] = inline
         report["passed"] = report["passed"] as? Bool == true && inline.values.allSatisfy
         {
             $0 as? Bool == true
         }
+        trace("implicit links")
         let links = try await ReviewLinkSmoke.run(session: session)
         report["implicitLinks"] = links
         report["passed"] = report["passed"] as? Bool == true && links.values.allSatisfy
         {
             $0 as? Bool == true
         }
+        trace("large selection")
         let selection = try await ReviewSelectionSmoke.run(session: session)
         report["longSelection"] = selection
         report["passed"] = report["passed"] as? Bool == true && selection.values.allSatisfy
         {
             $0
         }
+        trace("table print")
         let tables = try await ReviewTableSmoke.run(session: session)
         report["largeTableAndPrint"] = tables
         report["passed"] = report["passed"] as? Bool == true && tables["passed"] as? Bool == true
+        trace("quote recovery")
         let reattachment = try await ReviewReattachmentSmoke.run(session: session)
         report["externalEditReattachment"] = reattachment
         report["passed"] = report["passed"] as? Bool == true && reattachment.values.allSatisfy
@@ -127,6 +136,11 @@ import WebKit
             try png.write(to: URL(fileURLWithPath: output + ".png"))
         }
         return report
+    }
+
+    private static func trace(_ stage: String)
+    {
+        FileHandle.standardError.write(Data("MonoMark review: \(stage)\n".utf8))
     }
 
     private static func checksPass(_ report: [String: Any], typography: Bool = true) -> Bool

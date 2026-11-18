@@ -1,0 +1,113 @@
+{
+  "functionalPassed": true,
+  "measurementComplete": true,
+  "sourceUnchanged": true,
+  "exitCode": 0,
+  "hardware": {
+    "model": "Apple M5 Pro",
+    "memoryBytes": 68719476736,
+    "logicalCores": 18,
+    "osVersion": "27.2.1"
+  },
+  "native": {
+    "passed": true,
+    "profiles": [
+      {
+        "blocks": 3602,
+        "boundedViewport": true,
+        "capturedFrameHasContent": true,
+        "firstCapturedFrameMilliseconds": 188.54570836992934,
+        "firstVisibleMilliseconds": 166.03620833484456,
+        "indexed": true,
+        "indexMilliseconds": 103,
+        "jumpMilliseconds": 21.405208331998438,
+        "jumpReturned": true,
+        "layout": "pageless",
+        "mounted": 13,
+        "outline": 5,
+        "pages": 411,
+        "passed": true,
+        "profile": "1MiB",
+        "richReadyMilliseconds": 366.0510833724402,
+        "searchFound": true,
+        "searchMilliseconds": 20.011666638311,
+        "sourceBytes": 1048635,
+        "sourceBytesVerified": true
+      },
+      {
+        "blocks": 35833,
+        "boundedViewport": true,
+        "capturedFrameHasContent": true,
+        "firstCapturedFrameMilliseconds": 1128.8234999519773,
+        "firstVisibleMilliseconds": 1089.9632499786094,
+        "indexed": true,
+        "indexMilliseconds": 873,
+        "jumpMilliseconds": 19.271500001195818,
+        "jumpReturned": true,
+        "layout": "pageless",
+        "mounted": 13,
+        "outline": 5,
+        "pages": 4083,
+        "passed": true,
+        "profile": "10MiB",
+        "richReadyMilliseconds": 1159.6127499942668,
+        "searchFound": true,
+        "searchMilliseconds": 20.484625012613833,
+        "sourceBytes": 10485912,
+        "sourceBytesVerified": true
+      }
+    ],
+    "resourceMeasurement": "External sampler reports the main app and an all-WebKit upper bound separately.",
+    "timingDefinition": "Warm-app open. First visible is mounted content. First captured frame waits for a WebKit snapshot."
+  },
+  "resources": {
+    "startup": {
+      "samples": 8,
+      "peakObservedPhysicalUpperBoundBytes": 659090088,
+      "peakResidentSumBytes": 507969536,
+      "missingPhysicalSamples": 0,
+      "peakObservedAppPhysicalBytes": 79807640
+    },
+    "1MiB": {
+      "samples": 66,
+      "peakObservedPhysicalUpperBoundBytes": 1034661072,
+      "peakResidentSumBytes": 898924544,
+      "missingPhysicalSamples": 0,
+      "peakObservedAppPhysicalBytes": 92210328,
+      "idleCpuUpperBoundPercentOfOneCore": 2.1524203710239,
+      "idlePhysicalUpperBoundBytes": 575089800,
+      "idleAppCpuPercentOfOneCore": 0.1956745791839668,
+      "idleAppPhysicalBytes": 91194520
+    },
+    "10MiB": {
+      "samples": 78,
+      "peakObservedPhysicalUpperBoundBytes": 949087680,
+      "peakResidentSumBytes": 1116864512,
+      "missingPhysicalSamples": 0,
+      "peakObservedAppPhysicalBytes": 130090184,
+      "idleCpuUpperBoundPercentOfOneCore": 0.7932244945002022,
+      "idlePhysicalUpperBoundBytes": 690908608,
+      "idleAppCpuPercentOfOneCore": 0.5949183708752706,
+      "idleAppPhysicalBytes": 129516744
+    },
+    "cleared": {
+      "samples": 56,
+      "peakObservedPhysicalUpperBoundBytes": 693628352,
+      "peakResidentSumBytes": 1116487680,
+      "missingPhysicalSamples": 0,
+      "peakObservedAppPhysicalBytes": 130090184,
+      "idleCpuUpperBoundPercentOfOneCore": 0.3893243720565719,
+      "idlePhysicalUpperBoundBytes": 602451392,
+      "idleAppCpuPercentOfOneCore": 0.19466218602818652,
+      "idleAppPhysicalBytes": 129844424
+    }
+  },
+  "attribution": "Main app plus every WebKit helper is a conservative upper bound. Other applications' WebKit helpers are included.",
+  "limitations": "Sampled peaks are not guaranteed instantaneous peaks. Hardware-specific release budgets and calibrated energy remain separate.",
+  "provenance": {
+    "date": "2026-11-18",
+    "baseRevision": "be10919",
+    "workingTreeChanges": true,
+    "distributionCandidate": false
+  }
+}

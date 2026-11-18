@@ -524,3 +524,17 @@ test('annotation revisions reject old recovery results before decorating the cur
         annotations:annotations.map(note=>({...note,anchors:note.anchors.map(anchor=>({...anchor,resolvedBlockID:'b'}))}))}});
     assert.equal(document.querySelector('mark'),null);
 });
+
+test('measurement metadata identifies the current document and clears on replacement',async()=>{
+    window.MonoMark.command({type:'load',epoch:'profile-metrics'});
+    await new Promise(resolve=>setTimeout(resolve,20));
+    const worker=workers.at(-1);
+    worker.onmessage({data:{type:'index',duration:123.5,sourceBytes:1048576,outline:[],links:[],blocks:[]}});
+    assert.equal(window.MonoMark.metrics().indexMilliseconds,123.5);
+    assert.equal(window.MonoMark.metrics().sourceBytes,1048576);
+    assert.equal(window.MonoMark.metrics().indexed,true);
+    window.MonoMark.command({type:'load',epoch:'next-profile'});
+    assert.equal(window.MonoMark.metrics().sourceBytes,0);
+    assert.equal(window.MonoMark.metrics().indexed,false);
+    await new Promise(resolve=>setTimeout(resolve,20));
+});

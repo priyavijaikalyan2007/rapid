@@ -508,5 +508,14 @@
       "MonoMarkAnnotations",
       "MonoMarkWorkspaces"
     ]
+  },
+  {
+    "name": "MonoMarkNativeProfile",
+    "definition": "Synthetic native WebKit timing plus separate app counters and conservative all-WebKit upper bounds. Development host only.",
+    "anchor_file": "scripts/monomark_native_profile.py",
+    "related": [
+      "MonoMark",
+      "MonoMarkRenderer"
+    ]
   }
 ]

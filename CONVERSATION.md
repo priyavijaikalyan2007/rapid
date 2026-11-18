@@ -1121,3 +1121,8 @@ Completed full-document quote recovery for #20. Tests first reproduced reused bl
 ## Complete release checks in sequence — 18 November 2026
 
 User: "go ahead and finish these off one by one." Started with lifecycle acceptance. Failing SQLite and native regressions exposed deleted-history resurrection, out-of-order same-visit checkpoints, lost restored-tab state, unreliable tab activation/cleanup, and notes stranded after replacement followed by rename. These cases now pass. History schema version 2 migrates existing data and rejects future schemas. The native harness verifies tabs, Find focus, renderer release/reactivation, reload options, rename/deletion recovery, and workspace switching. Signed provider grants remain next. No upload or submission occurred.
+
+
+## 18 November 2026: Sequential release checks
+
+The owner requested completion of remaining checks one by one. The owner signed into Xcode and authorized the Keychain request. Native mixed-document profiling and signed artifact checks pass. Complete resource attribution and slower hardware remain separate. The UI runner now has matching development signing but stalls before main. Local App Store export now reaches Apple and requires the latest Program License Agreement. The owner was asked to accept that agreement directly. No upload or submission occurred.
