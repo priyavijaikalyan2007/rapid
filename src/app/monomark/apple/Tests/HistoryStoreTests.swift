@@ -89,4 +89,67 @@ struct HistoryStoreTests
         try Data("not sqlite".utf8).write(to: url)
         #expect(throws: (any Error).self) { _ = try HistoryStore(url: url) }
     }
+
+    @Test func replacementKeepsOneHistoryRow() throws
+    {
+        let store = try HistoryStore(url: database())
+        let old = record("old", time: 10)
+        var replacement = record("new", time: 20)
+        replacement.path = old.path
+        try store.record(old)
+
+        try store.record(replacement)
+
+        #expect(try store.page(query: "", offset: 0, limit: 20) == [replacement])
+    }
+
+    @Test func staleIdentityCannotReplaceNewerVisit() throws
+    {
+        let store = try HistoryStore(url: database())
+        var latest = record("new", time: 20)
+        let stale = record("old", time: 10)
+        latest.path = stale.path
+        try store.record(latest)
+
+        try store.record(stale)
+
+        #expect(try store.page(query: "", offset: 0, limit: 20) == [latest])
+    }
+
+    @Test func atomicReplacementRecoversSavedMetadata() throws
+    {
+        let url = try database()
+        let source = url.deletingLastPathComponent().appendingPathComponent("book.md")
+        try Data("# Before".utf8).write(to: source, options: .atomic)
+        let store = try HistoryStore(url: url)
+        var saved = record(try DocumentAccess.identity(source))
+        saved.path = source.path
+        saved.anchor = "chapter"
+        saved.zoom = 1.5
+        saved.preferences = ReaderPreferences()
+        saved.preferences?.bodySize = 19
+        try store.record(saved)
+
+        try Data("# After".utf8).write(to: source, options: .atomic)
+        let recovered = try HistoryStore(url: url).state(id: DocumentAccess.identity(source), path: source.path)
+
+        #expect(recovered == saved)
+    }
+
+    @Test func identityLookupSurvivesRename() throws
+    {
+        let store = try HistoryStore(url: database())
+        let saved = record()
+        try store.record(saved)
+
+        #expect(try store.state(id: saved.id, path: "/tmp/renamed.md") == saved)
+    }
+
+    @Test func unknownIdentityAndPathHaveNoState() throws
+    {
+        let store = try HistoryStore(url: database())
+        try store.record(record())
+
+        #expect(try store.state(id: "unseen", path: "/tmp/unseen.md") == nil)
+    }
 }

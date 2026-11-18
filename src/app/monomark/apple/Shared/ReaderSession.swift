@@ -139,7 +139,7 @@ final class ReaderSession: ObservableObject
                 {
                     let identity = try DocumentAccess.identity(file)
                     _ = try file.resourceValues(forKeys: [.fileSizeKey])
-                    return (identity, try store?.state(id: identity))
+                    return (identity, try store?.state(id: identity, path: file.path))
                 }.value
                 guard ticket == generation
                 else

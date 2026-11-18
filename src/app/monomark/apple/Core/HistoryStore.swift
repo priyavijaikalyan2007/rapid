@@ -41,6 +41,7 @@ final class HistoryStore: @unchecked Sendable
                 """
             )
             try execute("CREATE INDEX IF NOT EXISTS history_recent ON history(accessed DESC)")
+            try execute("CREATE INDEX IF NOT EXISTS history_path ON history(path,accessed DESC)")
             try execute("PRAGMA user_version=1")
         }
         catch
@@ -67,20 +68,63 @@ final class HistoryStore: @unchecked Sendable
         }
         try lock.withLock
         {
-            let sql = """
-                INSERT INTO history VALUES(?,?,?,?) ON CONFLICT(id) DO UPDATE SET path=excluded.path, \
-                accessed=excluded.accessed, payload=excluded.payload WHERE excluded.accessed>=history.accessed
-                """
-            try execute(sql, arguments: [state.id, state.path, String(state.accessedAt), payload])
+            try writeTransaction(state, payload: payload)
         }
     }
 
-    func state(id: String) throws -> ReadingState?
+    /// Recover replacement files by the already-authorized path. Identity still follows a renamed file.
+    func state(id: String, path: String? = nil) throws -> ReadingState?
     {
         try lock.withLock
         {
-            try rows("SELECT payload FROM history WHERE id=?", arguments: [id]).first
+            if let exact = try rows("SELECT payload FROM history WHERE id=?", arguments: [id]).first
+            {
+                return exact
+            }
+            guard let path
+            else
+            {
+                return nil
+            }
+            return try rows(
+                "SELECT payload FROM history WHERE path=? ORDER BY accessed DESC LIMIT 1",
+                arguments: [path]
+            ).first
         }
+    }
+
+    private func writeTransaction(_ state: ReadingState, payload: String) throws
+    {
+        try execute("BEGIN IMMEDIATE")
+        do
+        {
+            try replaceLatest(state, payload: payload)
+            try execute("COMMIT")
+        }
+        catch
+        {
+            try? execute("ROLLBACK")
+            throw error
+        }
+    }
+
+    private func replaceLatest(_ state: ReadingState, payload: String) throws
+    {
+        let latest = try rows(
+            "SELECT payload FROM history WHERE id=? OR path=? ORDER BY accessed DESC LIMIT 1",
+            arguments: [state.id, state.path]
+        ).first
+        guard latest?.accessedAt ?? -.infinity <= state.accessedAt
+        else
+        {
+            return
+        }
+        try execute("DELETE FROM history WHERE path=? AND id<>?", arguments: [state.path, state.id])
+        let sql = """
+            INSERT INTO history VALUES(?,?,?,?) ON CONFLICT(id) DO UPDATE SET path=excluded.path, \
+            accessed=excluded.accessed, payload=excluded.payload WHERE excluded.accessed>=history.accessed
+            """
+        try execute(sql, arguments: [state.id, state.path, String(state.accessedAt), payload])
     }
 
     func page(query: String, offset: Int, limit: Int) throws -> [ReadingState]
