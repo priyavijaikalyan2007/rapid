@@ -8,8 +8,10 @@ import WebKit
 
 @MainActor enum ReviewSmoke
 {
-    private static func settingsPersistence(source: URL) async throws -> [String: Bool]
+    private static func settingsPersistence() async throws -> [String: Bool]
     {
+        // Bookmark and watcher activity must not reload the document used by selection checks.
+        let source = try createFixture()
         let name = "monomark-settings-smoke-\(UUID())"
         guard let defaults = UserDefaults(suiteName: name)
         else
@@ -91,7 +93,7 @@ import WebKit
             throw ReaderFailure.unavailable
         }
         let original = try Data(contentsOf: source)
-        let settings = try await settingsPersistence(source: source)
+        let settings = try await settingsPersistence()
         session.preferences.fontFamily = "Atkinson Hyperlegible"
         session.preferences.showLineNumbers = true
         session.preferences.preserveLineBreaks = true

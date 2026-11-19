@@ -43,5 +43,15 @@
     "The separate-process check exercises actual preference serialization and UserDefaults, not the full interactive application lifecycle.",
     "The native session regression does not require the owner's saved tabs or private documents.",
     "The installed build 79 and signed build 86 do not contain this fix. A replacement clean signed candidate is required."
-  ]
+  ],
+  "signedQA": {
+    "passed": true,
+    "secureTimestamp": false,
+    "separateSettingsFixture": true,
+    "initialSharedFixtureFailures": [
+      "The selection heading was unmounted before range creation.",
+      "The heading annotation had zero captured anchors."
+    ],
+    "replacementCleanSignedCandidateRequired": true
+  }
 }
