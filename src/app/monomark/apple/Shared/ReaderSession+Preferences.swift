@@ -4,6 +4,7 @@
 // COMPONENT: Reader appearance persistence
 // PURPOSE: Apply bounded appearance values and save explicit defaults.
 import Foundation
+import OSLog
 #if os(macOS)
 import AppKit
 #endif
@@ -60,6 +61,7 @@ extension ReaderSession
         preferences.normalize()
         let reparse = appliedFileLinks != preferences.implicitFileLinks ||
             appliedSectionLinks != preferences.implicitSectionLinks
+        saveDefaults()
         command(["type": "preferences", "value": rendererPreferences()])
         checkpoint()
         if reparse
@@ -76,11 +78,19 @@ extension ReaderSession
 
     func saveDefaults()
     {
-        preferences.normalize()
-        if let data = try? JSONEncoder()
-            .encode(preferences)
+        guard let settingsDefaults
+        else
         {
-            UserDefaults.standard.set(data, forKey: "reader-defaults")
+            return
+        }
+        do
+        {
+            try preferences.store(in: settingsDefaults)
+        }
+        catch
+        {
+            Logger(subsystem: "us.outcrop.MonoMark", category: "Settings").error("Reader defaults encoding failed")
+            message = "MonoMark could not save reader settings. Try changing the setting again."
         }
     }
 }

@@ -14,6 +14,7 @@ Created: 2026
 
 ### Fixed
 
+- Saved MonoMark reader settings automatically, including edits before opening a document, and retained them for new sessions.
 - Prevented deleted MonoMark history from returning through queued writes and stopped older checkpoints from rewinding positions.
 - Preserved MonoMark notes, preferences, and identity across atomic replacement followed by rename.
 - Restored saved tab snapshots and released inactive renderers when tab selection changes without a key-window event.

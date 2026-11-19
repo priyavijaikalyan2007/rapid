@@ -8,6 +8,48 @@ import WebKit
 
 @MainActor enum ReviewSmoke
 {
+    private static func settingsPersistence(source: URL) async throws -> [String: Bool]
+    {
+        let name = "monomark-settings-smoke-\(UUID())"
+        guard let defaults = UserDefaults(suiteName: name)
+        else
+        {
+            throw ReaderFailure.unavailable
+        }
+        defer { defaults.removePersistentDomain(forName: name) }
+        let edited = ReaderSession(defaults: defaults)
+        defer { edited.close() }
+        edited.preferences.showLineNumbers = true
+        edited.preferences.fontFamily = "JetBrains Mono"
+        edited.preferences.bodySize = 19
+        edited.preferences.autoReload = false
+        edited.preferences.layoutMode = "pages"
+        edited.preferences.palette.preset("ocean", dark: true)
+        edited.updatePreferences()
+        let reopened = ReaderSession(defaults: defaults)
+        defer { reopened.close() }
+        let retained = reopened.preferences == edited.preferences
+        reopened.open(source)
+        try await waitForOpen(reopened)
+        return [
+            "emptyWindowEditsPersist": retained,
+            "firstDocumentUsesSavedSettings": reopened.preferences == edited.preferences
+        ]
+    }
+
+    private static func waitForOpen(_ session: ReaderSession) async throws
+    {
+        for _ in 0 ..< 200
+        {
+            if session.url != nil, session.state != nil
+            {
+                return
+            }
+            try await Task.sleep(for: .milliseconds(25))
+        }
+        throw ReaderFailure.unavailable
+    }
+
     static func createFixture() throws -> URL
     {
         let folder = FileManager.default.temporaryDirectory.appendingPathComponent("monomark-review-\(UUID())")
@@ -49,6 +91,7 @@ import WebKit
             throw ReaderFailure.unavailable
         }
         let original = try Data(contentsOf: source)
+        let settings = try await settingsPersistence(source: source)
         session.preferences.fontFamily = "Atkinson Hyperlegible"
         session.preferences.showLineNumbers = true
         session.preferences.preserveLineBreaks = true
@@ -83,6 +126,7 @@ import WebKit
         session.command(["type": "annotation", "id": annotation.id])
         try await waitFor("!!document.querySelector('h2 mark') && !!document.querySelector('th')", view: view)
         var report = try await geometry(view)
+        report["settingsPersistence"] = settings
         report["beforeJump"] = before
         report["headingQuote"] = annotation.anchors.map(\.quote).joined(separator: "\n")
         report["anchorCount"] = annotation.anchors.count
@@ -97,6 +141,10 @@ import WebKit
             annotation.anchors.first?.quote == "3. Three forms" && report["sourceUnchanged"] as? Bool == true
         report["passed"] = report["passed"] as? Bool == true && report["exportSourceHash"] as? Bool == true &&
             report["exportSectionAndLine"] as? Bool == true
+        report["passed"] = report["passed"] as? Bool == true && settings.values.allSatisfy
+        {
+            $0
+        }
         trace("inline export")
         let inline = try await ReviewExportSmoke.run(session: session, source: source, notes: notes)
         report["inlineAndSelectiveExports"] = inline

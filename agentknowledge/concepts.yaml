@@ -526,5 +526,14 @@
       "MonoMark",
       "MonoMarkNativeProfile"
     ]
+  },
+  {
+    "name": "MonoMarkReaderDefaults",
+    "definition": "Explicit reader-setting edits persist normalized app defaults even without a document. Existing per-file preferences take precedence. Synthetic sessions use injected domains or no personal defaults.",
+    "anchor_file": "src/app/monomark/apple/Shared/ReaderSession+Preferences.swift",
+    "related": [
+      "MonoMarkHistory",
+      "MonoMarkPalette"
+    ]
   }
 ]

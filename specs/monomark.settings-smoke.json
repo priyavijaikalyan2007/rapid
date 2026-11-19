@@ -1,0 +1,47 @@
+{
+  "date": "2026-11-18",
+  "issue": 69,
+  "scope": "Automatic application reader defaults with existing per-document overrides",
+  "passed": true,
+  "beforeFix": {
+    "nativeReviewPassed": false,
+    "settings": {
+      "emptyWindowEditsPersist": false,
+      "firstDocumentUsesSavedSettings": false
+    }
+  },
+  "afterFix": {
+    "nativeReviewPassed": true,
+    "settings": {
+      "emptyWindowEditsPersist": true,
+      "firstDocumentUsesSavedSettings": true
+    },
+    "separateProcesses": {
+      "passed": true,
+      "separateProcesses": true,
+      "sourceLineNumbers": true
+    }
+  },
+  "verification": {
+    "coreTests": 141,
+    "rendererTests": 138,
+    "coreLineCoveragePercent": 94.77,
+    "readerPreferencesLineCoveragePercent": 100,
+    "activeAndUniversalMacBuilds": true,
+    "iOSDeviceAndSimulatorBuilds": true,
+    "repositoryPythonTests": 95,
+    "repositoryBatsTests": 49,
+    "sourceStylePassed": true
+  },
+  "privacy": {
+    "syntheticDocumentsOnly": true,
+    "isolatedPreferencesDomains": true,
+    "privateStoredMetadataInspected": false,
+    "installedAppReplaced": false
+  },
+  "limits": [
+    "The separate-process check exercises actual preference serialization and UserDefaults, not the full interactive application lifecycle.",
+    "The native session regression does not require the owner's saved tabs or private documents.",
+    "The installed build 79 and signed build 86 do not contain this fix. A replacement clean signed candidate is required."
+  ]
+}

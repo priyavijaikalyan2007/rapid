@@ -39,7 +39,7 @@ struct ReaderPaletteSettings: View
                             appearance = dark ? "dark" : "light"
                         }
                     }
-                    Text("Colors apply to this document. Use as Defaults in Settings applies them to new documents.")
+                    Text("Colors save automatically for this document and as defaults for new documents.")
                         .font(.caption).foregroundStyle(.secondary)
                 }
                 roles("Headings", values: Array(PaletteRole.allCases.prefix(6)))

@@ -108,6 +108,8 @@ No sidecar file or modification to the Markdown document is required.
 Each file record contains its identity, last known location, access bookmark where supported, first-viewed time, and last-viewed time.
 Store the reading anchor, relative offset within that block, document-version information, zoom, and per-file display overrides.
 Keep global defaults separate from per-file overrides. Preserve unmodified defaults when a file has no override.
+Save explicit reader-setting changes automatically, including changes made before a document opens.
+New documents inherit these app defaults. Previously viewed documents retain their saved preferences.
 Use filesystem or provider identity where available, with a path fallback and explicit handling for replacement at the same path.
 Resolve bookmarks and access rights before reading. A history record never grants new filesystem permission.
 Handle renamed, moved, replaced, removed, and provider-unavailable documents without silently assigning state to an unrelated file.
@@ -458,7 +460,7 @@ Provide a palette with sensible light and dark presets, with System selecting th
 Preserve contrast and allow a reset to defaults. Keep reader overrides distinct from author-defined diagram colors.
 Implemented through native named-swatch selectors with separate light/dark overrides and per-mode reset.
 Presets include Default, Neutral, Ocean, and Forest. Text resolves to at least 4.5:1 contrast against selected surfaces.
-Selections persist per document and can become application defaults. Reader colors do not rewrite diagram author colors.
+Selections persist per document and automatically become defaults for new documents. Reader colors do not rewrite diagram author colors.
 
 
 ## Reading controls from 14 November 2026

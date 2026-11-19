@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-/// Native controls edit bounded per-document typography and optional application defaults.
+/// Native controls save document typography and application defaults automatically.
 struct ReaderSettings: View
 {
     @ObservedObject var session: ReaderSession
@@ -24,6 +24,8 @@ struct ReaderSettings: View
         {
             Section("Appearance")
             {
+                Text("Settings save automatically on this device. Documents keep their saved reader settings.")
+                    .font(.caption).foregroundStyle(.secondary)
                 Picker("Mode", selection: $appearance)
                 {
                     Text("System").tag("system")
@@ -167,14 +169,12 @@ struct ReaderSettings: View
                 {
                     HStack
                     { reset
-                        defaults
                         Spacer()
                         done
                     }
                     VStack
                     { HStack
                     { reset
-                        defaults
                     }
                         done
                     }
@@ -194,26 +194,18 @@ struct ReaderSettings: View
 
     private var reset: some View
     {
-        Button("Reset Appearance")
+        Button("Reset Reader Settings")
         {
             session.preferences = ReaderPreferences()
         }
-        .help("Reset this document's appearance")
-    }
-
-    private var defaults: some View
-    {
-        Button("Use as Defaults")
-        {
-            session.saveDefaults()
-        }
-        .help("Use these settings for documents without saved preferences")
+        .help("Restore reader settings for this document and defaults for new documents")
     }
 
     private var done: some View
     {
         Button("Done")
         {
+            session.updatePreferences()
             session.showSettings = false
         }.keyboardShortcut(.defaultAction)
     }

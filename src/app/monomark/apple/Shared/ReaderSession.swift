@@ -53,6 +53,7 @@ final class ReaderSession: ObservableObject
     var smokeRendered: (() -> Void)?
     var state: ReadingState?
     private var store: HistoryStore?
+    let settingsDefaults: UserDefaults?
     var generation = UUID()
     var scopes: [URL] = []
     private var locations: [(URL, String?)] = []
@@ -72,8 +73,12 @@ final class ReaderSession: ObservableObject
         generation.uuidString
     }
 
-    init()
+    init(defaults: UserDefaults? = nil)
     {
+        let arguments = ProcessInfo.processInfo.arguments
+        let temporary = arguments.contains("--smoke-test") || arguments.contains("--demo")
+        // Synthetic sessions must not read or overwrite the owner's reader defaults.
+        settingsDefaults = defaults ?? (temporary ? nil : UserDefaults.standard)
         do
         {
             let base: URL
@@ -88,7 +93,7 @@ final class ReaderSession: ObservableObject
                 base = URL.applicationSupportDirectory.appendingPathComponent("MonoMark")
             }
             store = try HistoryStore(url: base.appendingPathComponent("history.sqlite"))
-            if let data = UserDefaults.standard.data(forKey: "reader-defaults"),
+            if let data = settingsDefaults?.data(forKey: "reader-defaults"),
                let saved = try? JSONDecoder().decode(ReaderPreferences.self, from: data)
             {
                 preferences = saved
@@ -163,8 +168,7 @@ final class ReaderSession: ObservableObject
                 state?.rootBookmark = root.flatMap(bookmark)
                 preferences = ReaderPreferences.forDocument(
                     saved: state?.preferences,
-                    defaultsData: UserDefaults.standard
-                        .data(forKey: "reader-defaults")
+                    defaultsData: settingsDefaults?.data(forKey: "reader-defaults")
                 )
                 preferences.normalize()
                 if addHistory

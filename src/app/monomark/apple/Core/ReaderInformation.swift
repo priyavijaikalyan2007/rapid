@@ -84,10 +84,12 @@ struct ReaderInformation: Sendable
             """
             Settings offers System, Light, and Dark appearance, installed font families, and sizes for document \
             elements. Customize Colors provides separate Light and Dark palettes, presets, and reset controls. \
-            Text colors keep at least 4.5:1 contrast. Diagram colors remain separate. Use as Defaults applies to documents without saved preferences. Use File > Print on Mac or \
+            Text colors keep at least 4.5:1 contrast. Diagram colors remain separate. Settings save automatically, \
+            including when no document is open. New documents inherit those settings. Existing documents retain \
+            their saved reader settings. Use File > Print on Mac or \
             Document Actions > Print on mobile. Printing supports up to 5,000 blocks, 16 MiB of rendered HTML, and 100,000 rendered elements. \
             Each block must fit the 1 MiB rendered-object limit. Larger jobs report the limit before printing. Pages shows separate paper boxes. Pageless uses continuous \
-            scrolling. Choose paper size in Settings and Use as Defaults for new documents. Counts are estimates \
+            scrolling. Choose paper size in Settings. Counts are estimates \
             and change with width and typography. Optional source line numbers mark block starts, with ranges on hover. \
             Preserve source line breaks keeps single source newlines visible. Both options are in Reading layout. \
             Subsection numbering follows the source author. Large objects stay on expanded sheets. Printed breaks can differ.

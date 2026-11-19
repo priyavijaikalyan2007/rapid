@@ -116,6 +116,15 @@ struct ReaderPreferences: Codable, Equatable, Sendable
         return result
     }
 
+    /// Persist user edits independently of whether a document is open.
+    func store(in defaults: UserDefaults) throws
+    {
+        var saved = self
+        saved.normalize()
+        let data = try JSONEncoder().encode(saved)
+        defaults.set(data, forKey: "reader-defaults")
+    }
+
     private static func safeFamily(_ value: String, fallback: String = "") -> String
     {
         let allowed = CharacterSet.alphanumerics.union(CharacterSet(charactersIn: " -_"))

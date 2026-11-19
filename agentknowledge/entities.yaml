@@ -358,5 +358,16 @@
     "related": [
       "MonoMark"
     ]
+  },
+  {
+    "name": "ReaderPreferences",
+    "table": null,
+    "file": "src/app/monomark/apple/Core/ReaderPreferences.swift",
+    "description": "Normalized typography, layout, navigation, reload, and palette values. User edits save to native application defaults and per-file history. New documents inherit app defaults.",
+    "related": [
+      "MonoMarkReaderDefaults",
+      "MonoMarkHistory",
+      "MonoMarkPalette"
+    ]
   }
 ]
