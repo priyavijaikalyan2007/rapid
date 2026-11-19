@@ -37,6 +37,7 @@ import WebKit
             throw ReaderFailure.unavailable
         }
         let originalMode = UserDefaults.standard.string(forKey: "appearance-mode")
+        let launchMaximized = maximizedWindowMode(controller.window)
         let originalAppearance = NSApp.appearance
         defer
         {
@@ -45,6 +46,7 @@ import WebKit
         }
         controller.window?.setFrame(NSRect(x: 100, y: 100, width: 1280, height: 800), display: true)
         var report = try await fixedModes(controller, view: view, output: output)
+        report["launchMaximizedInWindowMode"] = launchMaximized
         report.merge(try await systemModes(controller, view: view))
         { _, new in
             new
@@ -61,6 +63,7 @@ import WebKit
     }
 
     private static let checks = [
+        "launchMaximizedInWindowMode",
         "light",
         "dark",
         "system-dark",
@@ -72,6 +75,20 @@ import WebKit
         "enlargedTypography",
         "singleDisplayPresentation"
     ]
+
+    private static func maximizedWindowMode(_ window: NSWindow?) -> Bool
+    {
+        guard let window, let screen = window.screen
+        else
+        {
+            return false
+        }
+        let frame = window.frame
+        let available = screen.visibleFrame
+        return abs(frame.minX - available.minX) < 1 && abs(frame.minY - available.minY) < 1 &&
+            abs(frame.width - available.width) < 1 && abs(frame.height - available.height) < 1 &&
+            window.styleMask.contains(.titled) && !window.styleMask.contains(.fullScreen)
+    }
 
     private static func fixedModes(
         _ controller: ReaderWindowController,

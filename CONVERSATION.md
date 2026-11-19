@@ -1166,3 +1166,5 @@ The subsequent signed review still failed after fixture separation. Diagnostics 
 User hardware reply: "Neither is available."
 
 User: "one final bug - I see that teh app starts as a small window always; I would prefer to open maximized." The next patch will open regular windows at the screen usable bounds without entering full screen. Extra-hardware acceptance remains pending.
+
+Implemented maximized regular-window startup for #71. The native test first failed on the small initial frame and now passes for usable bounds, regular window style, appearance, and explicit presentation. The runtime dependency audit reports zero known vulnerabilities. The next clean signed candidate will include settings #69, metadata reload #70, and startup #71.

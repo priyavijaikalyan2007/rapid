@@ -501,7 +501,7 @@
   },
   {
     "name": "MonoMarkLifecycle",
-    "definition": "Native tab selection drives renderer release/reactivation. Coordinated source identity follows replacement and rename without discarding drafts. Transactional history cutoffs and update timestamps preserve deletion and checkpoint order.",
+    "definition": "Native tab selection drives renderer release/reactivation. Coordinated source identity follows replacement and rename without discarding drafts. Transactional history cutoffs and update timestamps preserve deletion and checkpoint order. Regular Mac reader windows start maximized within usable screen bounds, while explicit presentation remains separate.",
     "anchor_file": "src/app/monomark/apple/Mac/ReaderWindowController.swift",
     "related": [
       "MonoMarkHistory",

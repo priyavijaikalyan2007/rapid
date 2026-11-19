@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-18",
+  "issue": 71,
+  "passed": true,
+  "beforeFix": {
+    "launchMaximizedInWindowMode": false
+  },
+  "afterFix": {
+    "launchMaximizedInWindowMode": true,
+    "singleDisplayPresentation": true,
+    "appearancePresentationPassed": true
+  },
+  "behavior": "Regular Mac windows start at NSScreen.main.visibleFrame. The menu bar, Dock, title bar and resizing remain available. Explicit presentation remains separate.",
+  "limits": [
+    "One physical display tested. Additional displays are unavailable.",
+    "Clean signed replacement-candidate acceptance remains required."
+  ]
+}

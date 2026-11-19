@@ -358,6 +358,14 @@
       "category": "bug",
       "progress": "source fix verified; replacement signed candidate pending",
       "releaseBlocker": true
+    },
+    "maximized-startup": {
+      "number": 71,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/71",
+      "parent": 2,
+      "category": "bug",
+      "progress": "source fix verified; replacement signed candidate pending",
+      "releaseBlocker": true
     }
   },
   "refinements": {

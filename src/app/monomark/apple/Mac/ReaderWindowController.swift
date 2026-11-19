@@ -53,6 +53,11 @@ final class ReaderWindowController: NSWindowController, NSWindowDelegate
             }
         ))
         window.setContentSize(NSSize(width: 1120, height: 780))
+        if let screen = NSScreen.main
+        {
+            // Use a regular maximized window and preserve the menu bar and Dock.
+            window.setFrame(screen.visibleFrame, display: false)
+        }
         window.togglePresentation = { [weak self] in
             self?.togglePresentation()
         }

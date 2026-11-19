@@ -16,6 +16,7 @@ Created: 2026
 
 - Saved MonoMark reader settings automatically, including edits before opening a document, and retained them for new sessions.
 - Prevented metadata-only file events from reloading MonoMark during reading and selection.
+- Opened MonoMark's regular Mac windows maximized within the screen's usable area.
 - Prevented deleted MonoMark history from returning through queued writes and stopped older checkpoints from rewinding positions.
 - Preserved MonoMark notes, preferences, and identity across atomic replacement followed by rename.
 - Restored saved tab snapshots and released inactive renderers when tab selection changes without a key-window event.
