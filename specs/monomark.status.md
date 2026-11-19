@@ -378,3 +378,9 @@ The [settings report](monomark.settings-smoke.json) records the native failure b
 Build 86 does not contain this fix. A new clean signed candidate must replace it before release. This evidence does not claim an interactive restart of the owner's installed build or inspect existing personal settings, tabs, notes, or documents. The installed build 79 remains unchanged.
 
 The first clean signed build 90 review failed during heading selection while the new settings test shared its document. A repeat also failed to capture the heading. Both reports were retained. The settings test now creates an independent synthetic fixture. A separate hardened, sandboxed Developer ID QA copy passes the complete native review after that isolation change. This QA signature has no secure timestamp. It is not the replacement release candidate.
+
+## Metadata reload defect and remaining hardware
+
+Further diagnostics showed an epoch change during selection, with no view replacement or suspension. Test isolation alone was insufficient. Bug #70 tracks metadata-only file events that incorrectly refreshed the document. The regression failed before the fix. The watcher now retains write flags separately and compares readability as part of its transient fingerprint. Metadata-only changes no longer reload. Same-size writes with restored dates, replacements, cancellation, and lost read permission remain observable. Seven watcher tests, 144 Core tests, 138 renderer tests, all Apple builds, and signed QA review/artifact/lifecycle pass. Native selection now explicitly retains its epoch. The report is monomark.metadata-reload-smoke.json.
+
+The owner has no second display or another supported Mac available. Physical display/reference-machine gates remain unexecuted. The owner also requested maximized startup in regular window mode. That request will receive a separate patch before the next clean candidate.

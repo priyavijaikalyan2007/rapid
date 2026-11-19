@@ -53,5 +53,13 @@
       "The heading annotation had zero captured anchors."
     ],
     "replacementCleanSignedCandidateRequired": true
+  },
+  "followOnValidation": {
+    "issue": 70,
+    "testIsolationAloneWasInsufficient": true,
+    "metadataOnlyReloadFixed": true,
+    "currentCoreTests": 144,
+    "signedQAReviewArtifactLifecyclePassed": true,
+    "newCleanCandidateRequired": true
   }
 }

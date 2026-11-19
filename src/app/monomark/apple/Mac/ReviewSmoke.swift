@@ -93,7 +93,7 @@ import WebKit
             throw ReaderFailure.unavailable
         }
         let original = try Data(contentsOf: source)
-        let settings = try await settingsPersistence()
+        let initialEpoch = session.documentEpoch
         session.preferences.fontFamily = "Atkinson Hyperlegible"
         session.preferences.showLineNumbers = true
         session.preferences.preserveLineBreaks = true
@@ -108,6 +108,8 @@ import WebKit
         try await Task.sleep(for: .milliseconds(200))
         trace("initial geometry")
         let before = try await geometry(view)
+        trace("epochChanged=\(initialEpoch != session.documentEpoch), " +
+            "suspended=\(session.isSuspended), attached=\(view.window != nil)")
         trace("heading selection")
         try await selectHeading(view)
         try await Task.sleep(for: .milliseconds(200))
@@ -128,7 +130,7 @@ import WebKit
         session.command(["type": "annotation", "id": annotation.id])
         try await waitFor("!!document.querySelector('h2 mark') && !!document.querySelector('th')", view: view)
         var report = try await geometry(view)
-        report["settingsPersistence"] = settings
+        report["selectionKeptDocumentEpoch"] = initialEpoch == session.documentEpoch
         report["beforeJump"] = before
         report["headingQuote"] = annotation.anchors.map(\.quote).joined(separator: "\n")
         report["anchorCount"] = annotation.anchors.count
@@ -142,11 +144,7 @@ import WebKit
             .count == 1 &&
             annotation.anchors.first?.quote == "3. Three forms" && report["sourceUnchanged"] as? Bool == true
         report["passed"] = report["passed"] as? Bool == true && report["exportSourceHash"] as? Bool == true &&
-            report["exportSectionAndLine"] as? Bool == true
-        report["passed"] = report["passed"] as? Bool == true && settings.values.allSatisfy
-        {
-            $0
-        }
+            report["exportSectionAndLine"] as? Bool == true && report["selectionKeptDocumentEpoch"] as? Bool == true
         trace("inline export")
         let inline = try await ReviewExportSmoke.run(session: session, source: source, notes: notes)
         report["inlineAndSelectiveExports"] = inline
@@ -184,6 +182,13 @@ import WebKit
            let png = bitmap.representation(using: .png, properties: [:])
         {
             try png.write(to: URL(fileURLWithPath: output + ".png"))
+        }
+        trace("settings persistence")
+        let settings = try await settingsPersistence()
+        report["settingsPersistence"] = settings
+        report["passed"] = report["passed"] as? Bool == true && settings.values.allSatisfy
+        {
+            $0
         }
         return report
     }
@@ -248,6 +253,8 @@ import WebKit
                 const font = code ? getComputedStyle(code).fontFamily : ''; 
                 const label = document.querySelector('.monomark-line-number')?.textContent;
                 return {
+                    scrollY: window.scrollY, viewportHeight: window.innerHeight,
+                    layout: window.MonoMark.metrics().layout,
                     columnsAligned: headers.length === 3 && cells.length === 3 && headers.every((x,i) =>
                         Math.abs(x.left-cells[i].left) < 0.5 && Math.abs(x.width-cells[i].width) < 0.5),
                     columnLefts: headers.map(x => x.left), bodyLefts: cells.map(x => x.left),

@@ -1,0 +1,36 @@
+{
+  "date": "2026-11-18",
+  "issue": 70,
+  "passed": true,
+  "beforeFix": {
+    "metadataChangeNotifications": 1,
+    "expectedNotifications": 0,
+    "nativeDocumentEpochChanged": true,
+    "nativeViewReplaced": false,
+    "nativeSelectionFailure": "The heading annotation was not created."
+  },
+  "afterFix": {
+    "watcherTestsPassed": 7,
+    "metadataOnlyChangeIgnored": true,
+    "sameSizeRestoredDateWriteDetected": true,
+    "readPermissionLossDetected": true,
+    "nativeReviewPassed": true,
+    "nativeSelectionKeptDocumentEpoch": true,
+    "signedQAReviewPassed": true,
+    "signedQAArtifactPassed": true,
+    "signedQALifecyclePassed": true
+  },
+  "verification": {
+    "coreTests": 144,
+    "rendererTests": 138,
+    "coreLineCoveragePercent": 94.77,
+    "watcherLineCoveragePercent": 97.48,
+    "fingerprintLineCoveragePercent": 92.31,
+    "allConfiguredAppleBuildsPassed": true
+  },
+  "limits": [
+    "Signed QA has hardened runtime and sandbox entitlements but no secure timestamp.",
+    "Clean replacement-candidate verification remains required.",
+    "Only synthetic documents and isolated preferences/reading stores were used."
+  ]
+}

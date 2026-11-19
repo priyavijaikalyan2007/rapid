@@ -10,6 +10,7 @@ struct FileFingerprint: Equatable
     let modified: Date?
     let bytes: UInt64?
     let inode: UInt64?
+    let readable: Bool
 
     static func read(_ file: URL) -> FileFingerprint?
     {
@@ -21,7 +22,8 @@ struct FileFingerprint: Equatable
         return FileFingerprint(
             modified: attributes[.modificationDate] as? Date,
             bytes: (attributes[.size] as? NSNumber)?.uint64Value,
-            inode: (attributes[.systemFileNumber] as? NSNumber)?.uint64Value
+            inode: (attributes[.systemFileNumber] as? NSNumber)?.uint64Value,
+            readable: FileManager.default.isReadableFile(atPath: file.path)
         )
     }
 }

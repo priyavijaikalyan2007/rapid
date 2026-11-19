@@ -414,7 +414,7 @@
   },
   {
     "name": "MonoMarkReload",
-    "definition": "Coalesced file and directory notifications detect in-place writes and atomic replacement. Native settings choose automatic reload or a changed-file notice with Refresh.",
+    "definition": "Coalesced file/directory observation reloads actual writes, replacements, and readability changes. Metadata-only notifications are ignored. Write flags preserve detection when size and mtime remain unchanged.",
     "anchor_file": "src/app/monomark/apple/Core/DocumentWatcher.swift",
     "related": [
       "MonoMark"

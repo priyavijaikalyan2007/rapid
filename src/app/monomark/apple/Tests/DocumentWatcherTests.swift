@@ -101,4 +101,66 @@ import Testing
         try await Task.sleep(for: .milliseconds(450))
         #expect(changes == 0)
     }
+
+    @Test func metadataOnlyChangesDoNotRefreshTheDocument() async throws
+    {
+        let file = try fixture()
+        defer { try? FileManager.default.removeItem(at: file.deletingLastPathComponent()) }
+        var changes = 0
+        let watcher = DocumentWatcher(file: file)
+        {
+            changes += 1
+        }
+        defer { watcher.cancel() }
+        let attributes = try FileManager.default.attributesOfItem(atPath: file.path)
+        let permissions = try #require(attributes[.posixPermissions] as? NSNumber).intValue
+
+        try FileManager.default.setAttributes([.posixPermissions: permissions ^ 4], ofItemAtPath: file.path)
+        try await Task.sleep(for: .milliseconds(500))
+
+        #expect(changes == 0)
+    }
+
+    @Test func sameSizeWritesWithRestoredDatesStillRefresh() async throws
+    {
+        let file = try fixture()
+        defer { try? FileManager.default.removeItem(at: file.deletingLastPathComponent()) }
+        var changes = 0
+        let watcher = DocumentWatcher(file: file)
+        {
+            changes += 1
+        }
+        defer { watcher.cancel() }
+        let attributes = try FileManager.default.attributesOfItem(atPath: file.path)
+        let modified = try #require(attributes[.modificationDate] as? Date)
+
+        try Data("Third".utf8).write(to: file)
+        try FileManager.default.setAttributes([.modificationDate: modified], ofItemAtPath: file.path)
+        try await waitUntil
+        {
+            changes == 1
+        }
+
+        #expect(changes == 1)
+    }
+
+    @Test func lossOfReadPermissionStillRefreshes() async throws
+    {
+        let file = try fixture()
+        defer { try? FileManager.default.removeItem(at: file.deletingLastPathComponent()) }
+        var changes = 0
+        let watcher = DocumentWatcher(file: file)
+        {
+            changes += 1
+        }
+        defer { watcher.cancel() }
+
+        try FileManager.default.setAttributes([.posixPermissions: 0], ofItemAtPath: file.path)
+        try await waitUntil
+        {
+            changes == 1
+        }
+
+        #expect(changes == 1)
+    }
 }

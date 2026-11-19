@@ -16,7 +16,7 @@ import Foundation
     private var directorySource: DispatchSourceFileSystemObject?
     private var pending: Task<Void, Never>?
     private var stopped = false
-    private var fileEvent = false
+    private var fileWrite = false
 
     init(file: URL, onChange: @escaping @MainActor () -> Void)
     {
@@ -57,10 +57,11 @@ import Foundation
             fileDescriptor: descriptor, eventMask: [.write, .rename, .delete, .attrib], queue: .main
         )
         source.setEventHandler
-        { [weak self] in
+        { [weak self, weak source] in
+            let written = targetFile && source?.data.contains(.write) == true
             Task
             { @MainActor in
-                self?.schedule(targetFile: targetFile)
+                self?.schedule(fileWrite: written)
             }
         }
         source.setCancelHandler
@@ -71,14 +72,14 @@ import Foundation
         return source
     }
 
-    private func schedule(targetFile: Bool)
+    private func schedule(fileWrite: Bool)
     {
         guard !stopped
         else
         {
             return
         }
-        fileEvent = fileEvent || targetFile
+        self.fileWrite = self.fileWrite || fileWrite
         pending?.cancel()
         pending = Task
         { [weak self] in
@@ -102,8 +103,8 @@ import Foundation
             return
         }
         let current = FileFingerprint.read(file)
-        let changed = current != fingerprint || fileEvent
-        fileEvent = false
+        let changed = current != fingerprint || fileWrite
+        fileWrite = false
         guard changed
         else
         {

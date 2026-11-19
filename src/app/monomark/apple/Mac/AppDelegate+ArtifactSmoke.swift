@@ -21,6 +21,8 @@ extension AppDelegate
             Task
             {
                 let report: [String: Any]
+                let initialEpoch = session.documentEpoch
+                let initialView = session.webView
                 do
                 {
                     if ProcessInfo.processInfo.arguments.contains("--store-screenshots")
@@ -50,10 +52,25 @@ extension AppDelegate
                 }
                 catch
                 {
+                    let diagnostic = try? await session.webView?.evaluateJavaScript("""
+                        ({ scrollY: window.scrollY, viewportHeight: window.innerHeight,
+                           headings: [...document.querySelectorAll('h1,h2')].map(x=>x.id),
+                           math: !!document.querySelector('.katex'),
+                           diagram: !!document.querySelector('[data-mermaid] svg'),
+                           image: document.querySelector('img')?.naturalWidth || 0,
+                           selection: window.getSelection().toString().slice(0, 500),
+                           ranges: window.getSelection().rangeCount,
+                           text: document.body.innerText.slice(0, 2000) })
+                        """)
                     report = [
                         "passed": false,
                         "error": error.localizedDescription,
-                        "detail": (error as NSError).userInfo.description
+                        "detail": (error as NSError).userInfo.description,
+                        "domDiagnostic": diagnostic ?? [:],
+                        "sessionSuspended": session.isSuspended,
+                        "viewAttached": session.webView?.window != nil,
+                        "epochChanged": initialEpoch != session.documentEpoch,
+                        "viewReplaced": initialView !== session.webView
                     ]
                 }
                 if let data = try? JSONSerialization.data(

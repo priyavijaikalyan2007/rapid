@@ -369,5 +369,14 @@
       "MonoMarkHistory",
       "MonoMarkPalette"
     ]
+  },
+  {
+    "name": "FileFingerprint",
+    "table": null,
+    "file": "src/app/monomark/apple/Core/FileFingerprint.swift",
+    "description": "Transient modification date, byte count, inode, and readability used to filter metadata-only file notifications. No stored schema change.",
+    "related": [
+      "MonoMarkReload"
+    ]
   }
 ]

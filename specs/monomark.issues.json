@@ -350,6 +350,14 @@
       "progress": "in progress",
       "parent": 2,
       "releaseBlocker": true
+    },
+    "metadata-only-reloads": {
+      "number": 70,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/70",
+      "parent": 2,
+      "category": "bug",
+      "progress": "source fix verified; replacement signed candidate pending",
+      "releaseBlocker": true
     }
   },
   "refinements": {
