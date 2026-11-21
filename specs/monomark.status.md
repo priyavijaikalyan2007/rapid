@@ -407,4 +407,6 @@ This submission was notarization for the direct build. No App Store build upload
 
 ## Multiplatform store record clarification on 22 November
 
-The owner asked whether Mac, iPhone and iPad need an app bundle. Use one New App record with macOS and iOS platform versions. One iOS build supports both mobile device families. The same bundle ID and SKU identify the product across platforms. The current mobile target still has a different bundle ID. Task #72 tracks its alignment and signed/device-tested mobile candidate. Mac build 93 remains unchanged. The existing Mac-first candidate does not establish mobile release readiness.
+The owner asked whether Mac, iPhone and iPad need an app bundle. Use one New App record with macOS and iOS platform versions. One iOS build supports both mobile device families. The same bundle ID and SKU identify the product across platforms. The current mobile target still has a different bundle ID.
+
+Task #72 tracks its alignment and signed/device-tested mobile candidate. Mac build 93 remains unchanged. The existing Mac-first candidate does not establish mobile release readiness.

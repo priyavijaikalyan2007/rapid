@@ -1193,4 +1193,6 @@ The next owner actions are to try the notarized build 93 using copied documents 
 
 User: "ok - since we are shipping this app for mac, ipad and ios - do we need an app or app bundle?"
 
-Checked Apple's current app-record, platform and app-bundle guidance. Recommend New App with one MonoMark record for macOS and iOS. The iOS build supports iPhone and iPad. New App Bundle groups separate products. Platform targets must share the bundle ID for universal purchase. The Mac target uses us.outcrop.MonoMark, but mobile still uses us.outcrop.MonoMarkMobile. Task #72 records alignment, signing and device validation before the mobile upload. This documentation change does not modify the notarized Mac build 93.
+Checked Apple's current app-record, platform and app-bundle guidance. Recommend New App with one MonoMark record for macOS and iOS. The iOS build supports iPhone and iPad. New App Bundle groups separate products. Platform targets must share the bundle ID for universal purchase.
+
+The Mac target uses us.outcrop.MonoMark, but mobile still uses us.outcrop.MonoMarkMobile. Task #72 records alignment, signing and device validation before the mobile upload. This documentation change does not modify the notarized Mac build 93.
