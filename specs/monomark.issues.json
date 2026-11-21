@@ -379,6 +379,19 @@
       "verifiedBuild": 93,
       "evidence": "specs/monomark.release-candidate.json",
       "closedDate": "2026-11-21"
+    },
+    "mobile-universal-purchase": {
+      "number": 72,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/72",
+      "parent": 8,
+      "category": "task",
+      "progress": "planned",
+      "blocksPlatforms": [
+        "iOS",
+        "iPadOS"
+      ],
+      "blocksMacRelease": false,
+      "remaining": "Align mobile bundle ID to us.outcrop.MonoMark, verify signing/provisioning, archive and validate the mobile candidate, and complete device acceptance."
     }
   },
   "refinements": {

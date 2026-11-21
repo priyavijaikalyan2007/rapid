@@ -404,3 +404,7 @@ The owner approved submission of build 93 to Apple notarization. Xcode uploaded 
 Post-notary review passes, including settings retention and selection epoch preservation. The new notarized ZIP passes integrity checks. Its extracted app retains a valid signature and ticket. The candidate record contains its checksum and Xcode distribution identifier.
 
 This submission was notarization for the direct build. No App Store build upload, App Review submission or public app download occurred. The installed app remains unchanged. Remaining manual/provider/accessibility/hardware and store-account gates stay open.
+
+## Multiplatform store record clarification on 22 November
+
+The owner asked whether Mac, iPhone and iPad need an app bundle. Use one New App record with macOS and iOS platform versions. One iOS build supports both mobile device families. The same bundle ID and SKU identify the product across platforms. The current mobile target still has a different bundle ID. Task #72 tracks its alignment and signed/device-tested mobile candidate. Mac build 93 remains unchanged. The existing Mac-first candidate does not establish mobile release readiness.

@@ -46,7 +46,13 @@ The earlier Xcode account and agreement blockers are resolved.
 ## Store record and review
 
 Use metadata.json, STORE-ANSWERS.md, and REVIEW.md. Proposed store answers are not entered in App Store Connect.
-Check name availability and create the macOS record under Outcrop Inc using bundle ID us.outcrop.MonoMark and SKU monomark-2026.
+Check name availability and create one MonoMark record under Outcrop Inc using bundle ID us.outcrop.MonoMark and SKU monomark-2026.
+Choose New App. New App Bundle groups separate products and is not the intended model for platform versions of MonoMark.
+Use macOS and iOS platform versions in that record. The iOS build supports both iPhone and iPad.
+The iOS platform can be added later if the Mac version ships first.
+Apple requires the platform targets to share the bundle ID for universal purchase.
+The mobile target currently uses us.outcrop.MonoMarkMobile. Task #72 tracks alignment and mobile signing before its first store upload.
+The notarized Mac build 93 already uses the intended bundle ID. Its artifact remains unchanged.
 Keep the price Free and release mode manual. Use Productivity and Utilities as the proposed categories.
 Reuse CropPrint's authorized private review contact directly in App Store Connect. Keep contact details outside source.
 Review the final privacy, age-rating, and export-compliance questions against the selected signed build.

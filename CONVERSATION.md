@@ -1188,3 +1188,9 @@ Uploaded the verified archive through Xcode's Outcrop account and exported the n
 User: "ok what's enxt what do I need to do?"
 
 The next owner actions are to try the notarized build 93 using copied documents and check/create the Outcrop macOS App Store Connect record. Test settings and reading-data retention after restart, folder/provider reopening, exports, and available accessibility checks through the manual checklist. The prepared record values are MonoMark, macOS, English (United States), bundle ID us.outcrop.MonoMark, and SKU monomark-2026. Apple's current app-record instructions were checked. Browser automation remains unavailable. The owner should provide the record link and test results before the next upload/preparation stage. Extra-hardware checks remain unexecuted.
+
+## One app record across platforms — 22 November 2026
+
+User: "ok - since we are shipping this app for mac, ipad and ios - do we need an app or app bundle?"
+
+Checked Apple's current app-record, platform and app-bundle guidance. Recommend New App with one MonoMark record for macOS and iOS. The iOS build supports iPhone and iPad. New App Bundle groups separate products. Platform targets must share the bundle ID for universal purchase. The Mac target uses us.outcrop.MonoMark, but mobile still uses us.outcrop.MonoMarkMobile. Task #72 records alignment, signing and device validation before the mobile upload. This documentation change does not modify the notarized Mac build 93.
