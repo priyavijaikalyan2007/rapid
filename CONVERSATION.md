@@ -1196,3 +1196,11 @@ User: "ok - since we are shipping this app for mac, ipad and ios - do we need an
 Checked Apple's current app-record, platform and app-bundle guidance. Recommend New App with one MonoMark record for macOS and iOS. The iOS build supports iPhone and iPad. New App Bundle groups separate products. Platform targets must share the bundle ID for universal purchase.
 
 The Mac target uses us.outcrop.MonoMark, but mobile still uses us.outcrop.MonoMarkMobile. Task #72 records alignment, signing and device validation before the mobile upload. This documentation change does not modify the notarized Mac build 93.
+
+## Mac listing materials — 22 November 2026
+
+User: "ok I seelected both platforms; I am being asked for mac app detailed information such as screenshots etc. let's work ont hat."
+
+Prepared a Mac listing handoff and local ZIP containing four existing, visually reviewed 2560 × 1600 RGB screenshots, individual copy-ready text fields, and reviewer notes. Verified image checksums, PNG format, Apple screenshot dimensions, field lengths and ZIP integrity. The original screenshot revision/date remain explicit. A build 93 refresh could not read the public fixtures through the signed sandbox. Its fallback document was rejected by the capture workflow. No replacement screenshots were accepted. Native launch required execution outside the tool sandbox, and macOS denied writing the proposed fixture folder. No private reading data was inspected.
+
+Browser access remains unavailable. The owner reports selecting macOS and iOS. Saved listing fields remain unverified. Metadata keeps the Mac listing scope separate from the two-platform record. The initial repository check caught that distinction, and the corrected metadata passes the Python checks. Remaining repository checks are recorded in the task result. No App Store build upload, screenshot upload, review submission or public release occurred.

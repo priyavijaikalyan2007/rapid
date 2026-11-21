@@ -34,5 +34,8 @@
       "alpha": false,
       "sha256": "2a5dad97f6597e099e2de5f86f36fd06352e98e49044a207ed5440e13b00211d"
     }
-  ]
+  ],
+  "lastVisualReview": "2026-11-22",
+  "appleSpecificationCheck": "2560 x 1600 is an accepted Mac screenshot size, verified 22 November 2026.",
+  "candidateNote": "Existing captures from the recorded base revision. Not recaptured from build 93. Its sandbox could not read the screenshot input fixtures during the refresh attempt."
 }

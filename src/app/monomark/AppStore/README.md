@@ -6,10 +6,12 @@
 # MonoMark Mac App Store preparation
 
 This folder contains a draft listing, reviewer instructions, and synthetic review documents.
+Use [the Mac listing handoff](MAC-LISTING.md) for the current App Store Connect fields and screenshot order.
 The owner selected Free and confirmed Outcrop Inc as publisher for all repository applications.
 The release target is version 1.0.0 for macOS 15 or later, on Apple silicon and Intel.
 The bundle identifier remains `us.outcrop.MonoMark`. The secondary iPhone/iPad product is not part of this first submission.
-The listing is a draft until the owner checks it and App Store Connect accepts the chosen name and settings.
+The owner reports selecting macOS and iOS in App Store Connect on 22 November 2026.
+Saved field values and name acceptance remain unverified by the assistant.
 
 ## Current local candidate
 

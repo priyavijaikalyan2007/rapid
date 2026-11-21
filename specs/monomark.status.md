@@ -410,3 +410,9 @@ This submission was notarization for the direct build. No App Store build upload
 The owner asked whether Mac, iPhone and iPad need an app bundle. Use one New App record with macOS and iOS platform versions. One iOS build supports both mobile device families. The same bundle ID and SKU identify the product across platforms. The current mobile target still has a different bundle ID.
 
 Task #72 tracks its alignment and signed/device-tested mobile candidate. Mac build 93 remains unchanged. The existing Mac-first candidate does not establish mobile release readiness.
+
+## Mac listing handoff on 22 November
+
+The owner selected macOS and iOS in App Store Connect. AppStore/MAC-LISTING.md now maps the Mac version fields and four screenshot uploads. The local Listing folder and ZIP contain copy-ready text, reviewer notes and unchanged inspected screenshots. Their 2560 × 1600 RGB dimensions, checksums, listing limits and ZIP integrity verify. Existing screenshot provenance remains explicit because the build 93 refresh could not access its fixtures. No app source or signed artifact changed.
+
+Browser access remains unavailable. Saved record values and draft uploads remain unverified. Issue #68 remains open for listing entry, final answers and remaining release checks. No App Store upload or review submission occurred.

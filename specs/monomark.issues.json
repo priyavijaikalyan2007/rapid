@@ -341,9 +341,9 @@
       "id": 6459611916,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/68",
       "parent": 65,
-      "progress": "build 93 local installer verified; store record and selected acceptance pending",
+      "progress": "owner selected macOS/iOS; Mac listing handoff prepared; saved fields unverified",
       "commit": "9fbcc90",
-      "remaining": "Store name/record, final listing/privacy/contact review, selected manual acceptance, then separately authorized upload and submission."
+      "remaining": "Owner upload of reviewed screenshots and listing fields, privacy/contact review, remaining acceptance, then separately authorized build upload and review submission."
     },
     "settings-persistence": {
       "number": 69,

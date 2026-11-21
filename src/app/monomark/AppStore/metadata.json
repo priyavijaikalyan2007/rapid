@@ -1,5 +1,5 @@
 {
-  "status": "draft; not entered in App Store Connect",
+  "status": "prepared Mac listing; owner selected macOS and iOS in App Store Connect; field entry unverified",
   "name": "MonoMark",
   "subtitle": "Markdown, diagrams, and notes",
   "bundleIdentifier": "us.outcrop.MonoMark",
@@ -30,12 +30,18 @@
   "reviewContact": null,
   "releaseMode": "manual",
   "pending": [
-    "Name availability and App Store record",
-    "Final screenshots",
-    "Native release acceptance gates",
-    "Owner confirmation of final privacy and export-compliance answers",
-    "Copy authorized review contact in App Store Connect when account access is available"
+    "Verify saved App Store Connect fields and name availability",
+    "Owner review and screenshot upload",
+    "Remaining native release acceptance gates",
+    "Confirm final privacy, age-rating and export-compliance answers",
+    "Copy authorized private review contact directly in App Store Connect",
+    "Separately authorize App Store build upload and review submission"
   ],
   "publisher": "Outcrop Inc",
-  "reviewContactSource": "Reuse existing CropPrint private App Review contact; do not store details here"
+  "reviewContactSource": "Reuse existing CropPrint private App Review contact; do not store details here",
+  "listingPlatform": "macOS",
+  "recordPlatforms": [
+    "macOS",
+    "iOS"
+  ]
 }

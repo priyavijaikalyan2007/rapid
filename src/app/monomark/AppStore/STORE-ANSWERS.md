@@ -14,7 +14,8 @@ Confirm the displayed questions and company requirements before submitting them.
 | --- | --- |
 | Publisher | Outcrop Inc |
 | Name | MonoMark, subject to availability |
-| Platform | macOS |
+| App record platforms | macOS and iOS, selected by the owner |
+| Current listing and candidate | macOS |
 | Bundle ID | us.outcrop.MonoMark |
 | SKU | monomark-2026 |
 | Primary language | English, United States |
