@@ -28,7 +28,8 @@
       "number": 5,
       "id": 6388329169,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/5",
-      "progress": "closed"
+      "progress": "closed",
+      "evidence": "specs/monomark.build93-review-smoke.json"
     },
     "notes": {
       "number": 6,
@@ -347,34 +348,37 @@
     "settings-persistence": {
       "number": 69,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/69",
-      "progress": "candidate verified; GitHub closure pending",
+      "progress": "closed",
       "parent": 2,
       "releaseBlocker": false,
       "commit": "f55ac82",
       "verifiedBuild": 93,
-      "evidence": "specs/monomark.release-candidate.json"
+      "evidence": "specs/monomark.release-candidate.json",
+      "closedDate": "2026-11-21"
     },
     "metadata-only-reloads": {
       "number": 70,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/70",
       "parent": 2,
       "category": "bug",
-      "progress": "candidate verified; GitHub closure pending",
+      "progress": "closed",
       "releaseBlocker": false,
       "commit": "611b776",
       "verifiedBuild": 93,
-      "evidence": "specs/monomark.release-candidate.json"
+      "evidence": "specs/monomark.release-candidate.json",
+      "closedDate": "2026-11-21"
     },
     "maximized-startup": {
       "number": 71,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/71",
       "parent": 2,
       "category": "bug",
-      "progress": "candidate verified; GitHub closure pending",
+      "progress": "closed",
       "releaseBlocker": false,
       "commit": "c1bab98",
       "verifiedBuild": 93,
-      "evidence": "specs/monomark.release-candidate.json"
+      "evidence": "specs/monomark.release-candidate.json",
+      "closedDate": "2026-11-21"
     }
   },
   "refinements": {
