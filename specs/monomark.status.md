@@ -388,3 +388,9 @@ The owner has no second display or another supported Mac available. Physical dis
 ## Maximized regular startup windows
 
 Bug #71 now has native red/green evidence in monomark.startup-window-smoke.json. Regular reader windows use the main screen usable frame before display. Title-bar controls and resizing remain. The app does not enter full screen at startup. Native appearance and reversible explicit presentation pass, and both Mac architectures compile. No mobile source changed. The refreshed bundled-runtime dependency audit reports zero known vulnerabilities. A clean signed candidate must include both this change and the metadata-reload fix.
+
+## Verified replacement build 93 on 21 November
+
+The owner resumed after travel and unlocked the Mac. Clean source c1bab98ec3a7 exports as version 1.0.0 build 93 through both distribution routes. Signatures, sandbox entitlements, secure timestamp, universal UUIDs, matching symbols, ZIP integrity and checksums verify. Exact signed review, lifecycle, artifact copy, and appearance/presentation pass. Review and artifact cases also pass on repeat. This candidate includes fixes #69, #70 and #71. The first compositor capture failed while the screen was locked. Unlocking resolved that environmental failure.
+
+The runtime dependency audit reports zero known vulnerabilities. Canonical support/privacy pages return MonoMark content. Build 86 remains a historical notarized baseline. Its ticket does not cover build 93. Build 93 is not notarized, uploaded to App Store Connect, submitted for review, or publicly distributed. The installed app remains unchanged. Private reading data was not inspected. External/provider, VoiceOver, extra-display/reference-hardware, minimum-OS/Intel and store-account gates remain. The owner confirmed no additional display or Mac is available.

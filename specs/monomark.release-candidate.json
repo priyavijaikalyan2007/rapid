@@ -1,9 +1,9 @@
 {
-  "date": "2026-11-18",
-  "status": "notarized local candidate; settings persistence bug 69 blocks release",
+  "date": "2026-11-21",
+  "status": "locally verified signed replacement candidate; notarization and remaining release gates pending",
   "version": "1.0.0",
-  "build": 86,
-  "sourceRevision": "89853dba9ca7",
+  "build": 93,
+  "sourceRevision": "c1bab98ec3a7",
   "cleanSource": true,
   "macArchitectures": [
     "arm64",
@@ -13,64 +13,96 @@
   "appStoreInstallerSignatureVerified": true,
   "developerIDExportPassed": true,
   "developerIDSignatureVerified": true,
+  "appSandbox": true,
   "hardenedRuntime": true,
   "secureTimestamp": true,
+  "matchingSymbols": true,
+  "machOUUIDs": [
+    {
+      "uuid": "B1BA9AF6-3F27-3A9E-A30D-C2E5881B9FEF",
+      "architecture": "arm64"
+    },
+    {
+      "uuid": "E9D65606-08C9-37BD-A8D6-9C1A332D474E",
+      "architecture": "x86_64"
+    }
+  ],
   "nativeChecks": {
     "review": true,
     "lifecycle": true,
-    "presentation": true,
+    "artifacts": true,
+    "presentation": true
+  },
+  "nativeEvidence": {
+    "review": "specs/monomark.build93-review-smoke.json",
+    "lifecycle": "specs/monomark.build93-lifecycle-smoke.json",
+    "artifacts": "specs/monomark.build93-artifacts-smoke.json",
+    "presentation": "specs/monomark.build93-presentation-smoke.json"
+  },
+  "repeatChecks": {
+    "review": true,
     "artifacts": true
   },
-  "screenshots": "src/app/monomark/AppStore/Screenshots/manifest.json",
+  "settingsPersistenceVerified": true,
+  "metadataOnlyReloadIgnored": true,
+  "selectionKeepsDocumentEpoch": true,
+  "launchMaximizedInRegularWindow": true,
   "files": [
     {
-      "file": "src/app/monomark/build/ReleaseCandidate/1.0.0-86/AppStore/MonoMark.pkg",
-      "bytes": 6920969,
-      "sha256": "028e49c6c5cae1f7485409fab648eae5b5b070f4fe6cfe26776b7607c86e2a04"
+      "file": "src/app/monomark/build/ReleaseCandidate/1.0.0-93/AppStore/MonoMark.pkg",
+      "bytes": 6957393,
+      "sha256": "1a7f3867c072dc8272f35ebe6444a036714eb45756a0458169d6ac8e2a2ca967"
     },
     {
-      "file": "src/app/monomark/build/ReleaseCandidate/1.0.0-86/Download/MonoMark-1.0.0-86-macOS.zip",
-      "bytes": 5729602,
-      "sha256": "46504b391092753aa263442c3a3b733217e55416751a530158fe0109f49e2344"
-    },
-    {
-      "file": "src/app/monomark/build/ReleaseCandidate/1.0.0-86/Download/MonoMark-1.0.0-86-notarized-macOS.zip",
-      "bytes": 5730951,
-      "sha256": "903ae337036f0c9d412646577ddb2f9a9566093192ef03b7e51b6e3fc432aca7",
-      "notarized": true
+      "file": "src/app/monomark/build/ReleaseCandidate/1.0.0-93/Download/MonoMark-1.0.0-93-macOS.zip",
+      "bytes": 5749693,
+      "sha256": "2ef28a973a1bd6066e8436262f4af6b1d9e6858345540f3cd344bf31fe4a28b2"
     }
   ],
-  "app": "src/app/monomark/build/ReleaseCandidate/1.0.0-86/Notarized/MonoMark.app",
-  "notarized": true,
-  "remaining": [
-    "Settings persistence across restart, bug 69",
-    "External user-selected/provider reopening and export grants",
-    "VoiceOver acceptance",
-    "Physical multi-display and display removal",
-    "Slower-machine resource budgets and calibrated energy",
-    "Final App Store record/listing/privacy/export-compliance review"
+  "app": "src/app/monomark/build/ReleaseCandidate/1.0.0-93/DeveloperID/MonoMark.app",
+  "screenshots": "src/app/monomark/AppStore/Screenshots/manifest.json",
+  "notarized": false,
+  "notarizationUploaded": false,
+  "appStoreUploaded": false,
+  "appReviewSubmitted": false,
+  "publishedDownload": false,
+  "installedAppReplaced": false,
+  "fixedBugs": [
+    69,
+    70,
+    71
   ],
+  "blockingBugs": [],
   "runtimeEnvironment": {
     "hardware": "Apple M5 Pro, 64 GiB",
     "macOS": "27.2.1",
     "architecture": "arm64",
+    "physicalDisplayCount": 1,
     "intelRuntimeVerified": false,
     "minimumMacOSRuntimeVerified": false
   },
-  "notarizationUploaded": true,
-  "appStoreUploaded": false,
-  "appReviewSubmitted": false,
-  "publishedDownload": false,
-  "notarization": {
-    "method": "Xcode authenticated Developer ID upload",
-    "xcodeDistributionID": "3C9D8494-AB2D-4CBD-89BA-E532A67F35AC",
-    "ticketValidated": true,
-    "signatureVerified": true,
-    "distributionPolicyPassed": true,
-    "matchingOriginalMachOUUIDs": true,
-    "postNotarizationReviewPassed": true
+  "remaining": [
+    "Approve and complete notarization of build 93",
+    "External user-selected/provider reopening and export grants",
+    "VoiceOver acceptance",
+    "Physical multi-display and display removal; hardware unavailable",
+    "Reference-machine resource budgets and calibrated energy; hardware unavailable",
+    "Intel and minimum-macOS runtime acceptance",
+    "Final App Store record/listing/privacy/export-compliance/contact and selected testing gates",
+    "Separate App Store upload, review submission and publication authorization"
+  ],
+  "notes": [
+    "Build 86 was notarized. Its ticket does not cover build 93.",
+    "Builds 90 and 91 were superseded after metadata-only reload failures.",
+    "The first build 93 compositor capture failed while the desktop was locked. After unlock, the signed presentation check passed.",
+    "Review and artifact acceptance also passed on repeated execution.",
+    "The installed developer app and personal reading data remain untouched."
+  ],
+  "runtimeDependencyAudit": {
+    "date": "2026-11-21",
+    "knownVulnerabilities": 0,
+    "omitDev": true
   },
-  "blockingBugs": [
-    69
-  ]
+  "publicPagesVerified": "2026-11-21",
+  "historicalNotarizedBaseline": "specs/monomark.release-candidate-build86.json"
 }

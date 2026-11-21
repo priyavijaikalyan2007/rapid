@@ -5,7 +5,7 @@
 
 # Proposed App Store answers
 
-These answers describe MonoMark 1.0.0 build 86, source 89853dba9ca7. They are not entered in App Store Connect.
+These answers describe MonoMark 1.0.0 build 93, source c1bab98ec3a7. They are not entered in App Store Connect.
 Confirm the displayed questions and company requirements before submitting them. Keep release mode manual.
 
 ## Record and listing
@@ -21,7 +21,7 @@ Confirm the displayed questions and company requirements before submitting them.
 | Primary category | Productivity |
 | Secondary category | Utilities |
 | Price | Free |
-| Version and build | 1.0.0, build 86 |
+| Version and build | 1.0.0, build 93 |
 | Minimum system | macOS 15.0 |
 | Login or demo account | None required |
 | Purchases, subscriptions, advertising | None |

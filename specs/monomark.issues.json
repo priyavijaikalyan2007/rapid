@@ -28,7 +28,7 @@
       "number": 5,
       "id": 6388329169,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/5",
-      "progress": "in progress"
+      "progress": "closed"
     },
     "notes": {
       "number": 6,
@@ -317,7 +317,7 @@
       "parent": 8,
       "progress": "release validation",
       "evidence": "specs/monomark.release-candidate.json",
-      "remaining": "Notarized Developer ID app and download package verify. Settings bug 69 and selected interactive/hardware checks remain. Public download publication and App Store upload/submission remain separate."
+      "remaining": "Build 93 signed checks and ZIP verify. New notarization approval, selected interactive/hardware checks, store account review and authorized publication gates remain."
     },
     "mac-icon": {
       "number": 66,
@@ -340,32 +340,41 @@
       "id": 6459611916,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/68",
       "parent": 65,
-      "progress": "archive verified; local App Store export awaiting Xcode account/profile",
+      "progress": "build 93 local installer verified; store record and selected acceptance pending",
       "commit": "9fbcc90",
-      "remaining": "Exact build 86 archive/export and signed checks pass. Final store record/listing/privacy/export-compliance review, screenshot upload, and selected manual acceptance remain."
+      "remaining": "Store name/record, final listing/privacy/contact review, selected manual acceptance, then separately authorized upload and submission."
     },
     "settings-persistence": {
       "number": 69,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/69",
-      "progress": "in progress",
+      "progress": "candidate verified; GitHub closure pending",
       "parent": 2,
-      "releaseBlocker": true
+      "releaseBlocker": false,
+      "commit": "f55ac82",
+      "verifiedBuild": 93,
+      "evidence": "specs/monomark.release-candidate.json"
     },
     "metadata-only-reloads": {
       "number": 70,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/70",
       "parent": 2,
       "category": "bug",
-      "progress": "source fix verified; replacement signed candidate pending",
-      "releaseBlocker": true
+      "progress": "candidate verified; GitHub closure pending",
+      "releaseBlocker": false,
+      "commit": "611b776",
+      "verifiedBuild": 93,
+      "evidence": "specs/monomark.release-candidate.json"
     },
     "maximized-startup": {
       "number": 71,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/71",
       "parent": 2,
       "category": "bug",
-      "progress": "source fix verified; replacement signed candidate pending",
-      "releaseBlocker": true
+      "progress": "candidate verified; GitHub closure pending",
+      "releaseBlocker": false,
+      "commit": "c1bab98",
+      "verifiedBuild": 93,
+      "evidence": "specs/monomark.release-candidate.json"
     }
   },
   "refinements": {

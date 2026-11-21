@@ -1168,3 +1168,9 @@ User hardware reply: "Neither is available."
 User: "one final bug - I see that teh app starts as a small window always; I would prefer to open maximized." The next patch will open regular windows at the screen usable bounds without entering full screen. Extra-hardware acceptance remains pending.
 
 Implemented maximized regular-window startup for #71. The native test first failed on the small initial frame and now passes for usable bounds, regular window style, appearance, and explicit presentation. The runtime dependency audit reports zero known vulnerabilities. The next clean signed candidate will include settings #69, metadata reload #70, and startup #71.
+
+## Resume after travel — 21 November 2026
+
+User: "ok go ahead. was traveling."
+
+The Mac is unlocked. Signed build 93 now passes the pending compositor/startup-window check and repeated review/artifact checks. All four exact-candidate suites pass. Local packaging verifies signatures, both architectures, matching symbols, checksum and ZIP integrity. Runtime dependencies report zero known vulnerabilities. Public support/privacy pages include MonoMark. The installed app and personal reading data remain untouched. Updated release evidence distinguishes build 93 from historical notarized build 86. New notarization approval and the remaining manual/store gates are still required.
