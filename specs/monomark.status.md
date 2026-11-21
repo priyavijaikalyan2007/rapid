@@ -396,3 +396,11 @@ The owner resumed after travel and unlocked the Mac. Clean source c1bab98ec3a7 e
 The runtime dependency audit reports zero known vulnerabilities. Canonical support/privacy pages return MonoMark content. Build 86 remains a historical notarized baseline. Its ticket does not cover build 93. Build 93 is not notarized, uploaded to App Store Connect, submitted for review, or publicly distributed. The installed app remains unchanged. Private reading data was not inspected. External/provider, VoiceOver, extra-display/reference-hardware, minimum-OS/Intel and store-account gates remain. The owner confirmed no additional display or Mac is available.
 
 GitHub bugs #69, #70 and #71 are now verified closed with immutable 72728e7 evidence links. Thirteen open records remain, including the epic, feature parents, release records and optional numbering proposal. App Store browser access was retried after travel and its host remains unavailable. No App Store fields were entered. New notarization approval is required for build 93 because the earlier approved artifact was build 86.
+
+## Build 93 notarization completed on 21 November
+
+The owner approved submission of build 93 to Apple notarization. Xcode uploaded the verified c1bab98ec3a7 archive through the existing Outcrop account, then exported the notarized app. Apple's attached ticket validates. Code signing and macOS distribution policy pass. Both original executable UUIDs, version, build and source revision match.
+
+Post-notary review passes, including settings retention and selection epoch preservation. The new notarized ZIP passes integrity checks. Its extracted app retains a valid signature and ticket. The candidate record contains its checksum and Xcode distribution identifier.
+
+This submission was notarization for the direct build. No App Store build upload, App Review submission or public app download occurred. The installed app remains unchanged. Remaining manual/provider/accessibility/hardware and store-account gates stay open.

@@ -1176,3 +1176,9 @@ User: "ok go ahead. was traveling."
 The Mac is unlocked. Signed build 93 now passes the pending compositor/startup-window check and repeated review/artifact checks. All four exact-candidate suites pass. Local packaging verifies signatures, both architectures, matching symbols, checksum and ZIP integrity. Runtime dependencies report zero known vulnerabilities. Public support/privacy pages include MonoMark. The installed app and personal reading data remain untouched. Updated release evidence distinguishes build 93 from historical notarized build 86. New notarization approval and the remaining manual/store gates are still required.
 
 Closed GitHub bugs #69, #70 and #71 after publishing exact-candidate evidence. Refreshed the epic, release/store tasks, and hardware availability records. Thirteen records remain open, including parent records and the optional numbering proposal. Retried App Store browser access, but its host remains unavailable. Build 93 awaits notarization authorization. The installed app remains unchanged.
+
+## Approved build 93 notarization — 21 November 2026
+
+User: "yes submit." This answers the specific request to upload build 93 to Apple notarization.
+
+Uploaded the verified archive through Xcode's Outcrop account and exported the notarized app. Ticket, signature, Gatekeeper distribution policy, version/source/UUID comparison, post-notary review, ZIP integrity, and extracted signature/ticket verification pass. The notarized ZIP is recorded in specs/monomark.release-candidate.json. No App Store upload/review submission or public distribution occurred. The installed copy and personal reading data remain untouched.

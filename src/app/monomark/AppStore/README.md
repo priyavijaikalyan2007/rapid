@@ -19,9 +19,12 @@ The Developer ID app has sandbox entitlements, hardened runtime, and a secure ti
 Signed review, lifecycle, artifact-copy, and appearance/presentation checks pass. Review and artifact checks also pass on repeat.
 The local ZIP passes integrity verification. See specs/monomark.release-candidate.json for checksums and evidence.
 
-Artifacts are under src/app/monomark/build/ReleaseCandidate/1.0.0-93, in DeveloperID, AppStore, and Download.
+Artifacts are under src/app/monomark/build/ReleaseCandidate/1.0.0-93, in Notarized, DeveloperID, AppStore, and Download.
 The installed developer app remains unchanged. Personal reading data was not inspected or replaced.
-Build 93 awaits notarization approval. Build 86 is the historical notarized baseline and does not contain these fixes.
+
+Apple notarized build 93 on 21 November 2026. Its ticket, signature, distribution policy, and extracted ZIP ticket verify.
+The post-notarization native review passes. The direct ZIP is MonoMark-1.0.0-93-notarized-macOS.zip.
+Build 86 is a superseded historical baseline and does not contain these fixes.
 No App Store build upload, App Review submission, or public app download has occurred.
 
 ## Create a local signed candidate

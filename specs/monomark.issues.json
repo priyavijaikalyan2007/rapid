@@ -316,9 +316,9 @@
       "id": 6458831458,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/65",
       "parent": 8,
-      "progress": "release validation",
+      "progress": "build 93 notarized; remaining manual and store gates pending",
       "evidence": "specs/monomark.release-candidate.json",
-      "remaining": "Build 93 signed checks and ZIP verify. New notarization approval, selected interactive/hardware checks, store account review and authorized publication gates remain."
+      "remaining": "Notarized build 93 and ZIP verify. Provider/VoiceOver/hardware checks, store preparation, and separately authorized publication remain."
     },
     "mac-icon": {
       "number": 66,
