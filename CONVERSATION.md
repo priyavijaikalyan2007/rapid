@@ -1182,3 +1182,9 @@ Closed GitHub bugs #69, #70 and #71 after publishing exact-candidate evidence. R
 User: "yes submit." This answers the specific request to upload build 93 to Apple notarization.
 
 Uploaded the verified archive through Xcode's Outcrop account and exported the notarized app. Ticket, signature, Gatekeeper distribution policy, version/source/UUID comparison, post-notary review, ZIP integrity, and extracted signature/ticket verification pass. The notarized ZIP is recorded in specs/monomark.release-candidate.json. No App Store upload/review submission or public distribution occurred. The installed copy and personal reading data remain untouched.
+
+## Owner next steps after notarization — 21 November 2026
+
+User: "ok what's enxt what do I need to do?"
+
+The next owner actions are to try the notarized build 93 using copied documents and check/create the Outcrop macOS App Store Connect record. Test settings and reading-data retention after restart, folder/provider reopening, exports, and available accessibility checks through the manual checklist. The prepared record values are MonoMark, macOS, English (United States), bundle ID us.outcrop.MonoMark, and SKU monomark-2026. Apple's current app-record instructions were checked. Browser automation remains unavailable. The owner should provide the record link and test results before the next upload/preparation stage. Extra-hardware checks remain unexecuted.
