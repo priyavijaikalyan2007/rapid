@@ -6,7 +6,7 @@
 # Proposed App Store answers
 
 These answers describe the intended Monoleaf 1.0.0 submission. The owner confirmed that the new name is available.
-The local signed candidate is Monoleaf 1.0.0 build 107, clean source a2aeedca4fa4.
+The local signed candidate is Monoleaf 1.0.0 build 111, clean source daed206bff0e.
 Its App Store installer and Developer ID copy verify locally. Build 107 uploaded successfully.
 Apple processing was last observed. No App Review submission occurred.
 Saved field values remain unverified by the assistant.
@@ -26,7 +26,7 @@ Confirm the displayed questions and company requirements before submitting them.
 | Primary category | Productivity |
 | Secondary category | Utilities |
 | Price | Free |
-| Version and build | 1.0.0, build 107 |
+| Version and build | 1.0.0, build 111 |
 | Minimum system | macOS 15.0 |
 | Login or demo account | None required |
 | Purchases, subscriptions, advertising | None |
@@ -75,7 +75,7 @@ Record the calculated global and regional ratings after completing the live form
 ## Encryption export declaration
 
 The signed candidate sets ITSAppUsesNonExemptEncryption to false. This is the proposed engineering configuration.
-The build 107 Mac archive and both exports retain this Boolean value.
+The build 111 Mac archive and both exports retain this Boolean value.
 The mobile source now declares the same value. Unsigned iOS and Simulator builds verify its generated property lists.
 This mobile change does not alter the signed Mac candidate or establish mobile release readiness.
 The source uses SHA-256 for identities and source checks. It does not implement a custom document-encryption service.

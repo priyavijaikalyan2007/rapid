@@ -1,40 +1,40 @@
 {
   "date": "2026-11-22",
   "name": "Monoleaf",
-  "status": "Monoleaf build 107 uploaded and owner-confirmed attached; manual testing not yet done",
+  "status": "Owner-tested Monoleaf build 111 uploaded; Apple processing last observed; replacing selected build 107 remains pending",
   "version": "1.0.0",
-  "build": 107,
-  "sourceRevision": "a2aeedca4fa4",
-  "fullSourceRevision": "a2aeedca4fa4253a3392fddd93e9e77c523a3e2a",
+  "build": 111,
+  "sourceRevision": "daed206bff0e",
+  "fullSourceRevision": "daed206bff0ec8881916bf0d9cfaca1bb27fc84f",
   "cleanSource": true,
   "macArchitectures": [
     "arm64",
     "x86_64"
   ],
   "bundleIdentifier": "us.outcrop.MonoMark",
-  "archive": "local/monoleaf-release-a2aeedc/src/app/monomark/build/AppStore/Monoleaf-macOS.xcarchive",
+  "archive": "local/release-artifacts/monoleaf/ReleaseCandidate/1.0.0-111/Archive/Monoleaf-macOS.xcarchive",
   "appStoreExportPassed": true,
   "appStoreInstallerSignatureVerified": true,
   "appStoreInstaller": {
-    "path": "local/release-artifacts/monoleaf/ReleaseCandidate/1.0.0-107/AppStore/Monoleaf.pkg",
-    "sizeBytes": 6959383,
-    "sha256": "585e74d0efc0f868d45a1ad6aa012a6ead59a2de466c88af7ed2bc0d94b543e6",
+    "path": "local/release-artifacts/monoleaf/ReleaseCandidate/1.0.0-111/AppStore/Monoleaf.pkg",
+    "sizeBytes": 6959582,
+    "sha256": "c0d03f5af69a7df5f0c7992adf649631eb0526406e9d9070868ae9a700ff11da",
     "signer": "3rd Party Mac Developer Installer: Outcrop Inc (4JD5A6Q2HL)"
   },
   "developerIDExportPassed": true,
   "developerIDSignatureVerified": true,
-  "developerIDApp": "local/release-artifacts/monoleaf/ReleaseCandidate/1.0.0-107/DeveloperID/Monoleaf.app",
+  "developerIDApp": "local/release-artifacts/monoleaf/ReleaseCandidate/1.0.0-111/DeveloperID/Monoleaf.app",
   "appSandbox": true,
   "hardenedRuntime": true,
   "secureTimestamp": true,
   "matchingSymbols": true,
   "machOUUIDs": [
     {
-      "uuid": "94B46BEE-2AD8-30F2-AEFB-7B7D12DB727D",
+      "uuid": "541C42AE-7B3B-3947-9DB9-52ADB0808F6A",
       "architecture": "x86_64"
     },
     {
-      "uuid": "0EEA9CE7-A92A-386B-9F23-95DEC8766553",
+      "uuid": "1C034DB4-42DA-30C0-8910-31DD6884BC65",
       "architecture": "arm64"
     }
   ],
@@ -53,10 +53,10 @@
     "presentation": true
   },
   "nativeReports": {
-    "review": "specs/monoleaf.build107-review-smoke.json",
-    "lifecycle": "specs/monoleaf.build107-lifecycle-smoke.json",
-    "artifacts": "specs/monoleaf.build107-artifacts-smoke.json",
-    "presentation": "specs/monoleaf.build107-presentation-smoke.json"
+    "review": "specs/monoleaf.build111-review-smoke.json",
+    "lifecycle": "specs/monoleaf.build111-lifecycle-smoke.json",
+    "artifacts": "specs/monoleaf.build111-artifacts-smoke.json",
+    "presentation": "specs/monoleaf.build111-presentation-smoke.json"
   },
   "macListing": {
     "completed": true,
@@ -67,20 +67,20 @@
   "screenshots": "src/app/monomark/AppStore/Screenshots/manifest.json",
   "signedScreenshotComparison": {
     "complete": false,
-    "reason": "The signed capture harness could not read public fixture paths through its sandbox and loaded its bundled welcome fallback. No new images were accepted or uploaded.",
+    "reason": "The prior signed build 107 capture attempt lacked external fixture access. It was not rerun on 111. An explicit final screenshot comparison was not confirmed.",
     "report": "specs/monoleaf.build107-screenshot-attempt.json"
   },
   "notarization": {
     "submitted": false,
     "accepted": false,
-    "note": "Build 93 notarization does not cover Monoleaf build 107. A new authorized upload is required for direct distribution."
+    "note": "Historical build 93 notarization does not cover build 111. A separate authorized notarization remains required for direct distribution."
   },
   "appStoreUpload": true,
   "appReviewSubmission": false,
   "publicDistribution": false,
   "websiteMonoleafRenamePublished": true,
   "remaining": [
-    "Owner-confirmed build attachment is complete. Manual testing is not yet done.",
+    "Wait for Apple processing, then replace selected build 107 with 111 and save.",
     "Remaining provider/reopen/write-grant and VoiceOver acceptance.",
     "Unavailable additional-display, minimum-macOS/Intel runtime and reference-hardware checks remain unexecuted.",
     "Final comparison of the uploaded screenshots with the signed candidate.",
@@ -88,11 +88,11 @@
     "Separate new notarization for the downloadable build.",
     "Mobile bundle alignment, signing and physical-device acceptance remain separate."
   ],
-  "historicalCandidate": "specs/monomark.release-candidate-build93.json",
+  "historicalCandidate": "specs/monomark.release-candidate-build107.json",
   "appStoreUploadAuthorization": {
     "approved": true,
     "date": "2026-11-22",
-    "scope": "Upload Monoleaf 1.0.0 build 107 to App Store Connect for processing and testing; no App Review submission."
+    "scope": "Upload owner-tested build 111; no App Review submission."
   },
   "appIcon": {
     "bundled": true,
@@ -102,39 +102,33 @@
     "separateAppStoreUploadRequired": false
   },
   "appStoreDelivery": {
-    "observedAtUTC": "2026-11-22T09:20:31.443162+00:00",
+    "observedAtUTC": "2026-11-22T11:54:53.101813+00:00",
     "name": "Monoleaf",
     "platform": "macOS",
     "version": "1.0.0",
-    "build": 107,
-    "sourceRevision": "a2aeedca4fa4",
+    "build": 111,
+    "sourceRevision": "daed206bff0e",
     "bundleIdentifier": "us.outcrop.MonoMark",
     "appStoreAppID": "6837811940",
     "appStoreConnectURL": "https://appstoreconnect.apple.com/apps/6837811940/distribution",
-    "xcodeDistributionIdentifier": "b84fc65b-1c8e-467e-b3da-4159c56cea4d",
+    "xcodeDistributionIdentifier": "38156dbd-eef3-4b33-9a1b-a3a36ac03038",
     "uploadDestination": "App Store",
     "uploadSucceeded": true,
     "xcodeExportExitCode": 0,
     "processingLastObserved": "Processing",
     "processingCompletionVerified": false,
+    "buildAttachedToVersionVerified": false,
+    "previousSelectedBuild": 107,
     "appReviewSubmitted": false,
     "publicRelease": false,
-    "icon": {
-      "includedInUploadedBuild": true,
-      "CFBundleIconName": "AppIcon",
-      "compiledResource": "Contents/Resources/AppIcon.icns",
-      "webPNG": "local/release-artifacts/monoleaf/Listing/Monoleaf-1.0.0/Icon/Monoleaf-1024.png",
-      "separateAppStoreIconUploadRequired": false,
-      "remoteIconDisplayVerified": false
-    },
+    "ownerTesting": "Owner reports things seem to be working well with the installed signed build 111. Individual remaining checks were not enumerated.",
     "notes": [
-      "User explicitly authorized upload of prepared build 107.",
+      "Owner authorized upload of the tested build 111.",
+      "The existing preserved archive was uploaded without rebuilding.",
       "Xcode reported the uploaded package was processing, then Upload succeeded.",
-      "Browser host remains unavailable. Processing completion and remote icon display are not independently observed.",
-      "No App Review submission, website deployment or new direct-build notarization occurred."
-    ],
-    "processingCompletionConfirmedByOwner": true,
-    "buildAttachmentConfirmedByOwner": true
+      "Build 107 was previously attached by the owner. Replacing its selection with 111 remains pending.",
+      "No App Review submission, new notarization or website deployment occurred during this upload."
+    ]
   },
   "websiteEvidence": "specs/monoleaf.public-pages-deployment.json",
   "localTestingBuild": {
@@ -143,7 +137,9 @@
     "path": "/Applications/Monoleaf.app",
     "sourceRevision": "daed206bff0e",
     "report": "specs/monoleaf.local-install111.json",
-    "uploaded": false,
-    "manualOwnerTesting": "pending"
-  }
+    "uploaded": true,
+    "manualOwnerTesting": "Positive general feedback, 22 November 2026"
+  },
+  "selectedAppStoreBuildLastConfirmed": 107,
+  "ownerTesting": "Owner reports things seem to be working well with the installed signed build 111. Individual remaining checks were not enumerated."
 }

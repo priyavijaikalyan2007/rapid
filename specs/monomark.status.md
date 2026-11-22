@@ -470,3 +470,9 @@ Existing release exports and listing files are preserved under local/release-art
 Monoleaf 1.0.0 build 111, clean source daed206bff0e, now runs from /Applications/Monoleaf.app. Signature and installed executable hash match the verified Developer ID export. There was no prior app at the standard Applications paths. Current source output contains only build/Monoleaf.app. Historical release exports and the fresh signed archive/symbols remain in local/release-artifacts/monoleaf. The temporary rebuild worktree is removed. No private app data or windows were inspected.
 
 All 144 Core tests, 138 renderer tests, Apple platform builds, archive/export and four exact signed native suites pass. The repository passes 98 Python tests and 56 Bats checks, including six cleanup safety regressions. See monoleaf.local-install111.json and the build111 smoke reports. Task #75 covers this completed generated-output cleanup/rebuild/install. Source/project rename was not selected. Build 111 has not been uploaded, and App Store build 107 remains attached. Manual owner testing and final release steps remain pending.
+
+## Owner-tested build 111 uploaded
+
+The owner reports that the installed app works well and authorizes upload. Uploaded the preserved clean daed206bff0e archive without rebuilding. Xcode confirms delivery of build 111 and start of Apple processing for app 6837811940, receipt 38156dbd-eef3-4b33-9a1b-a3a36ac03038. See monoleaf.app-store-upload111.json. Build 107 remains the last owner-confirmed selection. Once 111 processes, the owner can remove 107 from macOS version 1.0.0, save, add 111 and save. Listing text/screenshots remain version metadata.
+
+General owner feedback is positive. Specific provider/VoiceOver/hardware acceptance is not inferred from that statement. No review submission, new notarization or deployment occurred in this upload.

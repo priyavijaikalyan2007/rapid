@@ -1,0 +1,29 @@
+{
+  "observedAtUTC": "2026-11-22T11:54:53.101813+00:00",
+  "name": "Monoleaf",
+  "platform": "macOS",
+  "version": "1.0.0",
+  "build": 111,
+  "sourceRevision": "daed206bff0e",
+  "bundleIdentifier": "us.outcrop.MonoMark",
+  "appStoreAppID": "6837811940",
+  "appStoreConnectURL": "https://appstoreconnect.apple.com/apps/6837811940/distribution",
+  "xcodeDistributionIdentifier": "38156dbd-eef3-4b33-9a1b-a3a36ac03038",
+  "uploadDestination": "App Store",
+  "uploadSucceeded": true,
+  "xcodeExportExitCode": 0,
+  "processingLastObserved": "Processing",
+  "processingCompletionVerified": false,
+  "buildAttachedToVersionVerified": false,
+  "previousSelectedBuild": 107,
+  "appReviewSubmitted": false,
+  "publicRelease": false,
+  "ownerTesting": "Owner reports things seem to be working well with the installed signed build 111. Individual remaining checks were not enumerated.",
+  "notes": [
+    "Owner authorized upload of the tested build 111.",
+    "The existing preserved archive was uploaded without rebuilding.",
+    "Xcode reported the uploaded package was processing, then Upload succeeded.",
+    "Build 107 was previously attached by the owner. Replacing its selection with 111 remains pending.",
+    "No App Review submission, new notarization or website deployment occurred during this upload."
+  ]
+}

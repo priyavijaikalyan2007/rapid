@@ -15,10 +15,10 @@
   "executableSHA256": "6788b410708efa8f84f80c6ef6d50ea40971002d351e60900eee84138d09a767",
   "previousApplicationsCopy": null,
   "readingDataInspected": false,
-  "appStoreUploaded": false,
+  "appStoreUploaded": true,
   "appStoreBuildStillAttached": 107,
   "notarizationSubmitted": false,
-  "ownerManualTesting": "pending",
+  "ownerManualTesting": "Owner reports things seem to be working well on 22 November 2026; individual checks were not enumerated.",
   "coreTests": 144,
   "rendererTests": 138,
   "repositoryPythonTests": 98,
@@ -49,5 +49,7 @@
       "fileCount": 23,
       "allFileHashesMatch": true
     }
-  ]
+  ],
+  "uploadAuthorized": true,
+  "uploadReceipt": "specs/monoleaf.app-store-upload111.json"
 }

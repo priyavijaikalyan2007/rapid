@@ -15,24 +15,24 @@ Saved field values and name acceptance remain unverified by the assistant.
 
 ## Current local signed candidate
 
-Monoleaf 1.0.0 build 107 uses clean source a2aeedca4fa4. Its archive and both local signing exports pass.
+Monoleaf 1.0.0 build 111 uses clean source daed206bff0e. Its archive and both local signing exports pass.
 The App Store installer signature and extracted payload verify. Names, version/build, bundle ID, source and encryption declarations agree.
 Both Mac architectures and matching symbols verify. The Developer ID copy has sandbox entitlements, hardened runtime and a secure timestamp.
 Exact signed review, lifecycle, artifact-copy and presentation checks pass.
 
-Preserved build 107 exports are under local/release-artifacts/monoleaf/ReleaseCandidate/1.0.0-107, in AppStore and DeveloperID.
-The owner reports Mac listing and screenshot completion. Build 107 uploaded successfully on 22 November 2026. Xcode reported that Apple began processing it.
+Preserved build 111 exports are under local/release-artifacts/monoleaf/ReleaseCandidate/1.0.0-111, in AppStore and DeveloperID.
+The owner reports Mac listing and screenshot completion. Build 111 uploaded successfully on 22 November 2026. Xcode reported that Apple began processing it.
 No App Review submission occurred. Processing completion and remote icon display remain unverified.
 The signed screenshot helper cannot read the external fixtures through its sandbox. Final screenshot comparison remains pending.
 See specs/monomark.release-candidate.json for evidence and remaining acceptance.
 
 The Developer ID copy is not notarized. A separate authorized notarization upload is required before direct distribution.
 Historical MonoMark build 93 remains preserved under 1.0.0-93, with its record in specs/monomark.release-candidate-build93.json.
-Its notarization does not cover build 107. The installed app and private reading data remain untouched.
+Its notarization does not cover build 111. The signed build 111 is installed for local testing. Reading-data paths remain stable, and private reading data was not inspected.
 
 The uploaded record is https://appstoreconnect.apple.com/apps/6837811940/distribution.
 The bundled AppIcon supplies the store icon. No separate icon upload is required.
-See specs/monoleaf.app-store-upload107.json for the upload receipt.
+See specs/monoleaf.app-store-upload111.json for the upload receipt.
 
 ## Create a local signed candidate
 

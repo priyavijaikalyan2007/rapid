@@ -1300,3 +1300,13 @@ Clean rebuild completed at daed206bff0e as Monoleaf 1.0.0 build 111. All 144 Cor
 Installed the verified signed copy at /Applications/Monoleaf.app and opened it. There was no prior standard Applications copy to replace. Verified the installed signature, matching executable hash, version/build and process path. Copied the same signed app to src/app/monomark/build/Monoleaf.app. The only source-tree app bundle is that current Monoleaf product. Archived/signed copies and symbols are preserved outside src, and the completed temporary rebuild worktree was removed. No private windows, documents, settings or reading data were inspected. Internal source/project identifiers remain under the stated generated-only cleanup assumption. Build 111 is local only. App Store Connect still has build 107 attached, and manual owner testing remains pending.
 
 Published installation evidence as 0b45add and closed #75. The GitHub account is restored to knobbyadmin. The installed local build is 111, while App Store Connect remains attached to build 107.
+
+## Owner-tested build 111 upload approved — 22 November 2026
+
+User: "things seem to be working well. continue uploading the build. i supposed i have ot unattacha nd reattach the build to the app on the app store connect afrer that?"
+
+The owner reports positive general testing of the installed build 111 and authorizes its upload. This is not an explicit result for every outstanding provider, VoiceOver or hardware check. Verified the preserved clean build 111 archive, source revision and installed executable identity, then started Xcode App Store upload from that exact archive. No rebuild was performed. No App Review submission is authorized by this request.
+
+Checked Apple's current build-selection instructions: only one build can be attached to an app version. After processing, remove build 107 from macOS version 1.0.0, save, add build 111, choose Done and Save. This changes the build association within the existing version, not the app record. Its listing text and screenshots remain version metadata.
+
+Xcode confirms successful upload of build 111 and the start of processing for app 6837811940. Receipt identifier: 38156dbd-eef3-4b33-9a1b-a3a36ac03038. Main candidate evidence now points to 111 and preserves build 107 separately. The owner must replace selected build 107 with 111 after processing. Selection and processing completion remain unverified. No App Review submission or new notarization occurred.

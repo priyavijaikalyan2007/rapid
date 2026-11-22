@@ -1,5 +1,5 @@
 {
-  "status": "owner-completed Mac listing; build 107 uploaded; Apple processing last observed; not submitted for review",
+  "status": "owner-tested build 111 uploaded; Apple processing last observed; build selection pending; not submitted for review",
   "name": "Monoleaf",
   "subtitle": "Markdown, diagrams, and notes",
   "bundleIdentifier": "us.outcrop.MonoMark",
@@ -30,7 +30,7 @@
   "reviewContact": null,
   "releaseMode": "manual",
   "pending": [
-    "Wait for build 107 processing completion, then select and test the exact build",
+    "After Apple processing, replace selected build 107 with 111 and save",
     "Remaining selected manual release acceptance and signed screenshot comparison",
     "Authorize publication of prepared Monoleaf support/privacy text",
     "Authorize App Review submission after final checks"

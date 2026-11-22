@@ -1,0 +1,149 @@
+{
+  "date": "2026-11-22",
+  "name": "Monoleaf",
+  "status": "Monoleaf build 107 uploaded and owner-confirmed attached; manual testing not yet done",
+  "version": "1.0.0",
+  "build": 107,
+  "sourceRevision": "a2aeedca4fa4",
+  "fullSourceRevision": "a2aeedca4fa4253a3392fddd93e9e77c523a3e2a",
+  "cleanSource": true,
+  "macArchitectures": [
+    "arm64",
+    "x86_64"
+  ],
+  "bundleIdentifier": "us.outcrop.MonoMark",
+  "archive": "local/monoleaf-release-a2aeedc/src/app/monomark/build/AppStore/Monoleaf-macOS.xcarchive",
+  "appStoreExportPassed": true,
+  "appStoreInstallerSignatureVerified": true,
+  "appStoreInstaller": {
+    "path": "local/release-artifacts/monoleaf/ReleaseCandidate/1.0.0-107/AppStore/Monoleaf.pkg",
+    "sizeBytes": 6959383,
+    "sha256": "585e74d0efc0f868d45a1ad6aa012a6ead59a2de466c88af7ed2bc0d94b543e6",
+    "signer": "3rd Party Mac Developer Installer: Outcrop Inc (4JD5A6Q2HL)"
+  },
+  "developerIDExportPassed": true,
+  "developerIDSignatureVerified": true,
+  "developerIDApp": "local/release-artifacts/monoleaf/ReleaseCandidate/1.0.0-107/DeveloperID/Monoleaf.app",
+  "appSandbox": true,
+  "hardenedRuntime": true,
+  "secureTimestamp": true,
+  "matchingSymbols": true,
+  "machOUUIDs": [
+    {
+      "uuid": "94B46BEE-2AD8-30F2-AEFB-7B7D12DB727D",
+      "architecture": "x86_64"
+    },
+    {
+      "uuid": "0EEA9CE7-A92A-386B-9F23-95DEC8766553",
+      "architecture": "arm64"
+    }
+  ],
+  "archiveAndBothExportsMatch": {
+    "name": true,
+    "versionBuild": true,
+    "bundleIdentifier": true,
+    "sourceRevision": true,
+    "nonExemptEncryptionFalse": true,
+    "codeSignature": true
+  },
+  "nativeChecks": {
+    "review": true,
+    "lifecycle": true,
+    "artifacts": true,
+    "presentation": true
+  },
+  "nativeReports": {
+    "review": "specs/monoleaf.build107-review-smoke.json",
+    "lifecycle": "specs/monoleaf.build107-lifecycle-smoke.json",
+    "artifacts": "specs/monoleaf.build107-artifacts-smoke.json",
+    "presentation": "specs/monoleaf.build107-presentation-smoke.json"
+  },
+  "macListing": {
+    "completed": true,
+    "confirmation": "Owner reported all macOS listing work complete on 22 November 2026. Field values were not independently inspected.",
+    "screenshotIssue": 74,
+    "uploadConfirmedByOwner": true
+  },
+  "screenshots": "src/app/monomark/AppStore/Screenshots/manifest.json",
+  "signedScreenshotComparison": {
+    "complete": false,
+    "reason": "The signed capture harness could not read public fixture paths through its sandbox and loaded its bundled welcome fallback. No new images were accepted or uploaded.",
+    "report": "specs/monoleaf.build107-screenshot-attempt.json"
+  },
+  "notarization": {
+    "submitted": false,
+    "accepted": false,
+    "note": "Build 93 notarization does not cover Monoleaf build 107. A new authorized upload is required for direct distribution."
+  },
+  "appStoreUpload": true,
+  "appReviewSubmission": false,
+  "publicDistribution": false,
+  "websiteMonoleafRenamePublished": true,
+  "remaining": [
+    "Owner-confirmed build attachment is complete. Manual testing is not yet done.",
+    "Remaining provider/reopen/write-grant and VoiceOver acceptance.",
+    "Unavailable additional-display, minimum-macOS/Intel runtime and reference-hardware checks remain unexecuted.",
+    "Final comparison of the uploaded screenshots with the signed candidate.",
+    "Separate App Review submission approval.",
+    "Separate new notarization for the downloadable build.",
+    "Mobile bundle alignment, signing and physical-device acceptance remain separate."
+  ],
+  "historicalCandidate": "specs/monomark.release-candidate-build93.json",
+  "appStoreUploadAuthorization": {
+    "approved": true,
+    "date": "2026-11-22",
+    "scope": "Upload Monoleaf 1.0.0 build 107 to App Store Connect for processing and testing; no App Review submission."
+  },
+  "appIcon": {
+    "bundled": true,
+    "catalog": "src/app/monomark/apple/Mac/Assets.xcassets/AppIcon.appiconset",
+    "compiled": "Monoleaf.app/Contents/Resources/AppIcon.icns",
+    "webPNG": "local/release-artifacts/monoleaf/Listing/Monoleaf-1.0.0/Icon/Monoleaf-1024.png",
+    "separateAppStoreUploadRequired": false
+  },
+  "appStoreDelivery": {
+    "observedAtUTC": "2026-11-22T09:20:31.443162+00:00",
+    "name": "Monoleaf",
+    "platform": "macOS",
+    "version": "1.0.0",
+    "build": 107,
+    "sourceRevision": "a2aeedca4fa4",
+    "bundleIdentifier": "us.outcrop.MonoMark",
+    "appStoreAppID": "6837811940",
+    "appStoreConnectURL": "https://appstoreconnect.apple.com/apps/6837811940/distribution",
+    "xcodeDistributionIdentifier": "b84fc65b-1c8e-467e-b3da-4159c56cea4d",
+    "uploadDestination": "App Store",
+    "uploadSucceeded": true,
+    "xcodeExportExitCode": 0,
+    "processingLastObserved": "Processing",
+    "processingCompletionVerified": false,
+    "appReviewSubmitted": false,
+    "publicRelease": false,
+    "icon": {
+      "includedInUploadedBuild": true,
+      "CFBundleIconName": "AppIcon",
+      "compiledResource": "Contents/Resources/AppIcon.icns",
+      "webPNG": "local/release-artifacts/monoleaf/Listing/Monoleaf-1.0.0/Icon/Monoleaf-1024.png",
+      "separateAppStoreIconUploadRequired": false,
+      "remoteIconDisplayVerified": false
+    },
+    "notes": [
+      "User explicitly authorized upload of prepared build 107.",
+      "Xcode reported the uploaded package was processing, then Upload succeeded.",
+      "Browser host remains unavailable. Processing completion and remote icon display are not independently observed.",
+      "No App Review submission, website deployment or new direct-build notarization occurred."
+    ],
+    "processingCompletionConfirmedByOwner": true,
+    "buildAttachmentConfirmedByOwner": true
+  },
+  "websiteEvidence": "specs/monoleaf.public-pages-deployment.json",
+  "localTestingBuild": {
+    "version": "1.0.0",
+    "build": 111,
+    "path": "/Applications/Monoleaf.app",
+    "sourceRevision": "daed206bff0e",
+    "report": "specs/monoleaf.local-install111.json",
+    "uploaded": false,
+    "manualOwnerTesting": "pending"
+  }
+}

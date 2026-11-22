@@ -51,16 +51,24 @@ The local handoff folder under local/release-artifacts/monoleaf/Listing/Monoleaf
 | Support URL | metadata.json: supportURL |
 | Marketing URL | Leave blank. No Monoleaf product page is supplied. |
 | Version | metadata.json: version |
-| App icon | Included in build 107 through the Xcode asset catalog. No separate App Store icon upload. |
+| App icon | Included in build 111 through the Xcode asset catalog. No separate App Store icon upload. |
 | Copyright | metadata.json: copyright |
 | What's New | Unavailable for the first version |
 | Routing App Coverage File | Leave blank. Monoleaf is not a routing app. |
 | App Clip or Game Center | No configuration needed |
-| Build | Select Monoleaf build 107 after Apple finishes processing the successful upload |
+| Build | Select Monoleaf build 111 after Apple finishes processing the successful upload |
 
 The name and subtitle permit 30 characters each. Promotional Text permits 170 characters.
 The description permits 4,000 characters. Keywords permit 100 bytes.
 The prepared English text passes these limits.
+
+## Replace the selected build
+
+Wait until build 111 finishes processing. Open macOS version 1.0.0 and locate Build.
+Remove the selected build 107 using the minus button, then click Save.
+Click the plus button, select build 111, click Done, then Save.
+This changes the build association. The app record, listing text and screenshots remain.
+Removing a selected build does not delete it from the account.
 
 ## Shared app and review settings
 
@@ -74,7 +82,7 @@ Use [REVIEW.md](REVIEW.md) for Review Notes. The public examples give reviewers 
 Choose manual release under Version Release.
 
 Save the listing as a draft. Screenshot and text preparation does not complete the remaining release checks.
-Build 107 uploaded successfully after owner authorization. Apple processing was last observed.
+Build 111 uploaded successfully after owner authorization. Apple processing was last observed.
 No App Review submission or public release occurred.
 
 ## App icon
