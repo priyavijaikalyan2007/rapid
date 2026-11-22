@@ -1230,3 +1230,9 @@ User: "odd -- I searched in the app store and I didn't find an app by that name 
 User: "Outcrop Markdown is too long. We need a pithy one word name."
 
 Checked Apple's app-record naming FAQ. Public search does not establish whether a name is available for a new or renamed app record. Suggested Marklet as the preferred short name, with Monoleaf, Marklit and Leafmark as alternatives. These are creative candidates, not verified available names. No rename or store changes occurred.
+
+## Anagram-based name exploration — 22 November 2026
+
+User: "we can do a pronounceable anagram of monomark too ... or monospace markdown using a subset of characters. give me more suggestions while I check the rest."
+
+Generated and checked exact MonoMark anagrams Monokram, Monkroma, Markomon and Monarkom. Shorter MonoMark letter subsets: Monaro, Monora, Mokaro, Komaro, Arkom and Kromon. Additional monospace markdown letter subsets: Monara, Monace, Mordane, Codemark, Monarc and Kormo. Suggested Monokram, Monaro and Monara as leading candidates. These are creative suggestions with unverified availability. No app or store rename occurred.
