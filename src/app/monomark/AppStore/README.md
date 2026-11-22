@@ -22,7 +22,8 @@ Exact signed review, lifecycle, artifact-copy and presentation checks pass.
 
 Preserved build 111 exports are under local/release-artifacts/monoleaf/ReleaseCandidate/1.0.0-111, in AppStore and DeveloperID.
 The owner reports Mac listing and screenshot completion. Build 111 uploaded successfully on 22 November 2026. Xcode reported that Apple began processing it.
-No App Review submission occurred. Processing completion and remote icon display remain unverified.
+The owner confirmed build attachment and App Review submission on 22 November 2026.
+Remote status and icon display were not independently inspected. Apple approval and public release remain unconfirmed.
 The signed screenshot helper cannot read the external fixtures through its sandbox. Final screenshot comparison remains pending.
 See specs/monomark.release-candidate.json for evidence and remaining acceptance.
 

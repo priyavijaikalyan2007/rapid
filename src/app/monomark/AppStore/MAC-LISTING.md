@@ -83,7 +83,7 @@ Choose manual release under Version Release.
 
 Save the listing as a draft. Screenshot and text preparation does not complete the remaining release checks.
 Build 111 uploaded successfully after owner authorization. The owner confirmed build selection.
-No App Review submission or public release occurred.
+The owner confirmed App Review submission on 22 November 2026. Apple approval and public release remain unconfirmed.
 
 ## App icon
 

@@ -8,7 +8,7 @@
 These answers describe the intended Monoleaf 1.0.0 submission. The owner confirmed that the new name is available.
 The local signed candidate is Monoleaf 1.0.0 build 111, clean source daed206bff0e.
 Its App Store installer and Developer ID copy verify locally. Build 111 uploaded successfully. The owner confirmed its attachment to macOS version 1.0.0.
-Apple processing was last observed. No App Review submission occurred.
+The owner confirmed App Review submission on 22 November 2026. Approval and public release remain unconfirmed.
 Saved field values remain unverified by the assistant.
 Confirm the displayed questions and company requirements before submitting them. Keep release mode manual.
 

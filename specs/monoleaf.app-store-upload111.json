@@ -16,7 +16,7 @@
   "processingCompletionVerified": false,
   "buildAttachedToVersionVerified": false,
   "previousSelectedBuild": 107,
-  "appReviewSubmitted": false,
+  "appReviewSubmitted": true,
   "publicRelease": false,
   "ownerTesting": "Owner reports things seem to be working well with the installed signed build 111. Individual remaining checks were not enumerated.",
   "notes": [
@@ -24,10 +24,14 @@
     "The existing preserved archive was uploaded without rebuilding.",
     "Xcode reported the uploaded package was processing, then Upload succeeded.",
     "The owner confirmed replacement of selected build 107 with 111 on 22 November 2026.",
-    "No App Review submission, new notarization or website deployment occurred during this upload."
+    "No App Review submission, new notarization or website deployment occurred during this upload.",
+    "The owner subsequently confirmed submission of macOS version 1.0.0 build 111 for App Review on 22 November 2026. Approval and public release are not confirmed."
   ],
   "processingCompletionConfirmedByOwner": true,
   "buildAttachmentConfirmedByOwner": true,
   "ownerConfirmationDate": "2026-11-22",
-  "verificationScope": "Processing and build attachment are owner-confirmed. The remote state was not independently inspected."
+  "verificationScope": "Processing, build attachment and App Review submission are owner-confirmed. The remote state was not independently inspected.",
+  "appReviewSubmissionConfirmedByOwner": true,
+  "appReviewSubmissionConfirmationDate": "2026-11-22",
+  "appReviewRemoteStatusIndependentlyVerified": false
 }

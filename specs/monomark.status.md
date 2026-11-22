@@ -480,3 +480,7 @@ General owner feedback is positive. Specific provider/VoiceOver/hardware accepta
 ## Build 111 selection confirmed by owner
 
 The owner confirms that build 111 replaced build 107 in the macOS 1.0.0 listing. Remote state was not independently inspected. Add for Review is the next draft-validation action. Final acceptance and separately authorized Submit for Review remain pending. Existing unexecuted checks remain open.
+
+## Mac App Review submission confirmed by owner
+
+The owner confirms submission of Monoleaf macOS 1.0.0 build 111 for App Review on 22 November 2026. Remote status was not independently inspected. Apple review outcome and the later manual public-release decision remain pending. Existing unexecuted acceptance checks remain open. Direct notarization and mobile release work remain separate.

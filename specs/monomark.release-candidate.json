@@ -1,7 +1,7 @@
 {
   "date": "2026-11-22",
   "name": "Monoleaf",
-  "status": "Owner-tested Monoleaf build 111 uploaded and owner-confirmed attached; remaining acceptance and App Review submission pending",
+  "status": "Monoleaf macOS 1.0.0 build 111 submitted for App Review, owner-confirmed; Apple outcome and public release pending",
   "version": "1.0.0",
   "build": 111,
   "sourceRevision": "daed206bff0e",
@@ -76,15 +76,14 @@
     "note": "Historical build 93 notarization does not cover build 111. A separate authorized notarization remains required for direct distribution."
   },
   "appStoreUpload": true,
-  "appReviewSubmission": false,
+  "appReviewSubmission": true,
   "publicDistribution": false,
   "websiteMonoleafRenamePublished": true,
   "remaining": [
-    "Wait for Apple processing, then replace selected build 107 with 111 and save.",
+    "Apple review outcome and subsequent manual public-release decision.",
     "Remaining provider/reopen/write-grant and VoiceOver acceptance.",
     "Unavailable additional-display, minimum-macOS/Intel runtime and reference-hardware checks remain unexecuted.",
     "Final comparison of the uploaded screenshots with the signed candidate.",
-    "Separate App Review submission approval.",
     "Separate new notarization for the downloadable build.",
     "Mobile bundle alignment, signing and physical-device acceptance remain separate."
   ],
@@ -119,7 +118,7 @@
     "processingCompletionVerified": false,
     "buildAttachedToVersionVerified": false,
     "previousSelectedBuild": 107,
-    "appReviewSubmitted": false,
+    "appReviewSubmitted": true,
     "publicRelease": false,
     "ownerTesting": "Owner reports things seem to be working well with the installed signed build 111. Individual remaining checks were not enumerated.",
     "notes": [
@@ -127,12 +126,16 @@
       "The existing preserved archive was uploaded without rebuilding.",
       "Xcode reported the uploaded package was processing, then Upload succeeded.",
       "The owner confirmed replacement of selected build 107 with 111 on 22 November 2026.",
-      "No App Review submission, new notarization or website deployment occurred during this upload."
+      "No App Review submission, new notarization or website deployment occurred during this upload.",
+      "The owner subsequently confirmed submission of macOS version 1.0.0 build 111 for App Review on 22 November 2026. Approval and public release are not confirmed."
     ],
     "processingCompletionConfirmedByOwner": true,
     "buildAttachmentConfirmedByOwner": true,
     "ownerConfirmationDate": "2026-11-22",
-    "verificationScope": "Processing and build attachment are owner-confirmed. The remote state was not independently inspected."
+    "verificationScope": "Processing, build attachment and App Review submission are owner-confirmed. The remote state was not independently inspected.",
+    "appReviewSubmissionConfirmedByOwner": true,
+    "appReviewSubmissionConfirmationDate": "2026-11-22",
+    "appReviewRemoteStatusIndependentlyVerified": false
   },
   "websiteEvidence": "specs/monoleaf.public-pages-deployment.json",
   "localTestingBuild": {
@@ -145,5 +148,12 @@
     "manualOwnerTesting": "Positive general feedback, 22 November 2026"
   },
   "selectedAppStoreBuildLastConfirmed": 111,
-  "ownerTesting": "Owner reports things seem to be working well with the installed signed build 111. Individual remaining checks were not enumerated."
+  "ownerTesting": "Owner reports things seem to be working well with the installed signed build 111. Individual remaining checks were not enumerated.",
+  "appReviewSubmissionEvidence": {
+    "confirmedByOwner": true,
+    "date": "2026-11-22",
+    "remoteStatusIndependentlyVerified": false,
+    "approvalConfirmed": false,
+    "publicReleaseConfirmed": false
+  }
 }

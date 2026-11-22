@@ -1316,3 +1316,9 @@ Xcode confirms successful upload of build 111 and the start of processing for ap
 User: "yep all done"
 
 Recorded this reply as confirmation that build 111 replaced build 107 in the macOS 1.0.0 listing. This is owner-reported evidence, not independent inspection of App Store Connect. Updated release and issue records. Add for Review prepares the review draft and checks required fields. Submit for Review remains a separate step after final acceptance and authorization. Existing unexecuted provider, accessibility and hardware checks remain open. No review submission or public release occurred.
+
+## Owner confirms App Review submission — 22 November 2026
+
+User: "ok done. submitted for review."
+
+Recorded the owner-confirmed submission of Monoleaf macOS 1.0.0 build 111. App Store Connect status was not independently inspected. Apple approval and public release remain unconfirmed. Updated the release evidence and issue tracking. Existing unexecuted acceptance checks remain open. No additional upload, submission or release action was performed by the assistant.
