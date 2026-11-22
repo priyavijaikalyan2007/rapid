@@ -411,8 +411,10 @@
       "number": 75,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/75",
       "parent": 65,
-      "progress": "implementation, clean rebuild and Applications installation complete; closure evidence pending publication",
-      "evidence": "specs/monoleaf.local-install111.json"
+      "progress": "closed",
+      "evidence": "specs/monoleaf.local-install111.json",
+      "commit": "daed206",
+      "evidenceCommit": "0b45add"
     }
   },
   "refinements": {
