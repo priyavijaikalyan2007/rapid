@@ -49,17 +49,17 @@
   "launchMaximizedInRegularWindow": true,
   "files": [
     {
-      "file": "src/app/monomark/build/ReleaseCandidate/1.0.0-93/AppStore/MonoMark.pkg",
+      "file": "local/release-artifacts/monoleaf/ReleaseCandidate/1.0.0-93/AppStore/MonoMark.pkg",
       "bytes": 6957393,
       "sha256": "1a7f3867c072dc8272f35ebe6444a036714eb45756a0458169d6ac8e2a2ca967"
     },
     {
-      "file": "src/app/monomark/build/ReleaseCandidate/1.0.0-93/Download/MonoMark-1.0.0-93-macOS.zip",
+      "file": "local/release-artifacts/monoleaf/ReleaseCandidate/1.0.0-93/Download/MonoMark-1.0.0-93-macOS.zip",
       "bytes": 5749693,
       "sha256": "2ef28a973a1bd6066e8436262f4af6b1d9e6858345540f3cd344bf31fe4a28b2"
     },
     {
-      "file": "src/app/monomark/build/ReleaseCandidate/1.0.0-93/Download/MonoMark-1.0.0-93-notarized-macOS.zip",
+      "file": "local/release-artifacts/monoleaf/ReleaseCandidate/1.0.0-93/Download/MonoMark-1.0.0-93-notarized-macOS.zip",
       "bytes": 5751053,
       "sha256": "8522d929649456660764de746c00a0cdd76b72384aa71f9f2da5998ccf14e58d",
       "notarized": true,
@@ -67,7 +67,7 @@
       "extractedSignatureVerified": true
     }
   ],
-  "app": "src/app/monomark/build/ReleaseCandidate/1.0.0-93/Notarized/MonoMark.app",
+  "app": "local/release-artifacts/monoleaf/ReleaseCandidate/1.0.0-93/Notarized/MonoMark.app",
   "screenshots": "https://github.com/priyavijaikalyan2007/rapid/blob/dce8d5e/src/app/monomark/AppStore/Screenshots/manifest.json",
   "notarized": true,
   "notarizationUploaded": true,
@@ -113,7 +113,7 @@
   },
   "publicPagesVerified": "2026-11-21",
   "historicalNotarizedBaseline": "specs/monomark.release-candidate-build86.json",
-  "download": "src/app/monomark/build/ReleaseCandidate/1.0.0-93/Download/MonoMark-1.0.0-93-notarized-macOS.zip",
+  "download": "local/release-artifacts/monoleaf/ReleaseCandidate/1.0.0-93/Download/MonoMark-1.0.0-93-notarized-macOS.zip",
   "notarization": {
     "date": "2026-11-21",
     "method": "Xcode signed-in Outcrop Developer ID upload",

@@ -38,7 +38,7 @@ An app preview video is optional. iPhone and iPad need their own screenshots for
 ## Listing fields
 
 Use [metadata.json](metadata.json) as the source for the listing text.
-The local handoff folder under build/Listing/Monoleaf-1.0.0 contains plain-text copies of each field.
+The local handoff folder under local/release-artifacts/monoleaf/Listing/Monoleaf-1.0.0 contains plain-text copies of each field.
 
 | App Store Connect field | Source or choice |
 | --- | --- |

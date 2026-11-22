@@ -24,23 +24,23 @@
   "screenshots": "src/app/monomark/AppStore/Screenshots/manifest.json",
   "files": [
     {
-      "file": "src/app/monomark/build/ReleaseCandidate/1.0.0-86/AppStore/MonoMark.pkg",
+      "file": "local/release-artifacts/monoleaf/ReleaseCandidate/1.0.0-86/AppStore/MonoMark.pkg",
       "bytes": 6920969,
       "sha256": "028e49c6c5cae1f7485409fab648eae5b5b070f4fe6cfe26776b7607c86e2a04"
     },
     {
-      "file": "src/app/monomark/build/ReleaseCandidate/1.0.0-86/Download/MonoMark-1.0.0-86-macOS.zip",
+      "file": "local/release-artifacts/monoleaf/ReleaseCandidate/1.0.0-86/Download/MonoMark-1.0.0-86-macOS.zip",
       "bytes": 5729602,
       "sha256": "46504b391092753aa263442c3a3b733217e55416751a530158fe0109f49e2344"
     },
     {
-      "file": "src/app/monomark/build/ReleaseCandidate/1.0.0-86/Download/MonoMark-1.0.0-86-notarized-macOS.zip",
+      "file": "local/release-artifacts/monoleaf/ReleaseCandidate/1.0.0-86/Download/MonoMark-1.0.0-86-notarized-macOS.zip",
       "bytes": 5730951,
       "sha256": "903ae337036f0c9d412646577ddb2f9a9566093192ef03b7e51b6e3fc432aca7",
       "notarized": true
     }
   ],
-  "app": "src/app/monomark/build/ReleaseCandidate/1.0.0-86/Notarized/MonoMark.app",
+  "app": "local/release-artifacts/monoleaf/ReleaseCandidate/1.0.0-86/Notarized/MonoMark.app",
   "notarized": true,
   "remaining": [
     "Settings persistence across restart, bug 69",

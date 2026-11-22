@@ -458,3 +458,9 @@ Browser access remains unavailable. Apple processing completion, displayed store
 The owner reports that build 107 is attached to the Mac version and manual testing is not yet done. The owner approved publishing both prepared pages. Cloudflare version 7f018c00-7748-46c1-9bf0-3d617eae648b is deployed. Canonical support/privacy pages return HTTP 200 through curl and contain Monoleaf. See monoleaf.public-pages-deployment.json. App Review submission remains pending.
 
 The owner then requested safe cleanup of old generated products, an audit/fix of clean.sh, a rebuild and installation in Applications. Source/project rename scope was asked separately. The generated-output path is the current assumption. Build 107 release artifacts will be preserved outside source cleanup.
+
+## Cleanup safety and preserved release artifacts
+
+Task #75 adds six failing-then-passing cleanup regressions. Root help and argument rejection are side-effect free. Component cleanup validates every output before deleting any directory. It protects linked targets/parents and unexpected files, then removes all seven documented build/cache roots. Renderer dependencies, source, SwiftPM configuration and reading data remain.
+
+Existing release exports and listing files are preserved under local/release-artifacts/monoleaf. All 1,593 file hashes match, and preserved signature/ticket checks pass. The uploaded build 107 archive remains outside src in its isolated worktree. Actual source-output cleanup succeeded. A fresh signed rebuild and Applications installation are next.

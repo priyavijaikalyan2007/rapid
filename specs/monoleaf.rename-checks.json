@@ -25,7 +25,7 @@
   "nativeReviewScope": "Renamed unsigned development app; not a signed release test.",
   "screenshotCount": 4,
   "screenshotManifest": "src/app/monomark/AppStore/Screenshots/manifest.json",
-  "listingZIP": "src/app/monomark/build/Listing/Monoleaf-macOS-1.0.0-listing.zip",
+  "listingZIP": "local/release-artifacts/monoleaf/Listing/Monoleaf-macOS-1.0.0-listing.zip",
   "listingZIPIntegrityPassed": true,
   "websiteSourceBuildPassed": true,
   "websitePublished": false,

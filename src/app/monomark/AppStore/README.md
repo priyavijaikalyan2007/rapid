@@ -20,7 +20,7 @@ The App Store installer signature and extracted payload verify. Names, version/b
 Both Mac architectures and matching symbols verify. The Developer ID copy has sandbox entitlements, hardened runtime and a secure timestamp.
 Exact signed review, lifecycle, artifact-copy and presentation checks pass.
 
-Artifacts are under src/app/monomark/build/ReleaseCandidate/1.0.0-107, in AppStore and DeveloperID.
+Preserved build 107 exports are under local/release-artifacts/monoleaf/ReleaseCandidate/1.0.0-107, in AppStore and DeveloperID.
 The owner reports Mac listing and screenshot completion. Build 107 uploaded successfully on 22 November 2026. Xcode reported that Apple began processing it.
 No App Review submission occurred. Processing completion and remote icon display remain unverified.
 The signed screenshot helper cannot read the external fixtures through its sandbox. Final screenshot comparison remains pending.

@@ -16,14 +16,14 @@
   "appStoreExportPassed": true,
   "appStoreInstallerSignatureVerified": true,
   "appStoreInstaller": {
-    "path": "src/app/monomark/build/ReleaseCandidate/1.0.0-107/AppStore/Monoleaf.pkg",
+    "path": "local/release-artifacts/monoleaf/ReleaseCandidate/1.0.0-107/AppStore/Monoleaf.pkg",
     "sizeBytes": 6959383,
     "sha256": "585e74d0efc0f868d45a1ad6aa012a6ead59a2de466c88af7ed2bc0d94b543e6",
     "signer": "3rd Party Mac Developer Installer: Outcrop Inc (4JD5A6Q2HL)"
   },
   "developerIDExportPassed": true,
   "developerIDSignatureVerified": true,
-  "developerIDApp": "src/app/monomark/build/ReleaseCandidate/1.0.0-107/DeveloperID/Monoleaf.app",
+  "developerIDApp": "local/release-artifacts/monoleaf/ReleaseCandidate/1.0.0-107/DeveloperID/Monoleaf.app",
   "appSandbox": true,
   "hardenedRuntime": true,
   "secureTimestamp": true,
@@ -98,7 +98,7 @@
     "bundled": true,
     "catalog": "src/app/monomark/apple/Mac/Assets.xcassets/AppIcon.appiconset",
     "compiled": "Monoleaf.app/Contents/Resources/AppIcon.icns",
-    "webPNG": "src/app/monomark/build/Listing/Monoleaf-1.0.0/Icon/Monoleaf-1024.png",
+    "webPNG": "local/release-artifacts/monoleaf/Listing/Monoleaf-1.0.0/Icon/Monoleaf-1024.png",
     "separateAppStoreUploadRequired": false
   },
   "appStoreDelivery": {
@@ -123,7 +123,7 @@
       "includedInUploadedBuild": true,
       "CFBundleIconName": "AppIcon",
       "compiledResource": "Contents/Resources/AppIcon.icns",
-      "webPNG": "src/app/monomark/build/Listing/Monoleaf-1.0.0/Icon/Monoleaf-1024.png",
+      "webPNG": "local/release-artifacts/monoleaf/Listing/Monoleaf-1.0.0/Icon/Monoleaf-1024.png",
       "separateAppStoreIconUploadRequired": false,
       "remoteIconDisplayVerified": false
     },

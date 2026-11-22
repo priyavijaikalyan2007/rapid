@@ -154,3 +154,14 @@ jump only when one numbered heading matches. Authored links, code blocks, and ma
 These links affect the view only. Monoleaf does not rewrite the Markdown source.
 
 Use the standard Copy command on selected document text. Comments and Notes accept the standard Paste command.
+
+## Clean rebuilds
+
+Run `./clean.sh` from this component to remove generated products and test caches before rebuilding.
+It removes build/, .build/, DerivedData, and renderer cache, coverage and test-result directories.
+It preserves source, installed renderer dependencies, SwiftPM configuration and app reading data.
+Help and unsupported arguments do not delete files. Linked or unexpected output paths stop cleanup before deletion.
+
+Preserved release exports and listing files live under local/release-artifacts/monoleaf at the repository root.
+The uploaded build 107 archive remains in its isolated release worktree. Component cleanup does not visit those paths.
+Run `./build.sh all` to rebuild and verify the renderer, Core, universal Mac and mobile targets.

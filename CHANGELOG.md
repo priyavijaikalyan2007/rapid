@@ -18,6 +18,8 @@ Created: 2026
 
 ### Fixed
 
+- Cleared stale Monoleaf build products and test caches while protecting source, dependencies and external data from cleanup.
+- Made root cleanup reject unsupported arguments and show help without deleting output.
 - Declared exempt encryption use in the MonoMark iPhone/iPad target to match the Mac release configuration.
 
 ## 18 November 2026

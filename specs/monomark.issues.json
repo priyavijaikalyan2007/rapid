@@ -406,6 +406,12 @@
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/74",
       "parent": 68,
       "progress": "closed; owner confirmed successful Mac screenshot upload"
+    },
+    "clean-rebuild-install": {
+      "number": 75,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/75",
+      "parent": 65,
+      "progress": "cleanup safety regressions pass; source output cleaned; signed rebuild and installation pending"
     }
   },
   "refinements": {
