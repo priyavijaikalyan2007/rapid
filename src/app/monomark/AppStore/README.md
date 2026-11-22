@@ -21,13 +21,18 @@ Both Mac architectures and matching symbols verify. The Developer ID copy has sa
 Exact signed review, lifecycle, artifact-copy and presentation checks pass.
 
 Artifacts are under src/app/monomark/build/ReleaseCandidate/1.0.0-107, in AppStore and DeveloperID.
-The owner reports Mac listing and screenshot completion. No App Store build upload or App Review submission occurred.
+The owner reports Mac listing and screenshot completion. Build 107 uploaded successfully on 22 November 2026. Xcode reported that Apple began processing it.
+No App Review submission occurred. Processing completion and remote icon display remain unverified.
 The signed screenshot helper cannot read the external fixtures through its sandbox. Final screenshot comparison remains pending.
 See specs/monomark.release-candidate.json for evidence and remaining acceptance.
 
 The Developer ID copy is not notarized. A separate authorized notarization upload is required before direct distribution.
 Historical MonoMark build 93 remains preserved under 1.0.0-93, with its record in specs/monomark.release-candidate-build93.json.
 Its notarization does not cover build 107. The installed app and private reading data remain untouched.
+
+The uploaded record is https://appstoreconnect.apple.com/apps/6837811940/distribution.
+The bundled AppIcon supplies the store icon. No separate icon upload is required.
+See specs/monoleaf.app-store-upload107.json for the upload receipt.
 
 ## Create a local signed candidate
 

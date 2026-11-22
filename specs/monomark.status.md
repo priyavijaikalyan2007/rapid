@@ -446,3 +446,9 @@ The owner reports that Mac listing fields and screenshots are complete. Issue #7
 Clean source a2aeedca4fa4 archives and exports through both Mac distribution routes. The 6,959,383-byte App Store installer signature and extracted app verify. Archive and both exports agree on Monoleaf, 1.0.0/107, us.outcrop.MonoMark, source and the false encryption declaration. Both architectures and matching archive symbols verify. The Developer ID copy retains sandbox, hardened runtime and secure timestamp. Exact signed review/lifecycle/artifact/presentation pass.
 
 The main candidate record now describes build 107. Historical build 93 is preserved separately. The owner-completed listing and screenshot upload are recorded, and #74 is closed. The signed screenshot helper still lacks access to external public fixtures, so manual screenshot comparison remains. App Store upload authorization, processing/exact-build testing, remaining provider/VoiceOver/hardware acceptance, website publication and later App Review submission remain. The direct build also needs new notarization authorization. Nothing was uploaded or submitted.
+
+## Authorized App Store upload completed on 22 November
+
+The owner approved upload of build 107. Xcode reports successful upload and the start of Apple processing for app record 6837811940. The archive receipt confirms uploaded build 107 and App Store destination. See monoleaf.app-store-upload107.json. The app already includes AppIcon.icns and the complete Mac asset catalog. Apple gets that icon from the uploaded build. A 1024-pixel PNG copy is available in the local listing handoff for optional website use.
+
+Browser access remains unavailable. Apple processing completion, displayed store icon and build selection remain unverified. Exact-build testing and remaining release checks precede App Review submission. No review submission, website deployment or new direct-build notarization occurred.

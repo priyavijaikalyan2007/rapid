@@ -1,0 +1,33 @@
+{
+  "observedAtUTC": "2026-11-22T09:20:31.443162+00:00",
+  "name": "Monoleaf",
+  "platform": "macOS",
+  "version": "1.0.0",
+  "build": 107,
+  "sourceRevision": "a2aeedca4fa4",
+  "bundleIdentifier": "us.outcrop.MonoMark",
+  "appStoreAppID": "6837811940",
+  "appStoreConnectURL": "https://appstoreconnect.apple.com/apps/6837811940/distribution",
+  "xcodeDistributionIdentifier": "b84fc65b-1c8e-467e-b3da-4159c56cea4d",
+  "uploadDestination": "App Store",
+  "uploadSucceeded": true,
+  "xcodeExportExitCode": 0,
+  "processingLastObserved": "Processing",
+  "processingCompletionVerified": false,
+  "appReviewSubmitted": false,
+  "publicRelease": false,
+  "icon": {
+    "includedInUploadedBuild": true,
+    "CFBundleIconName": "AppIcon",
+    "compiledResource": "Contents/Resources/AppIcon.icns",
+    "webPNG": "src/app/monomark/build/Listing/Monoleaf-1.0.0/Icon/Monoleaf-1024.png",
+    "separateAppStoreIconUploadRequired": false,
+    "remoteIconDisplayVerified": false
+  },
+  "notes": [
+    "User explicitly authorized upload of prepared build 107.",
+    "Xcode reported the uploaded package was processing, then Upload succeeded.",
+    "Browser host remains unavailable. Processing completion and remote icon display are not independently observed.",
+    "No App Review submission, website deployment or new direct-build notarization occurred."
+  ]
+}

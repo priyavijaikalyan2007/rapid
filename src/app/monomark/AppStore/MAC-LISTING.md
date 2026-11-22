@@ -51,11 +51,12 @@ The local handoff folder under build/Listing/Monoleaf-1.0.0 contains plain-text 
 | Support URL | metadata.json: supportURL |
 | Marketing URL | Leave blank. No Monoleaf product page is supplied. |
 | Version | metadata.json: version |
+| App icon | Included in build 107 through the Xcode asset catalog. No separate App Store icon upload. |
 | Copyright | metadata.json: copyright |
 | What's New | Unavailable for the first version |
 | Routing App Coverage File | Leave blank. Monoleaf is not a routing app. |
 | App Clip or Game Center | No configuration needed |
-| Build | Select Monoleaf build 107 after its separately authorized upload finishes processing |
+| Build | Select Monoleaf build 107 after Apple finishes processing the successful upload |
 
 The name and subtitle permit 30 characters each. Promotional Text permits 170 characters.
 The description permits 4,000 characters. Keywords permit 100 bytes.
@@ -73,7 +74,14 @@ Use [REVIEW.md](REVIEW.md) for Review Notes. The public examples give reviewers 
 Choose manual release under Version Release.
 
 Save the listing as a draft. Screenshot and text preparation does not complete the remaining release checks.
-No App Store build upload, App Review submission, or public release occurred during this preparation.
+Build 107 uploaded successfully after owner authorization. Apple processing was last observed.
+No App Review submission or public release occurred.
+
+## App icon
+
+Build 107 includes the compiled Mac AppIcon. Apple gets the store icon from the uploaded build.
+The handoff includes Icon/Monoleaf-1024.png for optional website use. It is the existing app artwork, not a new design.
+Website publication remains separate.
 
 ## Apple references
 
@@ -81,4 +89,5 @@ No App Store build upload, App Review submission, or public release occurred dur
 - [Creative artwork sizes](https://developer.apple.com/help/app-store-connect/reference/app-information/creative-assets-specifications)
 - [Screenshot specifications](https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/)
 - [Platform version fields and limits](https://developer.apple.com/help/app-store-connect/reference/app-information/platform-version-information/)
+- [How Apple receives app icons](https://developer.apple.com/help/app-store-connect/manage-app-information/add-an-app-icon/)
 - [App information](https://developer.apple.com/help/app-store-connect/reference/app-information/app-information/)

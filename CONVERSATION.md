@@ -1268,3 +1268,13 @@ The owner confirms Mac listing and screenshot completion. This resolves upload i
 Prepared Monoleaf 1.0.0 build 107 from clean detached a2aeedca4fa4. App Store archive/export and installer signature pass. Extracted installer app, archive and Developer ID app agree on name, version/build, bundle ID, clean source and encryption declaration. Signatures, hardened runtime, secure timestamp, both architectures and matching archive symbols verify. Exact signed review, lifecycle, artifact and presentation suites pass. A signature check under the restricted tool sandbox reported invalid, but the unchanged app verifies outside that sandbox.
 
 The signed screenshot harness still cannot read external fixture paths through its sandbox, including public temporary examples. It loaded the bundled welcome fallback, so no new screenshots were accepted or uploaded. Final signed screenshot comparison remains pending. The owner-completed listing is preserved. Main candidate evidence now describes build 107 and preserves build 93 in a separate historical record. Direct-build notarization is still unsubmitted. No App Store upload/review submission, website deployment, installed-app replacement or private-data inspection occurred.
+
+## Authorized App Store build upload and icon check — 22 November 2026
+
+User: "yes upload the build; but looks like we need an icon for the app.I need to upload that to the site too if I am not mistaken."
+
+The user explicitly authorizes App Store upload of the prepared build 107. Rechecked the installer checksum and clean archive metadata. Started Xcode export with method app-store-connect and destination upload through the signed-in Outcrop account. This authorization does not submit the app for App Review or authorize website deployment.
+
+Verified that the archived app declares AppIcon, includes AppIcon.icns, and has the complete Mac icon asset catalog. Inspected the 1024-pixel M/down-arrow PNG. Apple's current icon guidance says to include the icon in Xcode and upload the build. No separate App Store icon upload is needed. Copied the existing 1024-pixel PNG into the local listing handoff for optional website use, without editing the image or signed app. No website deployment occurred.
+
+Xcode reports successful App Store upload of Monoleaf 1.0.0 build 107 and that the package began processing. Archive receipt identifies app record 6837811940 and distribution b84fc65b-1c8e-467e-b3da-4159c56cea4d. The app icon is bundled. Added a 1024-pixel copy to the handoff for optional website use. Browser access remains unavailable, so final processing completion, remote icon display and build selection are unverified. No App Review submission, website deployment or new notarization occurred.
