@@ -1,5 +1,5 @@
 {
-  "status": "Monoleaf name accepted by owner in App Store Connect; renamed listing and replacement build preparation",
+  "status": "owner reports Mac listing complete; local signed Monoleaf build 107 validated; no build upload or review submission",
   "name": "Monoleaf",
   "subtitle": "Markdown, diagrams, and notes",
   "bundleIdentifier": "us.outcrop.MonoMark",
@@ -30,12 +30,10 @@
   "reviewContact": null,
   "releaseMode": "manual",
   "pending": [
-    "Verify saved App Store Connect fields and name availability",
-    "Owner review and screenshot upload",
-    "Remaining native release acceptance gates",
-    "Confirm final privacy, age-rating and export-compliance answers",
-    "Copy authorized private review contact directly in App Store Connect",
-    "Separately authorize App Store build upload and review submission"
+    "Authorize App Store upload of build 107, then wait for processing and exact-build testing",
+    "Remaining selected manual release acceptance and signed screenshot comparison",
+    "Authorize publication of prepared Monoleaf support/privacy text",
+    "Authorize App Review submission after final checks"
   ],
   "publisher": "Outcrop Inc",
   "reviewContactSource": "Reuse existing CropPrint private App Review contact; do not store details here",

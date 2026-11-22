@@ -316,9 +316,9 @@
       "id": 6458831458,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/65",
       "parent": 8,
-      "progress": "build 93 notarized; remaining manual and store gates pending",
+      "progress": "Monoleaf build 107 signed exports and exact native checks pass; upload and remaining acceptance pending",
       "evidence": "specs/monomark.release-candidate.json",
-      "remaining": "Notarized build 93 and ZIP verify. Provider/VoiceOver/hardware checks, store preparation, and separately authorized publication remain."
+      "remaining": "New signed Monoleaf validation, remaining manual/provider/accessibility/hardware gates, authorized upload/submission and separate direct-build notarization."
     },
     "mac-icon": {
       "number": 66,
@@ -341,9 +341,9 @@
       "id": 6459611916,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/68",
       "parent": 65,
-      "progress": "Monoleaf listing and new development-app screenshots prepared; replacement signed candidate required",
+      "progress": "owner-completed Mac listing; signed build 107 validated locally; upload approval pending",
       "commit": "9fbcc90",
-      "remaining": "Owner upload of reviewed screenshots and listing fields, privacy/contact review, remaining acceptance, then separately authorized build upload and review submission."
+      "remaining": "Validate new signed Monoleaf build, remaining acceptance, separately authorized build upload and review submission."
     },
     "settings-persistence": {
       "number": 69,
@@ -405,7 +405,7 @@
       "number": 74,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/74",
       "parent": 68,
-      "progress": "creative-artwork field identified from exact dimensions; correct screenshot-tab retry pending"
+      "progress": "closed; owner confirmed successful Mac screenshot upload"
     }
   },
   "refinements": {

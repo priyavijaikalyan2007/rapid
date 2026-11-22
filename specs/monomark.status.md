@@ -436,3 +436,13 @@ The owner reports screenshot upload failure. The new raw PNGs pass independent 8
 Task #73 is closed against commit 4cedc42. Open issue titles now use Monoleaf. Screenshot upload bug #74 is attached to #68 and remains open. The actual rejection message and successful Apple processing remain unverified.
 
 The owner supplied upload-field text requesting 5244 × 2950 and 3840 × 1646. Apple identifies these as optional creative artwork sizes. The handoff now names Product Page Information > App Previews and Screenshots explicitly and distinguishes Header and Search Results. Issue #74 awaits successful upload confirmation in the screenshot area.
+
+## Owner-confirmed Mac listing completion on 22 November
+
+The owner reports that Mac listing fields and screenshots are complete. Issue #74 is resolved by successful owner-confirmed upload after selecting the correct screenshot tab. The new signed Monoleaf candidate is next. Clean detached source a2aeedca4fa4 has numeric build 107. Local archival/export starts before any request for App Store upload approval. Final acceptance, upload/processing/testing, build selection and review submission remain separate.
+
+## Local signed Monoleaf build 107 verified
+
+Clean source a2aeedca4fa4 archives and exports through both Mac distribution routes. The 6,959,383-byte App Store installer signature and extracted app verify. Archive and both exports agree on Monoleaf, 1.0.0/107, us.outcrop.MonoMark, source and the false encryption declaration. Both architectures and matching archive symbols verify. The Developer ID copy retains sandbox, hardened runtime and secure timestamp. Exact signed review/lifecycle/artifact/presentation pass.
+
+The main candidate record now describes build 107. Historical build 93 is preserved separately. The owner-completed listing and screenshot upload are recorded, and #74 is closed. The signed screenshot helper still lacks access to external public fixtures, so manual screenshot comparison remains. App Store upload authorization, processing/exact-build testing, remaining provider/VoiceOver/hardware acceptance, website publication and later App Review submission remain. The direct build also needs new notarization authorization. Nothing was uploaded or submitted.

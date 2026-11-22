@@ -13,24 +13,21 @@ The bundle identifier remains `us.outcrop.MonoMark`. The secondary iPhone/iPad p
 The owner reports selecting macOS and iOS in App Store Connect on 22 November 2026.
 Saved field values and name acceptance remain unverified by the assistant.
 
-## Historical signed baseline
+## Current local signed candidate
 
-The app is now named Monoleaf. Do not upload the older MonoMark candidate as the renamed release.
-A new signed candidate and new notarization must follow the rename.
+Monoleaf 1.0.0 build 107 uses clean source a2aeedca4fa4. Its archive and both local signing exports pass.
+The App Store installer signature and extracted payload verify. Names, version/build, bundle ID, source and encryption declarations agree.
+Both Mac architectures and matching symbols verify. The Developer ID copy has sandbox entitlements, hardened runtime and a secure timestamp.
+Exact signed review, lifecycle, artifact-copy and presentation checks pass.
 
-Historical version 1.0.0 build 93, clean source c1bab98ec3a7, contains the settings, metadata-reload, and maximized-startup fixes.
-The App Store installer and Developer ID app export successfully. Both architectures and matching debug symbols verify.
-The Developer ID app has sandbox entitlements, hardened runtime, and a secure timestamp.
-Signed review, lifecycle, artifact-copy, and appearance/presentation checks pass. Review and artifact checks also pass on repeat.
-The local ZIP passes integrity verification. See specs/monomark.release-candidate.json for checksums and evidence.
+Artifacts are under src/app/monomark/build/ReleaseCandidate/1.0.0-107, in AppStore and DeveloperID.
+The owner reports Mac listing and screenshot completion. No App Store build upload or App Review submission occurred.
+The signed screenshot helper cannot read the external fixtures through its sandbox. Final screenshot comparison remains pending.
+See specs/monomark.release-candidate.json for evidence and remaining acceptance.
 
-Artifacts are under src/app/monomark/build/ReleaseCandidate/1.0.0-93, in Notarized, DeveloperID, AppStore, and Download.
-The installed developer app remains unchanged. Personal reading data was not inspected or replaced.
-
-Apple notarized build 93 on 21 November 2026. Its ticket, signature, distribution policy, and extracted ZIP ticket verify.
-The post-notarization native review passes. The direct ZIP is MonoMark-1.0.0-93-notarized-macOS.zip.
-Build 86 is a superseded historical baseline and does not contain these fixes.
-No App Store build upload, App Review submission, or public app download has occurred.
+The Developer ID copy is not notarized. A separate authorized notarization upload is required before direct distribution.
+Historical MonoMark build 93 remains preserved under 1.0.0-93, with its record in specs/monomark.release-candidate-build93.json.
+Its notarization does not cover build 107. The installed app and private reading data remain untouched.
 
 ## Create a local signed candidate
 

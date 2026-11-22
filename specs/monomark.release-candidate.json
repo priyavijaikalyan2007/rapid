@@ -1,133 +1,93 @@
 {
-  "date": "2026-11-21",
-  "status": "historical notarized MonoMark build 93; superseded for submission by the Monoleaf rename",
+  "date": "2026-11-22",
+  "name": "Monoleaf",
+  "status": "locally validated signed build 107; owner-completed Mac listing; not uploaded or submitted",
   "version": "1.0.0",
-  "build": 93,
-  "sourceRevision": "c1bab98ec3a7",
+  "build": 107,
+  "sourceRevision": "a2aeedca4fa4",
+  "fullSourceRevision": "a2aeedca4fa4253a3392fddd93e9e77c523a3e2a",
   "cleanSource": true,
   "macArchitectures": [
     "arm64",
     "x86_64"
   ],
+  "bundleIdentifier": "us.outcrop.MonoMark",
+  "archive": "local/monoleaf-release-a2aeedc/src/app/monomark/build/AppStore/Monoleaf-macOS.xcarchive",
   "appStoreExportPassed": true,
   "appStoreInstallerSignatureVerified": true,
+  "appStoreInstaller": {
+    "path": "src/app/monomark/build/ReleaseCandidate/1.0.0-107/AppStore/Monoleaf.pkg",
+    "sizeBytes": 6959383,
+    "sha256": "585e74d0efc0f868d45a1ad6aa012a6ead59a2de466c88af7ed2bc0d94b543e6",
+    "signer": "3rd Party Mac Developer Installer: Outcrop Inc (4JD5A6Q2HL)"
+  },
   "developerIDExportPassed": true,
   "developerIDSignatureVerified": true,
+  "developerIDApp": "src/app/monomark/build/ReleaseCandidate/1.0.0-107/DeveloperID/Monoleaf.app",
   "appSandbox": true,
   "hardenedRuntime": true,
   "secureTimestamp": true,
   "matchingSymbols": true,
   "machOUUIDs": [
     {
-      "uuid": "B1BA9AF6-3F27-3A9E-A30D-C2E5881B9FEF",
-      "architecture": "arm64"
+      "uuid": "94B46BEE-2AD8-30F2-AEFB-7B7D12DB727D",
+      "architecture": "x86_64"
     },
     {
-      "uuid": "E9D65606-08C9-37BD-A8D6-9C1A332D474E",
-      "architecture": "x86_64"
+      "uuid": "0EEA9CE7-A92A-386B-9F23-95DEC8766553",
+      "architecture": "arm64"
     }
   ],
+  "archiveAndBothExportsMatch": {
+    "name": true,
+    "versionBuild": true,
+    "bundleIdentifier": true,
+    "sourceRevision": true,
+    "nonExemptEncryptionFalse": true,
+    "codeSignature": true
+  },
   "nativeChecks": {
     "review": true,
     "lifecycle": true,
     "artifacts": true,
     "presentation": true
   },
-  "nativeEvidence": {
-    "review": "specs/monomark.build93-review-smoke.json",
-    "lifecycle": "specs/monomark.build93-lifecycle-smoke.json",
-    "artifacts": "specs/monomark.build93-artifacts-smoke.json",
-    "presentation": "specs/monomark.build93-presentation-smoke.json"
+  "nativeReports": {
+    "review": "specs/monoleaf.build107-review-smoke.json",
+    "lifecycle": "specs/monoleaf.build107-lifecycle-smoke.json",
+    "artifacts": "specs/monoleaf.build107-artifacts-smoke.json",
+    "presentation": "specs/monoleaf.build107-presentation-smoke.json"
   },
-  "repeatChecks": {
-    "review": true,
-    "artifacts": true
+  "macListing": {
+    "completed": true,
+    "confirmation": "Owner reported all macOS listing work complete on 22 November 2026. Field values were not independently inspected.",
+    "screenshotIssue": 74,
+    "uploadConfirmedByOwner": true
   },
-  "settingsPersistenceVerified": true,
-  "metadataOnlyReloadIgnored": true,
-  "selectionKeepsDocumentEpoch": true,
-  "launchMaximizedInRegularWindow": true,
-  "files": [
-    {
-      "file": "src/app/monomark/build/ReleaseCandidate/1.0.0-93/AppStore/MonoMark.pkg",
-      "bytes": 6957393,
-      "sha256": "1a7f3867c072dc8272f35ebe6444a036714eb45756a0458169d6ac8e2a2ca967"
-    },
-    {
-      "file": "src/app/monomark/build/ReleaseCandidate/1.0.0-93/Download/MonoMark-1.0.0-93-macOS.zip",
-      "bytes": 5749693,
-      "sha256": "2ef28a973a1bd6066e8436262f4af6b1d9e6858345540f3cd344bf31fe4a28b2"
-    },
-    {
-      "file": "src/app/monomark/build/ReleaseCandidate/1.0.0-93/Download/MonoMark-1.0.0-93-notarized-macOS.zip",
-      "bytes": 5751053,
-      "sha256": "8522d929649456660764de746c00a0cdd76b72384aa71f9f2da5998ccf14e58d",
-      "notarized": true,
-      "zipIntegrityPassed": true,
-      "extractedSignatureVerified": true
-    }
-  ],
-  "app": "src/app/monomark/build/ReleaseCandidate/1.0.0-93/Notarized/MonoMark.app",
-  "screenshots": "https://github.com/priyavijaikalyan2007/rapid/blob/dce8d5e/src/app/monomark/AppStore/Screenshots/manifest.json",
-  "notarized": true,
-  "notarizationUploaded": true,
-  "appStoreUploaded": false,
-  "appReviewSubmitted": false,
-  "publishedDownload": false,
-  "installedAppReplaced": false,
-  "fixedBugs": [
-    69,
-    70,
-    71
-  ],
-  "blockingBugs": [],
-  "runtimeEnvironment": {
-    "hardware": "Apple M5 Pro, 64 GiB",
-    "macOS": "27.2.1",
-    "architecture": "arm64",
-    "physicalDisplayCount": 1,
-    "intelRuntimeVerified": false,
-    "minimumMacOSRuntimeVerified": false
+  "screenshots": "src/app/monomark/AppStore/Screenshots/manifest.json",
+  "signedScreenshotComparison": {
+    "complete": false,
+    "reason": "The signed capture harness could not read public fixture paths through its sandbox and loaded its bundled welcome fallback. No new images were accepted or uploaded.",
+    "report": "specs/monoleaf.build107-screenshot-attempt.json"
   },
-  "remaining": [
-    "External user-selected/provider reopening and export grants",
-    "VoiceOver acceptance",
-    "Physical multi-display and display removal; hardware unavailable",
-    "Reference-machine resource budgets and calibrated energy; hardware unavailable",
-    "Intel and minimum-macOS runtime acceptance",
-    "Final App Store record/listing/privacy/export-compliance/contact and selected testing gates",
-    "Separate App Store upload, review submission and publication authorization"
-  ],
-  "notes": [
-    "Build 86 was notarized. Its ticket does not cover build 93.",
-    "Builds 90 and 91 were superseded after metadata-only reload failures.",
-    "The first build 93 compositor capture failed while the desktop was locked. After unlock, the signed presentation check passed.",
-    "Review and artifact acceptance also passed on repeated execution.",
-    "The installed developer app and personal reading data remain untouched.",
-    "The owner approved build 93 notarization. Xcode exported the notarized app. Ticket, signature, distribution policy and ZIP extraction verify. Post-notary review passes. App Store submission and public distribution remain separate."
-  ],
-  "runtimeDependencyAudit": {
-    "date": "2026-11-21",
-    "knownVulnerabilities": 0,
-    "omitDev": true
-  },
-  "publicPagesVerified": "2026-11-21",
-  "historicalNotarizedBaseline": "specs/monomark.release-candidate-build86.json",
-  "download": "src/app/monomark/build/ReleaseCandidate/1.0.0-93/Download/MonoMark-1.0.0-93-notarized-macOS.zip",
   "notarization": {
-    "date": "2026-11-21",
-    "method": "Xcode signed-in Outcrop Developer ID upload",
-    "xcodeDistributionID": "0BEA6E52-A782-408F-BC02-C1C2D7A74144",
-    "ticketValidated": true,
-    "signatureVerified": true,
-    "distributionPolicyPassed": true,
-    "matchingOriginalMachOUUIDs": true,
-    "postNotarizationReviewPassed": true,
-    "postNotarizationEvidence": "specs/monomark.build93-notarized-review-smoke.json",
-    "zipIntegrityPassed": true,
-    "extractedSignatureVerified": true,
-    "extractedTicketValidated": true
+    "submitted": false,
+    "accepted": false,
+    "note": "Build 93 notarization does not cover Monoleaf build 107. A new authorized upload is required for direct distribution."
   },
-  "currentForSubmission": false,
-  "replacementRequired": "A new Monoleaf signed archive, exports and notarization are required. Existing build 93 artifacts and evidence remain unchanged."
+  "appStoreUpload": false,
+  "appReviewSubmission": false,
+  "publicDistribution": false,
+  "websiteMonoleafRenamePublished": false,
+  "remaining": [
+    "Owner authorization for App Store build upload, followed by Apple processing and exact-build testing.",
+    "Remaining provider/reopen/write-grant and VoiceOver acceptance.",
+    "Unavailable additional-display, minimum-macOS/Intel runtime and reference-hardware checks remain unexecuted.",
+    "Final comparison of the uploaded screenshots with the signed candidate.",
+    "Publish the prepared Monoleaf support/privacy text after explicit deployment authorization.",
+    "Separate App Review submission approval.",
+    "Separate new notarization for the downloadable build.",
+    "Mobile bundle alignment, signing and physical-device acceptance remain separate."
+  ],
+  "historicalCandidate": "specs/monomark.release-candidate-build93.json"
 }

@@ -55,7 +55,7 @@ The local handoff folder under build/Listing/Monoleaf-1.0.0 contains plain-text 
 | What's New | Unavailable for the first version |
 | Routing App Coverage File | Leave blank. Monoleaf is not a routing app. |
 | App Clip or Game Center | No configuration needed |
-| Build | Select the new Monoleaf build after its separately authorized upload finishes processing |
+| Build | Select Monoleaf build 107 after its separately authorized upload finishes processing |
 
 The name and subtitle permit 30 characters each. Promotional Text permits 170 characters.
 The description permits 4,000 characters. Keywords permit 100 bytes.
