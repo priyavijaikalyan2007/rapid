@@ -397,8 +397,9 @@
       "number": 73,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/73",
       "parent": 68,
-      "progress": "implementation and development validation complete; signed candidate tracked under release 65",
-      "evidence": "specs/monoleaf.rename-checks.json"
+      "progress": "closed",
+      "evidence": "specs/monoleaf.rename-checks.json",
+      "commit": "4cedc42"
     },
     "screenshot-upload-rejection": {
       "number": 74,

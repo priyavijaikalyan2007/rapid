@@ -432,3 +432,5 @@ Rename task #73 links to store task #68. Regressions, 144 Core and 138 renderer 
 These screenshots come from the renamed development app. They need comparison with the new signed candidate. MonoMark build 93 remains historical and must not be uploaded as Monoleaf. New signing/notarization, selected manual/store/mobile checks and website publication remain. No installed-app replacement, private-data inspection, upload or submission occurred.
 
 The owner reports screenshot upload failure. The new raw PNGs pass independent 8-bit RGB/no-alpha/dimension checks. Exact App Store error and platform/file selection remain pending. Successful upload is unverified and tracked separately from rename completion.
+
+Task #73 is closed against commit 4cedc42. Open issue titles now use Monoleaf. Screenshot upload bug #74 is attached to #68 and remains open. The actual rejection message and successful Apple processing remain unverified.
