@@ -56,19 +56,19 @@ The local handoff folder under local/release-artifacts/monoleaf/Listing/Monoleaf
 | What's New | Unavailable for the first version |
 | Routing App Coverage File | Leave blank. Monoleaf is not a routing app. |
 | App Clip or Game Center | No configuration needed |
-| Build | Select Monoleaf build 111 after Apple finishes processing the successful upload |
+| Build | Monoleaf build 111, attachment confirmed by the owner on 22 November 2026 |
 
 The name and subtitle permit 30 characters each. Promotional Text permits 170 characters.
 The description permits 4,000 characters. Keywords permit 100 bytes.
 The prepared English text passes these limits.
 
-## Replace the selected build
+## Selected build and review draft
 
-Wait until build 111 finishes processing. Open macOS version 1.0.0 and locate Build.
-Remove the selected build 107 using the minus button, then click Save.
-Click the plus button, select build 111, click Done, then Save.
-This changes the build association. The app record, listing text and screenshots remain.
-Removing a selected build does not delete it from the account.
+The owner confirmed that build 111 replaced build 107 on 22 November 2026.
+Remote attachment was not independently inspected.
+
+Click Add for Review to prepare the submission draft and identify missing required fields.
+This action does not submit the app to Apple. Submit for Review is a separate action after final acceptance and authorization.
 
 ## Shared app and review settings
 
@@ -82,12 +82,12 @@ Use [REVIEW.md](REVIEW.md) for Review Notes. The public examples give reviewers 
 Choose manual release under Version Release.
 
 Save the listing as a draft. Screenshot and text preparation does not complete the remaining release checks.
-Build 111 uploaded successfully after owner authorization. Apple processing was last observed.
+Build 111 uploaded successfully after owner authorization. The owner confirmed build selection.
 No App Review submission or public release occurred.
 
 ## App icon
 
-Build 107 includes the compiled Mac AppIcon. Apple gets the store icon from the uploaded build.
+Build 111 includes the compiled Mac AppIcon. Apple gets the store icon from the uploaded build.
 The handoff includes Icon/Monoleaf-1024.png for optional website use. It is the existing app artwork, not a new design.
 Website publication remains separate.
 
@@ -99,3 +99,5 @@ Website publication remains separate.
 - [Platform version fields and limits](https://developer.apple.com/help/app-store-connect/reference/app-information/platform-version-information/)
 - [How Apple receives app icons](https://developer.apple.com/help/app-store-connect/manage-app-information/add-an-app-icon/)
 - [App information](https://developer.apple.com/help/app-store-connect/reference/app-information/app-information/)
+
+- [Prepare a review draft and submit an app](https://developer.apple.com/help/app-store-connect/manage-submissions-to-app-review/submit-an-app)

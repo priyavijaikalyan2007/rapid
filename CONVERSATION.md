@@ -1310,3 +1310,9 @@ The owner reports positive general testing of the installed build 111 and author
 Checked Apple's current build-selection instructions: only one build can be attached to an app version. After processing, remove build 107 from macOS version 1.0.0, save, add build 111, choose Done and Save. This changes the build association within the existing version, not the app record. Its listing text and screenshots remain version metadata.
 
 Xcode confirms successful upload of build 111 and the start of processing for app 6837811940. Receipt identifier: 38156dbd-eef3-4b33-9a1b-a3a36ac03038. Main candidate evidence now points to 111 and preserves build 107 separately. The owner must replace selected build 107 with 111 after processing. Selection and processing completion remain unverified. No App Review submission or new notarization occurred.
+
+## Owner confirms build 111 selected — 22 November 2026
+
+User: "yep all done"
+
+Recorded this reply as confirmation that build 111 replaced build 107 in the macOS 1.0.0 listing. This is owner-reported evidence, not independent inspection of App Store Connect. Updated release and issue records. Add for Review prepares the review draft and checks required fields. Submit for Review remains a separate step after final acceptance and authorization. Existing unexecuted provider, accessibility and hardware checks remain open. No review submission or public release occurred.

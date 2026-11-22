@@ -476,3 +476,7 @@ All 144 Core tests, 138 renderer tests, Apple platform builds, archive/export an
 The owner reports that the installed app works well and authorizes upload. Uploaded the preserved clean daed206bff0e archive without rebuilding. Xcode confirms delivery of build 111 and start of Apple processing for app 6837811940, receipt 38156dbd-eef3-4b33-9a1b-a3a36ac03038. See monoleaf.app-store-upload111.json. Build 107 remains the last owner-confirmed selection. Once 111 processes, the owner can remove 107 from macOS version 1.0.0, save, add 111 and save. Listing text/screenshots remain version metadata.
 
 General owner feedback is positive. Specific provider/VoiceOver/hardware acceptance is not inferred from that statement. No review submission, new notarization or deployment occurred in this upload.
+
+## Build 111 selection confirmed by owner
+
+The owner confirms that build 111 replaced build 107 in the macOS 1.0.0 listing. Remote state was not independently inspected. Add for Review is the next draft-validation action. Final acceptance and separately authorized Submit for Review remain pending. Existing unexecuted checks remain open.

@@ -316,9 +316,9 @@
       "id": 6458831458,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/65",
       "parent": 8,
-      "progress": "Monoleaf build 111 uploaded after positive owner testing; processing and final release gates pending",
+      "progress": "Monoleaf build 111 uploaded and owner-confirmed attached; final release gates pending",
       "evidence": "specs/monomark.release-candidate.json",
-      "remaining": "Select processed build 111 in place of 107, remaining explicit acceptance and review approval, separate direct-build notarization and deferred mobile release gates."
+      "remaining": "Remaining explicit acceptance and review approval, separate direct-build notarization and deferred mobile release gates."
     },
     "mac-icon": {
       "number": 66,
@@ -341,9 +341,9 @@
       "id": 6459611916,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/68",
       "parent": 65,
-      "progress": "owner-tested build 111 uploaded; processing and replacement of selected build 107 pending",
+      "progress": "owner-tested build 111 uploaded and owner-confirmed attached; final review gates pending",
       "commit": "9fbcc90",
-      "remaining": "Apple processing and selecting build 111, remaining acceptance, then separately authorized review submission."
+      "remaining": "Remaining acceptance, draft review validation, then separately authorized review submission."
     },
     "settings-persistence": {
       "number": 69,

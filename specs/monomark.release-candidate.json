@@ -1,7 +1,7 @@
 {
   "date": "2026-11-22",
   "name": "Monoleaf",
-  "status": "Owner-tested Monoleaf build 111 uploaded; Apple processing last observed; replacing selected build 107 remains pending",
+  "status": "Owner-tested Monoleaf build 111 uploaded and owner-confirmed attached; remaining acceptance and App Review submission pending",
   "version": "1.0.0",
   "build": 111,
   "sourceRevision": "daed206bff0e",
@@ -126,9 +126,13 @@
       "Owner authorized upload of the tested build 111.",
       "The existing preserved archive was uploaded without rebuilding.",
       "Xcode reported the uploaded package was processing, then Upload succeeded.",
-      "Build 107 was previously attached by the owner. Replacing its selection with 111 remains pending.",
+      "The owner confirmed replacement of selected build 107 with 111 on 22 November 2026.",
       "No App Review submission, new notarization or website deployment occurred during this upload."
-    ]
+    ],
+    "processingCompletionConfirmedByOwner": true,
+    "buildAttachmentConfirmedByOwner": true,
+    "ownerConfirmationDate": "2026-11-22",
+    "verificationScope": "Processing and build attachment are owner-confirmed. The remote state was not independently inspected."
   },
   "websiteEvidence": "specs/monoleaf.public-pages-deployment.json",
   "localTestingBuild": {
@@ -140,6 +144,6 @@
     "uploaded": true,
     "manualOwnerTesting": "Positive general feedback, 22 November 2026"
   },
-  "selectedAppStoreBuildLastConfirmed": 107,
+  "selectedAppStoreBuildLastConfirmed": 111,
   "ownerTesting": "Owner reports things seem to be working well with the installed signed build 111. Individual remaining checks were not enumerated."
 }
