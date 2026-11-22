@@ -1,0 +1,18 @@
+{
+  "dark" : true,
+  "dark-fileRowContrast" : true,
+  "displayCount" : 1,
+  "documentSemantics" : true,
+  "enlargedTypography" : true,
+  "increaseContrastEnabled" : true,
+  "launchMaximizedInWindowMode" : true,
+  "light" : true,
+  "light-fileRowContrast" : true,
+  "nativeAccessibilityAcceptance" : "External AX\/VoiceOver acceptance remains pending.",
+  "passed" : true,
+  "reduceMotionEnabled" : true,
+  "reloadRetainsMode" : true,
+  "singleDisplayPresentation" : true,
+  "system-dark" : true,
+  "system-light" : true
+}

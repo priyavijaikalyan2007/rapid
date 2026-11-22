@@ -136,5 +136,14 @@
     "processingCompletionConfirmedByOwner": true,
     "buildAttachmentConfirmedByOwner": true
   },
-  "websiteEvidence": "specs/monoleaf.public-pages-deployment.json"
+  "websiteEvidence": "specs/monoleaf.public-pages-deployment.json",
+  "localTestingBuild": {
+    "version": "1.0.0",
+    "build": 111,
+    "path": "/Applications/Monoleaf.app",
+    "sourceRevision": "daed206bff0e",
+    "report": "specs/monoleaf.local-install111.json",
+    "uploaded": false,
+    "manualOwnerTesting": "pending"
+  }
 }

@@ -464,3 +464,9 @@ The owner then requested safe cleanup of old generated products, an audit/fix of
 Task #75 adds six failing-then-passing cleanup regressions. Root help and argument rejection are side-effect free. Component cleanup validates every output before deleting any directory. It protects linked targets/parents and unexpected files, then removes all seven documented build/cache roots. Renderer dependencies, source, SwiftPM configuration and reading data remain.
 
 Existing release exports and listing files are preserved under local/release-artifacts/monoleaf. All 1,593 file hashes match, and preserved signature/ticket checks pass. The uploaded build 107 archive remains outside src in its isolated worktree. Actual source-output cleanup succeeded. A fresh signed rebuild and Applications installation are next.
+
+## Clean rebuild installed for testing
+
+Monoleaf 1.0.0 build 111, clean source daed206bff0e, now runs from /Applications/Monoleaf.app. Signature and installed executable hash match the verified Developer ID export. There was no prior app at the standard Applications paths. Current source output contains only build/Monoleaf.app. Historical release exports and the fresh signed archive/symbols remain in local/release-artifacts/monoleaf. The temporary rebuild worktree is removed. No private app data or windows were inspected.
+
+All 144 Core tests, 138 renderer tests, Apple platform builds, archive/export and four exact signed native suites pass. The repository passes 98 Python tests and 56 Bats checks, including six cleanup safety regressions. See monoleaf.local-install111.json and the build111 smoke reports. Task #75 covers this completed generated-output cleanup/rebuild/install. Source/project rename was not selected. Build 111 has not been uploaded, and App Store build 107 remains attached. Manual owner testing and final release steps remain pending.

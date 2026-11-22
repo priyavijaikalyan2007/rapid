@@ -1,0 +1,19 @@
+{
+  "automaticReload" : true,
+  "deletedFileRecovers" : true,
+  "displayCount" : 1,
+  "duplicateFilenamesIndependent" : true,
+  "emptyWorkspaceClearsDocument" : true,
+  "findGetsKeyboardFocus" : true,
+  "inactiveRendererReleased" : true,
+  "manualRefresh" : true,
+  "manualReloadPreservesOldView" : true,
+  "nativeTabsGrouped" : true,
+  "notesSurviveReplacementAndRename" : true,
+  "passed" : true,
+  "reactivatedRenderer" : true,
+  "renameRetainsIdentity" : true,
+  "tabSnapshotRestored" : true,
+  "workspaceReopens" : true,
+  "workspaceSwitch" : true
+}

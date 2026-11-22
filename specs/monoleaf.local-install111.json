@@ -1,0 +1,53 @@
+{
+  "installedAtUTC": "2026-11-22T09:59:45.702896+00:00",
+  "name": "Monoleaf",
+  "version": "1.0.0",
+  "build": 111,
+  "sourceRevision": "daed206bff0e",
+  "fullSourceRevision": "daed206bff0ec8881916bf0d9cfaca1bb27fc84f",
+  "cleanSource": true,
+  "path": "/Applications/Monoleaf.app",
+  "bundleIdentifier": "us.outcrop.MonoMark",
+  "sourceApp": "local/release-artifacts/monoleaf/ReleaseCandidate/1.0.0-111/DeveloperID/Monoleaf.app",
+  "primaryBuildProduct": "src/app/monomark/build/Monoleaf.app",
+  "signatureVerified": true,
+  "installedExecutableMatchesSignedExport": true,
+  "executableSHA256": "6788b410708efa8f84f80c6ef6d50ea40971002d351e60900eee84138d09a767",
+  "previousApplicationsCopy": null,
+  "readingDataInspected": false,
+  "appStoreUploaded": false,
+  "appStoreBuildStillAttached": 107,
+  "notarizationSubmitted": false,
+  "ownerManualTesting": "pending",
+  "coreTests": 144,
+  "rendererTests": 138,
+  "repositoryPythonTests": 98,
+  "repositoryBatsChecks": 56,
+  "allAppleBuildsPassed": true,
+  "nativeSuitesPassed": [
+    "review",
+    "lifecycle",
+    "artifacts",
+    "presentation"
+  ],
+  "runningFromApplications": true,
+  "sourceTreeAppBundles": [
+    "build/Monoleaf.app"
+  ],
+  "legacyGeneratedBundlesRemaining": [],
+  "cleanupSafetyRegressionCount": 6,
+  "preservedArtifactCopies": [
+    {
+      "from": "src/app/monomark/build/ReleaseCandidate",
+      "to": "local/release-artifacts/monoleaf/ReleaseCandidate",
+      "fileCount": 1570,
+      "allFileHashesMatch": true
+    },
+    {
+      "from": "src/app/monomark/build/Listing",
+      "to": "local/release-artifacts/monoleaf/Listing",
+      "fileCount": 23,
+      "allFileHashesMatch": true
+    }
+  ]
+}

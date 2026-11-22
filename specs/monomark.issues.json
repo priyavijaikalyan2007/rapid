@@ -411,7 +411,8 @@
       "number": 75,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/75",
       "parent": 65,
-      "progress": "cleanup safety regressions pass; source output cleaned; signed rebuild and installation pending"
+      "progress": "implementation, clean rebuild and Applications installation complete; closure evidence pending publication",
+      "evidence": "specs/monoleaf.local-install111.json"
     }
   },
   "refinements": {
