@@ -1,7 +1,7 @@
 {
   "date": "2026-11-22",
   "name": "Monoleaf",
-  "status": "Monoleaf build 107 uploaded to App Store Connect; Apple processing last observed; not submitted for review",
+  "status": "Monoleaf build 107 uploaded and owner-confirmed attached; manual testing not yet done",
   "version": "1.0.0",
   "build": 107,
   "sourceRevision": "a2aeedca4fa4",
@@ -78,13 +78,12 @@
   "appStoreUpload": true,
   "appReviewSubmission": false,
   "publicDistribution": false,
-  "websiteMonoleafRenamePublished": false,
+  "websiteMonoleafRenamePublished": true,
   "remaining": [
-    "Wait for Apple processing to complete, then select and test exact build 107.",
+    "Owner-confirmed build attachment is complete. Manual testing is not yet done.",
     "Remaining provider/reopen/write-grant and VoiceOver acceptance.",
     "Unavailable additional-display, minimum-macOS/Intel runtime and reference-hardware checks remain unexecuted.",
     "Final comparison of the uploaded screenshots with the signed candidate.",
-    "Publish the prepared Monoleaf support/privacy text after explicit deployment authorization.",
     "Separate App Review submission approval.",
     "Separate new notarization for the downloadable build.",
     "Mobile bundle alignment, signing and physical-device acceptance remain separate."
@@ -133,6 +132,9 @@
       "Xcode reported the uploaded package was processing, then Upload succeeded.",
       "Browser host remains unavailable. Processing completion and remote icon display are not independently observed.",
       "No App Review submission, website deployment or new direct-build notarization occurred."
-    ]
-  }
+    ],
+    "processingCompletionConfirmedByOwner": true,
+    "buildAttachmentConfirmedByOwner": true
+  },
+  "websiteEvidence": "specs/monoleaf.public-pages-deployment.json"
 }

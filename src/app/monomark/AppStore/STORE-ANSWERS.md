@@ -48,7 +48,7 @@ The website's disclosed analytics are separate from the native app and do not ru
 
 Evidence includes Shared/PrivacyInfo.xcprivacy, the renderer's restrictive resource policy, native navigation, and the bundled library audit.
 Apple defines collection in its [App Privacy Details guidance](https://developer.apple.com/app-store/app-privacy-details/).
-The public policy currently names MonoMark. Local source now names Monoleaf, but its publication remains pending.
+The public support and privacy pages now name Monoleaf. Publication and live HTTP/content checks pass on 22 November 2026.
 
 ## Age-rating questionnaire
 

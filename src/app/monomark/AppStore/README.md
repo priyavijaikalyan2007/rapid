@@ -69,8 +69,8 @@ Reuse CropPrint's authorized private review contact directly in App Store Connec
 Review the final privacy, age-rating, and export-compliance questions against the selected signed build.
 Apple requires initial app-record creation through its website.
 
-The canonical support and privacy pages include the former name MonoMark, verified on 21 November 2026.
-Local page source now uses Monoleaf. Those text changes need a separate publication request.
+The canonical support and privacy pages now name Monoleaf. The owner approved publication on 22 November 2026.
+Both live pages return HTTP 200 and contain the new name.
 The app processes documents locally and has no native analytics, account system, or remote rendering service.
 Bundled libraries retain their own notices. The current bundled-runtime audit reports zero known vulnerabilities.
 

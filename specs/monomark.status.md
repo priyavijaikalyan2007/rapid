@@ -452,3 +452,9 @@ The main candidate record now describes build 107. Historical build 93 is preser
 The owner approved upload of build 107. Xcode reports successful upload and the start of Apple processing for app record 6837811940. The archive receipt confirms uploaded build 107 and App Store destination. See monoleaf.app-store-upload107.json. The app already includes AppIcon.icns and the complete Mac asset catalog. Apple gets that icon from the uploaded build. A 1024-pixel PNG copy is available in the local listing handoff for optional website use.
 
 Browser access remains unavailable. Apple processing completion, displayed store icon and build selection remain unverified. Exact-build testing and remaining release checks precede App Review submission. No review submission, website deployment or new direct-build notarization occurred.
+
+## Attached build and approved public-page deployment
+
+The owner reports that build 107 is attached to the Mac version and manual testing is not yet done. The owner approved publishing both prepared pages. Cloudflare version 7f018c00-7748-46c1-9bf0-3d617eae648b is deployed. Canonical support/privacy pages return HTTP 200 through curl and contain Monoleaf. See monoleaf.public-pages-deployment.json. App Review submission remains pending.
+
+The owner then requested safe cleanup of old generated products, an audit/fix of clean.sh, a rebuild and installation in Applications. Source/project rename scope was asked separately. The generated-output path is the current assumption. Build 107 release artifacts will be preserved outside source cleanup.

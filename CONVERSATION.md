@@ -1278,3 +1278,15 @@ The user explicitly authorizes App Store upload of the prepared build 107. Reche
 Verified that the archived app declares AppIcon, includes AppIcon.icns, and has the complete Mac icon asset catalog. Inspected the 1024-pixel M/down-arrow PNG. Apple's current icon guidance says to include the icon in Xcode and upload the build. No separate App Store icon upload is needed. Copied the existing 1024-pixel PNG into the local listing handoff for optional website use, without editing the image or signed app. No website deployment occurred.
 
 Xcode reports successful App Store upload of Monoleaf 1.0.0 build 107 and that the package began processing. Archive receipt identifies app record 6837811940 and distribution b84fc65b-1c8e-467e-b3da-4159c56cea4d. The app icon is bundled. Added a 1024-pixel copy to the handoff for optional website use. Browser access remains unavailable, so final processing completion, remote icon display and build selection are unverified. No App Review submission, website deployment or new notarization occurred.
+
+## Build attached, testing pending, public pages approved — 22 November 2026
+
+User: "yes buld is attahed. whats next?"
+
+Asked whether build 107 had been tested and whether to publish the prepared Monoleaf support/privacy name changes. User answered "Not yet" to the test question and "Publish both pages" to the deployment question. This confirms attachment based on owner report and authorizes that specific deployment, not App Review submission.
+
+Used the Cloudflare and Wrangler skills and the existing deploy script. Website checks pass. Published version 7f018c00-7748-46c1-9bf0-3d617eae648b through Wrangler 4.152.0. Both canonical pages return HTTP 200 through curl and contain Monoleaf without the old name. The default Python HTTP client received 403. No app-review submission occurred.
+
+User: "ok. I think we need to clean up the src folders a bit. There are left over artifacts from whenthe app was called monomark. Can you fix that? Basically do a clean (if the clean.sh script is not set up to clean all build outputs/temporary files, do that) and then rebuild? I want to install the new app to Applications then for testing."
+
+The cleanup/rebuild/install request is a separate follow-on. Asked whether it also includes renaming source/project paths. Pending that optional answer, proceed with generated output cleanup. The audit finds Monoleaf clean.sh only removes build/, and root clean.sh does not reject arguments. Preserve released build evidence outside src cleanup, preserve the owner-edited UI-test scheme and private reading data, add failing safety/cleanup regressions, then clean, rebuild and install a signed Monoleaf app for testing.

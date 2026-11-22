@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-22",
+  "verifiedAtUTC": "2026-11-22T09:44:08.064962+00:00",
+  "authorizedBy": "Owner selected Publish both pages",
+  "sourceRevision": "4cedc42",
+  "deploymentVersionID": "7f018c00-7748-46c1-9bf0-3d617eae648b",
+  "wranglerVersion": "4.152.0",
+  "deploymentSucceeded": true,
+  "pages": [
+    {
+      "url": "https://outcrop.us/support/",
+      "status": 200,
+      "containsMonoleaf": true,
+      "containsOldName": false,
+      "sha256": "15025ce18b5002b0bd13e65758746215ac399e1808630d77f079d03f15bb2836",
+      "matchesBuiltHTML": true
+    },
+    {
+      "url": "https://outcrop.us/privacy/",
+      "status": 200,
+      "containsMonoleaf": true,
+      "containsOldName": false,
+      "sha256": "89a61a4de80e18e16bbbee3b90fc6a33baa32f30efe60d35b20a13298ea9307c",
+      "matchesBuiltHTML": true
+    }
+  ],
+  "verificationNote": "Default Python HTTP client received 403. Browser-style curl received HTTP 200 and the expected public content.",
+  "reviewSubmitted": false
+}

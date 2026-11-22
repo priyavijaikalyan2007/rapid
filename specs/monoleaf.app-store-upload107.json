@@ -28,6 +28,10 @@
     "User explicitly authorized upload of prepared build 107.",
     "Xcode reported the uploaded package was processing, then Upload succeeded.",
     "Browser host remains unavailable. Processing completion and remote icon display are not independently observed.",
-    "No App Review submission, website deployment or new direct-build notarization occurred."
-  ]
+    "No App Review submission, website deployment or new direct-build notarization occurred.",
+    "Owner confirmed build 107 is attached to the Mac version, then reported that manual testing is not yet done."
+  ],
+  "processingCompletionConfirmedByOwner": true,
+  "buildAttachmentConfirmedByOwner": true,
+  "ownerExactBuildTesting": "Not yet"
 }
