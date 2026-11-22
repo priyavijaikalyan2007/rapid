@@ -1210,3 +1210,15 @@ Browser access remains unavailable. The owner reports selecting macOS and iOS. S
 User: "hm. I had a typo in the first app create; i called it MonoMakr instead of MonoMark. I removed that app but the bundle ID is not longer visible when I create a new one. what should I do?"
 
 Checked Apple's current remove/restore and app-information instructions. Recommend restoring the original MonoMakr record through Apps > All Statuses > Removed Apps > App Information > Restore App, then editing its localized Name to MonoMark and saving. This preserves the original bundle ID and SKU. The record's actual restored state remains unverified. Apple notes that SKUs cannot be reused and bundle IDs cannot be reused after a build upload. If restoration is unavailable, contact Apple Developer Support before changing the application identifier. No app/account changes were made.
+
+## Encryption declaration and unavailable name — 22 November 2026
+
+User: "ok that's done; we also need to do this: \"Specify your use of encryption in Xcode by adding the App Uses Non-Exempt Encryption key to your app's Info.plist file with a Boolean value that indicates whether your app uses encryption. Learn More\""
+
+User: "looks like the app name is already taken: \"English (U.S.) Name couldn’t be saved because the app name you entered is already being used. If you have trademark rights to this name and would like it released for your use, submit a claim.\"."
+
+User: "we will hvae to change the name ..."
+
+Verified ITSAppUsesNonExemptEncryption=false in Mac source, build 93 archive and notarized app. Mobile lacked the key. Added a failing release-contract test, then the mobile Boolean false declaration. All 11 release-contract tests and repository checks (96 Python, 49 Bats) pass. Unsigned iOS device and Simulator builds pass outside the restricted tool sandbox, and both generated property lists retain Boolean false. The initial restricted build blocked Swift macro processes. Apple documentation confirms false covers no encryption or only exempt encryption, including linked libraries. No signed Mac artifact changed or upload occurred.
+
+Asked the owner to select Outcrop Markdown, Outcrop Markdown Reader, MonoMark Reader, or a free-text name. Availability is not confirmed. Name selection and corresponding app/listing rename remain pending. The existing bundle ID can stay unchanged.

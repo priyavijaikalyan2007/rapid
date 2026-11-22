@@ -71,6 +71,9 @@ Record the calculated global and regional ratings after completing the live form
 ## Encryption export declaration
 
 The signed candidate sets ITSAppUsesNonExemptEncryption to false. This is the proposed engineering configuration.
+The Mac archive and notarized build 93 retain this Boolean value.
+The mobile source now declares the same value. Unsigned iOS and Simulator builds verify its generated property lists.
+This mobile change does not alter the signed Mac candidate or establish mobile release readiness.
 The source uses SHA-256 for identities and source checks. It does not implement a custom document-encryption service.
 System frameworks provide any operating-system encryption or transport behavior.
 The final organization response must match the actual build and the questions Apple presents.

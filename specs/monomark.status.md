@@ -416,3 +416,9 @@ Task #72 tracks its alignment and signed/device-tested mobile candidate. Mac bui
 The owner selected macOS and iOS in App Store Connect. AppStore/MAC-LISTING.md now maps the Mac version fields and four screenshot uploads. The local Listing folder and ZIP contain copy-ready text, reviewer notes and unchanged inspected screenshots. Their 2560 × 1600 RGB dimensions, checksums, listing limits and ZIP integrity verify. Existing screenshot provenance remains explicit because the build 93 refresh could not access its fixtures. No app source or signed artifact changed.
 
 Browser access remains unavailable. Saved record values and draft uploads remain unverified. Issue #68 remains open for listing entry, final answers and remaining release checks. No App Store upload or review submission occurred.
+
+## Encryption declaration and name conflict on 22 November
+
+The owner restored the removed record, but App Store Connect reports that MonoMark is already used. A replacement name is pending. No branding or bundle ID changed.
+
+Mac source, build 93 archive and notarized app already declare ITSAppUsesNonExemptEncryption=false. Mobile now has the same Boolean. A regression fails before the fix and passes afterward. All 11 release-contract tests, 96 repository Python tests and 49 Bats checks pass. Unsigned iOS device and Simulator builds pass. Their generated Info.plist files retain Boolean false. Mac signed artifacts remain unchanged.

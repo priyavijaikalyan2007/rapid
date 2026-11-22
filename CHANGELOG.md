@@ -10,6 +10,12 @@ Created: 2026
 
 # Changelog
 
+## 22 November 2026
+
+### Fixed
+
+- Declared exempt encryption use in the MonoMark iPhone/iPad target to match the Mac release configuration.
+
 ## 18 November 2026
 
 ### Fixed

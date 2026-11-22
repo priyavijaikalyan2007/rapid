@@ -48,6 +48,11 @@ class MonoMarkReleaseTests(unittest.TestCase):
         self.assertEqual(info["LSApplicationCategoryType"], "public.app-category.productivity")
         self.assertIs(info["ITSAppUsesNonExemptEncryption"], False)
 
+    def test_mobile_declares_no_nonexempt_encryption(self):
+        info = plistlib.loads((APPLE / "Mobile/Info.plist").read_bytes())
+
+        self.assertIs(info.get("ITSAppUsesNonExemptEncryption"), False)
+
     def test_app_store_export_stays_local(self):
         options = plistlib.loads((APPLE.parent / "AppStore/ExportOptions.plist").read_bytes())
         self.assertEqual(options["method"], "app-store-connect")
