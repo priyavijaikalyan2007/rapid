@@ -10,7 +10,9 @@ This handoff covers the Monoleaf macOS 1.0.0 listing. The assistant cannot verif
 
 ## Screenshots
 
-Upload these PNG files to the Mac screenshot area in this order:
+In the sidebar, select macOS version 1.0.0.
+Under Product Page Information, select App Previews and Screenshots, then the Mac device area.
+Upload these PNG files there in this order:
 
 1. [Reading and Files](Screenshots/01-reader.png)
 2. [Code, equations, diagrams, and dark appearance](Screenshots/02-rich-dark.png)
@@ -26,6 +28,10 @@ Verify them against the replacement signed candidate before submission.
 
 Extract the listing ZIP before uploading. Select the PNG files inside Screenshots, not the ZIP or a chat preview.
 Use the macOS version screenshot area. These Mac dimensions do not meet iPhone or iPad screenshot requirements.
+
+Header and Search Results is a separate, optional creative-artwork tab. Its 5244 × 2950 universal asset and
+3840 × 1646 header sizes are not Mac screenshot requirements. Leave that artwork empty for this submission.
+In Asset Library, choose + > Previews and Screenshots when uploading these files. Do not choose Upload Creative Assets.
 
 An app preview video is optional. iPhone and iPad need their own screenshots for the iOS version.
 
@@ -71,6 +77,8 @@ No App Store build upload, App Review submission, or public release occurred dur
 
 ## Apple references
 
+- [Asset types and current upload tabs](https://developer.apple.com/help/app-store-connect/manage-app-information/manage-your-app-store-assets)
+- [Creative artwork sizes](https://developer.apple.com/help/app-store-connect/reference/app-information/creative-assets-specifications)
 - [Screenshot specifications](https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/)
 - [Platform version fields and limits](https://developer.apple.com/help/app-store-connect/reference/app-information/platform-version-information/)
 - [App information](https://developer.apple.com/help/app-store-connect/reference/app-information/app-information/)

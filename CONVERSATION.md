@@ -1252,3 +1252,9 @@ User: "ok when you are done, the screenshots couldn't be uploaded which is odd."
 Asked for the exact App Store Connect error and whether all four images failed. Verified the new raw files independently through sips and file: all are 2560 × 1600, 8-bit RGB PNGs without alpha or interlacing, about 225–313 KiB. Their encoding and dimensions meet Apple's Mac screenshot specification. The cause of the reported upload failure remains unknown. The handoff now specifies extraction and the macOS screenshot area. No image-upload success is claimed.
 
 Committed and pushed the rename as 4cedc42. Closed source rename #73 with evidence and linked screenshot-upload bug #74 under #68. Updated open issue titles to Monoleaf and restored the knobbyadmin GitHub account. The new listing ZIP integrity check passes. Apple upload acceptance remains unverified.
+
+## Screenshot upload field identified — 22 November 2026
+
+User: "the screenshots still don't work. see \"Drag and drop to add assets or choose from your Asset Library. Supported sizes include 5244 × 2950px and 3840 × 1646px. Explore templates\"."
+
+Matched both dimensions to Apple's creative-artwork specification: universal asset and product-page header. Current Apple guidance places these optional assets under Product Page Information > Header and Search Results. Required screenshots use the separate App Previews and Screenshots tab. Updated the handoff and local ZIP with explicit macOS/version/tab steps and the Asset Library + > Previews and Screenshots alternative. No resizing is needed for the Mac screenshots. Issue #74 remains open until successful screenshot processing is observed or confirmed. No Apple account changes or uploads occurred.

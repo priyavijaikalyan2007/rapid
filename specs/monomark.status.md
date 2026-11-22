@@ -434,3 +434,5 @@ These screenshots come from the renamed development app. They need comparison wi
 The owner reports screenshot upload failure. The new raw PNGs pass independent 8-bit RGB/no-alpha/dimension checks. Exact App Store error and platform/file selection remain pending. Successful upload is unverified and tracked separately from rename completion.
 
 Task #73 is closed against commit 4cedc42. Open issue titles now use Monoleaf. Screenshot upload bug #74 is attached to #68 and remains open. The actual rejection message and successful Apple processing remain unverified.
+
+The owner supplied upload-field text requesting 5244 × 2950 and 3840 × 1646. Apple identifies these as optional creative artwork sizes. The handoff now names Product Page Information > App Previews and Screenshots explicitly and distinguishes Header and Search Results. Issue #74 awaits successful upload confirmation in the screenshot area.
