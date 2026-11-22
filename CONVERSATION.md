@@ -1222,3 +1222,11 @@ User: "we will hvae to change the name ..."
 Verified ITSAppUsesNonExemptEncryption=false in Mac source, build 93 archive and notarized app. Mobile lacked the key. Added a failing release-contract test, then the mobile Boolean false declaration. All 11 release-contract tests and repository checks (96 Python, 49 Bats) pass. Unsigned iOS device and Simulator builds pass outside the restricted tool sandbox, and both generated property lists retain Boolean false. The initial restricted build blocked Swift macro processes. Apple documentation confirms false covers no encryption or only exempt encryption, including linked libraries. No signed Mac artifact changed or upload occurred.
 
 Asked the owner to select Outcrop Markdown, Outcrop Markdown Reader, MonoMark Reader, or a free-text name. Availability is not confirmed. Name selection and corresponding app/listing rename remain pending. The existing bundle ID can stay unchanged.
+
+## Short replacement-name candidates — 22 November 2026
+
+User: "odd -- I searched in the app store and I didn't find an app by that name at all."
+
+User: "Outcrop Markdown is too long. We need a pithy one word name."
+
+Checked Apple's app-record naming FAQ. Public search does not establish whether a name is available for a new or renamed app record. Suggested Marklet as the preferred short name, with Monoleaf, Marklit and Leafmark as alternatives. These are creative candidates, not verified available names. No rename or store changes occurred.
