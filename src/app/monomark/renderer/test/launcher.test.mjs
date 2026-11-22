@@ -61,7 +61,7 @@ test('invalid paths fail before opening any file', () => fixture(({ folder, link
 test('usage and non-Markdown input do not launch the app', () => fixture(({ folder, link }) => {
     const help = spawnSync('/bin/bash', [link, '--help'], { encoding: 'utf8' });
     assert.equal(help.status, 0);
-    assert.match(help.stdout, /monomark/);
+    assert.match(help.stdout, /monoleaf/);
     writeFileSync(path.join(folder, 'Not-markdown.txt'), 'Text');
     const invalid = spawnSync('/bin/bash', [link, '--dry-run', path.join(folder, 'Not-markdown.txt')], { encoding: 'utf8' });
     assert.notEqual(invalid.status, 0);

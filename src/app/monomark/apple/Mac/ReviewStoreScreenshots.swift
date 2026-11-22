@@ -18,7 +18,7 @@ import WebKit
         }
         let input = URL(fileURLWithPath: args[index + 1], isDirectory: true)
         let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-            .appendingPathComponent("MonoMark Examples")
+            .appendingPathComponent("Monoleaf Examples")
         try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
         for name in ["Welcome.md", "Guide.md"]
         {
@@ -95,6 +95,9 @@ import WebKit
         {
             throw ReaderFailure.unavailable
         }
+        window.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
+        try await Task.sleep(for: .milliseconds(200))
         let bitmap = try await ReviewWindowCapture.write(window, output: output)
         guard !bitmap.hasAlpha, bitmap.pixelsWide == 2560, bitmap.pixelsHigh == 1600
         else

@@ -1236,3 +1236,17 @@ Checked Apple's app-record naming FAQ. Public search does not establish whether 
 User: "we can do a pronounceable anagram of monomark too ... or monospace markdown using a subset of characters. give me more suggestions while I check the rest."
 
 Generated and checked exact MonoMark anagrams Monokram, Monkroma, Markomon and Monarkom. Shorter MonoMark letter subsets: Monaro, Monora, Mokaro, Komaro, Arkom and Kromon. Additional monospace markdown letter subsets: Monara, Monace, Mordane, Codemark, Monarc and Kormo. Suggested Monokram, Monaro and Monara as leading candidates. These are creative suggestions with unverified availability. No app or store rename occurred.
+
+## Rename approved: Monoleaf — 22 November 2026
+
+User: "Marklet is in use, monoleaf works."
+
+Applied Monoleaf to native display/bundle product names, menus, About/Help, export prose, command-line installation, renderer title, listing and public synthetic examples. Kept us.outcrop.MonoMark, existing application-support/defaults paths and generated-section markers. The installer now offers monoleaf, and the bundled legacy monomark launcher alias still works. Internal project/target/source names remain unchanged. No design pattern or storage migration was required. The owner-edited UI-test scheme remains untouched and unstaged.
+
+The new name/product and launcher regressions failed before implementation, then passed. All 144 Core tests, 138 renderer tests, 98 repository Python tests, 50 Bats checks, active/universal Mac builds, iOS device/Simulator builds, native synthetic review and source-style checks pass. Native processed property lists show Monoleaf and Boolean false for nonexempt encryption. Two old-name test expectations were updated. The capture helper now activates its own window after repeated Notes images showed inactive controls. New actual-app screenshots were captured and visually reviewed. Four 2560 × 1600 RGB images and a copy-ready Monoleaf listing ZIP are prepared.
+
+Local support/privacy source now uses Monoleaf and its website build passes. It was not deployed. The installed app and private reading data remain untouched. Existing signed MonoMark build 93 artifacts remain preserved, marked historical and unsuitable for the renamed submission. A new signed Monoleaf candidate and notarization, final screenshot comparison and remaining manual/store/mobile acceptance are still required. No App Store upload or submission occurred. Rename task #73 is a sub-issue of #68.
+
+User: "ok when you are done, the screenshots couldn't be uploaded which is odd."
+
+Asked for the exact App Store Connect error and whether all four images failed. Verified the new raw files independently through sips and file: all are 2560 × 1600, 8-bit RGB PNGs without alpha or interlacing, about 225–313 KiB. Their encoding and dimensions meet Apple's Mac screenshot specification. The cause of the reported upload failure remains unknown. The handoff now specifies extraction and the macOS screenshot area. No image-upload success is claimed.

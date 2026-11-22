@@ -5,7 +5,7 @@
 
 # Mac screenshot drafts
 
-These four images show the actual MonoMark window. The source documents and reading data are synthetic.
+These four images show the actual Monoleaf window. The source documents and reading data are synthetic.
 The compositor capture includes native window chrome, navigation, rendered content, and the right inspector.
 All images are 2560 × 1600 RGB PNGs without an alpha channel. The manifest records their checksums and source checkpoint.
 The current host enables Increase Contrast and Reduce Motion. The screenshots preserve that native appearance.
@@ -15,7 +15,8 @@ The current host enables Increase Contrast and Reduce Motion. The screenshots pr
 3. 03-comments.png shows Contents, a saved highlight, and its separate comment.
 4. 04-notes.png shows app-local Markdown reading notes beside the document.
 
-The images were visually inspected. Review them against the final candidate before uploading. No images were uploaded.
+The images were visually inspected on 22 November 2026. They show the renamed development app.
+Verify them against the replacement signed Monoleaf candidate before submission. No images were uploaded.
 The generic temporary document path is part of the actual title bar. No private user path or document is present.
 
 To regenerate, run the built app with `--smoke-test OUTPUT --store-screenshots --screenshots-input FOLDER`.

@@ -101,3 +101,17 @@ setup() { repository_root="$(cd "$BATS_TEST_DIRNAME/.." && pwd)"; }
     [ "$status" -eq 42 ]
     [[ "$output" == *"reached-xcodebuild"* ]]
 }
+
+@test "Monoleaf launcher opens renamed app through both command names" {
+    bundle="$BATS_TEST_TMPDIR/Monoleaf.app"
+    mkdir -p "$bundle/Contents/MacOS" "$bundle/Contents/Resources/Renderer"
+    touch "$bundle/Contents/MacOS/Monoleaf" "$BATS_TEST_TMPDIR/Example.md"
+    for command_name in monoleaf monomark; do
+        launcher="$bundle/Contents/Resources/Renderer/$command_name"
+        cp "$repository_root/src/app/monomark/tools/monomark" "$launcher"
+        run /bin/bash "$launcher" --dry-run "$BATS_TEST_TMPDIR/Example.md"
+        [ "$status" -eq 0 ]
+        [[ "$output" == *"Monoleaf.app"* ]]
+        [[ "$output" == *"Example.md"* ]]
+    done
+}

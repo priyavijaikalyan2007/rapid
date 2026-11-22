@@ -28,7 +28,7 @@ struct MobileReaderView: View
             }, openFolder: {
                 folderPicker = true
             })
-            .navigationTitle(sessions[selected].url?.lastPathComponent ?? "MonoMark")
+            .navigationTitle(sessions[selected].url?.lastPathComponent ?? "Monoleaf")
             .toolbar
             {
                 ToolbarItem(placement: .topBarTrailing)

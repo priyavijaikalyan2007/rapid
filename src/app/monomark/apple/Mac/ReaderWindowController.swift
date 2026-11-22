@@ -38,7 +38,7 @@ final class ReaderWindowController: NSWindowController, NSWindowDelegate
             defer: false
         )
         super.init(window: window)
-        window.title = "MonoMark"
+        window.title = "Monoleaf"
         window.minSize = NSSize(width: 650, height: 400)
         window.tabbingMode = .preferred
         window.tabbingIdentifier = "MonoMark-Documents"
@@ -78,7 +78,7 @@ final class ReaderWindowController: NSWindowController, NSWindowDelegate
             }
             else
             {
-                window?.title = session?.root?.path ?? "MonoMark"
+                window?.title = session?.root?.path ?? "Monoleaf"
                 window?.representedURL = session?.root
             }
             application?.saveTabs()

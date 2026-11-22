@@ -33,7 +33,7 @@ if [[ ! "$team_id" =~ ^[A-Z0-9]{10}$ || ! "$build_number" =~ ^[1-9][0-9]*$ ]]; t
 fi
 export DEVELOPER_DIR="${DEVELOPER_DIR:-/Applications/Xcode.app/Contents/Developer}"
 archive_root="$component_root/build/AppStore"
-archive_path="$archive_root/MonoMark-macOS.xcarchive"
+archive_path="$archive_root/Monoleaf-macOS.xcarchive"
 archive_arguments=(archive -project "$component_root/apple/MonoMark.xcodeproj" -scheme MonoMark
     -configuration Release -destination 'generic/platform=macOS' -archivePath "$archive_path"
     -allowProvisioningUpdates DEVELOPMENT_TEAM="$team_id" CODE_SIGNING_ALLOWED=YES CODE_SIGN_STYLE=Automatic
@@ -74,10 +74,10 @@ mkdir -p "$archive_root"
 run_xcodebuild "${archive_arguments[@]}"
 
 # An archive without matching debug symbols cannot enter the export path.
-binary="$archive_path/Products/Applications/MonoMark.app/Contents/MacOS/MonoMark"
-symbols="$archive_path/dSYMs/MonoMark.app.dSYM/Contents/Resources/DWARF/MonoMark"
+binary="$archive_path/Products/Applications/Monoleaf.app/Contents/MacOS/Monoleaf"
+symbols="$archive_path/dSYMs/Monoleaf.app.dSYM/Contents/Resources/DWARF/Monoleaf"
 if [[ ! -f "$symbols" ]]; then
-    printf '%s\n' 'The archive has no MonoMark debug symbols. Rebuild the archive before exporting.' >&2
+    printf '%s\n' 'The archive has no Monoleaf debug symbols. Rebuild the archive before exporting.' >&2
     exit 1
 fi
 binary_uuids="$(dwarfdump --uuid "$binary" | awk '{print $2}' | sort)"
@@ -86,6 +86,6 @@ if [[ -z "$binary_uuids" || "$binary_uuids" != "$symbol_uuids" ]]; then
     printf '%s\n' 'The archive debug symbols do not match the application. Rebuild before exporting.' >&2
     exit 1
 fi
-codesign --verify --deep --strict "$archive_path/Products/Applications/MonoMark.app"
+codesign --verify --deep --strict "$archive_path/Products/Applications/Monoleaf.app"
 run_xcodebuild "${export_arguments[@]}"
 printf '%s\n' "Local App Store export: $archive_root/Export. No upload or submission performed."

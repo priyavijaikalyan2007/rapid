@@ -137,11 +137,11 @@ struct ReaderSettings: View
             }
             Section("Information")
             {
-                Button("MonoMark Help")
+                Button("Monoleaf Help")
                 {
                     help = true
                 }
-                Button("About MonoMark")
+                Button("About Monoleaf")
                 {
                     about = true
                 }

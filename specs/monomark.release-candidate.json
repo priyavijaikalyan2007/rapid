@@ -1,6 +1,6 @@
 {
   "date": "2026-11-21",
-  "status": "notarized local build 93; remaining manual and App Store release gates pending",
+  "status": "historical notarized MonoMark build 93; superseded for submission by the Monoleaf rename",
   "version": "1.0.0",
   "build": 93,
   "sourceRevision": "c1bab98ec3a7",
@@ -68,7 +68,7 @@
     }
   ],
   "app": "src/app/monomark/build/ReleaseCandidate/1.0.0-93/Notarized/MonoMark.app",
-  "screenshots": "src/app/monomark/AppStore/Screenshots/manifest.json",
+  "screenshots": "https://github.com/priyavijaikalyan2007/rapid/blob/dce8d5e/src/app/monomark/AppStore/Screenshots/manifest.json",
   "notarized": true,
   "notarizationUploaded": true,
   "appStoreUploaded": false,
@@ -127,5 +127,7 @@
     "zipIntegrityPassed": true,
     "extractedSignatureVerified": true,
     "extractedTicketValidated": true
-  }
+  },
+  "currentForSubmission": false,
+  "replacementRequired": "A new Monoleaf signed archive, exports and notarization are required. Existing build 93 artifacts and evidence remain unchanged."
 }

@@ -23,7 +23,7 @@ enum AnnotationFailure: Error, LocalizedError, Equatable
         {
         case .invalidData: "These notes exceed the supported size or contain an invalid annotation. Shorten the selection or note."
         case .notesConflict: "Another window changed these notes. Your draft remains visible. Copy it before reloading the saved notes."
-        case .unsupportedVersion: "A newer MonoMark version created this notes database. Use that version to open your notes."
+        case .unsupportedVersion: "A newer Monoleaf version created this notes database. Use that version to open your notes."
         case .invalidMarkers: "The generated-section markers are incomplete or repeated. Repair the markers or export a copy."
         case .sourceChanged: "The source changed after rendering. Refresh the document, then export again."
         case .unresolvedLocations: "Some highlighted locations could not be resolved. Check those quotations before inline export."

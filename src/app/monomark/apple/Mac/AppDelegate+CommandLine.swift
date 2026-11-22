@@ -9,7 +9,7 @@ extension AppDelegate
 {
     @objc func installCommandLine(_ sender: Any?)
     {
-        guard let launcher = Bundle.main.url(forResource: "monomark", withExtension: nil, subdirectory: "Renderer")
+        guard let launcher = Bundle.main.url(forResource: "monoleaf", withExtension: nil, subdirectory: "Renderer")
         else
         {
             return
@@ -17,8 +17,8 @@ extension AppDelegate
         let panel = NSSavePanel()
         panel.title = "Install Command Line Tool"
         panel.prompt = "Install"
-        panel.message = "Choose a folder on your shell's PATH. Reinstall this link if you move MonoMark.app."
-        panel.nameFieldStringValue = "monomark"
+        panel.message = "Choose a folder on your shell's PATH. Reinstall this link if you move Monoleaf.app."
+        panel.nameFieldStringValue = "monoleaf"
         panel.directoryURL = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent(".local/bin")
         guard panel.runModal() == .OK, let destination = panel.url
         else
@@ -39,7 +39,7 @@ extension AppDelegate
             {
                 try FileManager.default.createSymbolicLink(at: destination, withDestinationURL: launcher)
             }
-            current?.session.message = "Installed \(destination.path). Use monomark <folder> or monomark <file.md …>."
+            current?.session.message = "Installed \(destination.path). Use monoleaf <folder> or monoleaf <file.md …>."
         }
         catch
         {

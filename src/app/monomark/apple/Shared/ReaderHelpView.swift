@@ -31,7 +31,7 @@ struct ReaderHelpView: View
                 #endif
             }
             .formStyle(.grouped)
-            .navigationTitle("MonoMark Help")
+            .navigationTitle("Monoleaf Help")
             .toolbar
             {
                 if showsDone

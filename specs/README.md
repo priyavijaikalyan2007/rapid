@@ -15,7 +15,7 @@ Created: 2026
 | Repository setup | [Repository status](repository.status.md) | [Setup plan](repository-setup.plan.md) and [project profile](../PROJECT_PROFILE.md) |
 | Source audit | [Audit report](source-audit.report.md) | [File inventory](source-audit.inventory.md) and [audit plan](source-audit.plan.md) |
 | CropPrint | [CropPrint status](cropprint.status.md) | [Application guide](../src/cropprint/README.md) and [publishing guide](../PUBLISHING.md) |
-| MonoMark | [Planning status](monomark.status.md) | [Product brief and proposed design](monomark.product.md) |
+| Monoleaf | [Planning status](monomark.status.md) | [Product brief and proposed design](monomark.product.md) |
 | Public website | [Website status](website.status.md) | [Website guide](../src/web/README.md) |
 | Composure | [Composure status](composure.status.md) | [Normative specification](../src/composure/implementation-specification.md) |
 | Composure V1 scope | [Mac-only scope and reference hardware](composure-macos-v1.plan.md) | [Product specification](../src/composure/product-specification.md) |
@@ -30,4 +30,4 @@ Record future verified results in the owning status file.
 Use [agent knowledge](../agentknowledge/README.md) for code navigation and recorded constraints.
 
 
-MonoMark's current local candidate is recorded in [monomark.release-candidate.json](monomark.release-candidate.json). Remaining interactive and physical checks are in [monomark.manual-release-checks.md](monomark.manual-release-checks.md).
+The historical MonoMark baseline and Monoleaf replacement requirement are recorded in [monomark.release-candidate.json](monomark.release-candidate.json). Remaining interactive and physical checks are in [monomark.manual-release-checks.md](monomark.manual-release-checks.md).

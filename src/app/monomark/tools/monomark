@@ -8,7 +8,7 @@ set -euo pipefail
 
 usage()
 {
-    printf '%s\n' 'Usage: monomark [--dry-run] <folder | file.md ...>'
+    printf '%s\n' 'Usage: monoleaf [--dry-run] <folder | file.md ...>'
     printf '%s\n' 'Folders may be . or .. . Quote paths that contain spaces. Use -- before a path beginning with -.'
 }
 if [[ ${1:-} == --help || ${1:-} == -h ]]; then
@@ -40,8 +40,8 @@ while [[ -L $launcher ]]; do
     depth=$((depth + 1))
 done
 bundle="$(cd -P -- "$(dirname "$launcher")/../../.." && pwd)"
-if [[ ! -f $bundle/Contents/MacOS/MonoMark ]]; then
-    printf '%s\n' 'MonoMark.app is unavailable. Reinstall the command-line tool from MonoMark.' >&2
+if [[ ! -f $bundle/Contents/MacOS/Monoleaf && ! -f $bundle/Contents/MacOS/MonoMark ]]; then
+    printf '%s\n' 'Monoleaf.app is unavailable. Reinstall the command-line tool from Monoleaf.' >&2
     exit 2
 fi
 

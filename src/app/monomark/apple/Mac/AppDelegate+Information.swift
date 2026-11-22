@@ -10,12 +10,12 @@ extension AppDelegate
 {
     @objc func showAbout(_ sender: Any?)
     {
-        information("About MonoMark", content: ReaderAboutView(showsDone: false))
+        information("About Monoleaf", content: ReaderAboutView(showsDone: false))
     }
 
     @objc func showHelp(_ sender: Any?)
     {
-        information("MonoMark Help", content: ReaderHelpView(showsDone: false))
+        information("Monoleaf Help", content: ReaderHelpView(showsDone: false))
     }
 
     private func information<Content: View>(_ title: String, content: Content)

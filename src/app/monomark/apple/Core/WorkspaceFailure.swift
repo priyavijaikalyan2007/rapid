@@ -14,7 +14,7 @@ enum WorkspaceFailure: LocalizedError
         switch self
         {
         case .invalidRecord: "The workspace could not be saved. Open its folder again to renew access."
-        case .unsupportedVersion: "A newer MonoMark version created these workspaces. Update MonoMark to open them."
+        case .unsupportedVersion: "A newer Monoleaf version created these workspaces. Update Monoleaf to open them."
         }
     }
 }

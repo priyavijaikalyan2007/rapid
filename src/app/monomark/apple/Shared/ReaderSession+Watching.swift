@@ -28,7 +28,7 @@ extension ReaderSession
             }
             else
             {
-                message = "The file changed outside MonoMark. Select Refresh to view the latest content."
+                message = "The file changed outside Monoleaf. Select Refresh to view the latest content."
             }
         }
     }

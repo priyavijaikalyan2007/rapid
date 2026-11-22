@@ -74,7 +74,7 @@ The subsequent two-iteration constrained detector experiment also failed the ori
 Its finite-output contract passed, but intervention judgment remained unreliable. No experimental detector entered the native application.
 See specs/composure-automatic-detector.results.md and specs/composure-next-decision.md for evidence and the next decision.
 
-MonoMark is implemented under src/app/monomark with native Mac and iPhone/iPad targets.
+Monoleaf, formerly MonoMark, is implemented under src/app/monomark with native Mac and iPhone/iPad targets.
 Its initial platform floors are macOS 15 and iOS/iPadOS 18. Mac builds support arm64 and x86_64.
 It uses a bundled offline WebKit renderer and local SQLite reading history. See specs/monomark.status.md for verification limits.
 Run ./src/app/monomark/build.sh all for its tests and unsigned platform builds, or ./test.sh monomark for component tests.

@@ -176,7 +176,7 @@ extension WorkspaceStoreTests
         try db.execute("PRAGMA user_version=99")
         let library = WorkspaceLibrary(databaseURL: file)
         await library.refresh()
-        #expect(library.error?.contains("newer MonoMark") == true)
+        #expect(library.error?.contains("newer Monoleaf") == true)
         #expect(library.records.isEmpty)
     }
 }

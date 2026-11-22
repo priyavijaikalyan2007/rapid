@@ -41,6 +41,30 @@ class MonoMarkReleaseTests(unittest.TestCase):
         renderer = json.loads((APPLE.parent / "renderer/package.json").read_text())
         self.assertEqual([draft["version"], renderer["version"]], ["1.0.0", "1.0.0"])
 
+    def test_store_name_matches_both_native_products_and_renderer(self):
+        draft = json.loads((APPLE.parent / "AppStore/metadata.json").read_text())
+        project = subprocess.run(
+            ["plutil", "-convert", "json", "-o", "-", str(APPLE / "MonoMark.xcodeproj/project.pbxproj")],
+            capture_output=True, text=True, check=True,
+        )
+        objects = json.loads(project.stdout)["objects"]
+        names = [draft["name"]]
+        for platform in ["Mac", "Mobile"]:
+            info = plistlib.loads((APPLE / platform / "Info.plist").read_bytes())
+            names.extend([info["CFBundleDisplayName"], info["CFBundleName"]])
+        for target_name in ["MonoMark", "MonoMarkMobile"]:
+            target = next(x for x in objects.values() if x.get("isa") == "PBXNativeTarget"
+                          and x.get("name") == target_name)
+            for ref in objects[target["buildConfigurationList"]]["buildConfigurations"]:
+                names.append(objects[ref]["buildSettings"]["PRODUCT_NAME"])
+
+        self.assertEqual(set(names), {"Monoleaf"})
+
+    def test_renderer_document_title_uses_store_name(self):
+        shell = (APPLE.parent / "renderer/index.html").read_text()
+
+        self.assertIn("<title>Monoleaf document</title>", shell)
+
     def test_mac_release_metadata_uses_build_settings(self):
         info = plistlib.loads((APPLE / "Mac/Info.plist").read_bytes())
         self.assertEqual(info["CFBundleShortVersionString"], "$(MARKETING_VERSION)")

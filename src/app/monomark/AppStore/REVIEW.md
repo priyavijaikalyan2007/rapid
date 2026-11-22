@@ -5,7 +5,7 @@
 
 # Draft App Review notes
 
-MonoMark is a public Markdown viewer for Mac. It targets readers of technical documents, project notes, and documentation folders.
+Monoleaf is a public Markdown viewer for Mac. It targets readers of technical documents, project notes, and documentation folders.
 It requires no account, login, registration, purchase, subscription, or external rendering service.
 The app is a viewer. It does not edit Markdown source text.
 
@@ -16,7 +16,7 @@ Download the example documents from the public source repository:
 
 Place both files in the same folder. These examples contain no personal data and need no network resources after download.
 
-1. Open the folder through MonoMark's native Open command.
+1. Open the folder through Monoleaf's native Open command.
 2. Select Welcome.md in Files.
 3. Select a heading in Contents to move within the document.
 4. Open the companion guide link in a new tab through the link actions.

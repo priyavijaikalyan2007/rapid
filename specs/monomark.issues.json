@@ -341,7 +341,7 @@
       "id": 6459611916,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/68",
       "parent": 65,
-      "progress": "owner selected macOS/iOS; Mac listing handoff prepared; saved fields unverified",
+      "progress": "Monoleaf listing and new development-app screenshots prepared; replacement signed candidate required",
       "commit": "9fbcc90",
       "remaining": "Owner upload of reviewed screenshots and listing fields, privacy/contact review, remaining acceptance, then separately authorized build upload and review submission."
     },
@@ -392,6 +392,19 @@
       ],
       "blocksMacRelease": false,
       "remaining": "Align mobile bundle ID to us.outcrop.MonoMark, verify signing/provisioning, archive and validate the mobile candidate, and complete device acceptance."
+    },
+    "rename-monoleaf": {
+      "number": 73,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/73",
+      "parent": 68,
+      "progress": "implementation and development validation complete; signed candidate tracked under release 65",
+      "evidence": "specs/monoleaf.rename-checks.json"
+    },
+    "screenshot-upload-rejection": {
+      "number": 74,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/74",
+      "parent": 68,
+      "progress": "open; exact App Store error pending; raw PNG format and dimensions verified"
     }
   },
   "refinements": {

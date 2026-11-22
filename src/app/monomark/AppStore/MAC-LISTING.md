@@ -6,7 +6,7 @@
 # Mac listing handoff
 
 The owner selected macOS and iOS in one App Store Connect record on 22 November 2026.
-This handoff covers the macOS 1.0.0 listing. The assistant cannot verify saved fields because browser access is unavailable.
+This handoff covers the Monoleaf macOS 1.0.0 listing. The assistant cannot verify saved fields because browser access is unavailable.
 
 ## Screenshots
 
@@ -21,14 +21,18 @@ Each image is 2560 × 1600 pixels, RGB, without transparency.
 Apple accepts this 16:10 size for Mac screenshots.
 These are actual app captures from synthetic documents, without added marketing artwork.
 The [manifest](Screenshots/manifest.json) records their original source, capture date, checksums, and latest visual review.
-They are existing captures, not new build 93 captures. The refresh attempt could not read the fixtures through the signed app sandbox.
+They are new captures from the renamed development app, not historical signed build 93.
+Verify them against the replacement signed candidate before submission.
+
+Extract the listing ZIP before uploading. Select the PNG files inside Screenshots, not the ZIP or a chat preview.
+Use the macOS version screenshot area. These Mac dimensions do not meet iPhone or iPad screenshot requirements.
 
 An app preview video is optional. iPhone and iPad need their own screenshots for the iOS version.
 
 ## Listing fields
 
 Use [metadata.json](metadata.json) as the source for the listing text.
-The local handoff folder under build/ReleaseCandidate/1.0.0-93/Listing contains plain-text copies of each field.
+The local handoff folder under build/Listing/Monoleaf-1.0.0 contains plain-text copies of each field.
 
 | App Store Connect field | Source or choice |
 | --- | --- |
@@ -39,13 +43,13 @@ The local handoff folder under build/ReleaseCandidate/1.0.0-93/Listing contains 
 | Description | metadata.json: description |
 | Keywords | metadata.json: keywords |
 | Support URL | metadata.json: supportURL |
-| Marketing URL | Leave blank. No MonoMark product page is supplied. |
+| Marketing URL | Leave blank. No Monoleaf product page is supplied. |
 | Version | metadata.json: version |
 | Copyright | metadata.json: copyright |
 | What's New | Unavailable for the first version |
-| Routing App Coverage File | Leave blank. MonoMark is not a routing app. |
+| Routing App Coverage File | Leave blank. Monoleaf is not a routing app. |
 | App Clip or Game Center | No configuration needed |
-| Build | Select build 93 only after a separately authorized upload finishes processing |
+| Build | Select the new Monoleaf build after its separately authorized upload finishes processing |
 
 The name and subtitle permit 30 characters each. Promotional Text permits 170 characters.
 The description permits 4,000 characters. Keywords permit 100 bytes.

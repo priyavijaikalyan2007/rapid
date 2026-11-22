@@ -5,7 +5,9 @@
 
 # Proposed App Store answers
 
-These answers describe MonoMark 1.0.0 build 93, source c1bab98ec3a7. They are not entered in App Store Connect.
+These answers describe the intended Monoleaf 1.0.0 submission. The owner confirmed that the new name is available.
+The signed baseline remains MonoMark build 93, source c1bab98ec3a7. A renamed release candidate must replace it.
+Saved field values remain unverified by the assistant.
 Confirm the displayed questions and company requirements before submitting them. Keep release mode manual.
 
 ## Record and listing
@@ -13,7 +15,7 @@ Confirm the displayed questions and company requirements before submitting them.
 | Field | Value |
 | --- | --- |
 | Publisher | Outcrop Inc |
-| Name | MonoMark, subject to availability |
+| Name | Monoleaf, owner-confirmed availability |
 | App record platforms | macOS and iOS, selected by the owner |
 | Current listing and candidate | macOS |
 | Bundle ID | us.outcrop.MonoMark |
@@ -22,7 +24,7 @@ Confirm the displayed questions and company requirements before submitting them.
 | Primary category | Productivity |
 | Secondary category | Utilities |
 | Price | Free |
-| Version and build | 1.0.0, build 93 |
+| Version and build | 1.0.0, replacement build pending |
 | Minimum system | macOS 15.0 |
 | Login or demo account | None required |
 | Purchases, subscriptions, advertising | None |
@@ -40,11 +42,11 @@ Proposed declaration: Data Not Collected. Tracking, advertising, and app analyti
 Documents, bookmarks, file paths, history, settings, highlights, comments, and Notes remain on the device.
 Export writes to the user-chosen file. It does not send reading data to Outcrop.
 External links open in the user's browser. Remote document images are blocked.
-The website's disclosed analytics are separate from the native app and do not run inside MonoMark.
+The website's disclosed analytics are separate from the native app and do not run inside Monoleaf.
 
 Evidence includes Shared/PrivacyInfo.xcprivacy, the renderer's restrictive resource policy, native navigation, and the bundled library audit.
 Apple defines collection in its [App Privacy Details guidance](https://developer.apple.com/app-store/app-privacy-details/).
-The published public policy names MonoMark and explains its local reading data.
+The public policy currently names MonoMark. Local source now names Monoleaf, but its publication remains pending.
 
 ## Age-rating questionnaire
 

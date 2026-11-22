@@ -5,7 +5,7 @@ File GUID: 46638161-e495-4f13-b8b4-ef2182788d29
 Created: 2026
 -->
 
-# MonoMark
+# Monoleaf
 
 A monospace Markdown viewer. Open a file or folder to begin reading.
 

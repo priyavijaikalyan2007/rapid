@@ -1,6 +1,6 @@
 {
-  "status": "prepared Mac listing; owner selected macOS and iOS in App Store Connect; field entry unverified",
-  "name": "MonoMark",
+  "status": "Monoleaf name accepted by owner in App Store Connect; renamed listing and replacement build preparation",
+  "name": "Monoleaf",
   "subtitle": "Markdown, diagrams, and notes",
   "bundleIdentifier": "us.outcrop.MonoMark",
   "sku": "monomark-2026",
@@ -19,7 +19,7 @@
   "copyright": "2026 Outcrop Inc",
   "keywords": "markdown,reader,viewer,monospace,mermaid,latex,code,highlight,notes,tables",
   "promotionalText": "Read Markdown in a focused Mac viewer. Browse folders, follow document links, and keep highlights, comments, and notes beside your documents.",
-  "description": "MonoMark is a Markdown reader for Mac. Open a file or folder and read rendered Markdown in configurable monospace type.\n\nUse one left sidebar for Files, Contents, Links, and History. Keep several documents open in native Mac tabs, and switch between recent folder workspaces.\n\nRead tables, highlighted code, local images, LaTeX equations, Mermaid diagrams, and emoji. Copy code, table data, diagram source, and rendered artifacts through nearby controls.\n\nHighlight selected text, attach comments, and keep Markdown or plain-text reading notes in the right sidebar. Reading data stays in the app. Source documents change only when you choose to export reading data to them. Export an annotated copy, a separate reading-data file, inline comments, or a generated section at the end.\n\nAdjust fonts, text sizes, light and dark palettes, and reading layout. Use Pages or Pageless view, an optional source-line gutter, and standard Mac commands for opening, copying, printing, and zooming. Choose automatic file reload or refresh manually.\n\nMonoMark needs no account. Document rendering and reading-data storage run locally. Remote images are blocked, and external links open in your browser.\n\nMonoMark is a viewer. It does not provide a Markdown source editor.",
+  "description": "Monoleaf is a Markdown reader for Mac. Open a file or folder and read rendered Markdown in configurable monospace type.\n\nUse one left sidebar for Files, Contents, Links, and History. Keep several documents open in native Mac tabs, and switch between recent folder workspaces.\n\nRead tables, highlighted code, local images, LaTeX equations, Mermaid diagrams, and emoji. Copy code, table data, diagram source, and rendered artifacts through nearby controls.\n\nHighlight selected text, attach comments, and keep Markdown or plain-text reading notes in the right sidebar. Reading data stays in the app. Source documents change only when you choose to export reading data to them. Export an annotated copy, a separate reading-data file, inline comments, or a generated section at the end.\n\nAdjust fonts, text sizes, light and dark palettes, and reading layout. Use Pages or Pageless view, an optional source-line gutter, and standard Mac commands for opening, copying, printing, and zooming. Choose automatic file reload or refresh manually.\n\nMonoleaf needs no account. Document rendering and reading-data storage run locally. Remote images are blocked, and external links open in your browser.\n\nMonoleaf is a viewer. It does not provide a Markdown source editor.",
   "privacy": {
     "tracking": false,
     "dataCollected": false,

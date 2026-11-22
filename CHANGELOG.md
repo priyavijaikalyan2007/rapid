@@ -12,6 +12,10 @@ Created: 2026
 
 ## 22 November 2026
 
+### Changed
+
+- Renamed the application to Monoleaf while retaining existing document data, bundle identity, and generated-section markers.
+
 ### Fixed
 
 - Declared exempt encryption use in the MonoMark iPhone/iPad target to match the Mac release configuration.

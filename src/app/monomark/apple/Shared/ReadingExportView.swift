@@ -45,7 +45,7 @@ struct ReadingExportView: View
                         "Inline annotations follow complete blocks, including tables and code. Notes appear at the end."
                     )
                     .font(.caption).foregroundStyle(.secondary)
-                    Text("Exports replace marked MonoMark sections. Reading data remains saved separately in the app.")
+                    Text("Exports replace marked Monoleaf sections. Reading data remains saved separately in the app.")
                         .font(.caption).foregroundStyle(.secondary)
                 }
             }.formStyle(.grouped)

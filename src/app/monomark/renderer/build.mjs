@@ -33,6 +33,7 @@ await writeFile(output + '/MonoMark-LICENSE.txt', await readFile(new URL('../../
 await cp('index.html', output + '/index.html');
 await cp('reader.css', output + '/reader.css');
 await cp('../tools/monomark', output + '/monomark');
+await cp('../tools/monomark', output + '/monoleaf');
 await cp('node_modules/katex/dist/katex.min.css', output + '/katex.css');
 await cp('node_modules/katex/dist/fonts', output + '/fonts', { recursive: true });
 await cp('node_modules/highlight.js/styles/github-dark.css', output + '/highlight-dark.css');

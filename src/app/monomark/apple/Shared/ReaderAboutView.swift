@@ -25,7 +25,7 @@ struct ReaderAboutView: View
     {
         VStack(alignment: .leading, spacing: 16)
         {
-            Label("MonoMark", systemImage: "doc.richtext").font(.largeTitle.bold())
+            Label("Monoleaf", systemImage: "doc.richtext").font(.largeTitle.bold())
             Text(information.versionDescription).foregroundStyle(.secondary).textSelection(.enabled)
             Text(information.copyright).textSelection(.enabled)
             Text("A local Markdown reader with highlights, comments, and reading notes.")

@@ -278,7 +278,7 @@ struct ReaderView: View
             {
                 ContentUnavailableView
                 {
-                    Label(session.root?.lastPathComponent ?? "MonoMark", systemImage: "doc.richtext")
+                    Label(session.root?.lastPathComponent ?? "Monoleaf", systemImage: "doc.richtext")
                 }
                 description: {
                     Text(session

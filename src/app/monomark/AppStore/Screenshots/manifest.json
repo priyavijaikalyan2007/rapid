@@ -1,41 +1,41 @@
 {
-  "status": "draft; visually inspected; not uploaded",
-  "date": "2026-11-18",
-  "baseRevision": "345e980",
+  "status": "draft; renamed development-app captures; visually inspected; not uploaded",
+  "date": "2026-11-22",
+  "baseRevision": "dce8d5e",
   "workingTreeChanges": true,
-  "content": "Checked-in public fixtures and synthetic comments/notes only. No private user documents.",
-  "capture": "Actual app-owned compositor windows. RGB PNG, no alpha.",
+  "product": "Monoleaf",
+  "content": "Public checked-in examples and synthetic comments/notes only. No private user documents.",
+  "capture": "Actual app-owned compositor windows from the renamed unsigned development app. RGB PNG, no alpha.",
+  "candidateNote": "Not the historical signed MonoMark build 93. Verify against the replacement signed Monoleaf candidate before submission.",
+  "lastVisualReview": "2026-11-22",
   "files": [
     {
       "file": "01-reader.png",
       "width": 2560,
       "height": 1600,
       "alpha": false,
-      "sha256": "089c70c8081cbb4141d54e14d3e05d077259bd00bc0f09cbb856cf9b92a97bcc"
+      "sha256": "cb3c27910428631bda3fb66949d4919609eb6e52d19ca01c5fc0fcba768842cc"
     },
     {
       "file": "02-rich-dark.png",
       "width": 2560,
       "height": 1600,
       "alpha": false,
-      "sha256": "de22391551b6e82e9082d23bceaf3b92bd6c5a1f91ed86a890ef0b2ba453ce65"
+      "sha256": "660722ae14bca40feba7a21df081eb7a5c20c5c2a998e99ea1ca8be6e344fe52"
     },
     {
       "file": "03-comments.png",
       "width": 2560,
       "height": 1600,
       "alpha": false,
-      "sha256": "3b91c305c9c272eef4d8b12be0b760a67c48b028afa74aff03989527b52d2247"
+      "sha256": "652951c2b0de08de72f40591ba3acb7d4e89a4073a51d28cdaed49b2f0d5d609"
     },
     {
       "file": "04-notes.png",
       "width": 2560,
       "height": 1600,
       "alpha": false,
-      "sha256": "2a5dad97f6597e099e2de5f86f36fd06352e98e49044a207ed5440e13b00211d"
+      "sha256": "3f7d6e720fb347215d1df79939a26151277956c00970634f11018eaa629661f9"
     }
-  ],
-  "lastVisualReview": "2026-11-22",
-  "appleSpecificationCheck": "2560 x 1600 is an accepted Mac screenshot size, verified 22 November 2026.",
-  "candidateNote": "Existing captures from the recorded base revision. Not recaptured from build 93. Its sandbox could not read the screenshot input fixtures during the refresh attempt."
+  ]
 }

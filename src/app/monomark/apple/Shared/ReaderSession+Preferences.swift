@@ -90,7 +90,7 @@ extension ReaderSession
         catch
         {
             Logger(subsystem: "us.outcrop.MonoMark", category: "Settings").error("Reader defaults encoding failed")
-            message = "MonoMark could not save reader settings. Try changing the setting again."
+            message = "Monoleaf could not save reader settings. Try changing the setting again."
         }
     }
 }

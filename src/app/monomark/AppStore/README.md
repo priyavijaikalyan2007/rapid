@@ -3,7 +3,7 @@
 <!-- File GUID: 6212aed3-8c22-4bfb-9a3a-d3f78110eed2 -->
 <!-- AGENT: Mac-first release handoff, account prerequisites, and local archive/export instructions. -->
 
-# MonoMark Mac App Store preparation
+# Monoleaf Mac App Store preparation
 
 This folder contains a draft listing, reviewer instructions, and synthetic review documents.
 Use [the Mac listing handoff](MAC-LISTING.md) for the current App Store Connect fields and screenshot order.
@@ -13,9 +13,12 @@ The bundle identifier remains `us.outcrop.MonoMark`. The secondary iPhone/iPad p
 The owner reports selecting macOS and iOS in App Store Connect on 22 November 2026.
 Saved field values and name acceptance remain unverified by the assistant.
 
-## Current local candidate
+## Historical signed baseline
 
-Version 1.0.0 build 93, clean source c1bab98ec3a7, contains the settings, metadata-reload, and maximized-startup fixes.
+The app is now named Monoleaf. Do not upload the older MonoMark candidate as the renamed release.
+A new signed candidate and new notarization must follow the rename.
+
+Historical version 1.0.0 build 93, clean source c1bab98ec3a7, contains the settings, metadata-reload, and maximized-startup fixes.
 The App Store installer and Developer ID app export successfully. Both architectures and matching debug symbols verify.
 The Developer ID app has sandbox entitlements, hardened runtime, and a secure timestamp.
 Signed review, lifecycle, artifact-copy, and appearance/presentation checks pass. Review and artifact checks also pass on repeat.
@@ -41,16 +44,17 @@ Use a clean checkout. The unrelated owner-edited UI-test scheme must remain sepa
 The archive command reads the public team ID from config/apple-developer.env and uses Xcode's configured account.
 It validates matching symbols and signatures, then exports locally. It has no upload action.
 The default numeric build is the Git commit count. Set BUILD_NUMBER to a larger unused value when needed.
-Expected archive: build/AppStore/MonoMark-macOS.xcarchive. Expected installer: build/AppStore/Export.
+Expected new archive: build/AppStore/Monoleaf-macOS.xcarchive. Expected installer: build/AppStore/Export.
 Signing keys, account credentials, and provisioning profiles remain outside source.
 The earlier Xcode account and agreement blockers are resolved.
 
 ## Store record and review
 
 Use metadata.json, STORE-ANSWERS.md, and REVIEW.md. Proposed store answers are not entered in App Store Connect.
-Check name availability and create one MonoMark record under Outcrop Inc using bundle ID us.outcrop.MonoMark and SKU monomark-2026.
+Use the restored record under Outcrop Inc with name Monoleaf, bundle ID us.outcrop.MonoMark and its existing SKU monomark-2026.
+The owner confirmed that Monoleaf is available after Apple rejected MonoMark.
 
-Choose New App. New App Bundle groups separate products and is not the intended model for platform versions of MonoMark.
+Choose New App. New App Bundle groups separate products and is not the intended model for platform versions of Monoleaf.
 Use macOS and iOS platform versions in that record. The iOS build supports both iPhone and iPad.
 The iOS platform can be added later if the Mac version ships first.
 
@@ -63,13 +67,15 @@ Reuse CropPrint's authorized private review contact directly in App Store Connec
 Review the final privacy, age-rating, and export-compliance questions against the selected signed build.
 Apple requires initial app-record creation through its website.
 
-The canonical support and privacy pages include MonoMark and were verified again on 21 November 2026.
+The canonical support and privacy pages include the former name MonoMark, verified on 21 November 2026.
+Local page source now uses Monoleaf. Those text changes need a separate publication request.
 The app processes documents locally and has no native analytics, account system, or remote rendering service.
 Bundled libraries retain their own notices. The current bundled-runtime audit reports zero known vulnerabilities.
 
 ## Screenshots and remaining acceptance
 
-Screenshots contains four inspected 2560 × 1600 RGB full-app drafts made from synthetic documents.
+Screenshots contains four new inspected 2560 × 1600 RGB drafts from the Monoleaf development app and synthetic documents.
+Verify these captures against the replacement signed candidate before submission.
 The capture uses only the app's own window. It does not require general Screen Recording access.
 The desktop must be unlocked for compositor captures. Native CUA and XCTest UI limitations remain separate.
 

@@ -5,7 +5,7 @@
 
 ## Reading data stays local
 
-MonoMark stores reading positions, preferences, highlights, comments, and notes in its local application data.
+Monoleaf stores reading positions, preferences, highlights, comments, and notes in its local application data.
 The source document changes only when you explicitly export reading data to it.
 
 ## Review an export

@@ -7,9 +7,9 @@ Created: 2026
 -->
 <!-- AGENT: Local development, implemented features, platform requirements, and verification boundaries. -->
 
-# MonoMark
+# Monoleaf
 
-MonoMark is a local Markdown reader for macOS 15 or later and iOS/iPadOS 18 or later.
+Monoleaf is a local Markdown reader for macOS 15 or later and iOS/iPadOS 18 or later.
 The Mac product supports Apple silicon and Intel. Mobile uses the same core and offline renderer.
 The app does not provide a Markdown source editor.
 
@@ -51,8 +51,8 @@ Build and test both platform targets without distribution signing:
 ```
 
 Use `test`, `macos`, or `ios` to select a narrower build.
-Open `build/DerivedData/Build/Products/Release/MonoMark.app` after a Mac build.
-Use `apple/MonoMark.xcodeproj` and the MonoMark or MonoMarkMobile scheme in Xcode.
+Open `build/DerivedData/Build/Products/Release/Monoleaf.app` after a Mac build.
+Internal project and scheme names remain unchanged. Use `apple/MonoMark.xcodeproj` and the MonoMark or MonoMarkMobile scheme in Xcode.
 A signed mobile-device installation requires your development team and normal Apple provisioning.
 These commands do not upload, publish, notarize, or submit an application.
 
@@ -105,7 +105,7 @@ See the [product specification](../../../specs/monomark.product.md),
 The isolated native artifact test uses a generated local fixture and a separate pasteboard:
 
 ```sh
-./build/DerivedData/Build/Products/Release/MonoMark.app/Contents/MacOS/MonoMark --smoke-test /tmp/monomark-artifacts.json --artifact-smoke
+./build/DerivedData/Build/Products/Release/Monoleaf.app/Contents/MacOS/Monoleaf --smoke-test /tmp/monomark-artifacts.json --artifact-smoke
 ```
 
 Run this command from the component folder after a Mac build. A zero exit code and passed report indicate successful checks.
@@ -118,9 +118,9 @@ replacements are coalesced. When the option is off, a notice marks external chan
 content without replacing local notes. Reading position remains attached to the current document.
 
 On Mac, choose File > Install Command Line Tool and select a directory on your shell's PATH. The command is
-a symlink into MonoMark.app, so keep the app at that location. Existing unrelated files are not replaced.
-Use `monomark .` or `monomark ..` to open a folder workspace. Use `monomark first.md second.md` to open files
-in separate native tabs. Quote paths that contain spaces. `monomark --dry-run <paths>` prints the resolved launch.
+a symlink into Monoleaf.app, so keep the app at that location. Existing unrelated files are not replaced.
+Use `monoleaf .` or `monoleaf ..` to open a folder workspace. Use `monoleaf first.md second.md` to open files
+in separate native tabs. Quote paths that contain spaces. `monoleaf --dry-run <paths>` prints the resolved launch.
 The launcher validates every path before opening anything and accepts at most 100 file arguments.
 
 Annotation exports include section paths and source-line ranges when the quotation resolves. A SHA-256
@@ -151,6 +151,6 @@ Open a folder to resolve unique `.md` or `.markdown` filenames and relative path
 File references open new tabs. Refresh updates the shared folder index. The index reads paths, not document contents.
 Ambiguous, missing, and escaping references stay unchanged. Numbered references such as `§9`, `#9.1`, and `$9`
 jump only when one numbered heading matches. Authored links, code blocks, and math remain unchanged.
-These links affect the view only. MonoMark does not rewrite the Markdown source.
+These links affect the view only. Monoleaf does not rewrite the Markdown source.
 
 Use the standard Copy command on selected document text. Comments and Notes accept the standard Paste command.

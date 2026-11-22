@@ -1,7 +1,7 @@
 <!-- SPDX-FileCopyrightText: 2026 Outcrop Inc -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!-- File GUID: c44bba6f-6cb4-4cfb-954b-3430f2bf50f6 -->
-# MonoMark reading example
+# Monoleaf reading example
 
 **Status:** Example document  
 **Purpose:** Review reading, navigation, and private notes.
@@ -9,7 +9,7 @@
 ## 1. Read and navigate
 
 Use Files, Contents, Links, and History in the left sidebar. Open [the companion guide](Guide.md) in another tab.
-The Markdown document remains a source file. MonoMark keeps your reading data separately until you choose Export.
+The Markdown document remains a source file. Monoleaf keeps your reading data separately until you choose Export.
 
 ## 2. Tables and code
 

@@ -8,9 +8,9 @@ Created: 2026
 
 <!-- AGENT: Records MonoMark scope, progress, decisions, and verification limits. -->
 
-# MonoMark status
+# Monoleaf status
 
-Updated on 18 November 2026.
+Updated on 22 November 2026.
 
 MonoMark now has native Mac and iPhone/iPad projects under src/app/monomark.
 The first implementation includes document tabs, Files/Contents/Links/History navigation, SQLite reading state,
@@ -422,3 +422,13 @@ Browser access remains unavailable. Saved record values and draft uploads remain
 The owner restored the removed record, but App Store Connect reports that MonoMark is already used. A replacement name is pending. No branding or bundle ID changed.
 
 Mac source, build 93 archive and notarized app already declare ITSAppUsesNonExemptEncryption=false. Mobile now has the same Boolean. A regression fails before the fix and passes afterward. All 11 release-contract tests, 96 repository Python tests and 49 Bats checks pass. Unsigned iOS device and Simulator builds pass. Their generated Info.plist files retain Boolean false. Mac signed artifacts remain unchanged.
+
+## Monoleaf rename on 22 November
+
+The owner selected Monoleaf after finding Marklet in use. Native products now build as Monoleaf.app. The Mac bundle ID, old application-data directory, defaults and generated-section markers remain stable. Internal project/scheme/module names remain MonoMark. The optional installer creates monoleaf, with the old monomark bundled alias retained. The owner-edited UI-test scheme remains unchanged.
+
+Rename task #73 links to store task #68. Regressions, 144 Core and 138 renderer tests, 98 repository Python tests, 50 Bats checks, all Apple builds, native development-app review, screenshot capture, website source build and source-style checks pass. New Monoleaf screenshots and the listing ZIP replace earlier listing materials. See monoleaf.rename-checks.json and monoleaf.rename-review-smoke.json.
+
+These screenshots come from the renamed development app. They need comparison with the new signed candidate. MonoMark build 93 remains historical and must not be uploaded as Monoleaf. New signing/notarization, selected manual/store/mobile checks and website publication remain. No installed-app replacement, private-data inspection, upload or submission occurred.
+
+The owner reports screenshot upload failure. The new raw PNGs pass independent 8-bit RGB/no-alpha/dimension checks. Exact App Store error and platform/file selection remain pending. Successful upload is unverified and tracked separately from rename completion.

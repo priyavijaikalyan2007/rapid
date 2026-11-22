@@ -427,12 +427,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
     {
         let bar = NSMenu()
         NSApp.mainMenu = bar
-        let app = submenu("MonoMark", on: bar)
-        item("About MonoMark", #selector(showAbout(_:)), on: app)
+        let app = submenu("Monoleaf", on: bar)
+        item("About Monoleaf", #selector(showAbout(_:)), on: app)
         item("Settings…", #selector(settings(_:)), key: ",", on: app)
         app.addItem(.separator())
-        item("Hide MonoMark", #selector(NSApplication.hide(_:)), key: "h", target: nil, on: app)
-        item("Quit MonoMark", #selector(NSApplication.terminate(_:)), key: "q", target: nil, on: app)
+        item("Hide Monoleaf", #selector(NSApplication.hide(_:)), key: "h", target: nil, on: app)
+        item("Quit Monoleaf", #selector(NSApplication.terminate(_:)), key: "q", target: nil, on: app)
         let file = submenu("File", on: bar)
         item("Open…", #selector(openFile(_:)), key: "o", on: file)
         item("Open Folder…", #selector(openFolder(_:)), on: file)
@@ -484,7 +484,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         item("Show Previous Tab", #selector(NSWindow.selectPreviousTab(_:)), target: nil, on: windows)
         item("Move Tab to New Window", #selector(NSWindow.moveTabToNewWindow(_:)), target: nil, on: windows)
         let help = submenu("Help", on: bar)
-        item("MonoMark Help", #selector(showHelp(_:)), key: "?", on: help)
+        item("Monoleaf Help", #selector(showHelp(_:)), key: "?", on: help)
     }
 
     private func submenu(_ title: String, on parent: NSMenu) -> NSMenu
