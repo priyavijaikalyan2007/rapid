@@ -488,3 +488,5 @@ The owner confirms submission of Monoleaf macOS 1.0.0 build 111 for App Review o
 ## Monoleaf public product guide prepared
 
 The owner requested the website update on 23 November 2026. Task #76 adds the catalog card, product guide, current icon and four public synthetic screenshots. It explains local reading data and explicit export choices. Mac App Store review remains pending and mobile is planned. All 36 site tests, seven-page validation, lint and desktop/mobile light/dark browser checks pass. Deployment follows the verified source commit.
+
+The website update is now published at https://outcrop.us/apps/monoleaf/. Cloudflare version 5713db86-4332-4d28-bd14-0cfe1e5f7e37 deployed from 3b223d0. Thirteen live HTTPS/content checks pass, including matching screenshot/icon bytes and support anchors. Website task #76 is complete. App Review outcome, public app release and remaining app acceptance checks remain separate.

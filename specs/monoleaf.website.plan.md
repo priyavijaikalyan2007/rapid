@@ -50,3 +50,8 @@ The existing deployment wrapper already redirects Wrangler logs into the compone
 
 All four publication regressions failed before implementation. The first implementation exposed the old support anchor.
 The replacement preserves the historical anchor and adds the current product guide.
+
+Publication completed from 3b223d0. All 36 website tests, seven-page validation, lint and repository checks pass.
+Desktop/mobile light/dark captures were inspected. Thirteen live HTTPS/content checks pass.
+Cloudflare version: 5713db86-4332-4d28-bd14-0cfe1e5f7e37. Website task #76 is closed.
+See monoleaf.website-deployment.json for the verified public assets and source revision.

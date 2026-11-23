@@ -421,9 +421,11 @@
       "id": 6550652360,
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/76",
       "parent": 65,
-      "progress": "content and local verification complete; deployment pending",
+      "progress": "closed",
       "plan": "specs/monoleaf.website.plan.md",
-      "evidence": "specs/monoleaf.website-deployment.json"
+      "evidence": "specs/monoleaf.website-deployment.json",
+      "commit": "3b223d0",
+      "cloudflareVersionID": "5713db86-4332-4d28-bd14-0cfe1e5f7e37"
     }
   },
   "refinements": {
