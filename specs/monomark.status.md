@@ -484,3 +484,7 @@ The owner confirms that build 111 replaced build 107 in the macOS 1.0.0 listing.
 ## Mac App Review submission confirmed by owner
 
 The owner confirms submission of Monoleaf macOS 1.0.0 build 111 for App Review on 22 November 2026. Remote status was not independently inspected. Apple review outcome and the later manual public-release decision remain pending. Existing unexecuted acceptance checks remain open. Direct notarization and mobile release work remain separate.
+
+## Monoleaf public product guide prepared
+
+The owner requested the website update on 23 November 2026. Task #76 adds the catalog card, product guide, current icon and four public synthetic screenshots. It explains local reading data and explicit export choices. Mac App Store review remains pending and mobile is planned. All 36 site tests, seven-page validation, lint and desktop/mobile light/dark browser checks pass. Deployment follows the verified source commit.

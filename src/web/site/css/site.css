@@ -546,6 +546,42 @@ a
     margin-bottom: 2rem;
 }
 
+/* Public app screenshots remain readable and open at full resolution without page scripting. */
+.monoleaf-screenshots
+{
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 2rem;
+}
+
+.monoleaf-screenshots figure
+{
+    margin: 0;
+    min-width: 0;
+}
+
+.monoleaf-screenshots a
+{
+    display: block;
+}
+
+.monoleaf-screenshots img
+{
+    border: 1px solid var(--site-line);
+    border-radius: 0.5rem;
+    display: block;
+    height: auto;
+    width: 100%;
+}
+
+.monoleaf-screenshots figcaption
+{
+    color: var(--site-muted);
+    line-height: 1.5;
+    margin-top: 0.75rem;
+}
+
 @media (max-width: 800px)
 {
     .principle-grid
@@ -558,6 +594,7 @@ a
         max-width: 16ch;
     }
 
+    .monoleaf-screenshots,
     .feature-grid,
     .preset-grid
     {

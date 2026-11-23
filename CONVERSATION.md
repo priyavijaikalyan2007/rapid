@@ -1322,3 +1322,11 @@ Recorded this reply as confirmation that build 111 replaced build 107 in the mac
 User: "ok done. submitted for review."
 
 Recorded the owner-confirmed submission of Monoleaf macOS 1.0.0 build 111. App Store Connect status was not independently inspected. Apple approval and public release remain unconfirmed. Updated the release evidence and issue tracking. Existing unexecuted acceptance checks remain open. No additional upload, submission or release action was performed by the assistant.
+
+## Monoleaf website update requested — 23 November 2026
+
+User: "great. in the meanwhile, update the website."
+
+Plan: add the Monoleaf catalog card, product guide, icon and public-example screenshots, then validate and publish through the existing Cloudflare deployment script. Show macOS review as pending and mobile availability as planned. This website request does not authorize public app distribution. Preserve the owner-edited Xcode scheme.
+
+Implementation: four new publication regressions failed before the page existed and pass after implementation. Added catalog/guide, icon, four unchanged public example screenshots, source/support/privacy links and crawler discovery. Fixed the old support anchor while preserving existing links. All 36 website tests, seven generated HTML pages and lint pass. Isolated Chrome desktop/mobile light/dark checks loaded the external theme and images with no horizontal overflow. The rendered captures were visually inspected. Task #76 is linked to release feature #65. Publication follows the verified source commit.

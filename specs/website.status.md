@@ -48,3 +48,9 @@ The update did not build or publish a new native application release.
 
 The component deployment script now requires deploy or --dry-run explicitly. The npm deploy command passes deploy explicitly.
 The repository suite passed 12 Python tests and 27 Bats tests after this guard change.
+
+## Monoleaf catalog and reading guide — 23 November 2026
+
+Task #76, parent #65, adds Monoleaf to the catalog and /apps/monoleaf/. The guide covers navigation, rich Markdown, local highlights/comments/Notes and explicit exports. It uses the current icon and four unchanged public synthetic screenshots. The catalog owns the pending-review status. No Monoleaf download is advertised. Mobile availability remains planned. Both #monoleaf and historical #monomark support anchors work. Sitemap, AI summary and shared footer include the product.
+
+Four new publication regressions failed first, then passed. All 36 website tests, seven generated HTML pages and JavaScript lint pass. An isolated Chrome profile rendered desktop 1440px and phone 390px layouts, light/dark themes, loaded images/theme styles, and no horizontal overflow. Captures were visually reviewed. Production deployment and remote checks follow the source commit.

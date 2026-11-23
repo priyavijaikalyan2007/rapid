@@ -10,6 +10,16 @@ Created: 2026
 
 # Changelog
 
+## 23 November 2026
+
+### Added
+
+- Added the Monoleaf website catalog entry, product guide and public screenshots while Mac App Store review is pending.
+
+### Fixed
+
+- Added the current Monoleaf support anchor while preserving links that use the former app name.
+
 ## 22 November 2026
 
 ### Changed

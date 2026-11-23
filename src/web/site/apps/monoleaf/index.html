@@ -1,0 +1,288 @@
+<!doctype html>
+<!--
+SPDX-FileCopyrightText: 2026 Vijai Kalyan
+SPDX-FileCopyrightText: 2026 Outcrop Inc
+SPDX-License-Identifier: GPL-3.0-or-later
+Repository: rapid
+File GUID: 850fe72e-969b-4ad2-b71b-958f1190beb1
+Created: 2026
+COMPONENT: index
+PURPOSE: Records the index source and its local behavior.
+RELATES: PROJECT.md, instructions/WORKFLOW.md
+FLOW: Authored source -> component validation -> local result.
+-->
+
+<!-- Product page and reading guide for Monoleaf. -->
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+            name="description"
+            content="Monoleaf is a Markdown reader for Mac with diagrams and local notes. App Store review is pending."
+        />
+        <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="{{organizationName}}" />
+        <meta property="og:title" content="Monoleaf Markdown reader for Mac" />
+        <meta
+            property="og:description"
+            content="Read Markdown, browse folders, and keep local reading notes beside your documents."
+        />
+        <meta property="og:url" content="{{siteUrl}}/apps/monoleaf/" />
+        <meta property="og:image" content="{{siteUrl}}/assets/apps/monoleaf.png" />
+        <meta property="og:image:alt" content="Monoleaf app icon" />
+        <meta name="twitter:card" content="summary" />
+        <link rel="canonical" href="{{siteUrl}}/apps/monoleaf/" />
+        <title>Monoleaf Markdown reader for Mac | {{organizationName}}</title>
+        <link rel="icon" href="/assets/apps/monoleaf.png" type="image/png" />
+        <script src="/js/theme-init.js"></script>
+        {{analyticsTag}}
+        <link rel="stylesheet" href="{{themeBaseUrl}}/icons/bootstrap-icons.css" />
+        <link rel="stylesheet" href="{{themeBaseUrl}}/css/custom.css" />
+        <link rel="stylesheet" href="{{themeBaseUrl}}/components/themetoggle/themetoggle.css" />
+        <link rel="stylesheet" href="{{themeBaseUrl}}/components/marketinghero/marketinghero.css" />
+        <link rel="stylesheet" href="{{themeBaseUrl}}/components/sitefooter/sitefooter.css" />
+        <link rel="stylesheet" href="/css/site.css" />
+    </head>
+    <body>
+        <a class="skip-link" href="#main-content">Skip to content</a>
+        <header class="site-header">
+            <nav class="container site-nav" aria-label="Main navigation">
+                <a class="brand" href="/" aria-label="{{organizationName}} home">
+                    <img src="/assets/brand-mark.svg" alt="" width="32" height="32" />
+                    <span>{{organizationName}}</span>
+                </a>
+                <div class="site-links">
+                    <a href="/#apps" aria-current="page">Apps</a>
+                    <a href="/support/">Support</a>
+                    <a href="/privacy/">Privacy</a>
+                    <a href="/terms/">Terms</a>
+                </div>
+                <div class="theme-control"><div id="theme-toggle"></div></div>
+            </nav>
+        </header>
+
+        <main id="main-content" itemscope itemtype="https://schema.org/SoftwareApplication">
+            <meta itemprop="name" content="Monoleaf" />
+            <meta itemprop="applicationCategory" content="ProductivityApplication" />
+            <meta itemprop="operatingSystem" content="macOS 15 or later" />
+            <meta itemprop="url" content="{{siteUrl}}/apps/monoleaf/" />
+            <div class="outcrop-hero-shell">
+                <div class="container">
+                    <section
+                        class="marketinghero marketinghero-split marketinghero-stack-lg outcrop-marketinghero app-hero"
+                        aria-labelledby="monoleaf-title"
+                    >
+                        <div class="marketinghero-content">
+                            <p class="marketinghero-eyebrow">Monoleaf for Mac</p>
+                            <h1 class="marketinghero-title" id="monoleaf-title" itemprop="headline">
+                                A Markdown reader for your Mac.
+                            </h1>
+                            <p class="marketinghero-lede" itemprop="description">
+                                Read technical documents in a configurable monospace layout.
+                                Browse folders and tabs, follow links, and keep highlights, comments,
+                                and notes beside the text.
+                            </p>
+                            <p class="badge text-bg-secondary">{{appStatus}}</p>
+                            <p>Submitted for review. Downloads will appear here after release.</p>
+                            <div class="marketinghero-actions">
+                                <a class="btn btn-primary" href="#screenshots">See the reader</a>
+                                <a class="btn btn-outline-primary" href="#reading-notes">Read the guide</a>
+                                <a
+                                    class="btn btn-outline-primary"
+                                    href="{{sourceRepositoryUrl}}/tree/main/src/app/monomark"
+                                    rel="noopener noreferrer"
+                                    >View source code</a
+                                >
+                            </div>
+                        </div>
+                        <aside class="marketinghero-aside app-icon-panel" aria-label="Monoleaf application details">
+                            <img
+                                class="app-detail-icon"
+                                src="/assets/apps/monoleaf.png"
+                                alt="Monoleaf app icon"
+                                width="220"
+                                height="220"
+                                itemprop="image"
+                            />
+                            <dl class="app-facts">
+                                <div><dt>Mac requirement</dt><dd>macOS 15 or later</dd></div>
+                                <div><dt>Price at launch</dt><dd>Free</dd></div>
+                                <div><dt>Account</dt><dd>Not required</dd></div>
+                                <div><dt>Reading data</dt><dd>Stored on your device</dd></div>
+                            </dl>
+                        </aside>
+                    </section>
+                </div>
+            </div>
+
+            <div class="container app-guide">
+                <nav class="app-guide-nav" aria-label="Monoleaf guide">
+                    <a href="#features">Features</a>
+                    <a href="#screenshots">Screenshots</a>
+                    <a href="#reading-notes">Reading notes</a>
+                    <a href="#exports">Export</a>
+                    <a href="#help">Help and privacy</a>
+                </nav>
+
+                <section id="features" aria-labelledby="features-title">
+                    <p class="eyebrow">Read and navigate</p>
+                    <h2 id="features-title">Keep the document and its context together</h2>
+                    <p>
+                        Open a Markdown file or a folder of documents. Switch between folders as workspaces,
+                        or keep several files open in tabs.
+                    </p>
+                    <div class="feature-grid">
+                        <article>
+                            <h3>Find your place</h3>
+                            <p>
+                                Use Files, Contents, Links, and History in one left sidebar.
+                                Contents includes headings, tables, figures, equations, and diagrams.
+                            </p>
+                        </article>
+                        <article>
+                            <h3>Read rich Markdown</h3>
+                            <p>
+                                View tables, syntax-highlighted code, LaTeX equations, Mermaid diagrams,
+                                emoji, and local images. Copy source text, table data, or rendered diagrams
+                                and equations.
+                            </p>
+                        </article>
+                        <article>
+                            <h3>Choose your reading layout</h3>
+                            <p>
+                                Choose installed fonts, text sizes, and colors. Use Light, Dark, or System appearance,
+                                optional source line numbers, and paged or continuous views.
+                            </p>
+                        </article>
+                        <article>
+                            <h3>Return to your reading</h3>
+                            <p>
+                                Monoleaf remembers reading positions and settings locally.
+                                Choose automatic reload for changed files, or refresh when you are ready.
+                            </p>
+                        </article>
+                    </div>
+                    <p class="mt-4">
+                        The first release targets macOS. iPhone and iPad versions are planned and are not yet available.
+                    </p>
+                </section>
+
+                <section id="screenshots" aria-labelledby="screenshots-title">
+                    <p class="eyebrow">Inside the app</p>
+                    <h2 id="screenshots-title">A document, its structure, and your notes</h2>
+                    <p>These Mac screenshots use public example documents. Select an image to inspect it.</p>
+                    <div class="monoleaf-screenshots">
+                        <figure>
+                            <a href="/assets/apps/monoleaf/01-reader.png">
+                                <img src="/assets/apps/monoleaf/01-reader.png" width="2560" height="1600"
+                                    loading="lazy" decoding="async"
+                                    alt="Monoleaf in light mode with a folder tree, Markdown text, and a table" />
+                            </a>
+                            <figcaption>Browse the folder while you read the document.</figcaption>
+                        </figure>
+                        <figure>
+                            <a href="/assets/apps/monoleaf/02-rich-dark.png">
+                                <img src="/assets/apps/monoleaf/02-rich-dark.png" width="2560" height="1600"
+                                    loading="lazy" decoding="async"
+                                    alt="Monoleaf in dark mode with C# code, a LaTeX equation, and a Mermaid diagram" />
+                            </a>
+                            <figcaption>Read code, equations, and diagrams in dark mode.</figcaption>
+                        </figure>
+                        <figure>
+                            <a href="/assets/apps/monoleaf/03-comments.png">
+                                <img src="/assets/apps/monoleaf/03-comments.png" width="2560" height="1600"
+                                    loading="lazy" decoding="async"
+                                    alt="A highlighted sentence and its comment beside the document and contents" />
+                            </a>
+                            <figcaption>Keep a comment beside the passage it describes.</figcaption>
+                        </figure>
+                        <figure>
+                            <a href="/assets/apps/monoleaf/04-notes.png">
+                                <img src="/assets/apps/monoleaf/04-notes.png" width="2560" height="1600"
+                                    loading="lazy" decoding="async"
+                                    alt="The Notes tab beside a rendered Markdown document in Monoleaf" />
+                            </a>
+                            <figcaption>Write reading notes without changing the source.</figcaption>
+                        </figure>
+                    </div>
+                </section>
+
+                <section id="reading-notes" aria-labelledby="reading-notes-title">
+                    <p class="eyebrow">Local reading data</p>
+                    <h2 id="reading-notes-title">Highlight a passage, then add your thoughts</h2>
+                    <p>
+                        Monoleaf is a viewer, not a Markdown source editor. Highlights, comments, and Notes
+                        are saved separately in local application data.
+                    </p>
+                    <ol class="task-steps">
+                        <li>Select a passage in the rendered document.</li>
+                        <li>Open Annotations in the right sidebar and choose a highlight color.</li>
+                        <li>Add a comment about the selected passage, or switch to Notes for longer reading notes.</li>
+                        <li>
+                            Select an annotation to return to its passage.
+                            Search annotations or Notes to find earlier thoughts.
+                        </li>
+                    </ol>
+                    <p>
+                        You can copy document text and paste into comments and Notes through standard Mac commands.
+                        Notes accept plain text or Markdown.
+                    </p>
+                    <div class="policy-callout">
+                        <p>
+                            Your Markdown file stays unchanged until you explicitly export to that file.
+                            Copying the original file alone does not include your locally stored reading data.
+                        </p>
+                    </div>
+                </section>
+
+                <section id="exports" aria-labelledby="exports-title">
+                    <p class="eyebrow">Choose what to share</p>
+                    <h2 id="exports-title">Export your annotations and notes when ready</h2>
+                    <p>Choose File &gt; Export Reading Data to review the output choices.</p>
+                    <ul>
+                        <li>Export an annotated copy to preserve the original document.</li>
+                        <li>Export annotations, Notes, or both to a separate reading-data file.</li>
+                        <li>Insert annotations after their source blocks, or collect them in a generated section.</li>
+                        <li>Append Notes at the end of the document.</li>
+                    </ul>
+                    <p>
+                        Annotations include the quoted passage, comment, section, and source line where available.
+                        Generated sections are marked and can be replaced on a later export.
+                    </p>
+                    <p>
+                        Check the export destination before confirming. Exporting to the current file changes that file.
+                        Changes to the source can also move an annotation away from its original passage.
+                    </p>
+                </section>
+
+                <section id="help" aria-labelledby="help-title">
+                    <p class="eyebrow">Help and privacy</p>
+                    <h2 id="help-title">Keep documents and reading data on your device</h2>
+                    <p>
+                        Monoleaf has no account, advertising, analytics, or app telemetry.
+                        Markdown, math, and diagrams render locally without an external rendering service.
+                    </p>
+                    <p>
+                        Local images use access granted through the file picker. Remote images are blocked.
+                        External links open in your browser.
+                    </p>
+                    <p>
+                        Use the built-in Help menu or the <a href="/support/#monoleaf">Monoleaf support guide</a>.
+                        Read the <a href="/privacy/">Privacy Policy</a> for app and website details.
+                        This website uses Google Analytics separately from the app.
+                    </p>
+                    <p>
+                        For problems, include the app version, build, macOS version, and steps to reproduce.
+                        Use a public example instead of a private document or reading note.
+                    </p>
+                </section>
+            </div>
+        </main>
+
+        {{siteFooter}}
+        <script src="{{themeBaseUrl}}/components/themetoggle/themetoggle.js" defer></script>
+        <script src="/js/theme-toggle-init.js" defer></script>
+    </body>
+</html>

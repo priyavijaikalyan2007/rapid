@@ -22,6 +22,16 @@
       "pagePath": "apps/cropprint/",
       "sourceUrl": "https://github.com/priyavijaikalyan2007/rapid/tree/main/src/cropprint",
       "appStoreUrl": "https://apps.apple.com/us/app/cropprint/id6808373041"
+    },
+    {
+      "name": "Monoleaf",
+      "platforms": "macOS",
+      "status": "App Store review pending",
+      "description": "Read Markdown in a configurable monospace layout. Browse folders, follow links, and keep highlights, comments, and notes beside your documents.",
+      "iconSource": "../app/monomark/apple/Mac/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png",
+      "iconOutput": "assets/apps/monoleaf.png",
+      "pagePath": "apps/monoleaf/",
+      "sourceUrl": "https://github.com/priyavijaikalyan2007/rapid/tree/main/src/app/monomark"
     }
   ]
 }

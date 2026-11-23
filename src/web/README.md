@@ -51,6 +51,7 @@ src/web/
 ├── site/
 │   ├── index.html
 │   ├── apps/cropprint/index.html
+│   ├── apps/monoleaf/index.html
 │   ├── privacy/index.html
 │   ├── terms/index.html
 │   ├── support/index.html
@@ -214,3 +215,14 @@ The home-page card and product page use those values. The generated-site checker
 App Store addresses must use HTTPS on apps.apple.com and identify an application.
 
 The component deploy command requires an explicit mode, matching the root command. An empty invocation cannot publish.
+
+## Monoleaf before release
+
+Monoleaf has a catalog card and guide at /apps/monoleaf/. The macOS candidate awaits App Review.
+The catalog status is defined in site.config.json. No App Store or direct-download link is published yet.
+iPhone and iPad versions remain planned.
+
+Public screenshots under site/assets/apps/monoleaf/ are unchanged copies of the four synthetic examples
+in src/app/monomark/AppStore/Screenshots/. They contain no private reading data.
+The product page uses the existing application icon through the standard icon-copy step.
+The support page accepts both the current #monoleaf and historical #monomark anchors.

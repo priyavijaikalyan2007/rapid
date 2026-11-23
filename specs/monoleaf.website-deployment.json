@@ -1,0 +1,173 @@
+{
+  "observedAtUTC": "2026-11-23T01:58:28.660557+00:00",
+  "status": "locally verified; publication pending",
+  "task": 76,
+  "parent": 65,
+  "authorizedBy": "Owner request on 23 November 2026: great. in the meanwhile, update the website.",
+  "published": false,
+  "productURL": "https://outcrop.us/apps/monoleaf/",
+  "appAvailability": "App Store review pending",
+  "mobileAvailability": "Planned, not available",
+  "appDownloadLinkPublished": false,
+  "wranglerVersion": "4.152.0",
+  "verification": {
+    "testsFailedBeforeImplementation": 4,
+    "websiteTestsPassed": 36,
+    "htmlPagesValidated": 7,
+    "javascriptLintPassed": true,
+    "repositoryPythonTestsPassed": 98,
+    "repositoryBatsTestsPassed": 56,
+    "visualBrowser": "Isolated headless Chrome with temporary profile",
+    "visualCapturesDirectory": "local/release-artifacts/monoleaf/Website/2026-11-23",
+    "visualChecks": [
+      {
+        "name": "product-desktop-light",
+        "title": "Monoleaf Markdown reader for Mac | Outcrop Inc",
+        "theme": "light",
+        "width": 1440,
+        "contentWidth": 1440,
+        "background": "rgb(255, 255, 255)",
+        "themeStyles": true,
+        "images": [
+          {
+            "src": "/assets/brand-mark.svg",
+            "loaded": true
+          },
+          {
+            "src": "/assets/apps/monoleaf.png",
+            "loaded": true
+          }
+        ],
+        "headings": [
+          "A Markdown reader for your Mac."
+        ],
+        "visibleGalleryImagesLoaded": true
+      },
+      {
+        "name": "product-desktop-dark",
+        "title": "Monoleaf Markdown reader for Mac | Outcrop Inc",
+        "theme": "dark",
+        "width": 1440,
+        "contentWidth": 1440,
+        "background": "rgb(22, 31, 46)",
+        "themeStyles": true,
+        "images": [
+          {
+            "src": "/assets/brand-mark.svg",
+            "loaded": true
+          },
+          {
+            "src": "/assets/apps/monoleaf.png",
+            "loaded": true
+          }
+        ],
+        "headings": [
+          "A Markdown reader for your Mac."
+        ],
+        "visibleGalleryImagesLoaded": true
+      },
+      {
+        "name": "product-mobile-light",
+        "title": "Monoleaf Markdown reader for Mac | Outcrop Inc",
+        "theme": "light",
+        "width": 390,
+        "contentWidth": 390,
+        "background": "rgb(255, 255, 255)",
+        "themeStyles": true,
+        "images": [
+          {
+            "src": "/assets/brand-mark.svg",
+            "loaded": true
+          },
+          {
+            "src": "/assets/apps/monoleaf.png",
+            "loaded": true
+          }
+        ],
+        "headings": [
+          "A Markdown reader for your Mac."
+        ],
+        "visibleGalleryImagesLoaded": true
+      },
+      {
+        "name": "home-desktop",
+        "title": "Outcrop Inc | Focused, private applications",
+        "theme": "light",
+        "width": 1440,
+        "contentWidth": 1440,
+        "background": "rgb(255, 255, 255)",
+        "themeStyles": true,
+        "images": [
+          {
+            "src": "/assets/brand-mark.svg",
+            "loaded": true
+          },
+          {
+            "src": "/assets/apps/cropprint.png",
+            "loaded": true
+          },
+          {
+            "src": "/assets/apps/monoleaf.png",
+            "loaded": true
+          }
+        ],
+        "headings": [
+          "Focused apps that respect your privacy."
+        ]
+      },
+      {
+        "name": "home-mobile",
+        "title": "Outcrop Inc | Focused, private applications",
+        "theme": "dark",
+        "width": 390,
+        "contentWidth": 390,
+        "background": "rgb(22, 31, 46)",
+        "themeStyles": true,
+        "images": [
+          {
+            "src": "/assets/brand-mark.svg",
+            "loaded": true
+          },
+          {
+            "src": "/assets/apps/cropprint.png",
+            "loaded": true
+          },
+          {
+            "src": "/assets/apps/monoleaf.png",
+            "loaded": true
+          }
+        ],
+        "headings": [
+          "Focused apps that respect your privacy."
+        ]
+      }
+    ]
+  },
+  "screenshotAssets": [
+    {
+      "publicPath": "/assets/apps/monoleaf/01-reader.png",
+      "source": "src/app/monomark/AppStore/Screenshots/01-reader.png",
+      "sha256": "cb3c27910428631bda3fb66949d4919609eb6e52d19ca01c5fc0fcba768842cc",
+      "unchangedFromPublicExample": true
+    },
+    {
+      "publicPath": "/assets/apps/monoleaf/02-rich-dark.png",
+      "source": "src/app/monomark/AppStore/Screenshots/02-rich-dark.png",
+      "sha256": "660722ae14bca40feba7a21df081eb7a5c20c5c2a998e99ea1ca8be6e344fe52",
+      "unchangedFromPublicExample": true
+    },
+    {
+      "publicPath": "/assets/apps/monoleaf/03-comments.png",
+      "source": "src/app/monomark/AppStore/Screenshots/03-comments.png",
+      "sha256": "652951c2b0de08de72f40591ba3acb7d4e89a4073a51d28cdaed49b2f0d5d609",
+      "unchangedFromPublicExample": true
+    },
+    {
+      "publicPath": "/assets/apps/monoleaf/04-notes.png",
+      "source": "src/app/monomark/AppStore/Screenshots/04-notes.png",
+      "sha256": "3f7d6e720fb347215d1df79939a26151277956c00970634f11018eaa629661f9",
+      "unchangedFromPublicExample": true
+    }
+  ],
+  "unrelatedOwnerScheme": "Preserved unstaged and unchanged by this task."
+}

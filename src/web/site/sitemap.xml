@@ -16,6 +16,7 @@ FLOW: Authored source -> component validation -> local result.
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>{{siteUrl}}/</loc></url>
   <url><loc>{{siteUrl}}/apps/cropprint/</loc></url>
+  <url><loc>{{siteUrl}}/apps/monoleaf/</loc></url>
   <url><loc>{{siteUrl}}/support/</loc></url>
   <url><loc>{{siteUrl}}/privacy/</loc></url>
   <url><loc>{{siteUrl}}/terms/</loc></url>

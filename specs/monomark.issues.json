@@ -415,6 +415,15 @@
       "evidence": "specs/monoleaf.local-install111.json",
       "commit": "daed206",
       "evidenceCommit": "0b45add"
+    },
+    "monoleaf-website": {
+      "number": 76,
+      "id": 6550652360,
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/76",
+      "parent": 65,
+      "progress": "content and local verification complete; deployment pending",
+      "plan": "specs/monoleaf.website.plan.md",
+      "evidence": "specs/monoleaf.website-deployment.json"
     }
   },
   "refinements": {
