@@ -518,3 +518,11 @@ All 150 Swift tests, 139 renderer tests, 105 Python tests, 56 Bats checks, ARM/u
 Bug #81 preserves heading fragments through both platform tab callbacks. Three renderer regressions also repair initial destination range selection and reading-offset stability across viewport replacement/resize. Pending alignment remains active through WebKit's delayed native scroll update. All 142 renderer tests, 150 Swift tests, ARM/universal Mac and device/Simulator iOS builds, source style, 105 Python tests and 56 Bats checks pass. The runtime dependency audit reports zero advisories.
 
 The complete native matrix passed 31 of 32 executions. A static-text activation-point query caused the remaining test failure. Its corrected full-frame visibility assertion passes on both devices. All 16 cases have passing results on each Simulator. See monoleaf.mobile-fragment-navigation.json. Signed local archive/export and physical acceptance remain.
+
+## Signed mobile build 123 archive preserved
+
+Clean source e3b42db2ac36 archived Monoleaf 1.0.0 build 123 for iPhone and iPad. Its strict development signature, Outcrop team/bundle identity, ARM64 executable, matching symbols, bundled source revision, icon, privacy declaration and project license verify. Debug fixture strings are excluded. The archive is preserved under local/release-artifacts/monoleaf/MobileReleaseCandidate/1.0.0-123. See monoleaf.mobile-release-candidate123.json.
+
+Local App Store export failed with "No Accounts" and no matching iOS App Store provisioning profile. The process has no App Store API credentials configured, and no API key exists at the standard local key locations. Asked the owner to sign in through Xcode Accounts. Resume by exporting this preserved archive. Do not rebuild or increment its build merely to retry export. No IPA, mobile upload or submission is claimed.
+
+Physical acceptance remains unexecuted. The owner-selected iPhone 12 mini is not connected. The iPad's initial attempt ran no tests while locked, and its later connection check reports disconnected. Native Simulator evidence covers all 16 cases per device through the complete matrix and corrected paragraph-frame visibility rerun. The submitted Mac build 111 and the owner-edited Mac test scheme remain unchanged.

@@ -1,0 +1,41 @@
+{
+  "date": "2026-11-23",
+  "version": "1.0.0",
+  "build": 123,
+  "sourceCommit": "e3b42db2ac3612d012b4233058c74ef045da301a",
+  "sourceClean": true,
+  "bundleIdentifier": "us.outcrop.MonoMark",
+  "team": "4JD5A6Q2HL",
+  "minimumOS": "18.0",
+  "deviceFamilies": [
+    1,
+    2
+  ],
+  "archivePath": "local/release-artifacts/monoleaf/MobileReleaseCandidate/1.0.0-123/Monoleaf-iOS.xcarchive",
+  "archiveSigned": true,
+  "strictSignatureVerified": true,
+  "architecture": "arm64",
+  "binaryUUID": "5D6857D6-B042-3873-B130-F3CE19F39C52",
+  "symbolsMatch": true,
+  "binarySHA256": "279e670087e47bff5241da2b50c2f0e7898e6aade83b364ce68a83ab20fe3a6d",
+  "iconBundled": true,
+  "nonExemptEncryption": false,
+  "privacyManifestBundled": true,
+  "debugFixtureStringsExcluded": true,
+  "profileType": "development",
+  "storeExportSucceeded": false,
+  "storeExportErrors": [
+    "No Accounts",
+    "No matching iOS App Store provisioning profile"
+  ],
+  "physicalAcceptanceExecuted": false,
+  "uploaded": false,
+  "submitted": false,
+  "macSubmittedBuild111Changed": false,
+  "bundledSourceRevisionMatches": true,
+  "bundledSourceRevision": "e3b42db2ac36",
+  "builtAt": "2026-11-23T10:06:19.243Z",
+  "privacyDeclaresTracking": false,
+  "privacyDeclaresDataCollection": false,
+  "projectLicenseMatches": true
+}

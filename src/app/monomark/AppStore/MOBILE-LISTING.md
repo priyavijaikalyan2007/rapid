@@ -95,3 +95,12 @@ Their dimensions, hashes and capture limits appear in specs/monoleaf.mobile-scre
 Suggested order: reader, navigation, rich content, private notes.
 Draft development captures require comparison against the signed candidate before submission.
 The Simulator UI-test receipt does not replace physical touch, Files-provider, keyboard and VoiceOver acceptance.
+
+## Current local candidate
+
+Monoleaf 1.0.0 build 123, source e3b42db2ac36, has a verified development-signed archive.
+See specs/monoleaf.mobile-release-candidate123.json and the preserved MobileReleaseCandidate folder.
+App Store export currently needs Xcode account access and the iOS App Store profile.
+Retry export from the preserved archive after the account is available.
+Physical acceptance and comparison of screenshot drafts against the candidate remain open.
+No mobile upload, App Review submission or public release occurred.

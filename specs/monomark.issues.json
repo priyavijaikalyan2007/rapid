@@ -385,13 +385,15 @@
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/72",
       "parent": 8,
       "category": "task",
-      "progress": "active: identity/icon/archive tooling implemented; signed candidate and device acceptance pending",
+      "progress": "active: signed build 123 archive verified; App Store export and physical acceptance pending",
       "blocksPlatforms": [
         "iOS",
         "iPadOS"
       ],
       "blocksMacRelease": false,
-      "remaining": "Verify signing/provisioning, local signed archive/export, mobile navigation fixes and physical-device acceptance."
+      "remaining": "Restore Xcode Outcrop account access and export the existing archive with an iOS App Store profile. Connect the selected physical iPhone and iPad for touch/provider/keyboard/VoiceOver and lifecycle checks. Upload/submission remain separately authorized actions.",
+      "commit": "e3b42db",
+      "evidence": "specs/monoleaf.mobile-release-candidate123.json"
     },
     "rename-monoleaf": {
       "number": 73,
@@ -470,8 +472,10 @@
       "number": 81,
       "parent": 8,
       "category": "bug",
-      "progress": "active: native regression reproduced; callback correction under verification",
-      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/81"
+      "progress": "closed",
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/81",
+      "commit": "e3b42db",
+      "evidence": "specs/monoleaf.mobile-fragment-navigation.json"
     }
   },
   "refinements": {
