@@ -32,7 +32,7 @@ import WebKit
         try await waitDOM(view, "document.querySelectorAll('a[data-new-tab=true]').length === 2")
         let originalAction = session.openNewTab
         var opened: [URL] = []
-        session.openNewTab = { file, _ in
+        session.openNewTab = { file, _, _ in
             opened.append(file)
         }
         defer { session.openNewTab = originalAction }

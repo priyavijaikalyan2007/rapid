@@ -431,33 +431,47 @@
       "number": 77,
       "parent": 8,
       "category": "bug",
-      "progress": "active",
+      "progress": "closed",
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/77",
-      "remaining": "Regress and repair tab webview binding, per-tab callbacks, lifecycle and compact controls."
+      "commit": "1709af9",
+      "evidence": "specs/monoleaf.mobile-interactions.json"
     },
     "mobile-ipad-inspector": {
       "number": 78,
       "parent": 8,
       "category": "bug",
-      "progress": "active: targeted regressions pass; full native suite pending",
+      "progress": "closed",
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/78",
-      "title": "iPad inspector"
+      "title": "iPad inspector",
+      "commit": "1709af9",
+      "evidence": "specs/monoleaf.mobile-interactions.json"
     },
     "mobile-touch-copy": {
       "number": 79,
       "parent": 8,
       "category": "bug",
-      "progress": "active: targeted regressions pass; full native suite pending",
+      "progress": "closed",
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/79",
-      "title": "Touch artifact controls"
+      "title": "Touch artifact controls",
+      "commit": "1709af9",
+      "evidence": "specs/monoleaf.mobile-interactions.json"
     },
     "mobile-landscape": {
       "number": 80,
       "parent": 8,
       "category": "bug",
-      "progress": "active: targeted regressions pass; full native suite pending",
+      "progress": "closed",
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/80",
-      "title": "Compact landscape dialogs and notes"
+      "title": "Compact landscape dialogs and notes",
+      "commit": "1709af9",
+      "evidence": "specs/monoleaf.mobile-interactions.json"
+    },
+    "mobile-new-tab-fragment": {
+      "number": 81,
+      "parent": 8,
+      "category": "bug",
+      "progress": "active: native regression reproduced; callback correction under verification",
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/81"
     }
   },
   "refinements": {

@@ -30,7 +30,7 @@ extension ReaderSession
         {
         case .fragment(let id): command(["type": "jump", "id": id])
         case .document(let target, let fragment):
-            if newTab, let openNewTab { openNewTab(target, root) }
+            if newTab, let openNewTab { openNewTab(target, root, fragment) }
             else { open(target, folder: root, fragment: fragment) }
         case .external(let target):
             #if os(macOS)

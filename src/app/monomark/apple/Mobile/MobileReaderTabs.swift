@@ -41,7 +41,7 @@ final class MobileReaderTabs: ObservableObject
         current = session
     }
 
-    func newTab(file: URL? = nil, folder: URL? = nil)
+    func newTab(file: URL? = nil, folder: URL? = nil, fragment: String? = nil)
     {
         checkpointCurrent()
         let id = UUID()
@@ -53,7 +53,7 @@ final class MobileReaderTabs: ObservableObject
         current = session
         if let file
         {
-            session.open(file, folder: folder)
+            session.open(file, folder: folder, fragment: fragment)
         }
     }
 
@@ -109,8 +109,8 @@ final class MobileReaderTabs: ObservableObject
 
     private func configure(_ session: ReaderSession)
     {
-        session.openNewTab = { [weak self] file, folder in
-            self?.newTab(file: file, folder: folder)
+        session.openNewTab = { [weak self] file, folder, fragment in
+            self?.newTab(file: file, folder: folder, fragment: fragment)
         }
         session.titleChanged = { [weak self] _ in
             self?.objectWillChange.send()

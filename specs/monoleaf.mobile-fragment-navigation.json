@@ -1,0 +1,59 @@
+{
+  "date": "2026-11-23",
+  "issue": 81,
+  "sourceBase": "1709af9",
+  "scope": "new-tab heading fragments and stable virtualized navigation",
+  "failure": "A new document tab dropped its fragment. After forwarding was corrected, initial range selection and viewport replacement/resize also displaced the destination.",
+  "implementation": [
+    "Carry fragments through mobile and Mac tab callbacks.",
+    "Request a fragment range before the initial document can scroll.",
+    "Preserve visible reading offsets across range replacement and resize.",
+    "Retain pending destinations through two guarded animation frames for delayed WebKit native scroll updates.",
+    "Reset cached anchors when replacing or clearing a document."
+  ],
+  "regressionsFailedFirst": [
+    "Native phone link action opened the file without reaching the section.",
+    "Renderer initial fragment range omitted the distant destination.",
+    "Replacing the viewport lost the visible block offset.",
+    "Resize used the reset browser offset instead of the previous reading offset."
+  ],
+  "native": {
+    "fullMatrixBundle": "/tmp/monoleaf-mobile-complete-native.xcresult",
+    "fullMatrixExecutions": 32,
+    "fullMatrixPassed": 31,
+    "fullMatrixFailed": 1,
+    "testCorrection": "XCTest queried an activation point for a noninteractive paragraph during layout. The final predicate requires its full frame inside the webview.",
+    "finalFragmentBundle": "/tmp/monoleaf-mobile-fragment-visibility.xcresult",
+    "finalFragmentExecutions": 2,
+    "finalFragmentPassed": 2,
+    "uniquePassingCasesPerDevice": 16,
+    "devices": [
+      "iPhone 12 mini Simulator",
+      "iPad Pro 13-inch M5 Simulator"
+    ],
+    "os": "26.5"
+  },
+  "rendererHostTestsPassed": 30,
+  "runtimeDependencyAudit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "diagnosticInstrumentationRemoved": true,
+  "physicalAcceptanceExecuted": false,
+  "macSubmittedBuild111Changed": false,
+  "mobileUploaded": false,
+  "checks": {
+    "renderer": 142,
+    "swiftTesting": 144,
+    "xctestCore": 6,
+    "macArmAndUniversalBuilds": true,
+    "iosDeviceAndSimulatorBuilds": true,
+    "sourceStyle": true,
+    "repositoryPython": 105,
+    "repositoryBats": 56
+  }
+}

@@ -75,3 +75,22 @@ Expose the app's Documents folder through Files so offline exports have a local 
 
 Track the iPad inspector, touch controls and compact landscape fixes through #78, #79 and #80 under #8.
 Distinguish an application regression from test timing or selector errors in the native evidence.
+
+## New-tab fragment correction
+
+Source review found that ReaderSession.navigate drops the fragment when it calls openNewTab.
+Add a native regression through Links > Open in New Tab before changing this behavior.
+Extend the callback to (URL, URL?, String?) and forward the fragment into ReaderSession.open.
+Add optional fragment arguments to MobileReaderTabs.newTab and AppDelegate.createWindow.
+Update ReaderWindowController, FolderRow and ReviewLinkSmoke call sites.
+Keep file/folder access checks in LinkPolicy. No new pattern or service is required.
+Use a long synthetic Linked.md fixture with a final heading to verify the actual scroll destination.
+
+Native execution also reproduced a viewport defect after fragment forwarding was corrected.
+Before a first render, WebKit can clamp the scroll offset. Request the destination range directly.
+Preserve the visible block across range replacement and retain its prior offset through resize.
+Keep the destination pending for two animation frames so a delayed native scroll update cannot request the old range.
+Guard scheduled alignment by document epoch, mount sequence and destination identity.
+Reset cached anchors when replacing or clearing a document.
+Three renderer regressions failed first and pass after these corrections.
+Temporary synthetic trace instrumentation was removed before final verification.

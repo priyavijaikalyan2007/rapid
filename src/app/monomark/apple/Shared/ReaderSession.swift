@@ -45,7 +45,7 @@ final class ReaderSession: ObservableObject
     @Published var rendererReady = false
     @Published var isSuspended = false
     weak var webView: WKWebView?
-    var openNewTab: ((URL, URL?) -> Void)?
+    var openNewTab: ((URL, URL?, String?) -> Void)?
     var titleChanged: ((String) -> Void)?
     var printAction: (() -> Void)?
     var clipboardGeneration = UUID()

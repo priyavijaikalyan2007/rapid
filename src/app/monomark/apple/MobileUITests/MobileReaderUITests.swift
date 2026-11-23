@@ -14,6 +14,35 @@ final class MobileReaderUITests: XCTestCase
         continueAfterFailure = false
     }
 
+    func testNewDocumentTabPreservesTheLinkedHeading() throws
+    {
+        let app = exampleApplication()
+        app.launch()
+        expectDocument("Mobile first document", in: app)
+        if !app.buttons["Links"].exists
+        {
+            app.buttons["Document Actions"].tap()
+            app.buttons["Files and Contents"].tap()
+        }
+        app.buttons["Links"].tap()
+        let link = app.buttons["Linked section"]
+        XCTAssertTrue(link.waitForExistence(timeout: 5))
+        link.press(forDuration: 1)
+        app.buttons["Open in New Tab"].tap()
+        let target = app.webViews.staticTexts["Linked section target."].firstMatch
+        XCTAssertTrue(target.waitForExistence(timeout: 15))
+        let destinationVisible = XCTNSPredicateExpectation(
+            predicate: NSPredicate
+            { _, _ in
+                target.exists && !target.frame.isEmpty && app.webViews.firstMatch.frame.contains(target.frame)
+            }, object: nil
+        )
+        XCTAssertEqual(XCTWaiter.wait(for: [destinationVisible], timeout: 10), .completed)
+        app.buttons["Documents"].tap()
+        XCTAssertTrue(app.buttons["First.md"].exists)
+        XCTAssertTrue(app.buttons["Linked.md"].exists)
+    }
+
     func testNotesRemainSeparateWhenTabsSwitchAndClose() throws
     {
         let app = exampleApplication()

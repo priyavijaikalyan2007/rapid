@@ -43,6 +43,61 @@ test('a new load removes old selectable content before its worker is ready',asyn
     await new Promise(resolve=>setTimeout(resolve,20));
 });
 
+test('an initial fragment requests its destination before the page can scroll', async () => {
+    window.MonoMark.command({ type: 'load', epoch: 'initial-fragment', anchor: 'far-90' });
+    await new Promise(resolve => setTimeout(resolve, 20));
+    const worker = workers.at(-1);
+    const blocks = Array.from({ length: 100 }, (_, index) =>
+        ({ id: `far-${index}`, blockID: `far-${index}`, estimate: 80 }));
+    worker.onmessage({ data: { type: 'index', outline: [], links: [], blocks } });
+    const range = worker.sent.findLast(message => message.type === 'range');
+    assert.ok(range.start <= 90 && range.end > 90, 'The bounded range must include the linked destination.');
+});
+
+test('replacing a viewport keeps the visible reading block at its current offset', async () => {
+    window.MonoMark.command({ type: 'load', epoch: 'stable-reading-position' });
+    await new Promise(resolve => setTimeout(resolve, 20));
+    const worker = workers.at(-1);
+    const blocks = [{ id: 'reading-block', blockID: 'reading-block', estimate: 80, html: '<p>Reading.</p>' }];
+    worker.onmessage({ data: { type: 'index', outline: [], links: [], blocks } });
+    const request = worker.sent.findLast(message => message.type === 'range').request;
+    worker.onmessage({ data: { type: 'range', request, start: 0, blocks } });
+    document.querySelector('.monomark-block').getBoundingClientRect = () => ({ top: -10, bottom: 70, height: 80 });
+    const originalScroll = window.scrollTo;
+    const calls = [];
+    window.scrollTo = (x, y) => calls.push([x, y]);
+    try
+    {
+        worker.onmessage({ data: { type: 'range', request, start: 0, blocks } });
+        assert.deepEqual(calls.at(-1), [0, 10]);
+    }
+    finally { window.scrollTo = originalScroll; }
+});
+
+test('resizing restores the last reading offset before the browser resets its scroll position', async () => {
+    window.MonoMark.command({ type: 'load', epoch: 'resize-reading-position' });
+    await new Promise(resolve => setTimeout(resolve, 20));
+    const worker = workers.at(-1);
+    const blocks = [{ id: 'resize-block', blockID: 'resize-block', estimate: 80, html: '<p>Reading.</p>' }];
+    worker.onmessage({ data: { type: 'index', outline: [], links: [], blocks } });
+    const currentRequest = () => worker.sent.findLast(message => message.type === 'range').request;
+    worker.onmessage({ data: { type: 'range', request: currentRequest(), start: 0, blocks } });
+    const element = document.querySelector('.monomark-block');
+    element.getBoundingClientRect = () => ({ top: -10, bottom: 70, height: 80 });
+    window.dispatchEvent(new window.Event('scroll'));
+    element.getBoundingClientRect = () => ({ top: 300, bottom: 380, height: 80 });
+    const originalScroll = window.scrollTo;
+    const calls = [];
+    window.scrollTo = (x, y) => calls.push([x, y]);
+    try
+    {
+        window.dispatchEvent(new window.Event('resize'));
+        worker.onmessage({ data: { type: 'range', request: currentRequest(), start: 0, blocks } });
+        assert.deepEqual(calls.at(-1), [0, 10]);
+    }
+    finally { window.scrollTo = originalScroll; }
+});
+
 test('virtualized mounts preserve selection endpoints and Copy uses the full indexed range', async () => {
     window.MonoMark.command({type:'load',epoch:'long-selection'});
     await new Promise(resolve=>setTimeout(resolve,20));

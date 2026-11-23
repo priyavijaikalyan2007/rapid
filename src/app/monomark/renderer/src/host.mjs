@@ -36,6 +36,7 @@ let outline = [];
 let request = 0;
 let activeRange = '';
 let pendingAnchor;
+let readingAnchor;
 let zoom = 1;
 let matches = [];
 let matchIndex = -1;
@@ -136,7 +137,10 @@ function rebuildOffsets()
 function requestRange(force = false)
 {
     if (!metadata.length || printing) { return; }
-    const range = windowRange(offsets, window.scrollY / zoom, window.innerHeight / zoom);
+    // An empty or partially mounted document clamps scrollY before the destination exists in the DOM.
+    const destination = pendingAnchor ? destinationIndex(pendingAnchor.id) : -1;
+    const top = destination >= 0 ? offsets[destination] : window.scrollY / zoom;
+    const range = windowRange(offsets, top, window.innerHeight / zoom);
     const key = `${range.start}:${range.end}`;
     if (!force && key === activeRange) { return; }
     activeRange = key;
@@ -146,35 +150,53 @@ function requestRange(force = false)
 function mount(message)
 {
     if (message.request !== request || printing) { return; }
+    if (!pendingAnchor) { pendingAnchor = visibleAnchor(); }
     documentSelection.beginMount();
     const mountedSequence = ++mountSequence;
     viewport.replaceChildren(buildViewport(document, message, plan, paper, makeBlock));
     renderedEpoch = epoch;
     const visible = [...viewport.querySelectorAll('.monomark-block')];
-    const enhancements = [];
-    for (const element of visible)
-    {
-        // Measure after deferred content finishes, so incomplete math/diagrams cannot shrink a stable page.
-        enhancements.push(enhance(element));
-    }
     const mountedEpoch = epoch;
-    Promise.all(enhancements).then(() =>
-    {
-        if (mountedEpoch === epoch && mountedSequence === mountSequence)
-        { decorateAnnotations(); documentSelection.afterMount(); }
-    });
+    enhanceMounted(visible, mountedEpoch, mountedSequence);
     rebuildOffsets();
-    if (pendingAnchor)
-    {
-        const saved = pendingAnchor;
-        pendingAnchor = null;
-        const target = document.getElementById(saved.id);
-        if (target) { window.scrollTo(0, target.getBoundingClientRect().top + window.scrollY + saved.offset); }
-    }
+    restoreAnchor(mountedEpoch, mountedSequence);
     decorateAnnotations();
     documentSelection.afterChange();
     emit('visible', { mounted: visible.length });
     savePosition();
+}
+
+function enhanceMounted(visible, mountedEpoch, mountedSequence)
+{
+    // Measure after deferred content finishes, so incomplete math/diagrams cannot shrink a stable page.
+    Promise.all(visible.map(enhance)).then(() =>
+    {
+        if (mountedEpoch === epoch && mountedSequence === mountSequence)
+        { decorateAnnotations(); documentSelection.afterMount(); }
+    });
+}
+
+function restoreAnchor(mountedEpoch, mountedSequence)
+{
+    const saved = pendingAnchor;
+    if (!saved) { return; }
+    const align = () =>
+    {
+        const target = document.getElementById(saved.id);
+        if (target) { window.scrollTo(0, target.getBoundingClientRect().top + window.scrollY + saved.offset); }
+    };
+    align();
+    // WebKit can deliver its native scroll update after the DOM range changes.
+    requestAnimationFrame(() =>
+    {
+        if (mountedEpoch !== epoch || mountedSequence !== mountSequence || pendingAnchor !== saved) { return; }
+        align();
+        requestAnimationFrame(() =>
+        {
+            if (mountedEpoch !== epoch || mountedSequence !== mountSequence || pendingAnchor !== saved) { return; }
+            align(); readingAnchor = saved; pendingAnchor = null; savePosition();
+        });
+    });
 }
 
 function makeBlock(block, index)
@@ -265,13 +287,18 @@ function measure(element)
 
 function jump(id, offset = 0)
 {
-    const index = metadata.findIndex(block => block.id === id || block.blockID === id);
-    const object = outline.find(item => item.id === id);
-    const resolved = index >= 0 ? index : metadata.findIndex(block => block.blockID === object?.blockID);
+    const resolved = destinationIndex(id);
     if (resolved < 0) { emit('status', { message: 'This document has no matching destination.' }); return; }
     pendingAnchor = { id, offset };
     window.scrollTo(0, offsets[resolved] * zoom);
     requestRange(true);
+}
+
+function destinationIndex(id)
+{
+    const index = metadata.findIndex(block => block.id === id || block.blockID === id);
+    const object = outline.find(item => item.id === id);
+    return index >= 0 ? index : metadata.findIndex(block => block.blockID === object?.blockID);
 }
 
 function navigateAnnotation(id)
@@ -299,6 +326,7 @@ function navigateAnnotation(id)
 
 function savePosition()
 {
+    if (renderedEpoch === epoch && !pendingAnchor) { readingAnchor = visibleAnchor() || readingAnchor; }
     clearTimeout(positionTimer);
     positionTimer = setTimeout(() =>
     {
@@ -320,6 +348,7 @@ async function load(command)
     popover.hidden = true; currentLink = ''; printAnchor = null; printing = false; printID = 0; printBlocks = [];
     copyOverlay?.remove();
     epoch = command.epoch;
+    pendingAnchor = null; readingAnchor = null;
     viewport.replaceChildren();
     emit('selection', { anchors: [] });
     zoom = Math.min(3, Math.max(0.5, Number(command.zoom) || 1));
@@ -430,11 +459,7 @@ function applyPreferences(value)
 
 function configureLayout()
 {
-    const visible = [...viewport.querySelectorAll('.monomark-block')].find(item => item.getBoundingClientRect().bottom > 0);
-    if (visible && renderedEpoch === epoch && !pendingAnchor)
-    {
-        pendingAnchor = { id: visible.id, offset: -visible.getBoundingClientRect().top };
-    }
+    if (renderedEpoch === epoch && !pendingAnchor) { pendingAnchor = readingAnchor || visibleAnchor(); }
     paper = paperGeometry({ width: preferences.paperWidth, height: preferences.paperHeight, margin: preferences.paperMargin }, window.innerWidth / zoom - 64);
     paged = preferences.layoutMode === 'pages';
     document.body.classList.toggle('monomark-paged', paged);
@@ -442,6 +467,17 @@ function configureLayout()
     if (!printStyle) { printStyle = document.createElement('style'); printStyle.id = 'monomark-paper-style'; document.head.append(printStyle); }
     printStyle.textContent = `@page { size: ${paper.physicalWidth * 0.75}pt ${paper.physicalHeight * 0.75}pt; margin: ${paper.physicalMargin * 0.75}pt; }`;
     rebuildOffsets(); activeRange = ''; requestRange(true);
+}
+
+/** Keep measured blocks stable when a bounded range or viewport geometry changes. */
+function visibleAnchor()
+{
+    const visible = [...viewport.querySelectorAll('.monomark-block')].find(item =>
+    {
+        const rect = item.getBoundingClientRect();
+        return rect.bottom > 0 && rect.top < window.innerHeight;
+    });
+    return visible ? { id: visible.id, offset: -visible.getBoundingClientRect().top } : null;
 }
 
 function applyAppearance(mode)
@@ -530,7 +566,7 @@ function clearDocument(command)
     epoch = command.epoch; renderedEpoch = epoch;
     metadata = []; knownBlockIDs = new Set(); sourceLines = 0; heights = []; outline = []; annotations = []; matches = [];
     indexed = false; indexMilliseconds = 0; indexSourceBytes = 0;
-    pendingAnchor = null; pendingAnnotation = null; activeRange = '';
+    pendingAnchor = null; readingAnchor = null; pendingAnnotation = null; activeRange = '';
     printing = false; printID = 0; printBlocks = []; printAnchor = null;
     clearTimeout(positionTimer); clearTimeout(selectionTimer);
     copyOverlay?.remove(); popover.hidden = true;

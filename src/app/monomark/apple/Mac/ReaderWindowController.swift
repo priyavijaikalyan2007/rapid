@@ -83,8 +83,8 @@ final class ReaderWindowController: NSWindowController, NSWindowDelegate
             }
             application?.saveTabs()
         }
-        session.openNewTab = { [weak self, weak application] file, folder in
-            application?.createWindow(file: file, folder: folder, tabbedWith: self)
+        session.openNewTab = { [weak self, weak application] file, folder, fragment in
+            application?.createWindow(file: file, folder: folder, fragment: fragment, tabbedWith: self)
         }
         session.printAction = { [weak self] in
             self?.printDocument()

@@ -66,15 +66,17 @@ Keep both files in one folder in Files. No account or network resource is requir
 2. Open Welcome.md.
 3. Open Files and Contents through Document Actions.
 4. Select a heading in Contents.
-5. Open Guide.md through its link actions in a new tab.
-6. Switch documents through the Documents menu.
-7. Select document text through the standard touch selection menu.
-8. Open Notes and Annotations.
-9. Add a highlight and enter a comment.
-10. Switch to Notes and type or paste a reading note.
-11. Close and reopen the app to check local reading-data recovery.
-12. Choose Document Actions, Export and Print, then Export Reading Data.
-13. Export a separate reading-data file into On My iPhone or On My iPad, then Monoleaf.
+5. Select Links in navigation.
+6. Press and hold the companion guide link.
+7. Choose Open in New Tab.
+8. Switch documents through the Documents menu.
+9. Select document text through the standard touch selection menu.
+10. Open Notes and Annotations.
+11. Add a highlight and enter a comment.
+12. Switch to Notes and type or paste a reading note.
+13. Close and reopen the app to check local reading-data recovery.
+14. Choose Document Actions, Export and Print, then Export Reading Data.
+15. Export a separate reading-data file into On My iPhone or On My iPad, then Monoleaf.
 
 Settings includes typography, palettes, appearance, reload and optional view-only reference links.
 Mobile export leaves the original document unchanged. The Mac version also offers explicit export into the current file.

@@ -108,7 +108,7 @@ struct FolderRow: View
             {
                 Button("Open in New Tab")
                 {
-                    session.openNewTab?(entry.url, session.root)
+                    session.openNewTab?(entry.url, session.root, nil)
                 }
             }
         }
@@ -121,7 +121,7 @@ struct FolderRow: View
         let modifiers = NSApp.currentEvent?.modifierFlags ?? NSEvent.modifierFlags
         if modifiers.contains(.command), let openNewTab = session.openNewTab
         {
-            openNewTab(entry.url, session.root)
+            openNewTab(entry.url, session.root, nil)
             return
         }
         #endif

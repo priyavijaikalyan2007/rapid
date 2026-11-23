@@ -209,6 +209,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
     func createWindow(
         file: URL? = nil,
         folder: URL? = nil,
+        fragment: String? = nil,
         tabbedWith parent: ReaderWindowController? = nil
     ) -> ReaderWindowController
     {
@@ -225,7 +226,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         controller.window?.makeKeyAndOrderFront(nil)
         if let file
         {
-            controller.session.open(file, folder: folder)
+            controller.session.open(file, folder: folder, fragment: fragment)
         }
         return controller
     }

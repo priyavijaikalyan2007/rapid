@@ -57,10 +57,21 @@ enum MobileReviewFixture
         }
         try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
         for (name, text) in [
-            ("First.md", "# Mobile first document\n\nSelect this passage for a reading note.\n\n[Second](Second.md)\n"),
+            (
+                "First.md",
+                "# Mobile first document\n\nSelect this passage for a reading note.\n\n" +
+                    "[Second](Second.md)\n\n[Linked section](Linked.md#linked-section)\n"
+            ),
             ("Second.md", "# Mobile second document\n\nThe second tab has its own document.\n\n[Third](Third.md)\n"),
             ("Third.md", "# Mobile third document\n\nThe third tab also supports navigation.\n"),
-            ("Rich.md", richSource)
+            ("Rich.md", richSource),
+            (
+                "Linked.md",
+                "# Linked document\n\n" + (1 ... 40).map
+                {
+                    "Paragraph \($0). Synthetic reading text before the destination.\n\n"
+                }.joined() + "## Linked section\n\nLinked section target.\n"
+            )
         ]
         {
             let file = folder.appendingPathComponent(name)

@@ -512,3 +512,9 @@ Fifteen native cases have passing results on both an iPhone 12 mini Simulator an
 Fixed the wide-iPad inspector, compact landscape menus/Notes/sheet heights, touch copy targets and equation focus. Files now exposes the app's local Documents folder for offline export. Exported bytes contain the expected notes. All 37 synthetic source documents remain unchanged. Settings, notes and comments survive relaunch in stable isolated test stores. Normal reading-data paths remain unchanged.
 
 All 150 Swift tests, 139 renderer tests, 105 Python tests, 56 Bats checks, ARM/universal Mac and device/Simulator iOS builds, and source style pass. Local light/dark iPhone/iPad screenshot drafts and the mobile listing are prepared. A clean signed mobile candidate follows. The owner selected Shreya iPhone 12 mini, which is not yet connected. The iPad attempt executed no tests because it was locked, and its last connection check is disconnected. Physical touch/provider/keyboard/VoiceOver and minimum-runtime acceptance remain open. Mac submission build 111 is unchanged.
+
+## Final mobile fragment and viewport regression
+
+Bug #81 preserves heading fragments through both platform tab callbacks. Three renderer regressions also repair initial destination range selection and reading-offset stability across viewport replacement/resize. Pending alignment remains active through WebKit's delayed native scroll update. All 142 renderer tests, 150 Swift tests, ARM/universal Mac and device/Simulator iOS builds, source style, 105 Python tests and 56 Bats checks pass. The runtime dependency audit reports zero advisories.
+
+The complete native matrix passed 31 of 32 executions. A static-text activation-point query caused the remaining test failure. Its corrected full-frame visibility assertion passes on both devices. All 16 cases have passing results on each Simulator. See monoleaf.mobile-fragment-navigation.json. Signed local archive/export and physical acceptance remain.

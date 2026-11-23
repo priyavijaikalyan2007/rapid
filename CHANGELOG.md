@@ -20,6 +20,8 @@ Created: 2026
 
 ### Fixed
 
+- Preserved heading destinations when Monoleaf opens a document tab and kept reading offsets stable through viewport changes.
+
 - Restored the Monoleaf iPad notes inspector and kept phone dialogs and Notes usable in landscape.
 - Enlarged artifact copy controls for touch and made equation controls focusable.
 - Made Monoleaf local export destinations available in Files without a cloud account.
