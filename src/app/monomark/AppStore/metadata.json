@@ -1,5 +1,5 @@
 {
-  "status": "owner-tested build 111 uploaded; Apple processing last observed; build selection pending; not submitted for review",
+  "status": "owner confirmed macOS build 111 selected and submitted for App Review on 22 November 2026; Apple review outcome unconfirmed",
   "name": "Monoleaf",
   "subtitle": "Markdown, diagrams, and notes",
   "bundleIdentifier": "us.outcrop.MonoMark",
@@ -30,10 +30,8 @@
   "reviewContact": null,
   "releaseMode": "manual",
   "pending": [
-    "After Apple processing, replace selected build 107 with 111 and save",
-    "Remaining selected manual release acceptance and signed screenshot comparison",
-    "Authorize publication of prepared Monoleaf support/privacy text",
-    "Authorize App Review submission after final checks"
+    "Apple review outcome and manual public-release decision",
+    "Remaining selected manual acceptance and signed screenshot comparison"
   ],
   "publisher": "Outcrop Inc",
   "reviewContactSource": "Reuse existing CropPrint private App Review contact; do not store details here",

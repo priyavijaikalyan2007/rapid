@@ -7,6 +7,19 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { serializeRows, artifactSource, imageBounds } from '../src/artifacts.mjs';
 
+test('tapping an equation focuses its copy controls without requiring a hovering pointer', async () =>
+{
+    const { JSDOM } = await import('jsdom');
+    const { installArtifactActions } = await import('../src/artifacts.mjs');
+    const dom = new JSDOM('<main><span data-math="x%5E2">x squared</span></main>');
+    globalThis.document = dom.window.document;
+    installArtifactActions(document.querySelector('main'), { text() {}, png() {} });
+    document.querySelector('[data-math]').click();
+    assert.equal(document.activeElement, document.querySelector('.monomark-artifact-equation'));
+    dom.window.close();
+    delete globalThis.document;
+});
+
 test('CSV quotes delimiters quotes and multiline cells', () => {
     assert.equal(serializeRows([['A,B', '"quoted"', 'line\nbreak']], ','), '"A,B","""quoted""","line\nbreak"');
 });

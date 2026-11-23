@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-23",
+  "status": "development drafts; compare with signed candidate before submission",
+  "devices": [
+    "iPhone 17 Pro Max Simulator",
+    "iPad Pro 13-inch M5 Simulator"
+  ],
+  "os": "26.5",
+  "source": "public AppStore/Fixtures/Welcome.md and Guide.md in isolated app-owned storage",
+  "imageProcessing": "System screenshot captures, then JPEG export through sips. No content was added or removed.",
+  "visualInspection": "Light and dark captures inspected for both device classes.",
+  "appleSpecifications": "https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/",
+  "specificationsCheckedDate": "2026-11-23",
+  "files": [
+    {
+      "path": "local/release-artifacts/monoleaf/MobileDrafts/ipad-reader-dark.jpg",
+      "sha256": "53a251dc11ad226e9c068a165aa870344be903220656d85d660df8442e01d38d",
+      "width": 2064,
+      "height": 2752,
+      "format": "JPEG",
+      "hasAlpha": false,
+      "appearance": "dark",
+      "sourceCapture": "local/release-artifacts/monoleaf/MobileDrafts/ipad-reader-dark.png"
+    },
+    {
+      "path": "local/release-artifacts/monoleaf/MobileDrafts/ipad-reader-light.jpg",
+      "sha256": "a7692241b62aa36eb1d927336f96b43bfdf6fd7e0ce07d3fb15dd4fc627c4ac8",
+      "width": 2064,
+      "height": 2752,
+      "format": "JPEG",
+      "hasAlpha": false,
+      "appearance": "light",
+      "sourceCapture": "local/release-artifacts/monoleaf/MobileDrafts/ipad-reader-light.png"
+    },
+    {
+      "path": "local/release-artifacts/monoleaf/MobileDrafts/iphone-reader-dark.jpg",
+      "sha256": "73e5b3cd0b5eab957c6739a6c4a194b26a99d04c45cacd24f7f7e13080af6629",
+      "width": 1320,
+      "height": 2868,
+      "format": "JPEG",
+      "hasAlpha": false,
+      "appearance": "dark",
+      "sourceCapture": "local/release-artifacts/monoleaf/MobileDrafts/iphone-reader-dark.png"
+    },
+    {
+      "path": "local/release-artifacts/monoleaf/MobileDrafts/iphone-reader-light.jpg",
+      "sha256": "4244e51be18eed9cb77218c7dc7da9fa50e8e9bc4183ed3dc64e7adb62990843",
+      "width": 1320,
+      "height": 2868,
+      "format": "JPEG",
+      "hasAlpha": false,
+      "appearance": "light",
+      "sourceCapture": "local/release-artifacts/monoleaf/MobileDrafts/iphone-reader-light.png"
+    }
+  ],
+  "uploaded": false
+}

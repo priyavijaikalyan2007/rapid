@@ -109,3 +109,10 @@ table[data-table-key] tr[data-row-alternate="true"] td { background: var(--palet
     .monomark-column-banding table[data-table-key] tr td { background: white; }
     .monomark-column-banding table[data-table-key] tr td:nth-child(even) { background: #eeeeee; }
 }
+
+/* Touch targets follow the mobile control size while fine-pointer desktop controls retain their compact form. */
+@media (any-pointer: coarse)
+{
+    .monomark-artifact-actions { gap: 6px; }
+    .monomark-artifact-actions button { width: 44px; height: 44px; padding: 9px; }
+}

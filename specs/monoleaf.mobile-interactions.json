@@ -1,0 +1,116 @@
+{
+  "date": "2026-11-23",
+  "scope": "mobile reading-data lifecycle, touch controls, local export and adaptive layout",
+  "sourceBase": "bc18cf8",
+  "nativeAcceptance": {
+    "devices": [
+      "iPhone 12 mini Simulator",
+      "iPad Pro 13-inch M5 Simulator"
+    ],
+    "os": "26.5",
+    "uniqueCasesWithPassingResultsPerDevice": 15,
+    "fullMatrix": {
+      "resultBundle": "/tmp/monoleaf-mobile-acceptance-final.xcresult",
+      "caseExecutions": 28,
+      "passedExecutions": 26,
+      "failedExecutions": 2
+    },
+    "correctedSystemFlows": {
+      "resultBundle": "/tmp/monoleaf-mobile-system-flows-final.xcresult",
+      "caseExecutions": 6,
+      "passedExecutions": 6,
+      "failedExecutions": 0
+    },
+    "testCorrections": [
+      "Phone export queried its destination header before it appeared. Wait for it before choosing a fallback folder.",
+      "The iPad PNG test queried hittability during keyboard dismissal. A focused dismissal check passed without an application change. Wait for dismissal before querying the button.",
+      "Stable isolated test stores are required for relaunch checks. Test UUIDs and app-data paths do not enter production storage."
+    ],
+    "verified": [
+      "Initial file/folder actions",
+      "Compact document actions",
+      "Find after rotation",
+      "Settings after relaunch",
+      "Notes after background and relaunch",
+      "Notes across tab switches and closure",
+      "Three independent document tabs",
+      "Document text copy and Notes paste",
+      "Touch highlight/comment and comment recovery",
+      "44-point artifact copy targets",
+      "Table CSV copy and paste",
+      "Diagram PNG copy",
+      "Native file export and success return",
+      "Settings/export in compact landscape",
+      "Notes with keyboard in compact landscape",
+      "Keyboard dismissal after Notes closes"
+    ]
+  },
+  "regressions": {
+    "iPadInspectorFailedFirst": true,
+    "touchTargetFailedFirst": true,
+    "equationFocusUnitTestFailedFirst": true,
+    "landscapeMenuAndNotesFailedFirst": true,
+    "fixedSettingsSheetHeightFailedFirst": true,
+    "localDocumentsContractFailedFirst": true
+  },
+  "exportByteVerification": [
+    {
+      "device": "smallPhone",
+      "exports": [
+        {
+          "filename": "monoleaf-export-7E43BA0F-EF98-4A58-854E-B7164B66FD1E.md",
+          "sha256": "f287b94a200f3484c3bc0bf97237a585e29d0393526a8d28c5a97b9adf06a10d",
+          "containsExpectedNotes": true,
+          "hasGeneratedNotesSection": true
+        }
+      ],
+      "syntheticOriginalsUnchanged": 21
+    },
+    {
+      "device": "iPad",
+      "exports": [
+        {
+          "filename": "monoleaf-export-16D29420-227D-457D-A199-867C48FA34C3.md",
+          "sha256": "f287b94a200f3484c3bc0bf97237a585e29d0393526a8d28c5a97b9adf06a10d",
+          "containsExpectedNotes": true,
+          "hasGeneratedNotesSection": true
+        },
+        {
+          "filename": "monoleaf-export-B2D03028-D1B4-44AE-9574-D2BD786DA06E.md",
+          "sha256": "f287b94a200f3484c3bc0bf97237a585e29d0393526a8d28c5a97b9adf06a10d",
+          "containsExpectedNotes": true,
+          "hasGeneratedNotesSection": true
+        }
+      ],
+      "syntheticOriginalsUnchanged": 16
+    }
+  ],
+  "checks": {
+    "swiftTesting": 144,
+    "xctestCore": 6,
+    "renderer": 139,
+    "repositoryPython": 105,
+    "repositoryBats": 56,
+    "macArmAndUniversalBuilds": true,
+    "iosDeviceAndSimulatorBuilds": true,
+    "sourceStyle": true
+  },
+  "physicalAcceptance": {
+    "iPhone": "Owner selected Shreya iPhone 12 mini. The selected physical device is not connected. A same-model Simulator is separate evidence.",
+    "iPad": "Initial attempt ran zero tests because the device was locked. The last connection check reports disconnected.",
+    "testsExecuted": false,
+    "remaining": [
+      "Physical touch and lifecycle",
+      "External Files providers and access recovery",
+      "External keyboard",
+      "VoiceOver",
+      "Minimum supported OS runtime"
+    ]
+  },
+  "screenshots": "specs/monoleaf.mobile-screenshot-drafts.json",
+  "mobileListing": "src/app/monomark/AppStore/MOBILE-LISTING.md",
+  "signedArchiveVerified": false,
+  "uploaded": false,
+  "submitted": false,
+  "macSubmittedBuild111Changed": false
+}

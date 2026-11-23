@@ -504,3 +504,11 @@ Task #72 now has matching mobile bundle ID/team, a dedicated opaque iOS icon and
 ## Phone navigation and tab regressions repaired
 
 Three actual iPhone Simulator UI tests pass after failing first: start-screen actions, reachable compact actions and independent three-document tabs. Six stable-tab core regressions also pass. All existing 144 core/138 renderer tests, all Apple builds, 104 Python/56 Bats and source style pass. See monoleaf.mobile-navigation.json. The iOS test target is separate from the owner-edited Mac test scheme. Notes/settings/export lifecycle, iPad/device acceptance and signed candidate preparation remain.
+
+## Mobile native interaction acceptance
+
+Fifteen native cases have passing results on both an iPhone 12 mini Simulator and an iPad Pro 13-inch Simulator, using iOS 26.5. The first 28 executions passed 26 checks. The remaining failures were test timing errors for the native destination header and keyboard dismissal. All six corrected system-flow executions pass. The keyboard dismissal diagnostic passed without an app change. See monoleaf.mobile-interactions.json.
+
+Fixed the wide-iPad inspector, compact landscape menus/Notes/sheet heights, touch copy targets and equation focus. Files now exposes the app's local Documents folder for offline export. Exported bytes contain the expected notes. All 37 synthetic source documents remain unchanged. Settings, notes and comments survive relaunch in stable isolated test stores. Normal reading-data paths remain unchanged.
+
+All 150 Swift tests, 139 renderer tests, 105 Python tests, 56 Bats checks, ARM/universal Mac and device/Simulator iOS builds, and source style pass. Local light/dark iPhone/iPad screenshot drafts and the mobile listing are prepared. A clean signed mobile candidate follows. The owner selected Shreya iPhone 12 mini, which is not yet connected. The iPad attempt executed no tests because it was locked, and its last connection check is disconnected. Physical touch/provider/keyboard/VoiceOver and minimum-runtime acceptance remain open. Mac submission build 111 is unchanged.

@@ -165,11 +165,13 @@ struct ReaderView: View
             #endif
         }
         .preferredColorScheme(appearance == "dark" ? .dark : appearance == "light" ? .light : nil)
+        #if os(macOS)
         .inspector(isPresented: $annotations.shown)
         {
             AnnotationInspector(session: session, controller: annotations)
                 .inspectorColumnWidth(min: 260, ideal: 320, max: 480)
         }
+        #endif
         .onChange(of: appearance)
         { _, value in
             session.command(["type": "appearance", "mode": value])
@@ -245,7 +247,7 @@ struct ReaderView: View
         #if os(iOS)
         if horizontalSizeClass == .compact
         {
-            document
+            inspectedDocument
                 .sheet(isPresented: $session.showSidebar)
                 {
                     NavigationStack
@@ -290,9 +292,23 @@ struct ReaderView: View
                 .navigationSplitViewColumnWidth(min: 250, ideal: 280, max: 420)
         }
         detail: {
-            document
+            inspectedDocument
         }
         .navigationSplitViewStyle(.balanced)
+    }
+
+    @ViewBuilder private var inspectedDocument: some View
+    {
+        #if os(iOS)
+        // The regular-width inspector must attach to the split view's detail column.
+        document.inspector(isPresented: $annotations.shown)
+        {
+            AnnotationInspector(session: session, controller: annotations)
+                .inspectorColumnWidth(min: 260, ideal: 320, max: 480)
+        }
+        #else
+        document
+        #endif
     }
 
     private var document: some View

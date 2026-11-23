@@ -34,10 +34,21 @@ struct MobileReaderToolbar: ToolbarContent
                 {
                     session.showSidebar.toggle()
                 }
-                documentActions
+                Button("Find in Document", systemImage: "magnifyingglass")
+                {
+                    session.showFind = true
+                }.keyboardShortcut("f").disabled(session.url == nil)
                 Button("Settings", systemImage: "textformat.size")
                 {
                     session.showSettings = true
+                }
+                Menu("View and Navigation", systemImage: "rectangle.and.text.magnifyingglass")
+                {
+                    navigationActions
+                }
+                Menu("Export and Print", systemImage: "square.and.arrow.up")
+                {
+                    exportActions
                 }
             } label: {
                 Label("Document Actions", systemImage: "ellipsis.circle")
@@ -45,57 +56,51 @@ struct MobileReaderToolbar: ToolbarContent
         }
     }
 
-    @ViewBuilder private var documentActions: some View
+    @ViewBuilder private var navigationActions: some View
     {
-        Section("Document")
+        Button("Refresh", systemImage: "arrow.clockwise")
         {
-            Button("Find in Document", systemImage: "magnifyingglass")
+            session.refresh()
+        }.disabled(session.url == nil)
+        Button("Copy Document Path", systemImage: "doc.on.doc")
+        {
+            if let url = session.url
             {
-                session.showFind = true
-            }.keyboardShortcut("f").disabled(session.url == nil)
-            Button("Refresh", systemImage: "arrow.clockwise")
-            {
-                session.refresh()
-            }.disabled(session.url == nil)
-            Button("Copy Document Path", systemImage: "doc.on.doc")
-            {
-                if let url = session.url
-                {
-                    session.copy(url.path)
-                }
-            }.disabled(session.url == nil)
-            Menu("Reading Layout", systemImage: "rectangle.split.1x2")
-            {
-                Button("Pageless")
-                {
-                    session.setLayout("pageless")
-                }
-                Button("Pages")
-                {
-                    session.setLayout("pages")
-                }
+                session.copy(url.path)
             }
-            Button("Back", systemImage: "chevron.left")
+        }.disabled(session.url == nil)
+        Menu("Reading Layout", systemImage: "rectangle.split.1x2")
+        {
+            Button("Pageless")
             {
-                session.go(-1)
+                session.setLayout("pageless")
             }
-            Button("Forward", systemImage: "chevron.right")
+            Button("Pages")
             {
-                session.go(1)
+                session.setLayout("pages")
             }
         }
-        Section("Share")
+        Button("Back", systemImage: "chevron.left")
         {
-            Button("Export Reading Data…", systemImage: "square.and.arrow.up")
-            {
-                session.showExportOptions = true
-            }.disabled(session.url == nil || !session.annotations.ready)
-            Button("Export a Copy…", action: exportCopy)
-                .disabled(session.url == nil || !session.annotations.ready)
-            Button("Print…", systemImage: "printer")
-            {
-                session.command(["type": "print"])
-            }.keyboardShortcut("p").disabled(session.url == nil)
+            session.go(-1)
         }
+        Button("Forward", systemImage: "chevron.right")
+        {
+            session.go(1)
+        }
+    }
+
+    @ViewBuilder private var exportActions: some View
+    {
+        Button("Export Reading Data…", systemImage: "square.and.arrow.up")
+        {
+            session.showExportOptions = true
+        }.disabled(session.url == nil || !session.annotations.ready)
+        Button("Export a Copy…", action: exportCopy)
+            .disabled(session.url == nil || !session.annotations.ready)
+        Button("Print…", systemImage: "printer")
+        {
+            session.command(["type": "print"])
+        }.keyboardShortcut("p").disabled(session.url == nil)
     }
 }

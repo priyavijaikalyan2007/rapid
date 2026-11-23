@@ -48,6 +48,7 @@ struct AnnotationRow: View
                     changed.comment = value
                     update(changed)
                 }), axis: .vertical).lineLimit(2 ... 8)
+                    .accessibilityIdentifier("annotation-comment-\(annotation.id)")
                 HStack
                 {
                     Spacer()

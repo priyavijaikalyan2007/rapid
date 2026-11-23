@@ -20,6 +20,9 @@ struct MonoMarkMobile: App
         WindowGroup
         {
             MobileReaderView()
+                #if DEBUG
+                .defaultAppStorage(MobileReviewFixture.defaults ?? .standard)
+                #endif
         }
     }
 }

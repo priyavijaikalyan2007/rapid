@@ -45,6 +45,11 @@ class MonoMarkReleaseTests(unittest.TestCase):
             conditions = config["buildSettings"].get("SWIFT_ACTIVE_COMPILATION_CONDITIONS", "")
             self.assertEqual("DEBUG" in conditions.split(), config["name"] == "Debug")
 
+    def test_mobile_supports_local_document_folders_without_an_account(self):
+        info = plistlib.loads((APPLE / "Mobile/Info.plist").read_bytes())
+        self.assertIs(info.get("UIFileSharingEnabled"), True)
+        self.assertIs(info.get("LSSupportsOpeningDocumentsInPlace"), True)
+
     def test_mobile_icon_has_the_required_opaque_dimensions(self):
         catalog = APPLE / "Mobile/Assets.xcassets/AppIcon.appiconset"
         images = json.loads((catalog / "Contents.json").read_text())["images"]

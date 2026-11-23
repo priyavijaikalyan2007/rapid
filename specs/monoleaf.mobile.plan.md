@@ -61,3 +61,17 @@ Never inspect private documents or normal reading stores during automation.
 Validate code, signed archives, Simulator results, physical-device results and store delivery separately.
 Use real file providers, touch selection, external keyboard, VoiceOver, rotation and iPad compact layouts
 when available. Simulator compilation alone is not mobile acceptance.
+
+## Native interaction findings
+
+Keep each test document and its settings/notes in a stable, isolated store across relaunch.
+ReaderSession accepts an optional storageDirectory alongside its existing defaults injection.
+Normal application storage paths remain unchanged.
+
+Attach the iOS inspector to the split detail column. Pin the phone Notes header above its scrollable content.
+Group secondary commands into native submenus and remove phone-only fixed sheet heights.
+Keep the existing Mac window sizes. Use 44-point artifact controls for touch and focusable equation controls.
+Expose the app's Documents folder through Files so offline exports have a local destination.
+
+Track the iPad inspector, touch controls and compact landscape fixes through #78, #79 and #80 under #8.
+Distinguish an application regression from test timing or selector errors in the native evidence.

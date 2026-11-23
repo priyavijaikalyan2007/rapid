@@ -184,7 +184,7 @@ struct ReaderSettings: View
         #if os(macOS)
         .frame(minWidth: 680, idealWidth: 720, minHeight: 560)
         #else
-        .frame(minWidth: 320, minHeight: 500)
+        .frame(minWidth: 320)
         #endif
         .onChange(of: session.preferences)
         { _, _ in

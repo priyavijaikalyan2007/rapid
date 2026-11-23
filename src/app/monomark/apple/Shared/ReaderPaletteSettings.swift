@@ -74,7 +74,7 @@ struct ReaderPaletteSettings: View
         #if os(macOS)
         .frame(minWidth: 600, idealWidth: 660, minHeight: 560)
         #else
-        .frame(minWidth: 300, minHeight: 420)
+        .frame(minWidth: 300)
         #endif
     }
 

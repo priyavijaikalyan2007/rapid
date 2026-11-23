@@ -16,7 +16,7 @@ final class MobileReaderTabs: ObservableObject
     init()
     {
         let id = UUID()
-        let session = ReaderSession()
+        let session = Self.makeSession()
         current = session
         sessions = [id: session]
         selection = DocumentTabSelection(first: id)
@@ -45,7 +45,7 @@ final class MobileReaderTabs: ObservableObject
     {
         checkpointCurrent()
         let id = UUID()
-        let session = ReaderSession()
+        let session = Self.makeSession()
         configure(session)
         session.showSidebar = false
         sessions[id] = session
@@ -96,6 +96,15 @@ final class MobileReaderTabs: ObservableObject
         current.rendererReady = false
         current.showSidebar = false
         current.annotations.shown = false
+    }
+
+    private static func makeSession() -> ReaderSession
+    {
+        #if DEBUG
+        ReaderSession(defaults: MobileReviewFixture.defaults, storageDirectory: MobileReviewFixture.storageDirectory)
+        #else
+        ReaderSession()
+        #endif
     }
 
     private func configure(_ session: ReaderSession)

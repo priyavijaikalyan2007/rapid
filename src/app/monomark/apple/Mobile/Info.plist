@@ -39,6 +39,8 @@
 	<string>© 2026 Outcrop Inc.</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
 	<key>ITSAppUsesNonExemptEncryption</key>

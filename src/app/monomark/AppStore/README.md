@@ -1,7 +1,7 @@
 <!-- SPDX-FileCopyrightText: 2026 Outcrop Inc -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!-- File GUID: 6212aed3-8c22-4bfb-9a3a-d3f78110eed2 -->
-<!-- AGENT: Mac-first release handoff, account prerequisites, and local archive/export instructions. -->
+<!-- AGENT: Platform release handoffs, account prerequisites, and local archive/export instructions. -->
 
 # Monoleaf Mac App Store preparation
 
@@ -62,8 +62,10 @@ Use macOS and iOS platform versions in that record. The iOS build supports both 
 The iOS platform can be added later if the Mac version ships first.
 
 Apple requires the platform targets to share the bundle ID for universal purchase.
-The mobile target currently uses us.outcrop.MonoMarkMobile. Task #72 tracks alignment and mobile signing before its first store upload.
-The notarized Mac build 93 already uses the intended bundle ID. Its artifact remains unchanged.
+The mobile target now uses us.outcrop.MonoMark and the Outcrop signing team. Task #72 tracks its signed candidate and physical acceptance before the first mobile store upload.
+Use [the mobile listing handoff](MOBILE-LISTING.md) for the separate iOS draft.
+Run tools/archive-mobile-app-store from a clean checkout for a local iOS archive and export. The command does not upload.
+The submitted Mac build 111 remains unchanged.
 
 Keep the price Free and release mode manual. Use Productivity and Utilities as the proposed categories.
 Reuse CropPrint's authorized private review contact directly in App Store Connect. Keep contact details outside source.

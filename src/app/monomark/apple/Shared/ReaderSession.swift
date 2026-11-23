@@ -22,7 +22,7 @@ import UIKit
 @MainActor
 final class ReaderSession: ObservableObject
 {
-    let annotations = AnnotationController()
+    let annotations: AnnotationController
     let workspaces = WorkspaceLibrary.shared
     @Published var url: URL?
     @Published var root: URL?
@@ -73,25 +73,18 @@ final class ReaderSession: ObservableObject
         generation.uuidString
     }
 
-    init(defaults: UserDefaults? = nil)
+    init(defaults: UserDefaults? = nil, storageDirectory: URL? = nil)
     {
         let arguments = ProcessInfo.processInfo.arguments
         let temporary = arguments.contains("--smoke-test") || arguments.contains("--demo")
-        // Synthetic sessions must not read or overwrite the owner's reader defaults.
+        // Injected test stores survive relaunch without reading the normal application container.
+        let base = storageDirectory ?? (temporary ? FileManager.default.temporaryDirectory
+            .appendingPathComponent("monomark-smoke-\(UUID().uuidString)") :
+            URL.applicationSupportDirectory.appendingPathComponent("MonoMark"))
+        annotations = AnnotationController(databaseURL: base.appendingPathComponent("annotations.sqlite"))
         settingsDefaults = defaults ?? (temporary ? nil : UserDefaults.standard)
         do
         {
-            let base: URL
-            if ProcessInfo.processInfo.arguments.contains("--smoke-test") || ProcessInfo.processInfo.arguments
-                .contains("--demo")
-            {
-                base = FileManager.default.temporaryDirectory
-                    .appendingPathComponent("monomark-smoke-\(UUID().uuidString)")
-            }
-            else
-            {
-                base = URL.applicationSupportDirectory.appendingPathComponent("MonoMark")
-            }
             store = try HistoryStore(url: base.appendingPathComponent("history.sqlite"))
             if let data = settingsDefaults?.data(forKey: "reader-defaults"),
                let saved = try? JSONDecoder().decode(ReaderPreferences.self, from: data)

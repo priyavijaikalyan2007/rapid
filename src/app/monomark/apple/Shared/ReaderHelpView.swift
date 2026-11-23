@@ -43,6 +43,10 @@ struct ReaderHelpView: View
                 }
             }
         }
+        #if os(macOS)
         .frame(minWidth: 320, idealWidth: 620, minHeight: 420)
+        #else
+        .frame(minWidth: 320)
+        #endif
     }
 }

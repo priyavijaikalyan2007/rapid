@@ -64,6 +64,10 @@ struct ReadingExportView: View
                 .disabled(!options.includeAnnotations && !options.includeNotes)
             }.padding()
         }
+        #if os(macOS)
         .frame(minWidth: 320, idealWidth: 560, minHeight: 440)
+        #else
+        .frame(minWidth: 320)
+        #endif
     }
 }

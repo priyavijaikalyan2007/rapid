@@ -20,6 +20,10 @@ Created: 2026
 
 ### Fixed
 
+- Restored the Monoleaf iPad notes inspector and kept phone dialogs and Notes usable in landscape.
+- Enlarged artifact copy controls for touch and made equation controls focusable.
+- Made Monoleaf local export destinations available in Files without a cloud account.
+
 - Restored the Monoleaf phone start screen and kept primary document actions reachable in compact layouts.
 - Bound each mobile document tab to its own renderer and configured navigation callbacks for every tab.
 

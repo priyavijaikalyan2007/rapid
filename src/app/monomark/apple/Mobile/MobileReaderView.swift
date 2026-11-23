@@ -122,6 +122,14 @@ struct MobileReaderView: View
     private func prepareScene()
     {
         tabs.current.showSidebar = horizontalSizeClass == .regular
+        do
+        {
+            try FileManager.default.createDirectory(at: .documentsDirectory, withIntermediateDirectories: true)
+        }
+        catch
+        {
+            tabs.current.fail(error)
+        }
         #if DEBUG
         guard !preparedTestFixture
         else

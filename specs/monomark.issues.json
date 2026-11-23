@@ -434,6 +434,30 @@
       "progress": "active",
       "url": "https://github.com/priyavijaikalyan2007/rapid/issues/77",
       "remaining": "Regress and repair tab webview binding, per-tab callbacks, lifecycle and compact controls."
+    },
+    "mobile-ipad-inspector": {
+      "number": 78,
+      "parent": 8,
+      "category": "bug",
+      "progress": "active: targeted regressions pass; full native suite pending",
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/78",
+      "title": "iPad inspector"
+    },
+    "mobile-touch-copy": {
+      "number": 79,
+      "parent": 8,
+      "category": "bug",
+      "progress": "active: targeted regressions pass; full native suite pending",
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/79",
+      "title": "Touch artifact controls"
+    },
+    "mobile-landscape": {
+      "number": 80,
+      "parent": 8,
+      "category": "bug",
+      "progress": "active: targeted regressions pass; full native suite pending",
+      "url": "https://github.com/priyavijaikalyan2007/rapid/issues/80",
+      "title": "Compact landscape dialogs and notes"
     }
   },
   "refinements": {

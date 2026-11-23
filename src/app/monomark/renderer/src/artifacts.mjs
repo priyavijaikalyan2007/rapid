@@ -60,6 +60,7 @@ export function installArtifactActions(root, handlers)
             : element.dataset.math !== undefined ? 'equation' : element.tagName === 'IMG' ? 'image' : 'code';
         const wrapper = document.createElement(element.tagName === 'SPAN' ? 'span' : 'div');
         wrapper.className = `monomark-artifact monomark-artifact-${kind}`;
+        enableEquationCopyFocus(wrapper, kind);
         element.replaceWith(wrapper);
         wrapper.append(element);
         const actions = document.createElement('span');
@@ -116,4 +117,14 @@ export async function waitForCopyImages(root, timeout = 2000)
         return await Promise.race([decode(), new Promise(resolve => { timer = setTimeout(() => resolve(false), timeout); })]);
     }
     finally { clearTimeout(timer); }
+}
+
+/** Touch and keyboard focus reveal equation actions through the same focus-within style as pointer hover. */
+function enableEquationCopyFocus(wrapper, kind)
+{
+    if (kind !== 'equation') { return; }
+    wrapper.tabIndex = 0;
+    wrapper.setAttribute('role', 'group');
+    wrapper.setAttribute('aria-label', 'Equation copy options');
+    wrapper.addEventListener('click', () => wrapper.focus({ preventScroll: true }));
 }

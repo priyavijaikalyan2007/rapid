@@ -17,19 +17,54 @@ struct AnnotationInspector: View
 
     var body: some View
     {
-        VStack(alignment: .leading, spacing: 12)
+        Group
         {
             #if os(iOS)
-            HStack
-            {
-                Text("Reading data").font(.headline)
-                Spacer()
-                Button("Done")
+            GeometryReader
+            { geometry in
+                VStack(alignment: .leading, spacing: 12)
                 {
-                    controller.shown = false
-                }.keyboardShortcut(.cancelAction)
+                    HStack
+                    {
+                        Text("Reading data").font(.headline)
+                        Spacer()
+                        Button("Done")
+                        {
+                            controller.shown = false
+                        }.keyboardShortcut(.cancelAction)
+                    }
+                    ScrollView
+                    {
+                        readingData(editorHeight: max(120, geometry.size.height - 230))
+                    }.scrollDismissesKeyboard(.interactively)
+                }
             }
+            #else
+            readingData(editorHeight: nil)
             #endif
+        }
+        .padding()
+        .onChange(of: controller.noteSearchFocus)
+        { _, _ in
+            noteSearchFocused = true
+        }
+        .onChange(of: noteSearchFocused)
+        { _, focused in
+            controller.notesSearchFocused = focused
+        }
+        .confirmationDialog("Discard the visible draft and reload saved notes?", isPresented: $discard)
+        {
+            Button("Discard Draft", role: .destructive)
+            {
+                controller.reload()
+            }
+        }
+    }
+
+    private func readingData(editorHeight: CGFloat?) -> some View
+    {
+        VStack(alignment: .leading, spacing: 12)
+        {
             Picker("Reading data", selection: $controller.inspectorTab)
             {
                 Text("Annotations").tag("Annotations")
@@ -37,11 +72,14 @@ struct AnnotationInspector: View
             }.pickerStyle(.segmented)
             if controller.inspectorTab == "Annotations"
             {
-                annotations
+                annotations.frame(height: editorHeight.map
+                {
+                    $0 + 90
+                })
             }
             else
             {
-                notes
+                notes(editorHeight: editorHeight)
             }
             Divider()
             if let error = controller.error
@@ -68,22 +106,6 @@ struct AnnotationInspector: View
                 Text((controller.pending > 0 || controller.notesDirty) ? "Saving on this device…" :
                     "Saved on this device. Markdown source is unchanged.")
                     .font(.caption).foregroundStyle(.secondary)
-            }
-        }
-        .padding()
-        .onChange(of: controller.noteSearchFocus)
-        { _, _ in
-            noteSearchFocused = true
-        }
-        .onChange(of: noteSearchFocused)
-        { _, focused in
-            controller.notesSearchFocused = focused
-        }
-        .confirmationDialog("Discard the visible draft and reload saved notes?", isPresented: $discard)
-        {
-            Button("Discard Draft", role: .destructive)
-            {
-                controller.reload()
             }
         }
     }
@@ -168,7 +190,7 @@ struct AnnotationInspector: View
         }
     }
 
-    private var notes: some View
+    private func notes(editorHeight: CGFloat?) -> some View
     {
         VStack
         {
@@ -216,7 +238,7 @@ struct AnnotationInspector: View
                 Text(controller.noteMatchLabel).font(.caption).foregroundStyle(.secondary)
             }
             NativeNotesEditor(controller: controller)
-                .frame(minHeight: 120)
+                .frame(minHeight: 120).frame(height: editorHeight)
         }
         .disabled(!controller.ready)
     }
