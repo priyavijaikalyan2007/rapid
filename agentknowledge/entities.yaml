@@ -378,5 +378,14 @@
     "related": [
       "MonoMarkReload"
     ]
+  },
+  {
+    "name": "DocumentTabSelection",
+    "table": null,
+    "file": "src/app/monomark/apple/Core/DocumentTabSelection.swift",
+    "description": "Ordered stable document identities preserve selection when asynchronous close operations complete.",
+    "related": [
+      "MonoMarkMobileTabs"
+    ]
   }
 ]

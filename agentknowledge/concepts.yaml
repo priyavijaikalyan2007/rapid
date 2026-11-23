@@ -535,5 +535,15 @@
       "MonoMarkHistory",
       "MonoMarkPalette"
     ]
+  },
+  {
+    "name": "MonoMarkMobileTabs",
+    "definition": "A native mobile coordinator configures every document session and binds each visible webview to a stable tab identity.",
+    "anchor_file": "src/app/monomark/apple/Mobile/MobileReaderTabs.swift",
+    "related": [
+      "MonoMark",
+      "MonoMarkLifecycle",
+      "MonoMarkAnnotations"
+    ]
   }
 ]

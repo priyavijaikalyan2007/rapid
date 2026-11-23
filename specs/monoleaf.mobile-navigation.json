@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-23",
+  "scope": "phone navigation and stable document tabs",
+  "nativeTests": {
+    "passed": 3,
+    "failed": 0,
+    "device": "iPhone 17 Pro Simulator",
+    "os": "26.5",
+    "cases": [
+      "Empty reader exposes file/folder actions",
+      "Compact document actions remain reachable",
+      "Three document tabs render and switch independently"
+    ],
+    "resultBundle": "/tmp/monoleaf-mobile-tabs-green.xcresult"
+  },
+  "regressions": {
+    "emptyScreenFailedFirst": true,
+    "crowdedToolbarFailedFirst": true,
+    "tabBindingFailedFirst": true,
+    "tabFailureReached": "Opening Second.md in a new tab retained the first document in WKWebView.",
+    "testSetupCorrection": "The first synthetic launch lacked DEBUG and did not reach the tab failure. A release-contract regression now verifies Debug-only fixtures."
+  },
+  "checks": {
+    "existingSwiftTestingCases": 144,
+    "newXCTestCoreCases": 6,
+    "rendererTests": 138,
+    "repositoryPythonTests": 104,
+    "repositoryBatsTests": 56,
+    "macArmAndUniversalBuilds": true,
+    "iosDeviceAndSimulatorBuilds": true,
+    "sourceStyle": true
+  },
+  "remaining": [
+    "Native notes/export/settings lifecycle acceptance",
+    "iPad Simulator and physical-device acceptance",
+    "Signed mobile candidate and review assets"
+  ],
+  "macSubmittedBuild111Changed": false
+}

@@ -38,6 +38,13 @@ class MonoMarkReleaseTests(unittest.TestCase):
             self.assertEqual(settings.get("DEVELOPMENT_TEAM"), "4JD5A6Q2HL")
             self.assertEqual(settings["TARGETED_DEVICE_FAMILY"], "1,2")
 
+    def test_mobile_test_fixture_is_debug_only(self):
+        objects, target = self.mobile_configuration()
+        for ref in objects[target["buildConfigurationList"]]["buildConfigurations"]:
+            config = objects[ref]
+            conditions = config["buildSettings"].get("SWIFT_ACTIVE_COMPILATION_CONDITIONS", "")
+            self.assertEqual("DEBUG" in conditions.split(), config["name"] == "Debug")
+
     def test_mobile_icon_has_the_required_opaque_dimensions(self):
         catalog = APPLE / "Mobile/Assets.xcassets/AppIcon.appiconset"
         images = json.loads((catalog / "Contents.json").read_text())["images"]

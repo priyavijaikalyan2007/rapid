@@ -19,6 +19,17 @@ struct AnnotationInspector: View
     {
         VStack(alignment: .leading, spacing: 12)
         {
+            #if os(iOS)
+            HStack
+            {
+                Text("Reading data").font(.headline)
+                Spacer()
+                Button("Done")
+                {
+                    controller.shown = false
+                }.keyboardShortcut(.cancelAction)
+            }
+            #endif
             Picker("Reading data", selection: $controller.inspectorTab)
             {
                 Text("Annotations").tag("Annotations")

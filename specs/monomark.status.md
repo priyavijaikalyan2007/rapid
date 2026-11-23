@@ -500,3 +500,7 @@ Linux is a separate port. Swift supports Linux cross-compilation, but AppKit/Swi
 ## Mobile identity and icon prepared
 
 Task #72 now has matching mobile bundle ID/team, a dedicated opaque iOS icon and local-only archive/export tooling. Five new release regressions failed first, then passed. All 18 release contracts, unsigned mobile builds, 103 Python tests, 56 Bats checks and source style pass. See monoleaf.mobile-resources.json. Signed archive, native UI regressions (#77) and physical acceptance remain. The submitted Mac build is unchanged.
+
+## Phone navigation and tab regressions repaired
+
+Three actual iPhone Simulator UI tests pass after failing first: start-screen actions, reachable compact actions and independent three-document tabs. Six stable-tab core regressions also pass. All existing 144 core/138 renderer tests, all Apple builds, 104 Python/56 Bats and source style pass. See monoleaf.mobile-navigation.json. The iOS test target is separate from the owner-edited Mac test scheme. Notes/settings/export lifecycle, iPad/device acceptance and signed candidate preparation remain.

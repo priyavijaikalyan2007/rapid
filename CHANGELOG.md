@@ -20,6 +20,9 @@ Created: 2026
 
 ### Fixed
 
+- Restored the Monoleaf phone start screen and kept primary document actions reachable in compact layouts.
+- Bound each mobile document tab to its own renderer and configured navigation callbacks for every tab.
+
 - Added the current Monoleaf support anchor while preserving links that use the former app name.
 
 ## 22 November 2026

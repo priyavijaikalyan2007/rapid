@@ -1,94 +1,64 @@
 // SPDX-FileCopyrightText: 2026 Outcrop Inc
 // SPDX-License-Identifier: GPL-3.0-or-later
-// Repository: rapid
 // File GUID: 1b9fb7cb-63be-48ba-9c5f-48171dfeed58
 // Created: 2026
-// COMPONENT: MonoMark platform app
-// PURPOSE: Adapt document tabs and file access to phone and tablet navigation.
-// RELATES: ReaderSession.swift, ReaderView.swift
-// FLOW: Platform event -> native document window -> reader session.
-
+// COMPONENT: Monoleaf mobile scene
+// PURPOSE: Adapt document sessions, picker grants and background saves to phone and tablet navigation.
+// FLOW: Platform event -> mobile tab coordinator -> reader session.
 import SwiftUI
 import UniformTypeIdentifiers
 
-/// A native menu keeps document tabs reachable at narrow phone widths.
 struct MobileReaderView: View
 {
-    @State private var sessions: [ReaderSession] = [ReaderSession()]
-    @State private var selected = 0
+    @StateObject private var tabs = MobileReaderTabs()
     @State private var picker = false
     @State private var folderPicker = false
+    @State private var preparedTestFixture = false
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
     var body: some View
     {
         NavigationStack
         {
-            ReaderView(session: sessions[selected], openFile: {
+            ReaderView(session: tabs.current, openFile: {
                 picker = true
             }, openFolder: {
                 folderPicker = true
             })
-            .navigationTitle(sessions[selected].url?.lastPathComponent ?? "Monoleaf")
+            // A WKWebView and its resource/message handlers belong to exactly one document session.
+            .id(tabs.selection.selectedID)
+            .navigationTitle(tabs.current.url?.lastPathComponent ?? "Monoleaf")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar
             {
-                ToolbarItem(placement: .topBarTrailing)
+                ToolbarItem(placement: .topBarLeading)
                 {
-                    Menu("Documents")
-                    {
-                        ForEach(Array(sessions.enumerated()), id: \.offset)
-                        { index, session in
-                            Button(session.url?.lastPathComponent ?? "Untitled")
-                            {
-                                selected = index
-                            }
-                        }
-                        Button("New Tab")
-                        { sessions.append(ReaderSession())
-                            selected = sessions.count - 1
-                            picker = true
-                        }
-                        if sessions.count > 1
-                        {
-                            Button("Close Tab")
-                            {
-                                let session = sessions[selected]
-                                Task
-                                {
-                                    guard await session.annotations.drain(),
-                                          let index = sessions.firstIndex(where: {
-                                              $0 === session
-                                          })
-                                    else
-                                    {
-                                        return
-                                    }
-                                    session.close()
-                                    sessions.remove(at: index)
-                                    selected = max(0, min(selected, sessions.count - 1))
-                                }
-                            }
-                        }
-                    }
+                    documents
                 }
             }
         }
-        .fileImporter(isPresented: $picker, allowedContentTypes: [.plainText], allowsMultipleSelection: false)
+        .fileImporter(isPresented: $picker, allowedContentTypes: [.plainText], allowsMultipleSelection: true)
         { result in
-            if case .success(let files) = result, let file = files.first
+            if case .success(let files) = result, let first = files.first
             {
-                sessions[selected].open(file)
+                tabs.current.open(first)
+                for file in files.dropFirst()
+                {
+                    tabs.newTab(file: file)
+                }
             }
         }
         .fileImporter(isPresented: $folderPicker, allowedContentTypes: [.folder], allowsMultipleSelection: false)
         { result in
             if case .success(let folders) = result, let folder = folders.first
             {
-                sessions[selected].openWorkspace(folder)
+                tabs.current.openWorkspace(folder)
             }
         }
         .onOpenURL
         {
-            sessions[selected].open($0)
+            tabs.current.open($0)
         }
         .onChange(of: scenePhase)
         { _, phase in
@@ -97,10 +67,7 @@ struct MobileReaderView: View
                 let background = UIApplication.shared.beginBackgroundTask()
                 Task
                 {
-                    for session in sessions
-                    {
-                        _ = await session.annotations.drain()
-                    }
+                    await tabs.checkpointAll()
                     if background != .invalid
                     {
                         UIApplication.shared.endBackgroundTask(background)
@@ -108,15 +75,71 @@ struct MobileReaderView: View
                 }
             }
         }
-        .onAppear
+        .onChange(of: horizontalSizeClass)
+        { _, size in
+            tabs.current.showSidebar = size == .regular
+        }
+        .onAppear(perform: prepareScene)
+    }
+
+    private var documents: some View
+    {
+        Menu
         {
-            sessions[selected].showSidebar = UIDevice.current.userInterfaceIdiom == .pad
-            sessions[selected].openNewTab = { file, root in
-                let session = ReaderSession()
-                session.open(file, folder: root)
-                sessions.append(session)
-                selected = sessions.count - 1
+            ForEach(tabs.selection.ids, id: \.self)
+            { id in
+                if let session = tabs.session(id)
+                {
+                    Button
+                    {
+                        tabs.select(id)
+                    } label: {
+                        Label(
+                            session.url?.lastPathComponent ?? "Untitled",
+                            systemImage: id == tabs.selection.selectedID ? "checkmark" : "doc"
+                        )
+                    }
+                }
+            }
+            Divider()
+            Button("New Tab")
+            {
+                tabs.newTab()
+                picker = true
+            }.keyboardShortcut("t")
+            Button("Close Tab")
+            {
+                Task
+                {
+                    await tabs.closeCurrent()
+                }
+            }.keyboardShortcut("w").disabled(tabs.selection.ids.count == 1)
+        } label: {
+            Label("Documents", systemImage: "square.on.square")
+        }
+    }
+
+    private func prepareScene()
+    {
+        tabs.current.showSidebar = horizontalSizeClass == .regular
+        #if DEBUG
+        guard !preparedTestFixture
+        else
+        {
+            return
+        }
+        preparedTestFixture = true
+        do
+        {
+            if let folder = try MobileReviewFixture.create()
+            {
+                tabs.current.open(folder.appendingPathComponent("First.md"), folder: folder)
             }
         }
+        catch
+        {
+            tabs.current.fail(error)
+        }
+        #endif
     }
 }

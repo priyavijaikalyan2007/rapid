@@ -23,6 +23,7 @@ struct ReaderView: View
     @State private var pendingExport: ReadingExportOptions?
     @State private var exportDestination = ReadingExportDestination.readingDataFile
     #if os(iOS)
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @State private var exportDocument = MarkdownExportDocument(data: Data())
     @State private var showingExport = false
     @State private var exportName = "reading-notes"
@@ -43,6 +44,9 @@ struct ReaderView: View
         {
             if session.showFind
             {
+                #if os(iOS)
+                MobileFindBar(session: session)
+                #else
                 HStack
                 {
                     TextField("Find in document", text: $session.query).textFieldStyle(.roundedBorder)
@@ -68,23 +72,9 @@ struct ReaderView: View
                         session.showFind = false
                     }
                 }.padding(8)
+                #endif
             }
-            NavigationSplitView(columnVisibility: Binding(
-                get: {
-                    session.showSidebar ? .all : .detailOnly
-                },
-                set: {
-                    session.showSidebar = $0 != .detailOnly
-                }
-            ))
-            {
-                SidebarView(session: session, openFolder: openFolder)
-                    .navigationSplitViewColumnWidth(min: 250, ideal: 280, max: 420)
-            }
-            detail: {
-                document
-            }
-            .navigationSplitViewStyle(.balanced)
+            navigation
             Divider()
             HStack
             {
@@ -104,6 +94,7 @@ struct ReaderView: View
         }
         .toolbar
         {
+            #if os(macOS)
             ToolbarItemGroup
             {
                 DocumentLocationView(session: session)
@@ -140,25 +131,6 @@ struct ReaderView: View
                 {
                     Label("Open", systemImage: "doc")
                 }
-                #if os(iOS)
-                Menu
-                {
-                    Button("Export Reading Data…")
-                    {
-                        session.showExportOptions = true
-                    }.disabled(!annotations.ready)
-                    Button("Export a Copy…")
-                    {
-                        exportCopy()
-                    }.disabled(!annotations.ready)
-                    Button("Print…")
-                    {
-                        session.command(["type": "print"])
-                    }.keyboardShortcut("p")
-                } label: {
-                    Label("Document Actions", systemImage: "square.and.arrow.up")
-                }
-                #endif
                 Button
                 {
                     annotations.shown.toggle()
@@ -185,6 +157,12 @@ struct ReaderView: View
                     Label("Settings", systemImage: "textformat.size")
                 }
             }
+            #else
+            MobileReaderToolbar(session: session, openFile: openFile, openFolder: openFolder)
+            {
+                exportCopy()
+            }
+            #endif
         }
         .preferredColorScheme(appearance == "dark" ? .dark : appearance == "light" ? .light : nil)
         .inspector(isPresented: $annotations.shown)
@@ -260,6 +238,61 @@ struct ReaderView: View
             }
         }
         #endif
+    }
+
+    @ViewBuilder private var navigation: some View
+    {
+        #if os(iOS)
+        if horizontalSizeClass == .compact
+        {
+            document
+                .sheet(isPresented: $session.showSidebar)
+                {
+                    NavigationStack
+                    {
+                        SidebarView(session: session, openFolder: openFolder)
+                            .navigationTitle("Navigation")
+                            .toolbar
+                            {
+                                Button("Done")
+                                {
+                                    session.showSidebar = false
+                                }
+                            }
+                    }.presentationDetents([.large])
+                }
+                .onChange(of: session.url)
+                { _, _ in
+                    session.showSidebar = false
+                }
+        }
+        else
+        {
+            splitNavigation
+        }
+        #else
+        splitNavigation
+        #endif
+    }
+
+    private var splitNavigation: some View
+    {
+        NavigationSplitView(columnVisibility: Binding(
+            get: {
+                session.showSidebar ? .all : .detailOnly
+            },
+            set: {
+                session.showSidebar = $0 != .detailOnly
+            }
+        ))
+        {
+            SidebarView(session: session, openFolder: openFolder)
+                .navigationSplitViewColumnWidth(min: 250, ideal: 280, max: 420)
+        }
+        detail: {
+            document
+        }
+        .navigationSplitViewStyle(.balanced)
     }
 
     private var document: some View
