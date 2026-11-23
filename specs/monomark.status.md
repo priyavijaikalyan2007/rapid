@@ -490,3 +490,9 @@ The owner confirms submission of Monoleaf macOS 1.0.0 build 111 for App Review o
 The owner requested the website update on 23 November 2026. Task #76 adds the catalog card, product guide, current icon and four public synthetic screenshots. It explains local reading data and explicit export choices. Mac App Store review remains pending and mobile is planned. All 36 site tests, seven-page validation, lint and desktop/mobile light/dark browser checks pass. Deployment follows the verified source commit.
 
 The website update is now published at https://outcrop.us/apps/monoleaf/. Cloudflare version 5713db86-4332-4d28-bd14-0cfe1e5f7e37 deployed from 3b223d0. Thirteen live HTTPS/content checks pass, including matching screenshot/icon bytes and support anchors. Website task #76 is complete. App Review outcome, public app release and remaining app acceptance checks remain separate.
+
+## Mobile readiness and Linux feasibility audit
+
+On 23 November 2026, the owner asked about starting iPad/iPhone work and cross-compiling the Mac app for Linux. Existing MobileReaderView and shared reader/renderer provide a starting point for both mobile form factors. Task #72 still covers bundle-ID alignment, signing, archive validation and physical-device acceptance. Recommend mobile work next. No new mobile build or acceptance result is claimed by this audit.
+
+Linux is a separate port. Swift supports Linux cross-compilation, but AppKit/SwiftUI/WKWebView and Core's Combine/Darwin/file-coordination dependencies prevent compiling the current application unchanged. Platform-independent Swift logic and the bundled web renderer are potential reuse points. A Linux UI, webview bridge and system adapters are required. No Linux target was added or tested.
