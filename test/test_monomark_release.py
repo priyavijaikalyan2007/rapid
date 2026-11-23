@@ -19,6 +19,63 @@ APPLE = Path(__file__).resolve().parents[1] / "src/app/monomark/apple"
 class MonoMarkReleaseTests(unittest.TestCase):
     """Verify authored release resources, without claiming signed-build acceptance."""
 
+    def mobile_configuration(self):
+        """Read target membership from the real Xcode project rather than matching source text."""
+        project = subprocess.run(
+            ["plutil", "-convert", "json", "-o", "-", str(APPLE / "MonoMark.xcodeproj/project.pbxproj")],
+            capture_output=True, text=True, check=True,
+        )
+        objects = json.loads(project.stdout)["objects"]
+        target = next(value for value in objects.values()
+                      if value.get("isa") == "PBXNativeTarget" and value.get("name") == "MonoMarkMobile")
+        return objects, target
+
+    def test_mobile_uses_the_existing_store_identity_and_outcrop_team(self):
+        objects, target = self.mobile_configuration()
+        for ref in objects[target["buildConfigurationList"]]["buildConfigurations"]:
+            settings = objects[ref]["buildSettings"]
+            self.assertEqual(settings["PRODUCT_BUNDLE_IDENTIFIER"], "us.outcrop.MonoMark")
+            self.assertEqual(settings.get("DEVELOPMENT_TEAM"), "4JD5A6Q2HL")
+            self.assertEqual(settings["TARGETED_DEVICE_FAMILY"], "1,2")
+
+    def test_mobile_icon_has_the_required_opaque_dimensions(self):
+        catalog = APPLE / "Mobile/Assets.xcassets/AppIcon.appiconset"
+        images = json.loads((catalog / "Contents.json").read_text())["images"]
+        entry = next(item for item in images if item.get("idiom") == "universal"
+                     and item.get("platform") == "ios" and item.get("size") == "1024x1024")
+        image = (catalog / entry["filename"]).read_bytes()
+        self.assertEqual(struct.unpack(">II", image[16:24]), (1024, 1024))
+        self.assertEqual(image[25], 2, "The App Store artwork must be RGB without an alpha channel")
+
+    def test_mobile_target_bundles_and_selects_its_own_icon_catalog(self):
+        objects, target = self.mobile_configuration()
+        for ref in objects[target["buildConfigurationList"]]["buildConfigurations"]:
+            self.assertEqual(objects[ref]["buildSettings"].get("ASSETCATALOG_COMPILER_APPICON_NAME"), "AppIcon")
+        resources = [objects[ref] for ref in target["buildPhases"]
+                     if objects[ref]["isa"] == "PBXResourcesBuildPhase"]
+        paths = [objects[objects[file]["fileRef"]]["path"]
+                 for phase in resources for file in phase["files"]]
+        self.assertIn("Mobile/Assets.xcassets", paths)
+
+    def test_mobile_archive_dry_run_is_ios_only_and_does_not_upload(self):
+        result = subprocess.run(
+            [str(APPLE.parent / "tools/archive-mobile-app-store"), "--dry-run"],
+            capture_output=True, text=True, check=True,
+        )
+        self.assertIn("generic/platform=iOS", result.stdout)
+        self.assertIn("MonoMarkMobile", result.stdout)
+        self.assertIn("Monoleaf-iOS.xcarchive", result.stdout)
+        self.assertIn("No upload or App Review submission", result.stdout)
+        self.assertNotIn("generic/platform=macOS", result.stdout)
+
+    def test_mobile_archive_rejects_invalid_arguments_before_signing(self):
+        result = subprocess.run(
+            [str(APPLE.parent / "tools/archive-mobile-app-store"), "--upload"],
+            capture_output=True, text=True,
+        )
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("Usage:", result.stderr)
+
     def test_all_native_products_target_version_one_with_numeric_builds(self):
         project = subprocess.run(
             ["plutil", "-convert", "json", "-o", "-", str(APPLE / "MonoMark.xcodeproj/project.pbxproj")],

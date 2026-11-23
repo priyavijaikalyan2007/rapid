@@ -1342,3 +1342,11 @@ Inspected the existing mobile entry point, shared reader, core package and Xcode
 Swift's official Static Linux SDK supports cross-compilation from macOS using a matching Swift.org toolchain. That does not make this application directly retargetable. The current UI depends on AppKit, SwiftUI and WKWebView. Even Core contains Combine, Darwin file-system watching and Apple file coordination. The JavaScript/HTML/CSS renderer and platform-independent Swift logic are reuse candidates, but the webview bridge, UI and platform services need Linux implementations. Keeping Swift is possible. Compiling the existing app unchanged for Linux is not. No Linux build or port was attempted, and no platform implementation changed.
 
 Sources: https://www.swift.org/documentation/articles/static-linux-getting-started.html and https://developer.apple.com/documentation/swiftui.md. The scope of this turn is source audit and advice.
+
+## Finish mobile versions — 23 November 2026
+
+User: "ok forget Linux. Let us finish iPhone & iOS."
+
+Continue the existing iPhone/iPad target. Linux is excluded. Audited source and passed existing iOS/Simulator builds before changes. Found missing mobile icon/signing identity, crowded toolbar and per-tab renderer/callback gaps. The Mac submission and owner-edited UI-test scheme remain separate. See monoleaf.mobile.plan.md. Paired devices exist, but pairing is not acceptance evidence.
+
+Mobile release resources: five new regressions failed first. All 18 release checks now pass. Both mobile configurations use the existing store bundle ID and Outcrop team. Added an opaque 1024-pixel iOS icon through imagegen, based on the Mac M/down-arrow art. The Mac icon is unchanged. The initial icon test demanded both byte equality with RGBA artwork and no alpha, so that contradictory assertion was corrected. Added a local-only mobile archive/export command with invalid-argument and dry-run checks. iOS and Simulator builds, 103 Python tests, 56 Bats checks and source-style checks pass. Signing/archive execution and physical acceptance remain. iOS 27 runtime files are missing, so native tests will use installed iOS 26.5.

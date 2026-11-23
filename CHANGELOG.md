@@ -14,6 +14,8 @@ Created: 2026
 
 ### Added
 
+- Prepared the Monoleaf iPhone/iPad icon, shared store identity and local-only mobile archive command.
+
 - Added the Monoleaf website catalog entry, product guide and public screenshots while Mac App Store review is pending.
 
 ### Fixed

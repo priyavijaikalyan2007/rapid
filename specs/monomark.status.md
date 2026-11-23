@@ -496,3 +496,7 @@ The website update is now published at https://outcrop.us/apps/monoleaf/. Cloudf
 On 23 November 2026, the owner asked about starting iPad/iPhone work and cross-compiling the Mac app for Linux. Existing MobileReaderView and shared reader/renderer provide a starting point for both mobile form factors. Task #72 still covers bundle-ID alignment, signing, archive validation and physical-device acceptance. Recommend mobile work next. No new mobile build or acceptance result is claimed by this audit.
 
 Linux is a separate port. Swift supports Linux cross-compilation, but AppKit/SwiftUI/WKWebView and Core's Combine/Darwin/file-coordination dependencies prevent compiling the current application unchanged. Platform-independent Swift logic and the bundled web renderer are potential reuse points. A Linux UI, webview bridge and system adapters are required. No Linux target was added or tested.
+
+## Mobile identity and icon prepared
+
+Task #72 now has matching mobile bundle ID/team, a dedicated opaque iOS icon and local-only archive/export tooling. Five new release regressions failed first, then passed. All 18 release contracts, unsigned mobile builds, 103 Python tests, 56 Bats checks and source style pass. See monoleaf.mobile-resources.json. Signed archive, native UI regressions (#77) and physical acceptance remain. The submitted Mac build is unchanged.

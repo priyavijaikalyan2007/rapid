@@ -1,0 +1,37 @@
+{
+  "date": "2026-11-23",
+  "scope": "mobile identity, icon and local archive tooling",
+  "bundleIdentifier": "us.outcrop.MonoMark",
+  "team": "4JD5A6Q2HL",
+  "deviceFamilies": [
+    "iPhone",
+    "iPad"
+  ],
+  "minimumOS": "18.0",
+  "resourceTestsPassed": 18,
+  "newRegressionsFailedFirst": 5,
+  "unsignedDeviceAndSimulatorBuildsPassed": true,
+  "repositoryPythonTestsPassed": 103,
+  "repositoryBatsTestsPassed": 56,
+  "nativeAndShellSourceStylePassed": true,
+  "icon": {
+    "path": "src/app/monomark/apple/Mobile/Assets.xcassets/AppIcon.appiconset/AppIcon.png",
+    "sha256": "a11ecb3de7bd4af329a60f059758ce05f43ad1891b70e656a991cdfa0109f03a",
+    "pixels": [
+      1024,
+      1024
+    ],
+    "rgbWithoutAlpha": true,
+    "provenance": "imagegen adaptation of approved Mac M/down-arrow icon; normalized to 1024 pixels with sips",
+    "macArtworkChanged": false
+  },
+  "localArchiveCommand": "src/app/monomark/tools/archive-mobile-app-store",
+  "signedArchiveVerified": false,
+  "uploaded": false,
+  "submitted": false,
+  "macBuild111Changed": false,
+  "notes": [
+    "The first test incorrectly required both identical RGBA bytes and an RGB image. Corrected that contradictory byte-equality assertion before checking the opaque derived icon.",
+    "iOS 27 Simulator entries have missing runtime files. Use installed iOS 26.5 for Simulator execution."
+  ]
+}

@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2026 Outcrop Inc
+# SPDX-License-Identifier: GPL-3.0-or-later
+# File GUID: aec8a65d-f3ab-49e5-b016-f4d2071f4824
+# COMPONENT: Monoleaf iPhone/iPad App Store preparation
+# PURPOSE: Archive a clean revision and export locally without uploading or submitting.
+# FLOW: Validate arguments -> validate source -> signed archive -> symbol check -> local export.
+set -euo pipefail
+
+if [[ $# -gt 1 || ($# -eq 1 && "$1" != --dry-run && "$1" != --help) ]]; then
+    printf '%s\n' 'Usage: archive-mobile-app-store [--dry-run|--help]' >&2
+    exit 2
+fi
+if [[ "${1:-}" == --help ]]; then
+    printf '%s\n' 'Usage: archive-mobile-app-store [--dry-run|--help]' 'Creates a local iPhone/iPad archive/export. Does not upload.'
+    exit 0
+fi
+component_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+repository_root="$(cd -- "$component_root/../../.." && pwd)"
+if ! git -C "$repository_root" rev-parse --verify HEAD >/dev/null 2>&1; then
+    printf '%s\n' 'App Store archives require a clean Git commit.' >&2
+    exit 1
+fi
+if [[ "${1:-}" != --dry-run && -n "$(git -C "$repository_root" status --porcelain --untracked-files=normal)" ]]; then
+    printf '%s\n' 'App Store archives require a clean Git commit. Commit verified changes, then retry.' >&2
+    exit 1
+fi
+team_id="$(awk -F= '$1 == "APPLE_TEAM_ID" {print $2}' "$repository_root/config/apple-developer.env")"
+build_number="${BUILD_NUMBER:-$(git -C "$repository_root" rev-list --count HEAD)}"
+if [[ ! "$team_id" =~ ^[A-Z0-9]{10}$ || ! "$build_number" =~ ^[1-9][0-9]*$ ]]; then
+    printf '%s\n' 'The Apple team identifier or numeric build number is invalid.' >&2
+    exit 1
+fi
+export DEVELOPER_DIR="${DEVELOPER_DIR:-/Applications/Xcode.app/Contents/Developer}"
+archive_root="$component_root/build/MobileAppStore"
+archive_path="$archive_root/Monoleaf-iOS.xcarchive"
+archive_arguments=(archive -project "$component_root/apple/MonoMark.xcodeproj" -scheme MonoMarkMobile
+    -configuration Release -destination 'generic/platform=iOS' -archivePath "$archive_path"
+    -allowProvisioningUpdates DEVELOPMENT_TEAM="$team_id" CODE_SIGNING_ALLOWED=YES CODE_SIGN_STYLE=Automatic
+    CURRENT_PROJECT_VERSION="$build_number" ARCHS=arm64 ONLY_ACTIVE_ARCH=NO
+    DEBUG_INFORMATION_FORMAT=dwarf-with-dsym)
+export_arguments=(-exportArchive -archivePath "$archive_path" -exportPath "$archive_root/Export"
+    -exportOptionsPlist "$component_root/AppStore/ExportOptions.plist" -allowProvisioningUpdates)
+
+# API credentials are optional. Never print key paths or identifiers in the dry-run output.
+authentication_arguments=()
+if [[ -n "${APP_STORE_CONNECT_API_KEY_PATH:-}${APP_STORE_CONNECT_API_KEY_ID:-}${APP_STORE_CONNECT_API_ISSUER_ID:-}" ]]; then
+    if [[ -z "${APP_STORE_CONNECT_API_KEY_PATH:-}" || -z "${APP_STORE_CONNECT_API_KEY_ID:-}" || -z "${APP_STORE_CONNECT_API_ISSUER_ID:-}" ]]; then
+        printf '%s\n' 'Set all three App Store Connect API variables, or set none of them.' >&2
+        exit 1
+    fi
+    authentication_arguments=(-authenticationKeyPath "$APP_STORE_CONNECT_API_KEY_PATH"
+        -authenticationKeyID "$APP_STORE_CONNECT_API_KEY_ID" -authenticationKeyIssuerID "$APP_STORE_CONNECT_API_ISSUER_ID")
+fi
+# System Bash treats an empty array expansion as unset under nounset.
+run_xcodebuild()
+{
+    if ((${#authentication_arguments[@]} > 0)); then
+        xcodebuild "$@" "${authentication_arguments[@]}"
+    else
+        xcodebuild "$@"
+    fi
+}
+
+if [[ "${1:-}" == --dry-run ]]; then
+    printf '%s\n' 'Local archive and export only. No upload or App Review submission.'
+    printf '%q ' xcodebuild "${archive_arguments[@]}"
+    printf '\n'
+    printf '%q ' xcodebuild "${export_arguments[@]}"
+    printf '\n'
+    exit 0
+fi
+mkdir -p "$archive_root"
+run_xcodebuild "${archive_arguments[@]}"
+
+# An archive without matching debug symbols cannot enter the export path.
+binary="$archive_path/Products/Applications/Monoleaf.app/Monoleaf"
+symbols="$archive_path/dSYMs/Monoleaf.app.dSYM/Contents/Resources/DWARF/Monoleaf"
+if [[ ! -f "$symbols" ]]; then
+    printf '%s\n' 'The archive has no Monoleaf debug symbols. Rebuild the archive before exporting.' >&2
+    exit 1
+fi
+binary_uuids="$(dwarfdump --uuid "$binary" | awk '{print $2}' | sort)"
+symbol_uuids="$(dwarfdump --uuid "$symbols" | awk '{print $2}' | sort)"
+if [[ -z "$binary_uuids" || "$binary_uuids" != "$symbol_uuids" ]]; then
+    printf '%s\n' 'The archive debug symbols do not match the application. Rebuild before exporting.' >&2
+    exit 1
+fi
+codesign --verify --deep --strict "$archive_path/Products/Applications/Monoleaf.app"
+run_xcodebuild "${export_arguments[@]}"
+printf '%s\n' "Local App Store export: $archive_root/Export. No upload or submission performed."
